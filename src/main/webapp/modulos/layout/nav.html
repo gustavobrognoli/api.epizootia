@@ -1,0 +1,288 @@
+<div id="sidebar-wrap" ng-controller="NavbarController">
+	
+	<uib-accordion close-others="oneAtTime" 
+				   slimscroll="{height: '100%'}">
+
+	<uib-accordion-group is-open="status.isFirstOpen">
+	
+		<uib-accordion-heading> Módulos 
+			<i class="pull-right fa"
+			   ng-class="{'fa-angle-up': status.isFirstOpen, 'fa-angle-down': !status.isFirstOpen}"></i>
+		</uib-accordion-heading>
+
+		<ul id="navigation" nav-collapse>
+
+		
+			<!--  Dengue  -->
+			<li>
+				<a> 
+					<i class="fa fa-map-marker" aria-hidden="true"
+						 data-toggle="tooltip" 
+						 title="Módulo Dengue e ChickV"> 
+					</i>
+					<span> Focos </span>
+				</a>
+	
+				<ul>
+					<li>
+						<!--  Sub-menu para FOCOS Dengue -->
+						<a>
+							<span> Focos </span>
+						</a>
+						
+						<ul>
+							<li ng-show="isDengueAdmin || isDengueMunicipio || isDengueRegional || isDengueLaboratorio">
+								<a href="#!/dengue/focos/new">
+									<fa name="caret-right"></fa> Notificar foco
+								</a>
+							</li>
+							<li>
+								<a href="#!/dengue/focos">
+									<fa name="caret-right"></fa> Listagem focos
+								</a>
+							</li>
+							<li>
+								<a href="#!/dengue/mapa-focos">
+									<fa name="caret-right"></fa> Mapa de focos
+								</a>
+							</li>
+						</ul>
+						
+					</li>
+					
+					<li ng-hide="isDengueVisitante">
+					
+						<!--  Sub-menu para CASOS Dengue -->
+						<a>
+							<span> Casos Dengue </span>
+						</a>
+						
+						<ul>
+							<li ng-show="isDengueAdmin">
+								<a href="#!/dengue/casos/importacao">
+									<fa name="caret-right"></fa> Importar DBF Casos
+								</a>
+							</li>
+							<li ng-hide="isDengueMunicipio || isDengueLaboratorio">
+								<a href="#!/dengue/casos">
+									<fa name="caret-right"></fa> Listagem Casos
+								</a>
+							</li>
+							<li>
+								<a href="#!/dengue/mapa-casos">
+									<fa name="caret-right"></fa> Mapa de casos
+								</a>
+							</li>
+						</ul>
+					
+					</li>
+				
+					<li>
+						<!--  Sub-menu para RELATÓRIOS Dengue -->
+						<a>
+							<span> Relatórios e Gráficos </span>
+						</a>
+						
+						<ul>
+							<li>
+								<a href="#!/dengue/relatorio/periodo/rel_focos">
+									<fa name="caret-right"></fa> Focos
+								</a>
+							</li>
+							<li>
+								<a href="#!/dengue/relatorio/periodo/pro_dengue">
+									<fa name="caret-right"></fa> Programa Dengue
+								</a>
+							</li>
+							<li>
+								<a href="#!/dengue/total-municipio/mapa">
+									<fa name="caret-right"></fa> Mapa Total por Município
+								</a>
+							</li>
+							<li>
+								<a href="#!/dengue/grafico-focos">
+									<fa name="caret-right"></fa> Gráfico de Focos
+								</a>
+							</li>
+							<li>
+								<a href="#!/dengue/grafico-casos">
+									<fa name="caret-right"></fa> Gráfico de Casos
+								</a>
+							</li>
+						</ul>
+					</li>
+					
+					<li ng-show="isDengueAdmin">
+						<!--  Sub-menu para ADMINISTRADOR Dengue -->
+						<a>
+							<span> Administrativo </span>
+						</a>
+						
+						<ul>
+							<li>
+								<a href="#!/dengue/admin/user-regional">
+									<fa name="caret-right"></fa> Usuários de Regionais
+								</a>
+							</li>
+							<li>
+								<a href ng-click="atualizaLatLongFocosDengue()">
+									<fa name="caret-right"></fa> Buscar Lat/Lon Focos
+								</a>
+							</li>
+							<li>
+								<a href ng-click="atualizaLatLongCasosDengue()">
+									<fa name="caret-right"></fa> Buscar Lat/Lon Casos
+								</a>
+							</li>
+							<li>
+								<a href ng-click="openModalDengueDtAtualizacao()">
+									<fa name="caret-right"></fa> Data de Atualização
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			
+			
+			<!-- ANIMAIS PEÇONHENTOS - Artrópodes --> 
+			<li>
+				<a> 
+					<i class="fa fa-bug" aria-hidden="true"
+						 data-toggle="tooltip" 
+						 title="Módulo Animais Peçonhentos"> 
+					</i>
+					<span> Artrópodes e Peçonhentos </span>
+				</a>
+				<ul>
+					<li>
+						<a>
+							<span> Fichas/Laudos </span>
+						</a>
+						
+						<ul>
+							<li>
+								<a href="#!/artropodes/fichas/new">
+									<fa name="caret-right"></fa> Cadastro
+								</a>
+							</li>							
+							<li>
+								<a href="#!/artropodes/fichas">
+									<fa name="caret-right"></fa> Fichas Pendentes
+								</a>
+							</li>
+							<li>
+								<a href="#!/artropodes/laudos">
+									<fa name="caret-right"></fa> Laudos Emitidos
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<fa name="caret-right"></fa> Cadastros Auxiliares
+								</a>
+								<ul>
+									<li>
+										<a href="#!artropodes/cadastro-auxiliar-coletadores">
+											<fa name="caret-right"></fa> Coletador
+										</a>
+									</li>
+									<li>
+										<a href="#!artropodes/cadastro-auxiliar-especies">
+											<fa name="caret-right"></fa> Espécie
+										</a>
+									</li>
+									<li>
+										<a href="#!artropodes/cadastro-auxiliar-evolucoes">
+											<fa name="caret-right"></fa> Evolução
+										</a>
+									</li>
+									<li>
+										<a href="#!artropodes/cadastro-auxiliar-familias">
+											<fa name="caret-right"></fa> Família
+										</a>
+									</li>
+									<li>
+										<a href="#!artropodes/cadastro-auxiliar-generos">
+											<fa name="caret-right"></fa> Gênero
+										</a>
+									</li>
+									<li>
+										<a href="#!artropodes/cadastro-auxiliar-logradouros">
+											<fa name="caret-right"></fa> Logradouro
+										</a>
+									</li>
+									<li>
+										<a href="#!artropodes/cadastro-auxiliar-tipoAnimais">
+											<fa name="caret-right"></fa> Tipo Animal
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#!/artropodes/mapa">
+							<span> Relatórios </span>
+						</a>
+					</li>
+				</ul>
+			</li>
+			
+			<!-- EPIZOOTIA -->
+			<li>
+				<a> 
+					<i class="fa fa-crosshairs" aria-hidden="true"
+						 data-toggle="tooltip" 
+						 title="Módulo Epizootia"> 
+					</i>
+					<span> Epizootia </span>
+				</a>
+	
+				<ul>
+					<li>
+						<!--  Sub-menu para FOCOS Dengue -->
+						<a>
+							<span> Epizootia </span>
+						</a>
+						
+						<ul>
+							<li>
+								<a href="#!/epizootia/notificacao/new">
+									<fa name="caret-right"></fa> Notificar Ocorrência
+								</a>
+							</li>
+							<li>
+								<a href="#!/epizootia/notificacao">
+									<fa name="caret-right"></fa> Listar de Ocorrência
+								</a>
+							</li>
+						
+							<li>
+								<a href="#!/epizootia/mapa-notificacao">
+									<fa name="caret-right"></fa> Mapa de Ocorrências
+								</a>
+							</li>
+						</ul>
+						
+					</li>
+					
+				
+					<li>
+						<!--  Sub-menu para RELAT�RIO Epizootia -->
+						<a>
+							<span> Relatório</span>
+						</a>
+						
+						<ul>
+							<li>
+								<a href="#!/epizootia/relatorio/periodo/rel_focos>
+									<fa name="caret-right"></fa> Ocorrências
+								</a>
+							</li>
+						</ul>
+					</li>
+			</li>
+			
+		</ul>
+	</uib-accordion-group> </uib-accordion>
+</div>

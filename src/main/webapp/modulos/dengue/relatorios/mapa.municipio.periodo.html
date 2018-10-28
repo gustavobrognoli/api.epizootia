@@ -1,0 +1,129 @@
+<script id="dengue-info-template.html" type="text/ng-template">
+	<div ng-non-bindable="">
+
+        Municipio: {{selecionado.municipio}}<br/>
+        Número de Focos: {{selecionado.qtdeFocos}}<br/>
+		
+		<div ng-show="(selecionado.formasAquaticasAegypti > 0 || selecionado.formasOvo > 0)" >
+			<u>A. aegypti</u><br/>
+			Formas Aquáticas: {{selecionado.formasAquaticasAegypti}}<br/>
+			Formas Adultas: {{selecionado.formasAdultasAegypti}}<br/>
+        	Forma Ovo: {{selecionado.formasOvo}}<br/>
+		</div>        
+
+		<div ng-show="selecionado.formasAquaticasAlbo > 0" >
+			<u>A. albopictus</u> <br/>
+			Formas Aquáticas: {{selecionado.formasAquaticasAlbo}}<br/>
+			Formas Adultas: {{selecionado.formasAdultasAlbo}}<br/>
+		</div>
+	</div>
+</script>
+
+<div class="page">
+
+	<form name="form" novalidate >
+	
+		<section class="tile" >
+			<div class="tile-header dvd dvd-btm">
+				<h1 class="custom-font"><strong>Mapa Total por Municipio</strong></h1>
+			</div>
+			
+			<div class="tile-body" >
+				<div class="form-group col-sm-6">
+			        <label class="control-label">Data Início:</label> 
+			        
+					<input name="dtInicio"
+			               type="text"
+			               class="form-control" 
+			               ng-model="dtInicio"
+			               bs-datepicker
+						   autoclose="true">
+				</div>
+				<div class="form-group col-sm-6">
+			        <label class="control-label">Data Fim:</label> 
+			        
+					<input name="dtFim"
+			               type="text"
+			               class="form-control" 
+			               ng-model="dtFim"
+			               bs-datepicker
+						   autoclose="true">
+				</div>
+				
+				<div class="row form-group" > 
+				</div>
+			</div>
+		</section>	
+			
+		<section class="tile">	
+			<div class="tile-header dvd dvd-btm">
+				<h1 class="custom-font"><strong>Mapa de Focos</strong></h1>
+				
+				<ul class="controls">
+					<li>
+						<a ng-click="buscarFocos()" href>
+							<i class="fa fa-search"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="tile-body form-group">
+				
+				<div class="col-sm-3">
+					<label class="control-label"> Municípios: </label>
+					
+					<ul class="list-group">
+	                	<li class="list-group-item" ng_repeat="f in focos"><span class="badge bg-greensea">{{f.qtdeFocos}} foco(s)</span> <strong>{{f.municipio}}</strong></li>
+	                </ul>
+					
+				</div>
+				
+				<div class="col-sm-9">
+					<ng-map style="height: 700px"
+					       	center="{{mapa.posicao}}" zoom="{{mapa.zoom}}" mayTypeId="HYBRID">
+					
+						<marker ng-repeat="f in focos"
+							    position="{{f.posicao}}"
+							    on-click="abrirInfo(event, $index)"
+							    ng-if="(f.formasAquaticasAegypti > 0 || f.formasOvo > 0) && f.formasAquaticasAlbo < 1"
+							    draggable="{{isEdicao}}"
+							    icon="http://maps.google.com/mapfiles/ms/icons/red-dot.png" >
+		      			</marker>
+						<!-- icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"   -->
+	
+						<marker ng-repeat="f in focos"
+							    position="{{f.posicao}}"
+							    on-click="abrirInfo(event, $index)"
+							    ng-if="f.formasAquaticasAlbo > 0 && (f.formasAquaticasAegypti < 1 && f.formasOvo < 1)"
+							    draggable="{{isEdicao}}"
+							    icon="http://maps.google.com/mapfiles/ms/icons/yellow-dot.png">
+		      			</marker>
+						
+	
+						<marker ng-repeat="f in focos"
+							    position="{{f.posicao}}"
+							    on-click="abrirInfo(event, $index)"
+							    ng-if="f.formasAquaticasAlbo > 0 && (f.formasAquaticasAegypti > 0 || f.formasOvo > 0 )"
+							    draggable="{{isEdicao}}"
+							    icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" >
+		      			</marker>
+						
+					   <info-window id="dengue-info"
+					   				template="dengue-info-template.html">	
+					   </info-window>
+					   
+					 </ng-map>
+				</div>
+				
+				<div class="row form-group" > 
+				</div>
+			</div>
+			
+		</section>
+		
+	</form>
+	
+
+
+</div>

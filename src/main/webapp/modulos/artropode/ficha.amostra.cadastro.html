@@ -1,0 +1,348 @@
+<div class="page">
+	<section class="tile">
+
+		<form name="form" novalidate>
+
+			<div class="tile-header dvd dvd-btm">
+				<h1 class="custom-font">
+					<strong>Cadastro Ficha<b ng-show="artropodes.id">&nbsp;-&nbsp;{{artropodes.id}}&nbsp;&nbsp;</b></strong>
+				</h1>
+			</div>
+
+			<div class="tile-body">
+
+				<div class="pagecontent">
+					<uib-tabset class="tab-animation tab-container" justified="true"
+						active="model.active"> <uib-tab> <uib-tab-heading>
+					Dados da Coleta <span
+						class="badge badge-default pull-right wizard-step">1</span> </uib-tab-heading>
+
+
+					<div class="form-group col-sm-12">
+						<label><b><i>Dados do Cadastro</i></b></label>
+						<hr>
+					</div>
+
+					<div class="form-group col-sm-6">
+
+						<label class="control-label">Email:</label> <input name="uemail"
+							type="text" class="form-control" ng-model="artropodes.email"
+							readonly>
+					</div>
+
+					<div class="form-group col-sm-12">
+						<label><b><i>Dados do Coletador</i></b></label>
+						<hr>
+					</div>
+
+					<div class="form-group col-sm-6"
+						ng-class="{'has-error':form.coletador.$invalid && (form.coletador.$touched || form.$submitted)}">
+
+						<label class="control-label">Nome do Coletador:</label>
+
+						<div class="input-group">
+
+
+
+							<select autofocus ng-required="true" id="idColetador"
+								class="form-control" ng-model="artropodes.coletador"
+								ng-options="c as c.nome for c in coletadores | orderBy:'nome' track by c.id">
+							</select> <span class="input-group-btn">
+								<button class="btn btn-default" type="button"
+									data-toggle="tooltip" title="Adicionar novo coletador"
+									ng-click="cadastrarColetador()">+</button>
+							</span>
+
+						</div>
+
+						<div class="help-block"
+							ng-show="form.artropodes.coletador.$invalid && (form.artropodes.coletador.$touched || form.$submitted)">
+							<span>Coletador é obrigatório</span>
+						</div>
+
+					</div>
+
+					<div class="form-group col-sm-6">
+
+						<label class="control-label">Email do coletador:</label> <input
+							name="email" type="text" class="form-control"
+							ng-model="artropodes.coletador.email" readonly>
+					</div>
+
+					<div class="form-group col-sm-6">
+						<label class="control-label">Telefone do coletador:</label> <input
+							name="telefone" type="text" class="form-control"
+							ng-model="artropodes.coletador.telefone" readonly>
+					</div>
+
+
+
+
+					<div class="form-group col-sm-12">
+						<label><b><i>Dados do Local da Coleta</i></b></label>
+						<hr>
+					</div>
+
+					<div class="form-group col-sm-4"
+						ng-class="{'has-error':form.dtColeta.$invalid && (form.dtColeta.$touched || form.$submitted)}">
+
+						<label class="control-label">Data da Coleta:</label>
+
+						<div class="input-group">
+							<input name="dtColeta" type="text" class="form-control"
+								ng-model="artropodes.dtColeta" bs-datepicker
+								data-date-format="dd/MM/yyyy" autoclose="true" required>
+
+							<span class="input-group-addon" id="basic-addon1"> <i
+								class="fa fa-calendar" aria-hidden="true"></i>
+							</span>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-12"
+						ng-class="{'has-error':form.municipio.$invalid && (form.municipio.$touched || form.$submitted)}">
+
+						<label class="control-label">Município:</label>
+						<!-- ng-change="getLocalidadesByMunicipio( municipio )" -->
+						<select name="municipio" class="form-control"
+							ng-options="m as m.nome for m in municipios | orderBy:'nome' track by m.id"
+							ng-model="municipio" ng-change="getByMunicipio(municipio)"
+							ng-disabled="isPermissaoMunicipio" required>
+							<option value="">Selecione...</option>
+						</select>
+
+						<div class="help-block"
+							ng-show="form.municipio.$invalid && (form.municipio.$touched || form.$submitted)">
+							<span>Município é obrigatório</span>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-6"
+						ng-class="{'has-error':form.localidade.$invalid && (form.localidade.$touched || form.$submitted)}">
+
+						<label class="control-label">Localidade:</label>
+
+						<!-- Ng alterado por Julio = ng-change="getEnderecosByLocalidade( artropodes.endereco.localidade.id )" -->
+						<div
+							custom-select="l as l.nome for l in localidades | filter: $searchTerm"
+							name="localidade" ng-model="artropodes.endereco.localidade"
+							ng-change="getByLocalidade()" class="form-control" required>
+							<div>
+								<strong>Localidade: {{l.nome }}</strong><br /> <span><strong>Categoria:</strong>
+									{{ l.categoria.descricao }}</span><br />
+								<hr>
+							</div>
+						</div>
+
+						<div class="help-block"
+							ng-show="form.localidade.$invalid && (form.localidade.$touched || form.$submitted)">
+							<span>Localidade é obrigatório</span>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-6"
+						ng-class="{'has-error':form.endereco.$invalid && (form.endereco.$touched || form.$submitted)}">
+
+						<label class="control-label">Logradouro:</label>
+
+						<div class="input-group">
+							<div name="endereco"
+								custom-select="e as e.nome for e in enderecos | filter: $searchTerm"
+								ng-model="artropodes.endereco" class="form-control" required>
+
+								<div>
+									<strong>Logradouro: {{e.nome }}</strong><br />
+									<hr>
+								</div>
+							</div>
+
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button"
+									data-toggle="tooltip" title="Adicionar novo endereço"
+									ng-click="cadastraEndereco()"
+									ng-disabled="artropodes.endereco.localidade == null ">+</button>
+							</span>
+						</div>
+
+						<div class="help-block"
+							ng-show="form.endereco.$invalid && (form.endereco.$touched || form.$submitted)">
+							<span>Endereço é obrigatório</span>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-4"
+						ng-class="{'has-error':form.numero.$invalid && (form.numero.$touched || form.$submitted)}">
+
+						<label class="control-label">Número:</label> <input name="numero"
+							type="number" class="form-control" ng-model="artropodes.numero"
+							required>
+					</div>
+
+					<div class="form-group col-sm-4">
+						<label class="control-label">Latitude ( -25.844319,
+							-29.374493 ):</label> <input name="latitude" type="number"
+							class="form-control" ng-model="artropodes.latitude">
+					</div>
+
+					<div class="form-group col-sm-4">
+						<label class="control-label">Longitude ( -48.276716, -53.952621) : </label> <input name="longitude" type="number"
+							class="form-control" ng-model="artropodes.longitude">
+					</div>
+
+					<div class="form-group col-sm-12">
+						<label><b><i>Dados Adicionais</i></b></label>
+						<hr>
+					</div>
+
+					<div class="form-group">
+						<div class="form-group col-sm-3">
+							<label class="control-label">Temperatura Max.:</label> <input
+								name="tempMaximo" class="form-control" type="number" min="-50"
+								max="100" ng-model="artropodes.temperaturaMax">
+						</div>
+
+						<div class="form-group col-sm-3">
+							<label class="control-label">Temperatura Min.:</label> <input
+								name="tempMinima" class="form-control" type="number" min="-50"
+								max="100" ng-model="artropodes.temperaturaMin">
+						</div>
+
+						<div class="form-group col-sm-3">
+							<label class="control-label">Umidade Max.:</label> <input
+								name="umidadeMaxima" class="form-control" type="number" min="0"
+								max="100" ng-model="artropodes.umidadeMax">
+						</div>
+
+						<div class="form-group col-sm-3">
+							<label class="control-label">Umidade Min.:</label> <input
+								name="umidadeMinima" id="umidademinima" class="form-control"
+								type="number" min="0" max="100" ng-model="artropodes.umidadeMin">
+						</div>
+					</div>
+
+					<div class="row"></div>
+
+					<div class="text-right">
+
+						<button type="submit" ng-click="salvarFicha('dados_coleta')"
+							class="btn btn-success">
+							Salvar
+							<!-- Etapa-->
+						</button>
+
+					</div>
+					</uib-tab> <uib-tab active="cadastroAnimais"> <uib-tab-heading
+						index="1"> Amostras de Animais <span
+						class="badge badge-default pull-right wizard-step">2</span> </uib-tab-heading>
+
+					<div class="form-group col-sm-12">
+
+						<div class="tile-header dvd dvd-btm">
+
+							<h1 class="custom-font">
+								<strong>Lista de Amostras:</strong>
+							</h1>
+							<ul class="controls">
+								<li><a href data-toggle="tooltip"
+									title="Adicionar novo 'Animal'" ng-click="addAnimal()"> <i
+										class="fa fa-plus" aria-hidden="true"></i>
+								</a></li>
+							</ul>
+						</div>
+
+						<div class="tile-body p-0">
+							<table class="table table-striped">
+								<tr>
+									<th>Nº Amostra</th>
+									<th>Tipo Animal</th>
+									<!-- <th>Animal</th>  -->
+									<th>Qtde Animais</th>
+									<th>Ações</th>
+								</tr>
+
+								<tr ng_repeat="a in artropodes.animais">
+									<td ng_bind="a.id"></td>
+									<td ng_bind="a.tipoAnimal.nome"></td>
+
+									<td ng_bind="a.quantidade"></td>
+									<td><i class="btn btn-warning btn-xs fa fa-pencil"
+										ng-click="updateAnimal(a)" uib-tooltip="Alterar"></i> <i
+										class="btn btn-danger btn-xs fa fa-times"
+										ng-click="removerAnimal(a)" uib-tooltip="Excluir"></i></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<div class="text-right">
+						<!--  ng-show="contemAnimais()"-->
+						<button type="submit" ng-click="salvarFicha('tipo_animal')"
+							class="btn btn-success">
+							Salvar
+							<!-- Etapa-->
+						</button>
+					</div>
+
+					</uib-tab> <uib-tab> <uib-tab-heading> Anexos e
+					Etiquetas <span class="badge badge-default pull-right wizard-step">3</span>
+					</uib-tab-heading>
+					<div class="form-group col-sm-12">
+
+						<div class="tile-header dvd dvd-btm">
+							<h1 class="custom-font">
+								<strong>Lista de Amostras:</strong>
+							</h1>
+						</div>
+						<div class="tile-body p-0">
+							<table class="table table-striped">
+								<tr>
+									<th>Nº Amostra</th>
+									<th>Tipo Animal</th>
+									<th>Qtde Animais</th>
+									<th>Ações</th>
+								</tr>
+
+								<tr ng_repeat="a in artropodes.animais">
+									<td ng_bind="a.id"></td>
+									<td ng_bind="a.tipoAnimal.nome"></td>
+									<td ng_bind="a.quantidade"></td>
+									<td><i class="btn btn-success btn-xs fa fa-download"
+										ng-click="onClickDownload(a)"
+										uib-tooltip="Download de Imagens"></i> <i
+										class="btn btn-slategray btn-xs fa fa-file-text"
+										ng-click="gerarEtiqueta(a)" uib-tooltip="Gerar Etiqueta"></i>
+
+										<i class="btn btn-primary btn-xs fa fa-picture-o"
+										ng-click="onClickUpload(a)" uib-tooltip="Anexar Imagens"></i>
+
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<br>
+					<br>
+					<br>
+					<div class="mx-auto" style="width: auto; heigth: 50px"></div>
+
+					<div class="text-right">
+						<button type="button" ng-click="gerarTodasEtiquetas()"
+							class="btn btn-default">Gerar Todas as Etiquetas</button>
+						<button type="submit" ng-click="salvarFicha('dados_coleta')"
+							class="btn btn-success">
+							Salvar
+							<!-- Etapa-->
+						</button>
+						<!-- <button type="submit" ng-click="salvarFicha('finalizar')" class="btn btn-success" >Finalizar Ficha</button> -->
+					</div>
+					</uib-tab> </uib-tabset>
+				</div>
+
+			</div>
+
+		</form>
+
+	</section>
+
+</div>

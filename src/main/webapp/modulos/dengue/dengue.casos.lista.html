@@ -1,0 +1,275 @@
+<div class="page" ng-init="init()">
+
+<form name="form" novalidate >
+
+	<section class="tile">
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Filtros</strong></h1>
+
+			<ul class="controls">
+				<li class="dropdown" uib-dropdown>
+					<a ng-click="openMenu()" href tile-control-toggle class="dropdown-toggle settings">
+						<span class="expand fa fa-minus"></span>
+						<span class="minimize fa fa-plus"></span>
+					</a>
+				</li>
+			</ul>
+				
+		</div>
+
+		<div class="tile-body" ng-show="isOpen" >
+			<div class="form-group col-sm-12">
+				
+				<label class="checkbox-inline checkbox-custom-alt"> 
+					<input name="customRadioAlt" 
+						   type="radio"
+						   ng-model="opcao"
+						   ng-click="trocaOpcao()"
+						   value="importadosSINAN">
+						<i></i> Importados SINAN
+				</label>
+			
+				&nbsp;
+				&nbsp;
+				&nbsp;
+
+				<label class="checkbox-inline checkbox-custom-alt"> 
+					<input name="customRadioAlt" 
+						   type="radio"
+						   ng-model="opcao"
+						   ng-click="trocaOpcao()"
+						   value="vigilantos">
+						<i></i> Vigilantos
+				</label>
+				
+			</div>
+			
+			<div class="form-group">
+				<div class="form-group col-sm-6">
+			        <label class="control-label">Regional:</label> 
+			        
+					<select name="regional" 
+							class="form-control"
+							ng-options="r as r.nome for r in regionais track by r.id"
+							ng-model="regional"
+							ng-change="getByRegional()"
+							ng-disabled="isPermissaoMunicipio">
+							<option value="">Todas...</option>
+					</select>
+				</div>
+				
+				<div class="form-group col-sm-6">
+			        <label class="control-label">Município:</label> 
+			        
+					<select name="municipio" 
+							class="form-control"
+							ng-options="m as m.nome for m in municipios track by m.id"
+							ng-model="municipio" 
+							ng-disabled="isPermissaoMunicipio">
+							<option value="">Todos...</option>
+					</select>
+				</div>
+			
+				<div class="form-group col-sm-12">
+				     <label class="control-label">Paciente:</label> 
+				     <div >
+				     	<input class="form-control"
+				     		   type="text"
+				     		   ng-model="dengueFiltro.paciente">
+				     </div>
+				</div>
+				
+				<div class="form-group col-sm-6" ng-show="opcao == 'vigilantos'">
+					<label class="control-label">Resultado:</label> 
+				 
+				 	<select name="resultado" 
+				 	 		class="form-control"
+							ng-options="r.id as r.nome for r in resultados"
+							ng-model="dengueFiltro.idResultado" >
+						<option value="">Todas...</option>
+					</select>
+				</div>
+
+				<div class="form-group col-sm-3">
+					<label class="control-label">Data Início Sintomas: </label>
+					
+					<input class="form-control"
+						   name="dtColetaInicio"
+			               type="text"
+			               ng-model="dengueFiltro.dtSintomasInicio"
+			               bs-datepicker
+						   autoclose="true"
+						   required>
+						
+				</div>
+				<div class="form-group col-sm-3">
+					<label class="control-label">Data Fim Sintomas: </label>
+					
+					<input class="form-control"
+						   name="dtColetaFim"
+			               type="text"
+			               ng-model="dengueFiltro.dtSintomasFim"
+			               bs-datepicker
+						   autoclose="true" 
+						   required>
+						   
+				</div>
+				
+				<div class="form-group col-sm-3" ng-show="opcao == 'vigilantos'" >
+					<label class="control-label">Data Início Coleta: </label>
+					
+					<input class="form-control"
+						   name="dtColetaInicio"
+			               type="text"
+			               ng-model="dengueFiltro.dtColetaInicio"
+			               bs-datepicker
+						   autoclose="true"
+						   required>
+				</div>	
+				<div class="form-group col-sm-3" ng-show="opcao == 'vigilantos'" >
+					<label class="control-label">Data Início Coleta: </label>
+									
+					<input class="form-control"
+						   name="dtColetaFim"
+			               type="text"
+			               ng-model="dengueFiltro.dtColetaFim"
+			               bs-datepicker
+						   autoclose="true" 
+						   required>
+				</div>
+				
+				<div class="form-group col-sm-6" ng-show="opcao == 'vigilantos'">
+			    	<label class="control-label">Notificante:</label> 
+			     
+			     	<select name="notificante" 
+					   	 	class="form-control"
+							ng-options="m.id as m.nome for m in municipios"
+							ng-model="dengueFiltro.idMunicipioNotificante" >
+			             	<option value="">Todas...</option>
+					</select>
+				</div>
+				
+				<div class="form-group col-sm-6" ng-show="opcao == 'importadosSINAN'">
+			    	<label class="control-label">Classificação:</label> 
+			     
+			     	<select name="classificacao" 
+					   	 	class="form-control"
+							ng-options="c.ids as c.descricao for c in classificacoes"
+							ng-model="dengueFiltro.classificacao" >
+			             	<option value="">Todas...</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row form-group" > 
+			</div>
+			
+		</div>
+		
+	</section>
+	
+	<section class="tile" >
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Consulta de Casos de Dengue - {{opcao}}</strong></h1>
+				
+			<ul class="controls">
+				
+				<li>
+					<a ng-click="pesquisar()" 
+					   href 
+					   data-toggle="tooltip" 
+		        	   title="Pesquisar">
+						<i class="fa fa-search" ></i>
+					</a>
+				</li>
+				
+				<li>
+					<a ng-click="openRelatorio()" 
+					   href
+					   ng-show="opcao == 'vigilantos'" 
+					   data-toggle="tooltip" 
+		        	   title="Gerar Relatório">
+						<i class="fa fa-file-text"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	
+		<div class="tile-body p-0">
+			<table class="table table-hover" ng-show="opcao == 'vigilantos'">
+			    <tr>
+					<th>Nome Paciente</th>
+			        <th>Data Sintomas</th>
+			        <th>Mun. Residência</th>
+			        <th>Localidade</th>
+			        <th>Mun. Notificante</th>
+			        <th>Resultado</th>
+			        <th>Ações</th>
+			    </tr>
+			
+			    <tr ng_repeat="c in casos">
+			        <td ng_bind="c.nomePaciente"></td>
+			        <td ng-bind="c.dataSintomas | date:'dd/MM/yyyy'"></td>
+			        <td ng_bind="c.munResidencia"></td>
+			        <td ng_bind="c.localidade"></td>
+			        <td ng_bind="c.munNotificante"></td>
+			        <td ng_bind="c.resultado"></td>
+			        <td>
+		        		<i class="btn btn-danger btn-xs fa fa-times" 
+		        		   ng-click="confirmarRemover(c)" 
+		        		   uib-tooltip="Excluir Caso"></i>
+			        </td>
+			    </tr>
+			
+			</table>
+			
+			<!--  TABELA PARA OS REGISTRO IMPORTADOS -->
+			<table class="table table-hover" ng-show="opcao == 'importadosSINAN'">
+			    <tr>
+			        <th>Nome Paciente</th>
+			        <th>Data Sintomas</th>
+			        <th>Município</th>
+			        <th>Localidade</th>
+			        <th>Endereço</th>
+			        <th>Classificação</th>
+			        <th>Ações</th>
+			    </tr>
+			
+			    <tr ng_repeat="c in casos">
+			        <td ng_bind="c.nomePaciente | limitTo : 10"></td>
+			        <td ng_bind="c.dataSintomas | date:'dd/MM/yyyy'"></td>
+			        <td ng_bind="c.municipioResidencia"></td>
+			        <td ng-bind="c.localidadeResidencia | limitTo : 15"></td>
+			        <td ng_bind="c.enderecoResidencia | limitTo : 15"></td>
+			        <td ng_bind="c.classificacao"></td>
+			        <td>
+						<i class="btn btn-info btn-xs fa fa-eye"  
+		        		   ng-click="visualizaCaso(c.id)" 
+		        		   data-toggle="tooltip" 
+		        		   title="Visualizar Caso"></i>
+
+						<a class="btn btn-primary btn-xs fa fa-map-marker"  
+		        		   href="#!/dengue/casos/mapa/{{c.id}}"
+		        		   target="_blank" 
+		        		   data-toggle="tooltip" 
+		        		   title="Ver Caso Mapa"></a>
+
+		        		<i class="btn btn-danger btn-xs fa fa-times" 
+		        		   ng-click="confirmarRemover(c)" 
+		        		   uib-tooltip="Excluir Caso"></i>
+		        		   
+			        </td>
+			    </tr>
+			
+			</table>
+		</div>
+		
+		<div class="tile-footer dvd dvd-top">
+			<div class="row">
+				<div rodape-paginado></div>
+			</div>
+		</div>
+	</section>
+	
+</form>
+</div>

@@ -1,0 +1,147 @@
+<div class="modal-content" >
+
+	<form name="form" ng-submit="salvar()" novalidate >
+
+		<div class="modal-header">
+	    	<button type="button" class="close" aria-label="Close" ng-click="cancelar()" ><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title"><strong>Enquadramento Taxonômico<strong/></h4>
+		</div>
+
+		<div class="modal-body">
+				<div class="form-group col-sm-6" ng-class="{'has-error':form.quantidade.$invalid && (form.quantidade.$touched || form.$submitted)}">
+					<label class="control-label">Qtd.:</label> 
+							        
+					<input autofocus name="quantidade" 
+							type="number"
+							class="form-control"
+							min="1"
+							ng-model="quantidade">
+					<div class="help-block"
+						ng-show="form.quantidade.$invalid && (form.quantidade.$touched || form.$submitted)">
+					<span>Quantidade é obrigatório</span>
+					</div>
+				</div>
+				
+				<div class="form-group col-sm-6"
+						         ng-class="{'has-error':form.evolucao.$invalid && (form.evolucao.$touched || form.$submitted)}">
+						        
+					<label class="control-label">Evolução:</label> 
+						<div class="input-group">	        
+					<select name="evolucao" 
+							class="form-control"
+							ng-options="e as e.nome for e in evolucoes | orderBy:'nome' track by e.id"
+							ng-model="evolucao" 
+			                required>
+							<option value="">Selecione...</option>
+					</select>
+					<span class="input-group-btn">
+			                     <button class="btn btn-default" 
+			                     		 type="button" 
+			                     		 data-toggle="tooltip" 
+				        		      	 title="Adicionar nova evolução"
+				        		      	 ng-click="cadastrarEvolucao()"
+				        		      	 >+</button>
+						</span>
+						
+					</div>       
+					<div class="help-block"
+						ng-show="form.evolucao.$invalid && (form.evolucao.$touched || form.$submitted)">
+					<span>Evoluçao é obrigatório</span>
+					</div>
+				</div>
+				<div class="form-group col-sm-12"
+						         ng-class="{'has-error':form.importancia.$invalid && (form.importancia.$touched || form.$submitted)}">
+						        
+						<label class="control-label">Importância Médica:</label> 
+						
+						<select name="importancia" 
+									class="form-control"
+									ng-options="im as im.nome for im in lsImportanciaMedica | orderBy:'nome' track by im.id"
+									ng-model="importanciaMedica" 
+					                required>
+									<option value="" hidden>Selecione...</option>
+						</select>
+						<div class="help-block" ng-show="form.importancia.$invalid && (form.importancia.$touched || form.$submitted)">
+							<span>É necessário informar a Importância Médica</span>
+						</div>
+				</div>
+				<div class="form-group col-sm-12">
+						        
+					<label class="control-label">Família:</label> 
+					<div class="input-group">		        
+						<select name="familia" 
+								class="form-control"
+								ng-options="f as f.nome for f in familias | orderBy:'nome' track by f.id"
+								ng-model="familia"
+								ng-change="getGenerosByFamilia(familia)"  
+				                >
+								<option value="">Selecione...</option>
+						</select>
+						<span class="input-group-btn">
+			                     <button class="btn btn-default" 
+			                     		 type="button" 
+			                     		 data-toggle="tooltip" 
+				        		      	 title="Adicionar nova família"
+				        		      	 ng-click="cadastrarFamilia()"
+				        		      	 >+</button>
+						</span>
+			        </div>        
+				</div>
+				<div class="form-group col-sm-12">
+						        
+					<label class="control-label">Gênero:</label> 
+					<div class="input-group">	        
+						<select name="genero" 
+								class="form-control"
+								ng-options="g as g.nome for g in generos | orderBy:'nome' track by g.id"
+								ng-model="genero" 
+								ng-change="getEspeciesByGenero( genero.id )"
+				                ng-disabled="familia == null"
+				                >
+								<option value="">Selecione...</option>
+						</select>
+						 <span class="input-group-btn">
+			                     <button class="btn btn-default" 
+			                     		 type="button" 
+			                     		 data-toggle="tooltip" 
+				        		      	 title="Adicionar novo gênero"
+				        		      	 ng-click="cadastrarGenero()"
+				        		      	 >+</button>
+						</span>
+			        </div>         
+			
+				</div>
+				<div class="form-group col-sm-12">
+						        
+					<label class="control-label">Espécie:</label> 
+					<div class="input-group">		        
+						<select name="especie" 
+								class="form-control"
+								ng-options="e as e.nome for e in especies | orderBy:'nome' track by e.id"
+								ng-model="especie" 
+								ng-change="getEspeciesByGenero( genero.id )"
+				                ng-disabled="genero == null"
+				                >
+								<option value="">Selecione...</option>
+						</select>
+						<span class="input-group-btn">
+			                     <button class="btn btn-default" 
+			                     		 type="button" 
+			                     		 data-toggle="tooltip" 
+				        		      	 title="Adicionar nova espécie"
+				        		      	 ng-click="cadastrarEspecie()"
+				        		      	 >+</button>
+						</span>
+			        </div>              
+
+				</div>
+	    </div>
+    
+    	<div class="form-group row"></div>
+    
+	    <div class="modal-footer">
+	    	<button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+			<button type="submit" class="btn btn-success">Salvar</button>
+		</div>
+	</form>
+</div>

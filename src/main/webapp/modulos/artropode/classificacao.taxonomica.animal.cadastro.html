@@ -1,0 +1,242 @@
+<div class="modal-content" >
+
+	<form name="form" ng-submit="salvar()" novalidate >
+
+	<div class="modal-header">
+    	<button type="button" class="close" aria-label="Close" ng-click="cancelar()" ><span aria-hidden="true">&times;</span></button>
+		<!-- <h4 class="modal-title">Identificação Taxonômica Amostra Animal</h4>  -->
+		<h3 class="modal-title"><strong>Cadastro Taxonômia</strong></h3>
+	</div>
+
+	<div class="modal-body">
+		<h4 class="custom-font"><strong>Amostra Animal:</strong></h4>
+		<div class="form-group col-sm-12">
+			<label class="control-label">Tipo Animal:</label> 
+					        
+			<input name="tipoAnimal" 
+					class="form-control"
+					ng-model="amostra.tipoAnimal.nome" 
+					readonly>
+		</div>
+		<div class="form-group col-sm-12" ng-if="mensagem">
+			<div class="alert alert-warning" role="alert">
+			  <strong>Observação!</strong> {{mensagem}}.
+			</div> 
+		</div>
+		
+		<div class="form-group col-sm-6"
+			 ng-class="{'has-error':form.tipoColeta.$invalid && (form.tipoColeta.$touched || form.$submitted)}">
+			
+			<label class="control-label">Tipo de Coleta:</label>
+			
+			<select name="tipoColeta" 
+					class="form-control"
+					ng-options="t as t.descricao for t in tiposColeta | orderBy:'descricao' track by t.id "
+					ng-model="amostra.tipoColeta" 
+					ng-disabled="true" >
+					
+					<option value="" hidden>Selecione...</option>
+			</select>
+		</div>
+		
+		<div class="form-group col-sm-6"
+			 ng-class="{'has-error':form.ambiente.$invalid && (form.ambiente.$touched || form.$submitted)}">
+			 
+			<label class="control-label">Local da Coleta:</label>
+			
+			<select name="ambiente" 
+					class="form-control"
+					ng-options="a as a.descricao for a in ambientesColeta | orderBy:'descricao' track by a.id"
+					ng-model="amostra.ambiente" 
+					ng-disabled="true" >
+					
+					<option value="" hidden>Selecione...</option>
+			</select>
+		</div>
+		
+		<div class="form-group col-sm-12"
+				 ng-class="{'has-error':form.coletaOrigem.$invalid && (form.coletaOrigem.$touched || form.$submitted)}"
+				 ng-show="amostra.ambiente.fgOrigem === true">
+				 
+				<label class="control-label">Origem:</label>
+				
+				<input name="coletaOrigem" 
+					   type="text"
+					   class="form-control"			
+					   maxlength="255"
+					   ng-model="amostra.coletaOrigem"
+					   ng-disabled="true">
+		</div>
+		
+		
+		<div class="form-group col-sm-12">
+			 
+			<label class="control-label">Metodologia de Coleta:</label>
+		
+			<div class="margin-top-10" >
+				<label class="checkbox-inline checkbox-custom-alt"> 
+					<input name="customRadioAlt" 
+						   type="radio"
+						   ng-model="amostra.metodologia"
+						   ng-value="false"
+						   ng-disabled="true">
+						<i></i> Manual
+				</label>
+				
+				&nbsp;
+				&nbsp;
+				&nbsp;
+				
+				<label class="checkbox-inline checkbox-custom-alt"> 
+					<input name="customRadioAlt" 
+						   type="radio"
+						   ng-model="amostra.metodologia"
+						   ng-value="true"
+						   ng-disabled="true">
+						   
+						<i></i> Armadilha
+				</label>
+			</div>
+		</div>
+				
+		<div class="form-group col-sm-8" 
+			 ng-show="amostra.metodologia == true"}"
+			 ng-class="{'has-error':form.tipo.$invalid}">
+			 
+			<label class="control-label">Tipo Armadilha:</label>
+			
+			<select name="tipo" 
+					class="form-control"
+					ng-options="t as t.descricao for t in tiposArmadilhas | orderBy:'nome' track by t.id"
+					ng-model="amostra.tipoArmadilha" 
+					ng-disabled="true">
+					
+					<option value="" hidden>Selecione...</option>
+			</select>
+		</div>
+		
+		
+		<div class="form-group col-sm-4" 
+			 ng-show="amostra.tipoArmadilha.descricao == 'Outros' && amostra.metodologia == true"
+			 ng-class="{'has-error': amostra.tipoArmadilha.descricao == 'Outros' && form.especifiqueOutros.$invalid && (form.especifiqueOutros.$touched || form.$submitted)}">
+			<label class="control-label">Especifique:</label>
+			
+			<input name="especifiqueOutros" 
+				   class="form-control"
+				   ng-model="amostra.outroTipo" 
+				   ng-disabled="true" >
+		</div>
+		
+		<div class="form-group col-sm-12 margin-top-25">
+			<div class="checkbox">
+	    		<label class="checkbox checkbox-custom-alt"> 
+					<input id="ch-aciente"
+						   type="checkbox" 
+						   ng-model="amostra.fgAcidente" 
+						   value="{{amostra.fgAcidente}}"
+						   ng-disabled="true">
+					<i></i>
+					Houve acidente?
+				</label>
+			</div>
+		</div>
+
+		<div class="form-group col-sm-12">
+			
+			<label class="control-label">Número de notificação SINAN:</label>
+			
+			<input type="number"
+				   maxlength="10"
+				   name="numeroSinan" 
+				   class="form-control"					   
+				   ng-model="amostra.nuNotificacaoSinan" 
+				   ng-disabled="true" >
+		</div>
+		
+		<div class="form-group col-sm-12">
+			<label class="control-label">Quantidade total:</label> 
+					        
+			<input name="quantidade" 
+				   type="number"
+				   class="form-control"
+				   ng-model="amostra.quantidade" 
+	               readonly >
+		</div>
+		<div class="form-group col-sm-4">
+			<label class="checkbox checkbox-custom-alt">
+       			<input type="checkbox" ng-model="amostra.laudoExterno" ng-checked="amostra.laudoExterno"><i></i> Laudo externo
+       		</label>
+		</div>
+		<div class="form-group col-sm-8" ng-show="amostra.laudoExterno == true ">
+			<label class="text-right" style="float:right">
+        		<button  ng-show="amostra.laudoExterno" type="button" ng-click="openFile(amostra)" class="btn btn-default" >Abrir arquivo laudo</button>
+        		<button type="button" ng-click="onClickUpload(amostra, laudoExterno)" class="btn btn-primary" >Upload Laudo</button>
+            </label>
+		</div>
+		
+		<section class="tile">
+			<div class="form-group col-sm-12">
+				<div class="tile-header dvd dvd-btm">
+					<!-- <h1 class="custom-font"><strong>Tipo de Animal:</strong></h1>  -->
+					<h2 class="modal-title"><strong>Lista de Taxonômias</strong></h2>
+					<ul class="controls">
+						<li>
+							<a href 
+							   data-toggle="tooltip" 
+							   title="Adicionar Taxonomia"
+						  	   ng-click="addTaxonomia(a)">
+						  	   <i class="fa fa-plus" aria-hidden="true"></i>
+						  	</a>
+						</li>
+					</ul>
+				</div>
+	
+				<div class="tile-body p-0" ng-show="listaTaxonomia.length > 0">
+					<table class="table table-hover">
+						<tr>						
+							<th>Evolução</th>
+							<th>Espécie</th>
+							<th>Quantidade</th>
+							<th>Ações</th>
+						</tr>
+	
+						<tr ng-repeat="a in listaTaxonomia | filter: filtroExcluidos">
+							<td ng-bind="a.evolucao.nome"></td>
+							<td ng-bind="a.especie.nome"></td>
+							<td ng-bind="a.quantidade"></td>
+							<td>
+								<i class="btn btn-info btn-xs fa fa-eye"
+									ng-click="visualizarTaxonomia(a)" 
+									data-toggle="tooltip"
+									title="Visualizar">
+								</i>
+								
+								<i class="btn btn-success btn-xs fa fa-download" 
+								   ng-show="a.id !== undefined"
+								   ng-click="gerarRelatorioLaudoTaxonomia(a)"
+								   uib-tooltip="Gerar Relatório Laudo de Taxonomia">
+								</i> 		 
+								
+								<i class="btn btn-danger btn-xs fa fa-times" 
+				        		   ng-click="excluirTaxonomia(a.id)" 
+				        		   data-toggle="tooltip" 
+				        		   ng-show="a.id !== undefined"
+				        		   title="Excluir">
+				        		</i>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</section>
+    </div>
+    
+    <div class="form-group row"></div>
+    
+    <div class="modal-footer">
+    	<button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+		<button type="submit" class="btn btn-success" >Salvar</button>
+	</div>
+
+	</form>
+</div>

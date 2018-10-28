@@ -1,0 +1,11 @@
+insert into epizootia.mod_epizootia_nm_popular (ds_nome) values ('Prego');
+
+ALTER TABLE `agendamentos`
+  ADD CONSTRAINT `fk_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`clientes_id`);
+  
+  
+  ALTER TABLE `livro`
+  ADD CONSTRAINT `fk_autor` FOREIGN KEY (`autor`) REFERENCES `autor` (`id`);
+  
+ALTER TABLE `livro`
+  ADD CONSTRAINT `fk_editora` FOREIGN KEY (`editora`) REFERENCES `editora` (`id`);

@@ -1,0 +1,371 @@
+<div class="page">
+	<section class="tile" >
+		
+	<form name="form" novalidate>
+		
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font">
+				<strong>Cadastro Laudo
+					<b ng-show="laudo.id">&nbsp;-&nbsp;{{laudo.id}}&nbsp;&nbsp;</b>
+					<b ng-show="ficha.id">,Ficha &nbsp;-&nbsp;{{ficha.id}}&nbsp;&nbsp;</b>
+				</strong>
+			</h1>
+		</div>
+	
+		<div class="tile-body" >
+			
+			<div class="pagecontent">
+		    	<uib-tabset class="tab-animation tab-container" 
+		    				justified="true" >
+		    				
+					<uib-tab>
+
+				        <uib-tab-heading>
+							Dados da Coleta
+							<span class="badge badge-default pull-right wizard-step">1</span>
+				        </uib-tab-heading>
+				        
+			        	<div class="form-group col-sm-12">
+							<label><b><i>Dados do Coletador</i></b></label>
+							<hr>
+						</div>
+			        	<div class="form-group col-sm-6">
+							<label class="control-label">Nome do Coletador:</label> 
+							<input name="nome" 
+								   class="form-control"
+								   ng-model="ficha.coletador.nome" 
+								   type="text"
+								   readonly>
+						</div>
+						
+						<div class="form-group col-sm-6">
+							
+							<label class="control-label">Email do coletador:</label> 
+							     
+							<input name="email"
+								   type="text"
+						           class="form-control" 
+						           ng-model="ficha.coletador.email"
+						           readonly >
+						</div>
+						
+						<div class="form-group col-sm-6">
+							<label class="control-label">Telefone do coletador:</label> 
+							     
+							<input name="telefone"
+								   type="text"
+						           class="form-control" 
+						           ng-model="ficha.coletador.telefone"
+						           readonly >
+						</div>
+						
+						
+			        	
+			        	
+			        	<div class="form-group col-sm-12">
+							<label><b><i>Dados do Local da Coleta</i></b></label>
+							<hr>
+						</div>
+						
+						<div class="form-group col-sm-4">
+							<label class="control-label">Data da Coleta:</label> 
+							
+							<div class="input-group">							     
+								<input name="dtColeta"
+							               type="text"
+							               class="form-control" 
+							               ng-model="ficha.dtColeta"
+							               bs-datepicker
+							               data-date-format="dd/MM/yyyy"
+										   autoclose="true"
+										   readonly>
+									   
+								<span class="input-group-addon" id="basic-addon1">
+				                	<i class="fa fa-calendar" aria-hidden="true"></i>
+								</span>
+							</div>
+						</div>
+			        
+						<div class="form-group col-sm-12">
+					        
+					        <label class="control-label">Município:</label> 
+					        
+							<input name="municipio" 
+								   class="form-control"
+								   ng-model="ficha.endereco.localidade.municipio.nome" 
+								   type="text"
+								   readonly>
+						</div>
+		
+						<div class="form-group col-sm-6">
+						        
+					    	<label class="control-label">Localidade:</label> 
+				
+							<input name="localidade"								
+					               	ng-model="ficha.endereco.localidade.nome" 
+					               	class="form-control"
+									readonly>
+						</div>
+		
+						<div class="form-group col-sm-6">
+							        
+							<label class="control-label">Logradouro:</label> 
+							     
+								<input name="endereco"
+						            	 type="text"
+						            	 ng-model="ficha.endereco.nome"
+						            	 class="form-control"
+						            	 readonly>
+						</div>
+			
+						<div class="form-group col-sm-4">
+							<label class="control-label">Número:</label> 
+							     
+							<input name="numero"
+								   type="text"
+						           class="form-control" 
+						           ng-model="ficha.numero"
+						           readonly>
+						</div>
+
+						<div class="form-group col-sm-4">
+							<label class="control-label">Latitude:</label> 
+							     
+							<input name="latitude"
+								   type="text"
+						           class="form-control" 
+						           ng-model="ficha.latitude"
+						           readonly>
+						</div>
+						
+						<div class="form-group col-sm-4">
+							<label class="control-label">Longitude:</label> 
+							     
+							<input name="longitude"
+								   type="text"
+						           class="form-control" 
+						           ng-model="ficha.longitude"
+						           readonly>
+						</div>
+									
+						<div class="form-group col-sm-12">
+							<label><b><i>Dados adicionais</i></b></label>
+							<hr>
+						</div>
+			
+						<div class="form-group" >
+							<div class="form-group col-sm-3" >
+								 
+								<label class="control-label">Temperatura Max.:</label>
+								
+								<input name="tempMaximo" 
+									   class="form-control"
+									   type="number"
+									   ng-model="ficha.temperaturaMax" 
+									   readonly>
+							</div>
+				
+							<div class="form-group col-sm-3">
+								 
+								<label class="control-label">Temperatura Min.:</label>
+								
+								<input name="tempMinima" 
+									   class="form-control"
+									   type="number"
+									   ng-model="ficha.temperaturaMin" 
+									   readonly>
+							</div>
+							
+							<div class="form-group col-sm-3" >
+								
+								<label class="control-label">Umidade Max.:</label>
+								
+								<input name="umidadeMaxima" 
+									   class="form-control"
+									   type="number"
+									   ng-model="ficha.umidadeMax" 
+									   readonly>
+							</div>
+							
+							<div class="form-group col-sm-3" >
+								
+								<label class="control-label">Umidade Min.:</label>
+								
+								<input name="umidadeMinima" 
+									   class="form-control"
+									   type="number"
+									   ng-model="ficha.umidadeMin" 
+									   readonly>
+							</div>
+						</div>
+						
+	      		</uib-tab>
+      
+				<uib-tab>
+		        	<uib-tab-heading id="aba2">
+		          		Emissão de Laudo
+		          		<span class="badge badge-default pull-right wizard-step">2</span>
+		        	</uib-tab-heading>
+		
+					<div class="form-group col-sm-4"  ng-class="{'has-error':form.dtRecebimento.$invalid && (form.dtRecebimento.$touched || form.$submitted)}">
+						 
+						<label class="control-label">Data de Recebimento:</label> 
+						
+						<div class="input-group">							     
+							<input autofocus name="dtRecebimento"
+						               type="text"
+						               class="form-control" 
+						               ng-model="laudo.dtRecebimento"
+						               bs-datepicker
+						               data-date-format="dd/MM/yyyy"
+									   autoclose="true" required>
+								   
+							<span class="input-group-addon" id="basic-addon1">
+			                	<i class="fa fa-calendar" aria-hidden="true"></i>
+							</span>
+						</div>
+						<div class="help-block" ng-show="form.dtRecebimento.$invalid && (form.dtRecebimento.$touched || form.$submitted)">
+							<span>Data é obrigatória</span>
+						</div>
+					</div>
+					
+					
+					<div class="form-group col-sm-4">
+						 
+						<label class="control-label">Data de Emissão:</label> 
+						
+						<div class="input-group">							     
+							<input name="dtAlteracao"
+						               type="text"
+						               class="form-control" 
+						               ng-model="laudo.dtAlteracao"
+						               bs-datepicker
+						               data-date-format="dd/MM/yyyy"
+									   autoclose="true" disabled="true">
+								   
+							<span class="input-group-addon" id="basic-addon1">
+			                	<i class="fa fa-calendar" aria-hidden="true"></i>
+							</span>
+						</div>
+					</div>
+					
+					
+					<div class="form-group col-sm-4">
+						 
+						<label class="control-label">Número da Ficha:</label> 
+						<input name="idFicha"
+					               type="text"
+					               class="form-control" 
+					               ng-model="ficha.id"
+					               ng-disabled="ficha.id > 0">
+					     <div class="help-block" ng-show="form.dtRecebimento.$invalid && (form.dtRecebimento.$touched || form.$submitted)">
+							<span>&nbsp;</span>
+						</div>
+					</div>
+					
+					<div class="form-group col-sm-6" ng-class="{'has-error':form.condicao.$invalid && (form.condicao.$touched || form.$submitted)}">
+						 
+						<label class="control-label">Condições da amostra:</label> 
+						
+						<select name="condicao" 
+									class="form-control"
+									ng-options="m as m.nome for m in condicoes | orderBy:'nome' track by m.id"
+									ng-model="laudo.condicao" 
+					                required>
+									<option value="" hidden>Selecione...</option>
+						</select>
+						<div class="help-block" ng-show="form.condicao.$invalid && (form.condicao.$touched || form.$submitted)">
+							<span>É necessário informar as condições da amostra</span>
+						</div>
+					</div>
+					
+					<div class="form-group col-sm-6" ng-class="{'has-error':form.destino.$invalid && (form.destino.$touched || form.$submitted)}">
+						 
+						<label class="control-label">Destino da amostra:</label> 
+						
+						<select name="destino" 
+								class="form-control"
+								ng-options="m as m.nome for m in destinos | orderBy:'nome' track by m.id"
+								ng-model="laudo.destino" 
+					            required>
+								<option value="" hidden>Selecione...</option>
+						</select>
+						<div class="help-block" ng-show="form.destino.$invalid && (form.destino.$touched || form.$submitted)">
+							<span>É necessário informar o destino da amostra</span>
+						</div>
+					</div>
+					<div class="form-group col-sm-12" 
+								 ng-show="laudo.destino.nome == 'Envio Referência'"
+								 ng-class="{'has-error': form.especifiqueDestino.$invalid}">
+						<label class="control-label">Especifique a referência:</label>
+						
+						<input type="text" maxlength="60"
+						       name="especifiqueDestino" 
+							   class="form-control"
+							   ng-model="laudo.especifiqueDestino" 
+							   ng-required="laudo.destino.nome  == 'Envio Referência'" >
+					</div>
+
+					<div class="form-group col-sm-12">		
+									 
+						<label class="control-label">Observação:</label> 						
+						<text-angular ng-model="laudo.dsObservacao" 
+									  ta-max-text="3000"
+									  ta-toolbar="[ ['h1','h2','h3'],
+													['bold','italics','underline','ul', 'ol', 'redo', 'undo', 'clear'],
+													['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'indent', 'outdent'],
+													['wordcount', 'charcount'] ]" />
+													Máximo 3.000 caracteres.
+					</div>
+					
+					<div class="form-group col-sm-12">
+			        			 			
+		       			<div class="tile-header dvd dvd-btm">
+							<h1 class="custom-font"><strong>Lista de Amostras:</strong></h1>
+						</div>
+		
+						<div class="tile-body p-0">
+							<table class="table table-striped">
+							    <tr>
+							    	<th>N° Amostra</th>
+							        <th>Tipo Animal</th>
+							        <th>Qtde Animais</th>
+							        <th class="center-cabecalho">Status</th>
+							        <th>Ações</th>
+							    </tr>
+				
+								<tr ng_repeat="a in ficha.animais">
+									<td ng_bind="a.id"></td>
+									<td ng_bind="a.tipoAnimal.nome"></td>
+									<td ng_bind="a.quantidade"></td>
+				        			<td align="center">
+			        					<i ng-show="!a.taxonomiaRealizada" class="fa fa-ban" data-toggle="tooltip" title="Taxonômia Pendente" style="color:blue;"></i>
+			        					<i ng-show="a.taxonomiaRealizada" class="fa fa-check" data-toggle="tooltip" title="Taxonômia Realizada" style="color:green"></i>
+				        			</td>
+							        <td>
+						        		<i class="btn btn-greensea btn-xs fa fa-plus" 
+						        		   ng-click="addTaxonomia(a)" 
+						        		   uib-tooltip="Enquadramento taxonômico"></i>
+				        			</td>
+			    				</tr>
+							</table>
+						</div>
+					</div>
+		
+					<div class="row"></div>
+		
+					<div class="text-right col-sm-12">
+						<button type="submit" ng-click="emitirLaudo(laudo)" class="btn btn-success" >Emitir Laudo</button>
+					</div>
+		      </uib-tab>
+
+    </uib-tabset>
+  </div>
+			
+		</div>
+		
+		</form>
+		
+	</section>
+
+</div>

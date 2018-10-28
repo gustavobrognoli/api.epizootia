@@ -1,0 +1,386 @@
+<div class="page">
+
+<form name="form" ng-submit="salvar()" novalidate >
+
+	<section class="tile" >
+	
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Cadastro Focos</strong></h1>
+		</div>
+	
+		<div class="tile-body" >
+		
+			<div class="form-group col-sm-6"
+		         ng-class="{'has-error':form.municipio.$invalid && (form.municipio.$touched || form.$submitted)}">
+		        
+		        <label class="control-label">Município:</label> 
+		        
+				<select name="municipio" 
+						class="form-control"
+						ng-options="m as m.nome for m in municipios track by m.id"
+						ng-model="municipio" 
+						ng-change="getByMunicipio()"
+		                ng-disabled="isPermissaoMunicipio"
+		                required >
+						<option value="">Selecione...</option>
+				</select>
+		        
+		        <div class="help-block"
+					ng-show="form.municipio.$invalid && (form.municipio.$touched || form.$submitted)">
+					<span>Município é obrigatório</span>
+				</div>
+			</div>
+		
+			<div class="form-group col-sm-6"
+				 ng-class="{'has-error':form.localidade.$invalid && (form.localidade.$touched || form.$submitted)}">
+			        
+			    <label class="control-label">Localidade:</label> 
+
+				<div class="input-group">	
+					<div custom-select="l as l.nome for l in localidades| filter: $searchTerm"
+			              ng-model="localidade" 
+						  ng-change="getByLocalidade()"
+			              class="form-control">
+			            	 
+						<div>
+							<strong>Localidade: {{l.nome }}</strong><br/>
+							<span><strong>Categoria:</strong> {{ l.categoria.descricao }}</span><br/>
+							<hr>
+						</div>
+					</div>
+				
+					<span class="input-group-btn">
+                      <button class="btn btn-default" 
+                      		  type="button" 
+                      		  data-toggle="tooltip" 
+		        		      title="Adicionar nova localidade"
+		        		      ng-click="cadastraLocalidade()"
+		        		      ng-disabled="municipio == null">+</button>
+                    </span>
+				</div>
+			        
+		        <div class="help-block"
+					 ng-show="form.localidade.$invalid && (form.localidade.$touched || form.$submitted)">
+					<span>Localidade é obrigatório</span>
+				</div>
+			</div>
+		
+			<div class="form-group col-sm-6"
+			     ng-class="{'has-error':form.endereco.$invalid && (form.endereco.$touched || form.$submitted)}">
+				        
+				<label class="control-label">Endereço:</label> 
+				     
+				<div class="input-group">
+					<div custom-select="e as e.nome for e in enderecos | filter: $searchTerm"
+		            	 ng-model="dengue.endereco"
+		            	 class="form-control">
+		            	 
+						<div>
+						    <strong>Endereço: {{e.nome }}</strong><br/>
+						    <hr>
+						</div>
+		            </div>
+				      
+				 	<span class="input-group-btn">
+                      <button class="btn btn-default" 
+                      		  type="button" 
+                      		  data-toggle="tooltip" 
+		        		      title="Adicionar novo endereço"
+		        		      ng-click="cadastraEndereco()"
+		        		      ng-disabled="localidade == null">+</button>
+                    </span>
+				</div>
+				        
+			    <div class="help-block"
+					 ng-show="form.endereco.$invalid && (form.endereco.$touched || form.$submitted)">
+					<span>Endereço é obrigatório</span>
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-3">
+		        <label class="control-label">Latitude:</label> 
+		        
+				<input name="latitude"
+		               type="text"
+		               class="form-control" 
+		               ng-model="dengue.latitude" >
+			</div>
+
+			<div class="form-group col-sm-3">
+		        <label class="control-label">Longitude:</label> 
+		        
+				<input name="longitude"
+		               type="text"
+		               class="form-control" 
+		               ng-model="dengue.longitude" >
+			</div>
+
+			<div class="form-group col-sm-3"
+					 ng-class="{'has-error':form.numero.$invalid && (form.numero.$touched || form.$submitted)}">
+			
+			        <label class="control-label">Número:</label> 
+			        
+					<input name="numero"
+			               type="text"
+			               class="form-control" 
+			               ng-model="dengue.numero" 
+			               required>
+			               
+					<div class="help-block"
+						 ng-show="form.numero.$invalid && (form.numero.$touched || form.$submitted)">
+						<span>Número é obrigatório</span>
+					</div>
+			</div>
+			
+			
+			<div class="form-group col-sm-3"
+			 	 ng-class="{'has-error':form.quarteirao.$invalid && (form.quarteirao.$touched || form.$submitted)}">
+			 
+		        <label class="control-label">Quarteirão:</label> 
+		        
+				<input name="quarteirao"
+		               type="text"
+		               class="form-control" 
+		               ng-model="dengue.quarteirao" 
+		               required >
+		               
+				<div class="help-block"
+					 ng-show="form.quarteirao.$invalid && (form.quarteirao.$touched || form.$submitted)">
+					<span>Número é obrigatório</span>
+				</div>
+			</div>	
+		
+			<div class="form-group col-sm-6">
+		        <label class="control-label">Complemento:</label> 
+		        
+				<input name="complemento"
+		               type="text"
+		               class="form-control" 
+		               ng-model="dengue.complemento" >
+			</div>
+		
+			<div class="form-group col-sm-6"
+			     ng-class="{'has-error':form.tipoImovel.$invalid && (form.tipoImovel.$touched || form.$submitted)}">
+				        
+				<label class="control-label">Tipo de Imóvel:</label> 
+				     
+				<select name="tipoImovel" 
+					    class="form-control"
+						ng-options="t as t.nome for t in tiposImoveis track by t.id"
+						ng-model="dengue.imovel" 
+				        required >
+						<option value="">Selecione...</option>
+				</select>
+				        
+			    <div class="help-block"
+					 ng-show="form.tipoImovel.$invalid && (form.tipoImovel.$touched || form.$submitted)">
+					<span>Tipo de Imóvel é obrigatório</span>
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-6"
+			     ng-class="{'has-error':form.tipoDeposito.$invalid && (form.tipoDeposito.$touched || form.$submitted)}">
+				        
+				<label class="control-label">Tipo de Depósito:</label> 
+				     
+				<select name="tipoDeposito" 
+					    class="form-control"
+						ng-options="t as t.nome for t in tiposDepositos track by t.id"
+						ng-model="dengue.deposito" 
+				        required >
+						<option value="">Selecione...</option>
+				</select>
+				        
+			    <div class="help-block"
+					 ng-show="form.tipoDeposito.$invalid && (form.tipoDeposito.$touched || form.$submitted)">
+					<span>Tipo de Depósito é obrigatório</span>
+				</div>
+			</div>
+			
+						
+			<div class="form-group col-sm-12">
+			  
+				<label class="control-label">Atividade:</label> 
+				     
+				<select name="atividade" 
+					    class="form-control"
+						ng-options="a as (a.sigla +' - '+ a.descricao) for a in atividades track by a.id"
+						ng-model="dengue.tipoAtividade" >
+						<option value="">Selecione...</option>
+				</select>
+			</div>
+			
+			<div>
+				<div class="form-group col-sm-4"
+					 ng-class="{'has-error':form.dtColeta.$invalid && (form.dtColeta.$touched || form.$submitted)}">
+					 
+			        <label class="control-label">Data da Coleta:</label> 
+			        
+					<input name="dtColeta"
+			               type="text"
+			               class="form-control" 
+			               ng-model="dengue.dataColeta"
+			               bs-datepicker
+			               data-date-format="dd/MM/yyyy"
+						   autoclose="true"
+						   required>
+					
+					<div class="help-block"
+					 	 ng-show="form.dtColeta.$invalid && (form.dtColeta.$touched || form.$submitted)">
+						<span>Data de Coleta é obrigatório</span>
+					</div>	   
+				</div>
+	
+				<div class="form-group col-sm-4"
+					 ng-class="{'has-error':form.dtEntrada.$invalid && (form.dtEntrada.$touched || form.$submitted)}">
+					 
+			        <label class="control-label">Data da Entrada:</label> 
+			        
+					<input name="dtEntrada"
+			               type="text"
+			               class="form-control" 
+			               ng-model="dengue.dataEntrada" 
+			               bs-datepicker
+			               data-date-format="dd/MM/yyyy"
+						   autoclose="true"
+						   required>
+					
+					<div class="help-block"
+					 	 ng-show="form.dtEntrada.$invalid && (form.dtEntrada.$touched || form.$submitted)">
+						<span>Data de Entrada é obrigatório</span>
+					</div>
+					
+				</div>
+				
+				<div class="form-group col-sm-4"
+					 ng-class="{'has-error':form.dtExame.$invalid && (form.dtExame.$touched || form.$submitted)}">
+			        <label class="control-label">Data do Exame:</label> 
+			        
+					<input name="dtExame"
+			               type="text"
+			               class="form-control" 
+			               ng-model="dengue.dataExame" 
+			               bs-datepicker
+			               data-date-format="dd/MM/yyyy"
+						   autoclose="true"
+						   required>
+					
+					<div class="help-block"
+					 	 ng-show="form.dtExame.$invalid && (form.dtExame.$touched || form.$submitted)">
+						<span>Data do Exame é obrigatório</span>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-12">
+				<label><b><i>A. aegypti</i></b></label>
+				<hr>
+			</div>
+			
+			<div>
+				<div class="form-group col-sm-4"
+				 	 ng-class="{'has-error':form.formaOvo.$invalid && (form.formaOvo.$touched || form.$submitted)}">
+			        <label class="control-label">Forma de Ovo:</label> 
+			        
+					<input name="formaOvo"
+			               type="number"
+			               class="form-control" 
+			               ng-model="dengue.formaOvo" 
+						   required>
+					
+					<div class="help-block"
+					 	 ng-show="form.formaOvo.$invalid && (form.formaOvo.$touched || form.$submitted)">
+						<span>Forma de Ovo é obrigatório</span>
+					</div>
+					
+				</div>
+	
+				<div class="form-group col-sm-4"
+					 ng-class="{'has-error':form.formasAquaticas.$invalid && (form.formasAquaticas.$touched || form.$submitted)}">
+			        <label class="control-label">Formas Aquáticas:</label> 
+			        
+					<input name="formasAquaticas"
+			               type="number"
+			               class="form-control" 
+			               ng-model="dengue.formasAquaticas"
+			               required>
+					
+					<div class="help-block"
+					 	 ng-show="form.formasAquaticas.$invalid && (form.formasAquaticas.$touched || form.$submitted)">
+						<span>Formas aquáticas A. aegypti é obrigatório </span>
+					</div>
+				</div>
+				
+				<div class="form-group col-sm-4"
+					 ng-class="{'has-error':form.formaAdulta.$invalid && (form.formaAdulta.$touched || form.$submitted)}">
+			        <label class="control-label">Forma Adulta:</label> 
+			        
+					<input name="formaAdulta"
+			               type="number"
+			               class="form-control" 
+			               ng-model="dengue.formasAdultas" 
+			               required>
+					
+					<div class="help-block"
+					 	 ng-show="form.formaAdulta.$invalid && (form.formaAdulta.$touched || form.$submitted)">
+						<span>Forma adulta A. aegypti é obrigatório </span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-12">
+				<label><b><i>A. albopictus</i></b></label>
+				<hr>
+			</div>
+				
+			<div>
+				<div class="form-group col-sm-4"
+					 ng-class="{'has-error':form.formasAquaticasAlbo.$invalid && (form.formasAquaticasAlbo.$touched || form.$submitted)}">
+					 
+			        <label class="control-label">Formas Aquáticas:</label> 
+			        
+					<input name="formasAquaticasAlbo"
+			               type="number"
+			               class="form-control" 
+			               ng-model="dengue.formasAquaticasAlbo"
+			               required>
+					
+					<div class="help-block"
+					 	 ng-show="form.formasAquaticasAlbo.$invalid && (form.formasAquaticasAlbo.$touched || form.$submitted)">
+						<span>Formas aquáticas A. albopictus é obrigatório </span>
+					</div>
+				</div>
+				
+				<div class="form-group col-sm-4"
+					 ng-class="{'has-error':form.formaAdultaAlbo.$invalid && (form.formaAdultaAlbo.$touched || form.$submitted)}">
+			        <label class="control-label">Forma Adulta:</label> 
+			        
+					<input name="formaAdultaAlbo"
+			               type="number"
+			               class="form-control" 
+			               ng-model="dengue.formasAdultasAlbo"
+			               required>
+					
+					<div class="help-block"
+					 	 ng-show="form.formaAdultaAlbo.$invalid && (form.formaAdultaAlbo.$touched || form.$submitted)">
+						<span>Forma adulta A. albopictus é obrigatório</span>
+					</div>
+				</div>
+			</div>	
+
+			<div class="row"></div>
+			
+		</div>
+		
+		<div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+			<button type="submit" class="btn btn-success" > Salvar </button>
+		</div>
+		
+    </section>
+    
+    <!-- AIzaSyC9oFVjYyrpaI8QxdhjbCoN1Sh_2yHc2FM -->
+    
+</form>
+
+</div>

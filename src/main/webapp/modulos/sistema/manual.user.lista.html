@@ -1,0 +1,45 @@
+<div class="page">
+
+	<section class="tile" >
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Manual do Usuário - Vigilantos</strong></h1>
+				
+			<ul class="controls">
+				<li>
+					<a ng-click="pesquisar()" 
+					   href 
+					   data-toggle="tooltip" 
+		        	   title="Pesquisar">
+						<i class="fa fa-search" ></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	
+		<div class="tile-body p-0">
+			<table class="table table-hover">
+			    <tr>
+					<th>Módulo</th>
+			        <th>Nome</th>
+			        <th>Ações</th>
+			    </tr>
+			
+			    <tr ng_repeat="m in manuais">
+			        <td ng_bind="m.modulo.descricao"></td>
+			         <td ng_bind="m.nome"></td>
+			        <td>
+			        	<i class="btn btn-success btn-xs fa fa-download"  
+		        		   ng-click="visualizar(m.chaveArquivo)" 
+		        		   data-toggle="tooltip" 
+		        		   title="Baixar Manual"></i>
+			        </td>
+			    </tr>
+			</table>
+		</div>
+		
+		<div class="tile-footer dvd dvd-top">
+			<div class="row">
+			</div>
+		</div>
+	</section>
+</div>
