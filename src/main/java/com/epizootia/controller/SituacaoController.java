@@ -151,7 +151,7 @@ public class SituacaoController {
 	private Situacao converteDTOParaEntity(SituacaoDTO situacaoDTO) {
 		Situacao situacao = new Situacao();
 		situacao.setId(situacaoDTO.getId());
-		situacao.setSituacao(situacao.getSituacao());
+		situacao.setSituacao(situacaoDTO.getSituacao());
 		return situacao;
 	}
 

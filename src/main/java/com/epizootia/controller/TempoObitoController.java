@@ -155,8 +155,8 @@ public class TempoObitoController {
 	 */
 	private TempoObito converteDTOParaEntity(TempoObitoDTO tempoObitoDTO) {
 		TempoObito tempoObito = new TempoObito();
-		tempoObito.setId(tempoObito.getId());
-		tempoObito.setTempoObito(tempoObito.getTempoObito());
+		tempoObito.setId(tempoObitoDTO.getId());
+		tempoObito.setTempoObito(tempoObitoDTO.getTempoObito());
 		return tempoObito;
 	}
 

@@ -156,7 +156,7 @@ public class NomePopularController {
 	private NomePopular converteDTOParaEntity(NomePopularDTO nomePopularDTO) {
 		NomePopular nomePopular = new NomePopular();
 		nomePopular.setId(nomePopularDTO.getId());
-		nomePopular.setNome(nomePopular.getNome());
+		nomePopular.setNome(nomePopularDTO.getNome());
 		return nomePopular;
 	}
 

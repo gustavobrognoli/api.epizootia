@@ -152,8 +152,8 @@ public class EspecieController {
 
 	private Especie converteDTOParaEntity(EspecieDTO especieDTO) {
 		Especie especie = new Especie();
-		especie.setCd_id(especieDTO.getCd_id());
-		especie.setDs_especie(especieDTO.getDs_especie());
+		especie.setId(especieDTO.getId());
+		especie.setEspecie(especieDTO.getEspecie());
 		return especie;
 	}
 
@@ -167,8 +167,8 @@ public class EspecieController {
 
 	private EspecieDTO converteEntityParaDTO(Especie especie) {
 		EspecieDTO especieDTO = new EspecieDTO();
-		especieDTO.setCd_id(especie.getCd_id());
-		especieDTO.setDs_especie(especie.getDs_especie());
+		especieDTO.setId(especie.getId());
+		especieDTO.setEspecie(especie.getEspecie());
 		return especieDTO;
 	}
 
@@ -180,8 +180,8 @@ public class EspecieController {
 	 * @param result
 	 */
 	private void validaSeExiste(EspecieDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getCd_id()).
-		ifPresent( esp -> result.addError(new ObjectError("Especie do Animal", dTO.getDs_especie() + "já existe")));
+		this.service.findById(dTO.getId()).
+		ifPresent( esp -> result.addError(new ObjectError("Especie do Animal", dTO.getEspecie() + "já existe")));
 	}
 
 }

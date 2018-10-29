@@ -18,32 +18,36 @@ public class Especie implements Serializable {
 	 */
 	private static final long serialVersionUID = -5703247103098292551L;
 
-	private int cd_id;
-	private String ds_especie;
-	
+	private int id;
+	private String especie;
+
 	public Especie() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Id
+	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int getCd_id() {
-		return cd_id;
+	public int getId() {
+		return id;
 	}
 
-	public void setCd_id(int cd_id) {
-		this.cd_id = cd_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Column(name = "ds_especie")
-	public String getDs_especie() {
-		return ds_especie;
+	public String getEspecie() {
+		return especie;
 	}
 
-	public void setDs_especie(String ds_especie) {
-		this.ds_especie = ds_especie;
+	public void setEspecie(String especie) {
+		this.especie = especie;
+	}
+
+	@Override
+	public String toString() {
+		return "Especie [id=" + id + ", especie=" + especie + "]";
 	}
 
 }
-
-	

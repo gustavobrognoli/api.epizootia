@@ -1,8 +1,5 @@
 package com.epizootia.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 public class AnormalidadeDTO {
 
 	private int id;
@@ -29,7 +26,6 @@ public class AnormalidadeDTO {
 		this.id = id;
 	}
 	
-	@NotNull(message = "Baba não  deve ser vazia")
 	public Boolean getBaba() {
 		return baba;
 	}
@@ -38,7 +34,6 @@ public class AnormalidadeDTO {
 		this.baba = baba;
 	}
 
-	@NotNull(message = "Bicheira não  deve ser vazia")
 	public Boolean getBicheira() {
 		return bicheira;
 	}
@@ -47,7 +42,6 @@ public class AnormalidadeDTO {
 		this.bicheira = bicheira;
 	}
 
-	@NotNull(message = "Caroco não  deve ser vazio")
 	public Boolean getCaroco() {
 		return caroco;
 	}
@@ -56,7 +50,6 @@ public class AnormalidadeDTO {
 		this.caroco = caroco;
 	}
 
-	@NotNull(message = "Cegueira não  deve ser vazia")
 	public Boolean getCegueira() {
 		return cegueira;
 	}
@@ -65,7 +58,6 @@ public class AnormalidadeDTO {
 		this.cegueira = cegueira;
 	}
 
-	@NotNull(message = "Diarreia não  deve ser vazia")
 	public Boolean getDiarreia() {
 		return diarreia;
 	}
@@ -74,7 +66,6 @@ public class AnormalidadeDTO {
 		this.diarreia = diarreia;
 	}
 
-	@NotNull(message = "Fratura não  deve ser vazia")
 	public Boolean getFratura() {
 		return fratura;
 	}
@@ -83,7 +74,6 @@ public class AnormalidadeDTO {
 		this.fratura = fratura;
 	}
 
-	@NotNull(message = "Qurimadura não  deve ser vazia")
 	public Boolean getQueimadura() {
 		return queimadura;
 	}
@@ -92,7 +82,6 @@ public class AnormalidadeDTO {
 		this.queimadura = queimadura;
 	}
 
-	@NotNull(message = "Sangramento não  deve ser vazia")
 	public Boolean getSangramento() {
 		return sangramento;
 	}
@@ -101,7 +90,6 @@ public class AnormalidadeDTO {
 		this.sangramento = sangramento;
 	}
 
-	@NotNull(message = "Secrecao não  deve ser vazia")
 	public Boolean getSecrecao() {
 		return secrecao;
 	}
@@ -110,7 +98,6 @@ public class AnormalidadeDTO {
 		this.secrecao = secrecao;
 	}
 
-	@NotEmpty(message = "Outra Anormalidade não  deve ser vazia")
 	public String getOutraAnormalidade() {
 		return outraAnormalidade;
 	}

@@ -153,7 +153,7 @@ public class IdadeController {
 	private Idade converteDTOParaEntity(IdadeDTO idadeDTO) {
 		Idade idade = new Idade();
 		idade.setId(idadeDTO.getId());
-		idade.setIdade(idade.getIdade());
+		idade.setIdade(idadeDTO.getIdade());
 		return idade;
 	}
 	/**

@@ -151,17 +151,17 @@ public class AnormalidadeController {
 	 */
 	private Anormalidade converteDTOParaEntity(AnormalidadeDTO anormalidadeDTO) {
 		Anormalidade anormalidade = new Anormalidade();
-		anormalidade.setId(anormalidade.getId());
-		anormalidade.setBaba(anormalidade.getBaba());
-		anormalidade.setBicheira(anormalidade.getBicheira());
-		anormalidade.setCaroco(anormalidade.getCaroco());
-		anormalidade.setCegueira(anormalidade.getCegueira());
-		anormalidade.setDiarreia(anormalidade.getDiarreia());
-		anormalidade.setFratura(anormalidade.getFratura());
-		anormalidade.setQueimadura(anormalidade.getQueimadura());
-		anormalidade.setSangramento(anormalidade.getSangramento());
-		anormalidade.setSecrecao(anormalidade.getSecrecao());
-		anormalidade.setOutraAnormalidade(anormalidade.getOutraAnormalidade());
+		anormalidade.setId(anormalidadeDTO.getId());
+		anormalidade.setBaba(anormalidadeDTO.getBaba());
+		anormalidade.setBicheira(anormalidadeDTO.getBicheira());
+		anormalidade.setCaroco(anormalidadeDTO.getCaroco());
+		anormalidade.setCegueira(anormalidadeDTO.getCegueira());
+		anormalidade.setDiarreia(anormalidadeDTO.getDiarreia());
+		anormalidade.setFratura(anormalidadeDTO.getFratura());
+		anormalidade.setQueimadura(anormalidadeDTO.getQueimadura());
+		anormalidade.setSangramento(anormalidadeDTO.getSangramento());
+		anormalidade.setSecrecao(anormalidadeDTO.getSecrecao());
+		anormalidade.setOutraAnormalidade(anormalidadeDTO.getOutraAnormalidade());
 		return anormalidade;
 	}
 	/**
