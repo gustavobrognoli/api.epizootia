@@ -1,6 +1,22 @@
 angular.module("vigilantos").factory("api", function($http, $window, $filter, $websocket){
 
-	return{
+	return{    
+// =============================================================================================//
+// EPIZOOTIA
+// =============================================================================================//
+		 epizootia:{
+	        animal:{
+	        	insert: function( animal ){
+	        		return $http.post("./epizootia-pnh/api/animal", animal);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./epizootia-pnh/api/animal");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/epizootia-pnh/api/animal/" + id);
+	            }
+	        },	 
+	    }, 
 // =============================================================================================//
 // USUARIO //
 // =============================================================================================//
@@ -62,25 +78,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 				return $http.put("./rest/mensagem/update-lida/"+ id );
 			}
 		},
-// =============================================================================================//
-// SISTEMA //
-// =============================================================================================//
-		sistema: {
-			getParametro: function(key){
-				return $http.get("./rest/sistema/"+ key );
-			},
-			setParametro: function(key, value){
-				return $http.post("./rest/sistema/"+ key, value );
-			}
-		},
-		manualUsuario: {
-			getManuais: function(){
-				return $http.post("./rest/manual-usuario/lista" );
-			},
-			getOpenManual: function( chave ){
-				$window.open("./rest/manual-usuario/manual.pdf?ds_chave="+ chave,"_blank");
-			}
-		},
+
 // =============================================================================================//
 // MUNICIPIO //
 // =============================================================================================//
@@ -675,23 +673,6 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
         			return $http.delete("./rest/artropodes/taxonomia/"+id);
         		}
         	}
-        },
-        
-     // =============================================================================================//
-     // EPIZOOTIA
-     // =============================================================================================//
-        epizootia:{
-        	animal:{
-        		insert: function( animal ){
-        			return $http.post("./epizootia-pnh/api/animal", animal);
-        		},
-        		getAll: function(){
-        			return $http.get("./epizootia-pnh/api/animal");
-        		},
-            	excluir: function( id ){
-        			return $http.delete("/epizootia-pnh/api/animal/" + id);
-            	}
-        	},	 
-        }      
+        }     
 	}
 });

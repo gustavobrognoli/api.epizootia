@@ -37,7 +37,7 @@ public class AnormalidadeController {
 
 	/**
 	 * 
-	 * Consulta todos as anormalidades
+	 * Consulta todas as anormalidades
 	 * 
 	 * @return List<AnormalidadeDTO>
 	 */
@@ -64,7 +64,7 @@ public class AnormalidadeController {
 	 * 
 	 * Consulta de anormalidade por id
 	 * 
-	 * @return List<AnormalidaeDTO>
+	 * @return List<AnormalidadeDTO>
 	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Response<AnormalidadeDTO>> consulta(@PathVariable("id") int id) {

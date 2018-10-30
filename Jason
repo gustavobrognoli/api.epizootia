@@ -1,10 +1,13 @@
-{
-	"codigo" : "55555",
-	  "nome" : "Luiz",
- "sobrenome" : "Brognoli"
+No JSON sempre chamar pelo nome da entidade
+
+{ 
+"figado": 1,
+"rim": 1,
+"cerebro": 1,
+"baco": 1
 }
 
 {
-	"ds_nome" : "Prego",
+"nome" : "Prego",
 }
 
