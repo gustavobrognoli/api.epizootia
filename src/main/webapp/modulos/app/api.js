@@ -139,85 +139,6 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 			}
 		},
 // =============================================================================================//
-// PNEM //
-// =============================================================================================//
-        pnem:{
-            insert: function(pnem){
-                return $http.post("./rest/pnem", pnem);
-            },
-            update: function(pnem){
-                return $http.put("./rest/pnem", pnem);
-            },
-            excluir: function( id ){
-            	  return $http.delete("./rest/pnem/"+ id );
-            },
-            get: function(id){
-                return $http.get("./rest/pnem/"+ id );
-            },
-            getAll: function(){
-                return $http.get("./rest/pnem");
-            },
-            getDto: function(filtroPnem){
-                return $http.post("./rest/pnem/dto", filtroPnem);
-            },
-            getRelatorio: function( filtro ){
-                $window.open("./rest/pnem/relatorio.xls"
-                			+"?type="+ filtro.type 
-                			+"&idRegional="+ filtro.idRegional 
-                			+"&idMunicipio="+ filtro.idMunicipio 
-                			+"&semana="+ filtro.semana 
-                			+"&ano="+ filtro.ano,
-                			"_blank");
-            }
-        },
-// =============================================================================================//
-// SALA DE PARTO //
-// =============================================================================================//
-        salaparto:{
-            insert: function(nascimentos){
-                return $http.post("./rest/salaparto/insert", nascimentos);
-            },
-            update: function(salaparto){
-                return $http.post("./rest/salaparto/update", salaparto);
-            },
-            excluir: function( id ){
-            	  return $http.delete("./rest/salaparto/delete/"+ id );
-            },
-            get: function(id){
-                return $http.get("./rest/salaparto/getById/"+ id );
-            },
-            getAll: function(filtro){
-                return $http.post("./rest/salaparto/nascimentos", filtro);
-            },
-            getDn: function(dn){
-                return $http.get("./rest/salaparto/dn/" + dn);
-            },
-            getEstabelecimentos: function(municipio){
-                return $http.post("./rest/salaparto/estabelecimentos", municipio);
-            },
-            getRelatorio: function( filtro ){
-                $window.open("./rest/pnem/relatorio.xls"
-                			+"?type="+ filtro.type 
-                			+"&idRegional="+ filtro.idRegional 
-                			+"&idMunicipio="+ filtro.idMunicipio 
-                			+"&semana="+ filtro.semana 
-                			+"&ano="+ filtro.ano,
-                			"_blank");
-            },
-            getRelatorioPdf: function( filtro ){
-            	$window.open("./rest/salaparto/sala_parto_comparativo.pdf?" +
-        				"ano="+ filtro.ano +
-        				"&mes="+ (filtro.mes == undefined ? 0 : filtro.mes) +
-        				"&idRegional="+ (filtro.idRegional == undefined ? 0 : filtro.idRegional) +
-        				"&idEstabelecimento="+ (filtro.idEstabelecimento == undefined ? 0 : filtro.idEstabelecimento) +
-        				"&idMunicipio="+ (filtro.idMunicipio == undefined ? 0 : filtro.idMunicipio)
-//        				"&idSexo="+ filtro.idSexo +
-//        				"&dtInicio="+ dtInicio +
-//        				"&dtFim="+ dtFim
-        				,"_blank");
-            }
-        },
-// =============================================================================================//
 // LOCALIDADES
 // =============================================================================================//
         localidade:{
@@ -755,5 +676,22 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
         		}
         	}
         },
+        
+     // =============================================================================================//
+     // EPIZOOTIA
+     // =============================================================================================//
+        epizootia:{
+        	animal:{
+        		insert: function( animal ){
+        			return $http.post("./epizootia-pnh/api/animal", animal);
+        		},
+        		getAll: function(){
+        			return $http.get("./epizootia-pnh/api/animal");
+        		},
+            	excluir: function( id ){
+        			return $http.delete("/epizootia-pnh/api/animal/" + id);
+            	}
+        	},	 
+        }      
 	}
 });
