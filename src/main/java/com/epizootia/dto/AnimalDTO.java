@@ -7,7 +7,7 @@ public class AnimalDTO  {
 
 	private int id;
 	private int nomePopular;
-	private int especie;
+	private EspecieDTO especie;
 	private int situacao;
 	private int anormalidade;
 	private int sexo;
@@ -41,11 +41,11 @@ public class AnimalDTO  {
 	}
 
 	@Min(value = 0, message = "Especie não  deve ser vazia")
-	public int getEspecie() {
+	public EspecieDTO getEspecie() {
 		return especie;
 	}
 
-	public void setEspecie(int especie) {
+	public void setEspecie(EspecieDTO especie) {
 		this.especie = especie;
 	}
 

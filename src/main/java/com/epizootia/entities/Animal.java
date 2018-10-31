@@ -20,7 +20,7 @@ public class Animal implements Serializable {
 
 	private int id;
 	private int nomePopular;
-	private int especie;
+	private Especie especie;
 	private int situacao;
 	private int anormalidade;
 	private int sexo;
@@ -57,11 +57,11 @@ public class Animal implements Serializable {
 	}
 
 	@Column(name = "cd_especie")
-	public int getEspecie() {
+	public Especie getEspecie() {
 		return especie;
 	}
 
-	public void setEspecie(int especie) {
+	public void setEspecie(Especie especie) {
 		this.especie = especie;
 	}
 

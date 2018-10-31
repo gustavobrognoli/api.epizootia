@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epizootia.dto.AnimalDTO;
+import com.epizootia.dto.EspecieDTO;
 import com.epizootia.entities.Animal;
 import com.epizootia.response.Response;
 import com.epizootia.services.AnimalService;
@@ -45,8 +46,7 @@ public class AnimalController {
 	public ResponseEntity<Response<List<AnimalDTO>>> listaTodos() {
 		Response<List<AnimalDTO>> response = new Response<List<AnimalDTO>>();
 
-		List<AnimalDTO> animalDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<AnimalDTO> animalDTOS = service.findAll().stream().map(this::converteEntityParaDTO).collect(Collectors.toList());
 
 		if (animalDTOS.isEmpty()) {
 
@@ -156,7 +156,8 @@ public class AnimalController {
 		Animal animal = new Animal();
 		animal.setId(animalDTO.getId());
 		animal.setNomePopular(animalDTO.getNomePopular());
-		animal.setEspecie(animalDTO.getEspecie());
+		EspecieController especieController = new EspecieController(); 
+		animal.setEspecie(especieController.converteDTOParaEntity(animalDTO.getEspecie()));
 		animal.setSituacao(animalDTO.getSituacao());
 		animal.setAnormalidade(animalDTO.getAnormalidade());
 		animal.setSexo(animalDTO.getSexo());
@@ -181,7 +182,8 @@ public class AnimalController {
 		AnimalDTO animalDTO = new AnimalDTO();
 		animalDTO.setId(animal.getId());
 		animalDTO.setNomePopular(animal.getNomePopular());
-		animalDTO.setEspecie(animal.getEspecie());
+		EspecieController especieController = new EspecieController(); 
+		animalDTO.setEspecie(especieController.converteEntityParaDTO(animal.getEspecie()));
 		animalDTO.setSituacao(animal.getSituacao());
 		animalDTO.setAnormalidade(animal.getAnormalidade());
 		animalDTO.setSexo(animal.getSexo());

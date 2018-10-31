@@ -19,13 +19,13 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        
 	        especie:{
 	        	insert: function( animal ){
-	        		return $http.post("./epizootia-pnh/api/especie", especie);
+	        		return $http.post("./api/especie", especie);
 	        	},
 	        	getAll: function(){
-	        		return $http.get("./epizootia-pnh/api/especie");
+	        		return $http.get("./api/especie");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/epizootia-pnh/api/especie/" + id);
+	        		return $http.delete("/api/especie/" + id);
 	            }
 	        },
 	    }, 

@@ -150,7 +150,7 @@ public class EspecieController {
 	 * @return Entity
 	 */
 
-	private Especie converteDTOParaEntity(EspecieDTO especieDTO) {
+	public Especie converteDTOParaEntity(EspecieDTO especieDTO) {
 		Especie especie = new Especie();
 		especie.setId(especieDTO.getId());
 		especie.setEspecie(especieDTO.getEspecie());
@@ -165,7 +165,7 @@ public class EspecieController {
 	 * @return DTO
 	 */
 
-	private EspecieDTO converteEntityParaDTO(Especie especie) {
+	public EspecieDTO converteEntityParaDTO(Especie especie) {
 		EspecieDTO especieDTO = new EspecieDTO();
 		especieDTO.setId(especie.getId());
 		especieDTO.setEspecie(especie.getEspecie());

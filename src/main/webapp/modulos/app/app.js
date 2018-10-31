@@ -1,4 +1,3 @@
-
 var app = angular.module("vigilantos",
 		[ 'ngRoute', 'ngSanitize', 'ui.bootstrap', 'toastr', 
 		  'picardy.fontawesome', 'mgcrea.ngStrap' , 'ngMap', 

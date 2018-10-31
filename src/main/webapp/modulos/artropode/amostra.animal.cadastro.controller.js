@@ -1,4 +1,4 @@
-angular.module("vigilantos").controller('CadastroController', 
+app.controller('CadastroController', 
 		function ($scope, api, $uibModal, $uibModalInstance, toastr, amostra){
 	
 	$scope.amostra = {};
