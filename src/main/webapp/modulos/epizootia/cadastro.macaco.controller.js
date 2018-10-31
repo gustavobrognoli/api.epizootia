@@ -1,6 +1,11 @@
 angular.module("vigilantos").controller('CadastroMacacoController', 
-function ($scope, api, $uibModal, $uibModalInstance, toastr, amostra){
+function ($scope, api, $uibModal, $uibModalInstance, toastr, animal){
 	
+	$scope.animal = {};
+	
+	api.artropodes.especie.getAll().then(function( response ) {
+		$scope.especie = response.data;
+	});
 	
 	$scope.salvar = function(animal){
 		api.epizootia.animail.insert( animal ).then( function(response){

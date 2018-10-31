@@ -18,16 +18,16 @@
 			<div class="form-group col-sm-6">
 				<label class="control-label">Nome Popular:</label> <select autofocus
 					name="nomePopularAnimal" class="form-control"
-					ng-options="n as n.especie for n in nomePopularAnimal | orderBy:'nome' track by n.id"
+					ng-options="n as n.nome for n in nome | orderBy:'nome' track by n.id"
 					ng-model="animal.especie" required>
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">EspÃ©cie:</label> <select autofocus
-					name="especieAnimal" class="form-control"
-					ng-options="e as e.especie for e in especiesAnimal | orderBy:'especie' track by e.id"
+				<label class="control-label">Espécie:</label> <select autofocus
+					name="especie" class="form-control"
+					ng-options="e as e.especie for e in especie | orderBy:'especie' track by e.id"
 					ng-model="animal.especie" required>
 					<option value="" hidden>Selecione...</option>
 				</select>

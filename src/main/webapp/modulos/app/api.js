@@ -15,7 +15,19 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	            excluir: function( id ){
 	        		return $http.delete("/epizootia-pnh/api/animal/" + id);
 	            }
-	        },	 
+	        },
+	        
+	        especie:{
+	        	insert: function( animal ){
+	        		return $http.post("./epizootia-pnh/api/especie", especie);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./epizootia-pnh/api/especie");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/epizootia-pnh/api/especie/" + id);
+	            }
+	        },
 	    }, 
 // =============================================================================================//
 // USUARIO //
@@ -26,7 +38,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 		    				+ location.host + '/'
 		    				+ location.pathname + path);
 		},
-		usuario:{
+/*		usuario:{
 			insert: function(user){
 				return $http.post("./rest/usuario", user);
 			},
@@ -48,7 +60,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 			getDestinatarios: function(){
 				return $http.get("./rest/usuario/destinatarios");
 			}
-		},
+		},*/
 // =============================================================================================//
 // MENSAGEM //
 // =============================================================================================//

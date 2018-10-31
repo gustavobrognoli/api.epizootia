@@ -9,13 +9,13 @@ angular.module("vigilantos").controller('NavbarController',
     };
 
 	$scope.isPermissaoDengue = true;
-	
-	api.usuario.getUserOnline().then( function(response) {
-		$scope.usuarioOnline = response.data;
-		$scope.getPermissoes();
-	});
-    
-    $scope.getPermissoes = function(){
+//	
+//	api.usuario.getUserOnline().then( function(response) {
+//		$scope.usuarioOnline = response.data;
+//		$scope.getPermissoes();
+//	});
+//    
+ /*   $scope.getPermissoes = function(){
 
 		for (i = 0; i < $scope.usuarioOnline.roles.length; i++) { 
 			var role = $scope.usuarioOnline.roles[i];
@@ -117,7 +117,7 @@ angular.module("vigilantos").controller('NavbarController',
 		
 		$scope.roles = $scope.usuarioOnline.roles;
 	}
-
+*/
     $scope.redirecionaVigilantosAntigo = function(){
     	api.usuario.redirectOld();
     }
@@ -133,7 +133,7 @@ angular.module("vigilantos").controller('NavbarController',
 	    });
 	};
 	
-    $scope.openAlertas = function(){
+ /*   $scope.openAlertas = function(){
     	api.sialieAlertas.getAlertasByUsuario($scope.usuarioOnline.id).then(function(response){
     		
     		for (i = 0; i < $scope.usuarioOnline.roles.length; i++) { 
@@ -157,7 +157,7 @@ angular.module("vigilantos").controller('NavbarController',
     	});
     	
     }
-    
+*/    
     $scope.atualizaLatLongFocosDengue = function(){
     	toastr.warning("Atualização sendo efetuada em background");
     	
