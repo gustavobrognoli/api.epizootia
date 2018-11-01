@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epizootia.dto.AnimalDTO;
-import com.epizootia.dto.EspecieDTO;
 import com.epizootia.entities.Animal;
 import com.epizootia.response.Response;
 import com.epizootia.services.AnimalService;
@@ -156,17 +155,28 @@ public class AnimalController {
 		Animal animal = new Animal();
 		animal.setId(animalDTO.getId());
 		animal.setNomePopular(animalDTO.getNomePopular());
+		
 		EspecieController especieController = new EspecieController(); 
 		animal.setEspecie(especieController.converteDTOParaEntity(animalDTO.getEspecie()));
+		
 		animal.setSituacao(animalDTO.getSituacao());
+		
 		animal.setAnormalidade(animalDTO.getAnormalidade());
+		
 		animal.setSexo(animalDTO.getSexo());
+		
 		animal.setIdade(animalDTO.getIdade());
+		
 		animal.setApreensao(animalDTO.getApreensao());
+		
 		animal.setVidaLivre(animalDTO.getVidaLivre());
+		
 		animal.setCativeiro(animalDTO.getCativeiro());
+		
 		animal.setTempoObito(animalDTO.getTempoObito());
+		
 		animal.setVisceras(animalDTO.getVisceras());
+		
 		animal.setClassificacaoFA(animalDTO.getClassificacaoFA());
 		return animal;
 	}
