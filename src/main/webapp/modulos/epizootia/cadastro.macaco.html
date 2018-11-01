@@ -18,14 +18,14 @@
 			<div class="form-group col-sm-6">
 				<label class="control-label">Nome Popular:</label> <select autofocus
 					name="nomePopularAnimal" class="form-control"
-					ng-options="n as n.nome for n in nome | orderBy:'nome' track by n.id"
-					ng-model="animal.especie" required>
+					ng-options="n as n.nome for n in nomesPopulares | orderBy:'nome' track by n.id"
+					ng-model="animal.nomePopular" required>
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">Espï¿½cie:</label> <select autofocus
+				<label class="control-label">Espécie:</label> <select autofocus
 					name="especie" class="form-control"
 					ng-options="e as e.especie for e in especies | orderBy:'especie' track by e.id"
 					ng-model="animal.especie" required>
@@ -37,8 +37,8 @@
 			<div class="form-group col-sm-6">
 				<label class="control-label">Idade:</label> <select autofocus
 					name="idadeAnimal" class="form-control"
-					ng-options="i as i.idade for i in idadesAnimal | orderBy:'idade' track by i.id"
-					ng-model="animal.nomePopular" required>
+					ng-options="i as i.idade for i in idades | orderBy:'idade' track by i.id"
+					ng-model="animal.idade" required>
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
@@ -46,25 +46,25 @@
 			<div class="form-group col-sm-6">
 				<label class="control-label">Sexo:</label> <select autofocus
 					name="sexoAnimal" class="form-control"
-					ng-options="s as s.sexo for s in sexoAnimal | orderBy:'sexo' track by s.id"
+					ng-options="s as s.sexo for s in sexos | orderBy:'sexo' track by s.id"
 					ng-model="animal.sexo" required>
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">SituaÃ§Ã£o:</label> <select autofocus
+				<label class="control-label">Situação:</label> <select autofocus
 					name="situcaoAnimal" class="form-control"
-					ng-options="s as s.situacao for s in sitacaoAnimal | orderBy:'situacao' track by s.id"
+					ng-options="s as s.situacao for s in situacoes | orderBy:'situacao' track by s.id"
 					ng-model="animal.situacao" required>
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">Tempo aproximado do Ã“bito</label> <select
+				<label class="control-label">Tempo aproximado do Óbito</label> <select
 					autofocus name="obitoAnimal" class="form-control"
-					ng-options="o as o.obito for o in obitoAnimal | orderBy:'obito' track by t.id"
+					ng-options="o as o.tempoObito for o in temposObitos | orderBy:'tempoObito' track by t.id"
 					ng-model="animal.tempoObito" required>
 					<option value="" hidden>Selecione...</option>
 				</select>

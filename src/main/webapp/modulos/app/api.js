@@ -5,7 +5,8 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 // EPIZOOTIA
 // =============================================================================================//
 		 epizootia:{
-	        animal:{
+	        
+			 animal:{
 	        	insert: function( animal ){
 	        		return $http.post("./epizootia-pnh/api/animal", animal);
 	        	},
@@ -17,8 +18,20 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	            }
 	        },
 	        
+	        nomePopular:{
+	        	insert: function( nomePopular ){
+	        		return $http.post("./api/nomePopular", nomePopular);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/nomePopular");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/nomePopular" + id);
+	            }
+	        },
+	        
 	        especie:{
-	        	insert: function( animal ){
+	        	insert: function( especie ){
 	        		return $http.post("./api/especie", especie);
 	        	},
 	        	getAll: function(){
@@ -28,6 +41,54 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.delete("/api/especie/" + id);
 	            }
 	        },
+	        	        
+	        idade:{
+	        	insert: function( idade ){
+	        		return $http.post("./api/idade", idade);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/idade");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/idade/" + id);
+	            }
+	        },
+	        
+	        sexo:{
+	        	insert: function( sexo ){
+	        		return $http.post("./api/sexo", sexo);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/sexo");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/sexo/" + id);
+	            }
+	        },
+	        
+	        situacao:{
+	        	insert: function( situacao ){
+	        		return $http.post("./api/situacao", situacao);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/situacao");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/situacao/" + id);
+	            }
+	        },
+	        
+	        tempoObito:{
+	        	insert: function( tempoObito ){
+	        		return $http.post("./api/tempoObito", tempoObito);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/tempoObito");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/tempoObito/" + id);
+	            }
+	        },           
 	    }, 
 // =============================================================================================//
 // USUARIO //
