@@ -26,6 +26,8 @@ import com.epizootia.entities.Idade;
 import com.epizootia.response.Response;
 import com.epizootia.services.IdadeService;
 
+@RestController
+@RequestMapping("/api/idade")
 public class IdadeController {
 
 	private static Logger log = LoggerFactory.getLogger(IdadeController.class);
