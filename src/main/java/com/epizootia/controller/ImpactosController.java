@@ -50,8 +50,8 @@ public class ImpactosController {
 
 		if (impactosDTOS.isEmpty()) {
 
-			log.error("Não há animais cadastrados");
-			response.getErrors().add("Não há animais cadastrados");
+			log.error("Não há impactos cadastrados");
+			response.getErrors().add("Não há impactos cadastrados");
 
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -75,8 +75,8 @@ public class ImpactosController {
 
 		if (!impactos.isPresent()) {
 
-			log.error("Id do Impactos não cadastrado na base de dados");
-			response.getErrors().add("Id do Impactos não cadastrado na base de dados");
+			log.error("Id do Impacto não cadastrado na base de dados");
+			response.getErrors().add("Id do Impacto não cadastrado na base de dados");
 
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -85,7 +85,7 @@ public class ImpactosController {
 
 		response.setData(impactosDTO);
 
-		log.info("Consulta do impactos {}", impactosDTO);
+		log.info("Consulta do impacto {}", impactosDTO);
 
 		return ResponseEntity.ok(response);
 	}
@@ -131,8 +131,8 @@ public class ImpactosController {
 		Optional<Impactos> impactos = service.findById(id);
 
 		if (!impactos.isPresent()) {
-			log.error("Id do Impactos não cadastrado na base de dados");
-			response.getErrors().add("Id do Impactos não cadastrado na base de dados");
+			log.error("Id do Impacto não cadastrado na base de dados");
+			response.getErrors().add("Id do Impacto não cadastrado na base de dados");
 			return ResponseEntity.badRequest().body(response);
 		}
 

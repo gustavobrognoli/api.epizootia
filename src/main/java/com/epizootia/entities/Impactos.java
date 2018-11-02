@@ -37,7 +37,7 @@ public class Impactos implements Serializable {
 	public Impactos() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Id
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -173,6 +173,15 @@ public class Impactos implements Serializable {
 
 	public void setOutroImpacto(String outroImpacto) {
 		this.outroImpacto = outroImpacto;
+	}
+
+	@Override
+	public String toString() {
+		return "Impactos [id=" + id + ", assentamentos=" + assentamentos + ", alteracaoRio=" + alteracaoRio
+				+ ", avancoAgropecuario=" + avancoAgropecuario + ", desastres=" + desastres + ", desmatamento="
+				+ desmatamento + ", petroleo=" + petroleo + ", obras=" + obras + ", acidentais=" + acidentais
+				+ ", imoveis=" + imoveis + ", incendio=" + incendio + ", turismo=" + turismo + ", urbanizacao="
+				+ urbanizacao + ", impactosOutro=" + impactosOutro + ", outroImpacto=" + outroImpacto + "]";
 	}
 
 }
