@@ -151,7 +151,7 @@ public class RecomendacaoVacinalController {
 	 * @return Entity
 	 */
 
-	private RecomendacaoVacinal converteDTOParaEntity(RecomendacaoVacinalDTO recomendacaoVacinalDTO) {
+	public RecomendacaoVacinal converteDTOParaEntity(RecomendacaoVacinalDTO recomendacaoVacinalDTO) {
 		RecomendacaoVacinal recomendacaoVacinal = new RecomendacaoVacinal();
 		recomendacaoVacinal.setId(recomendacaoVacinalDTO.getId());
 		recomendacaoVacinal.setRecomendacaoVacinal(recomendacaoVacinalDTO.getRecomendacaoVacinal());
@@ -166,7 +166,7 @@ public class RecomendacaoVacinalController {
 	 * @return DTO
 	 */
 
-	private RecomendacaoVacinalDTO converteEntityParaDTO(RecomendacaoVacinal recomendacaoVacinal) {
+	public RecomendacaoVacinalDTO converteEntityParaDTO(RecomendacaoVacinal recomendacaoVacinal) {
 		RecomendacaoVacinalDTO recomendacaoVacinalDTO = new RecomendacaoVacinalDTO();
 		recomendacaoVacinalDTO.setId(recomendacaoVacinal.getId());
 		recomendacaoVacinalDTO.setRecomendacaoVacinal(recomendacaoVacinal.getRecomendacaoVacinal());

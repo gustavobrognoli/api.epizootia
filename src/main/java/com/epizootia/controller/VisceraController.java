@@ -151,7 +151,7 @@ public class VisceraController {
 	 * @param visceraDTO
 	 * @return Entity
 	 */
-	private Viscera converteDTOParaEntity(VisceraDTO visceraDTO) {
+	public Viscera converteDTOParaEntity(VisceraDTO visceraDTO) {
 		Viscera viscera = new Viscera();
 		viscera.setId(visceraDTO.getId());
 		viscera.setFigado(visceraDTO.getFigado());
@@ -173,7 +173,7 @@ public class VisceraController {
 	 * @param anormalidade
 	 * @return DTO
 	 */
-	private VisceraDTO converteEntityParaDTO(Viscera viscera) {
+	public VisceraDTO converteEntityParaDTO(Viscera viscera) {
 		VisceraDTO visceraDTO = new VisceraDTO();
 		visceraDTO.setId(viscera.getId());
 		visceraDTO.setFigado(viscera.getFigado());

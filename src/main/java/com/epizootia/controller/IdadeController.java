@@ -151,7 +151,7 @@ public class IdadeController {
 	 * @param idadeDTO
 	 * @return Entity
 	 */
-	private Idade converteDTOParaEntity(IdadeDTO idadeDTO) {
+	public Idade converteDTOParaEntity(IdadeDTO idadeDTO) {
 		Idade idade = new Idade();
 		idade.setId(idadeDTO.getId());
 		idade.setIdade(idadeDTO.getIdade());
@@ -165,7 +165,7 @@ public class IdadeController {
 	 * @param idade
 	 * @return DTO
 	 */
-	private IdadeDTO converteEntityParaDTO(Idade idade) {
+	public IdadeDTO converteEntityParaDTO(Idade idade) {
 		IdadeDTO idadeDTO = new IdadeDTO();
 		idadeDTO.setId(idade.getId());
 		idadeDTO.setIdade(idade.getIdade());

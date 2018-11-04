@@ -43,4 +43,11 @@ public class MoradorServiceImpl implements MoradorService {
 	public List<Morador> findAll() {
 		return repository.findAll();
 	}
+
+	@Override
+	public Optional<Morador> findTelefone(String telefone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

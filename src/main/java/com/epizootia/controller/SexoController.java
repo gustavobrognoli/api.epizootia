@@ -151,7 +151,7 @@ public class SexoController {
 	 * @return Entity
 	 */
 
-	private Sexo converteDTOParaEntity(SexoDTO sexoDTO) {
+	public Sexo converteDTOParaEntity(SexoDTO sexoDTO) {
 		Sexo sexo = new Sexo();
 		sexo.setId(sexoDTO.getId());
 		sexo.setSexo(sexoDTO.getSexo());
@@ -166,7 +166,7 @@ public class SexoController {
 	 * @return DTO
 	 */
 
-	private SexoDTO converteEntityParaDTO(Sexo sexo) {
+	public SexoDTO converteEntityParaDTO(Sexo sexo) {
 		SexoDTO sexoDTO = new SexoDTO();
 		sexoDTO.setId(sexo.getId());
 		sexoDTO.setSexo(sexo.getSexo());

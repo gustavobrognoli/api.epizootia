@@ -152,7 +152,7 @@ public class ImpactosController {
 	 * @param impactosDTO
 	 * @return Entity
 	 */
-	private Impactos converteDTOParaEntity(ImpactosDTO impactosDTO) {
+	public Impactos converteDTOParaEntity(ImpactosDTO impactosDTO) {
 		Impactos impactos = new Impactos();
 		impactos.setId(impactosDTO.getId());
 		impactos.setAssentamentos(impactosDTO.getAssentamentos());
@@ -179,7 +179,7 @@ public class ImpactosController {
 	 * @param impactos
 	 * @return DTO
 	 */
-	private ImpactosDTO converteEntityParaDTO(Impactos impactos) {
+	public ImpactosDTO converteEntityParaDTO(Impactos impactos) {
 		ImpactosDTO impactosDTO = new ImpactosDTO();
 		impactosDTO.setId(impactosDTO.getId());
 		impactosDTO.setAssentamentos(impactos.getAssentamentos());

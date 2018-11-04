@@ -149,7 +149,7 @@ public class EquipamentoController {
 	 * @param equipamentoDTO
 	 * @return Entity
 	 */
-	private Equipamento converteDTOParaEntity(EquipamentoDTO equipamentoDTO) {
+	public Equipamento converteDTOParaEntity(EquipamentoDTO equipamentoDTO) {
 		Equipamento equipamento = new Equipamento();
 		equipamento.setId(equipamentoDTO.getId());
 		equipamento.setPuca(equipamentoDTO.isPuca());
@@ -165,7 +165,7 @@ public class EquipamentoController {
 	 * @param equipamento
 	 * @return DTO
 	 */
-	private EquipamentoDTO converteEntityParaDTO(Equipamento equipamento) {
+	public EquipamentoDTO converteEntityParaDTO(Equipamento equipamento) {
 		EquipamentoDTO equipamentoDTO = new EquipamentoDTO();
 		equipamentoDTO.setId(equipamento.getId());
 		equipamentoDTO.setPuca(equipamento.isPuca());

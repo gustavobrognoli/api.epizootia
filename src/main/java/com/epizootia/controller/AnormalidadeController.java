@@ -149,7 +149,7 @@ public class AnormalidadeController {
 	 * @param anormalidadeDTO
 	 * @return Entity
 	 */
-	private Anormalidade converteDTOParaEntity(AnormalidadeDTO anormalidadeDTO) {
+	public Anormalidade converteDTOParaEntity(AnormalidadeDTO anormalidadeDTO) {
 		Anormalidade anormalidade = new Anormalidade();
 		anormalidade.setId(anormalidadeDTO.getId());
 		anormalidade.setBaba(anormalidadeDTO.getBaba());
@@ -171,7 +171,7 @@ public class AnormalidadeController {
 	 * @param anormalidade
 	 * @return DTO
 	 */
-	private AnormalidadeDTO converteEntityParaDTO(Anormalidade anormalidade) {
+	public AnormalidadeDTO converteEntityParaDTO(Anormalidade anormalidade) {
 		AnormalidadeDTO anormalidadeDTO = new AnormalidadeDTO();
 		anormalidadeDTO.setId(anormalidade.getId());
 		anormalidadeDTO.setBaba(anormalidade.getBaba());

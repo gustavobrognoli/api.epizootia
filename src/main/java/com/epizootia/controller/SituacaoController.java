@@ -148,7 +148,7 @@ public class SituacaoController {
 	 * @return Entity
 	 */
 
-	private Situacao converteDTOParaEntity(SituacaoDTO situacaoDTO) {
+	public Situacao converteDTOParaEntity(SituacaoDTO situacaoDTO) {
 		Situacao situacao = new Situacao();
 		situacao.setId(situacaoDTO.getId());
 		situacao.setSituacao(situacaoDTO.getSituacao());
@@ -163,7 +163,7 @@ public class SituacaoController {
 	 * @return DTO
 	 */
 
-	private SituacaoDTO converteEntityParaDTO(Situacao situacao) {
+	public SituacaoDTO converteEntityParaDTO(Situacao situacao) {
 		SituacaoDTO situacaoDTO = new SituacaoDTO();
 		situacaoDTO.setId(situacao.getId());
 		situacaoDTO.setSituacao(situacao.getSituacao());

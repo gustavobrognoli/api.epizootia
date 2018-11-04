@@ -1,6 +1,26 @@
 angular.module("vigilantos").controller('EpizootiaNotificacaoController', 
 		function ($scope, api, $uibModal, toastr, $routeParams, $location) {
 
+	api.epizootia.morador.getAll().then(function( response ) {
+		$scope.moradores = response.data.data;
+	});
+
+	api.epizootia.situacaoFundiaria.getAll().then(function( response ) {
+		$scope.situacoesFundiarias = response.data.data;
+	});
+	
+	api.epizootia.unidadeConservacao.getAll().then(function( response ) {
+		$scope.unidadesConservacao = response.data.data;
+	});
+	
+	api.epizootia.registroEntomologico.getAll().then(function( response ) {
+		$scope.registrosEntomologicos = response.data.data;
+	});
+	
+	api.epizootia.metodoCaptura.getAll().then(function( response ) {
+		$scope.metodosCaptura = response.data.data;
+	});	
+	
 	$scope.addMacaco = function(size){
 		var modalInstance = $uibModal.open({ 
 			templateUrl: "modulos/epizootia/cadastro.macaco.html", 

@@ -153,7 +153,7 @@ public class TempoObitoController {
 	 * @param tempoObitoDTO
 	 * @return Entity
 	 */
-	private TempoObito converteDTOParaEntity(TempoObitoDTO tempoObitoDTO) {
+	public TempoObito converteDTOParaEntity(TempoObitoDTO tempoObitoDTO) {
 		TempoObito tempoObito = new TempoObito();
 		tempoObito.setId(tempoObitoDTO.getId());
 		tempoObito.setTempoObito(tempoObitoDTO.getTempoObito());
@@ -167,7 +167,7 @@ public class TempoObitoController {
 	 * @param animal
 	 * @return DTO
 	 */
-	private TempoObitoDTO converteEntityParaDTO(TempoObito tempoObito) {
+	public TempoObitoDTO converteEntityParaDTO(TempoObito tempoObito) {
 		TempoObitoDTO tempoObitoDTO = new TempoObitoDTO();
 		tempoObitoDTO.setId(tempoObito.getId());
 		tempoObitoDTO.setTempoObito(tempoObito.getTempoObito());

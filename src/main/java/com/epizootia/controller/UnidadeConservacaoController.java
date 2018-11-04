@@ -152,7 +152,7 @@ public class UnidadeConservacaoController {
 	 * @param unidadeConservacaoDTO
 	 * @return Entity
 	 */
-	private UnidadeConservacao converteDTOParaEntity(UnidadeConservacaoDTO unidadeConservacaoDTO) {
+	public UnidadeConservacao converteDTOParaEntity(UnidadeConservacaoDTO unidadeConservacaoDTO) {
 		UnidadeConservacao unidadeConservacao = new UnidadeConservacao();
 		unidadeConservacao.setId(unidadeConservacaoDTO.getId());
 		unidadeConservacao.setUnidadeConservacao(unidadeConservacaoDTO.getUnidadeConservacao());
@@ -167,7 +167,7 @@ public class UnidadeConservacaoController {
 	 * @param unidadeConservacao
 	 * @return DTO
 	 */
-	private UnidadeConservacaoDTO converteEntityParaDTO(UnidadeConservacao unidadeConservacao) {
+	public UnidadeConservacaoDTO converteEntityParaDTO(UnidadeConservacao unidadeConservacao) {
 		UnidadeConservacaoDTO unidadeConservacaoDTO = new UnidadeConservacaoDTO();
 		unidadeConservacaoDTO.setId(unidadeConservacao.getId());
 		unidadeConservacaoDTO.setUnidadeConservacao(unidadeConservacao.getUnidadeConservacao());

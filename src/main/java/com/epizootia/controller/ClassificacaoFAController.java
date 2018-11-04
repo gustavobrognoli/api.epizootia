@@ -99,49 +99,51 @@ public class ClassificacaoFAController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<ClassificacaoFADTO>> cadastrar(@Valid @RequestBody ClassificacaoFADTO DTO, BindingResult result) 
-			throws NoSuchAlgorithmException {
+	public ResponseEntity<Response<ClassificacaoFADTO>> cadastrar(@Valid @RequestBody ClassificacaoFADTO DTO,
+			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando classificacaoFA {}", DTO.toString());
-		
+
 		Response<ClassificacaoFADTO> response = new Response<>();
 		validaSeExiste(DTO, result);
 		ClassificacaoFA entity = this.converteDTOParaEntity(DTO);
-		
+
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		
+
 		this.service.persistir(entity);
 		response.setData(this.converteEntityParaDTO(entity));
 		return ResponseEntity.ok(response);
 	}
+
 	/**
 	 * 
 	 * Deleta classificacaoFA da base de dados
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<ClassificacaoFADTO>> apagar(@PathVariable("id") int id){
-		
+	public ResponseEntity<Response<ClassificacaoFADTO>> apagar(@PathVariable("id") int id) {
+
 		Response<ClassificacaoFADTO> response = new Response<ClassificacaoFADTO>();
 		Optional<ClassificacaoFA> classificacaoFA = service.findById(id);
-		
+
 		if (!classificacaoFA.isPresent()) {
 			log.error("Id da ClassificacaoFA não cadastrado na base de dados");
 			response.getErrors().add("Id da ClassificacaoFA não cadastrado na base de dados");
 			return ResponseEntity.badRequest().body(response);
 		}
-		
+
 		ClassificacaoFADTO classificacaoFADTO = converteEntityParaDTO(classificacaoFA.get());
-		
+
 		response.setData(classificacaoFADTO);
 		service.apagar(classificacaoFA.get());
 		log.info("Deletando classificacaoFA {}", classificacaoFADTO);
-		
+
 		return ResponseEntity.ok(response);
 	}
+
 	/**
 	 * 
 	 * Converte DTO para Entity
@@ -149,7 +151,7 @@ public class ClassificacaoFAController {
 	 * @param classificacaoFADTO
 	 * @return Entity
 	 */
-	private ClassificacaoFA converteDTOParaEntity(ClassificacaoFADTO classificacaoFADTO) {
+	public ClassificacaoFA converteDTOParaEntity(ClassificacaoFADTO classificacaoFADTO) {
 		ClassificacaoFA classificacaoFA = new ClassificacaoFA();
 		classificacaoFA.setId(classificacaoFADTO.getId());
 		classificacaoFA.setConfirmado(classificacaoFADTO.getConfirmado());
@@ -157,6 +159,7 @@ public class ClassificacaoFAController {
 		classificacaoFA.setIgnorado(classificacaoFADTO.getIgnorado());
 		return classificacaoFA;
 	}
+
 	/**
 	 * 
 	 * Converte Entity em DTO
@@ -164,7 +167,7 @@ public class ClassificacaoFAController {
 	 * @param classificacao
 	 * @return DTO
 	 */
-	private ClassificacaoFADTO converteEntityParaDTO(ClassificacaoFA classificacaoFA) {
+	public ClassificacaoFADTO converteEntityParaDTO(ClassificacaoFA classificacaoFA) {
 		ClassificacaoFADTO classificacaoFADTO = new ClassificacaoFADTO();
 		classificacaoFADTO.setId(classificacaoFA.getId());
 		classificacaoFADTO.setConfirmado(classificacaoFA.getConfirmado());
@@ -172,7 +175,7 @@ public class ClassificacaoFAController {
 		classificacaoFADTO.setIgnorado(classificacaoFA.getIgnorado());
 		return classificacaoFADTO;
 	}
-	
+
 	/**
 	 * 
 	 * Valida se a ClassificacaoFA ja existe na base de dados
@@ -182,6 +185,7 @@ public class ClassificacaoFAController {
 	 */
 	private void validaSeExiste(ClassificacaoFADTO dTO, BindingResult result) {
 		this.service.findById(dTO.getId())
-			.ifPresent(ano -> result.addError(new ObjectError("ClassificacaoFA", dTO.getId() + "já existe")));
+				.ifPresent(ano -> result.addError(new ObjectError("ClassificacaoFA", dTO.getId() + "já existe")));
 	}
+
 }

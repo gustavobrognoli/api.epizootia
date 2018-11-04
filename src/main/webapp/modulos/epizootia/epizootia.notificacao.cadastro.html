@@ -120,8 +120,8 @@
 
 						<div class="input-group">
 							<select autofocus ng-required="true" id="idMorador"
-								class="form-control" ng-model=""
-								ng-options="m as m.nome for m in morador | orderBy:'nome' track by m.id">
+								class="form-control" ng-model="nomeMorador"
+								ng-options="m as m.morador for m in moradores | orderBy:'nome' track by m.id">
 							</select> <span class="input-group-btn">
 
 								<button class="btn btn-default" type="button"
@@ -133,9 +133,12 @@
 					</div>
 
 					<div class="form-group col-sm-6">
-						<label class="control-label">Telefone do morador:</label> <input
-							name="telefone" type="text" class="form-control"
-							ng-model="epizootia.telefone.morador">
+						<label class="control-label">Telefone do morador:</label> 
+						
+						<select autofocus ng-required="true" id="idTelefone"
+								class="form-control" ng-model="telefoneMorador"
+								ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
+						</select>
 					</div>
 
 					<!--              --> <!-- DADOS GERAIS --> <!--              -->
@@ -476,9 +479,9 @@
 							</div>
 							<div class="form-group col-sm-6">
 								<div class="input-group">
-									<select autofocus ng-required="true" id="idMorador"
-										class="form-control" ng-model=""
-										ng-options="m as m.nome for m in morador | orderBy:'nome' track by m.id">
+									<select autofocus ng-required="true" id="idUnidadeConservacao"
+										class="form-control" ng-model="local.situacao.conservacao.lista"
+										ng-options="u as u.unidadeConservacao for m in unidadesConservacao | orderBy:'nome' track by u.id">
 									</select> <span class="input-group-btn">
 
 										<button class="btn btn-default" type="button"
@@ -565,8 +568,8 @@
 
 					<div class="form-group col-sm-6">
 						<select autofocus ng-required="true" id="idMetodoCaptura"
-							class="form-control" ng-model=""
-							ng-options="m as m.nome for m in metodos | orderBy:'nome' track by m.id">
+							class="form-control" ng-model="regEntomologico.metodoCaptura"
+							ng-options="m as m.metodoCaptura for m in metodosCaptura | orderBy:'metodo' track by m.id">
 						</select>
 					</div>
 

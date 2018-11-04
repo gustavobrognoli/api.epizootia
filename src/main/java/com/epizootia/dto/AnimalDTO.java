@@ -6,18 +6,18 @@ import javax.validation.constraints.NotNull;
 public class AnimalDTO  {
 
 	private int id;
-	private int nomePopular;
+	private NomePopularDTO nomePopular;
 	private EspecieDTO especie;
-	private int situacao;
-	private int anormalidade;
-	private int sexo;
-	private int idade;
+	private SituacaoDTO situacao;
+	private AnormalidadeDTO anormalidade;
+	private SexoDTO sexo;
+	private IdadeDTO idade;
 	private Boolean apreensao;
 	private Boolean vidaLivre;
 	private Boolean cativeiro;
-	private int tempoObito;
-	private int visceras;
-	private int classificacaoFA;
+	private TempoObitoDTO tempoObito;
+	private VisceraDTO visceras;
+	private ClassificacaoFADTO classificacaoFA;
 
 	public AnimalDTO() {
 		// TODO Auto-generated constructor stub
@@ -32,11 +32,11 @@ public class AnimalDTO  {
 	}
 
 	@Min(value = 0, message = "Nome popular não  deve ser vazio")
-	public int getNomePopular() {
+	public NomePopularDTO getNomePopular() {
 		return nomePopular;
 	}
 
-	public void setNomePopular(int nomePopular) {
+	public void setNomePopular(NomePopularDTO nomePopular) {
 		this.nomePopular = nomePopular;
 	}
 
@@ -50,38 +50,38 @@ public class AnimalDTO  {
 	}
 
 	@Min(value = 0, message = "Situaçao não  deve ser vazia")
-	public int getSituacao() {
+	public SituacaoDTO getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(int situacao) {
+	public void setSituacao(SituacaoDTO situacao) {
 		this.situacao = situacao;
 	}
 
 	@Min(value = 0, message = "Anormalidade não  deve ser vazia")
-	public int getAnormalidade() {
+	public AnormalidadeDTO getAnormalidade() {
 		return anormalidade;
 	}
 
-	public void setAnormalidade(int anormalidade) {
+	public void setAnormalidade(AnormalidadeDTO anormalidade) {
 		this.anormalidade = anormalidade;
 	}
 
 	@Min(value = 0, message = "Sexo não  deve ser vazio")
-	public int getSexo() {
+	public SexoDTO getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(int sexo) {
+	public void setSexo(SexoDTO sexo) {
 		this.sexo = sexo;
 	}
 
 	@Min(value = 0, message = "Idade não  deve ser vazia")
-	public int getIdade() {
+	public IdadeDTO getIdade() {
 		return idade;
 	}
 
-	public void setIdade(int idade) {
+	public void setIdade(IdadeDTO idade) {
 		this.idade = idade;
 	}
 
@@ -113,29 +113,29 @@ public class AnimalDTO  {
 	}
 
 	@Min(value = 0, message = "Tempo do Óbito não  deve ser vazio")
-	public int getTempoObito() {
+	public TempoObitoDTO getTempoObito() {
 		return tempoObito;
 	}
 
-	public void setTempoObito(int tempoObito) {
+	public void setTempoObito(TempoObitoDTO tempoObito) {
 		this.tempoObito = tempoObito;
 	}
 
 	@Min(value = 0, message = "Coleta de Visceras não  deve ser vazia")
-	public int getVisceras() {
+	public VisceraDTO getVisceras() {
 		return visceras;
 	}
 
-	public void setVisceras(int visceras) {
+	public void setVisceras(VisceraDTO visceras) {
 		this.visceras = visceras;
 	}
 
 	@Min(value = 0, message = "Classificação de Febre Amarela não  deve ser vazia")
-	public int getClassificacaoFA() {
+	public ClassificacaoFADTO getClassificacaoFA() {
 		return classificacaoFA;
 	}
 
-	public void setClassificacaoFA(int classificacaoFA) {
+	public void setClassificacaoFA(ClassificacaoFADTO classificacaoFA) {
 		this.classificacaoFA = classificacaoFA;
 	}
 

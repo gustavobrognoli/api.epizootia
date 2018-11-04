@@ -88,7 +88,79 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	            excluir: function( id ){
 	        		return $http.delete("/api/tempoObito/" + id);
 	            }
-	        },           
+	        },
+	        
+	        localidade:{
+	        	insert: function( localidade ){
+	        		return $http.post("./api/localidade", localidade);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/localidade");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/localidade/" + id);
+	            }
+	        },
+	        
+	        morador:{
+	        	insert: function( morador ){
+	        		return $http.post("./api/morador", morador);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/morador");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/morador/" + id);
+	            }
+	        },
+	        
+	        situacaoFundiaria:{
+	        	insert: function( situacaoFundiaria ){
+	        		return $http.post("./api/situacaoFundiaria", situacaoFundiaria);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/situacaoFundiaria");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/situacaoFundiaria/" + id);
+	            }
+	        },
+
+	        unidadeConservacao:{
+	        	insert: function( unidadeConservacao ){
+	        		return $http.post("./api/unidadeConservacao", unidadeConservacao);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/unidadeConservacao");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/unidadeConservacao/" + id);
+	            }
+	        },
+	        
+	        registroEntomologico:{
+	        	insert: function( registroEntomologico ){
+	        		return $http.post("./api/registroEntomologico", registroEntomologico);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/registroEntomologico");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/registroEntomologico/" + id);
+	            }
+	        },
+	        
+	        metodoCaptura:{
+	        	insert: function( metodoCaptura ){
+	        		return $http.post("./api/metodoCaptura", unidadeConservacao);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/metodoCaptura");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/metodoCaptura/" + id);
+	            }
+	        },     
 	    }, 
 // =============================================================================================//
 // USUARIO //

@@ -19,18 +19,18 @@ public class Animal implements Serializable {
 	private static final long serialVersionUID = -8669089949751249376L;
 
 	private int id;
-	private int nomePopular;
+	private NomePopular nomePopular;
 	private Especie especie;
-	private int situacao;
-	private int anormalidade;
-	private int sexo;
-	private int idade;
+	private Situacao situacao;
+	private Anormalidade anormalidade;
+	private Sexo sexo;
+	private Idade idade;
 	private Boolean apreensao;
 	private Boolean vidaLivre;
 	private Boolean cativeiro;
-	private int tempoObito;
-	private int visceras;
-	private int classificacaoFA;
+	private TempoObito tempoObito;
+	private Viscera visceras;
+	private ClassificacaoFA classificacaoFA;
 
 	public Animal() {
 		// TODO Auto-generated constructor stub
@@ -48,11 +48,11 @@ public class Animal implements Serializable {
 	}
 
 	@Column(name = "cd_nm_popular")
-	public int getNomePopular() {
+	public NomePopular getNomePopular() {
 		return nomePopular;
 	}
 
-	public void setNomePopular(int nomePopular) {
+	public void setNomePopular(NomePopular nomePopular) {
 		this.nomePopular = nomePopular;
 	}
 
@@ -66,38 +66,38 @@ public class Animal implements Serializable {
 	}
 
 	@Column(name="cd_situacao")
-	public int getSituacao() {
+	public Situacao getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(int situacao) {
-		this.situacao = situacao;
+	public void setSituacao(Situacao situacao2) {
+		this.situacao = situacao2;
 	}
 
 	@Column(name="cd_anormalidade")
-	public int getAnormalidade() {
+	public Anormalidade getAnormalidade() {
 		return anormalidade;
 	}
 
-	public void setAnormalidade(int anormalidade) {
+	public void setAnormalidade(Anormalidade anormalidade) {
 		this.anormalidade = anormalidade;
 	}
 
 	@Column(name = "cd_sexo")
-	public int getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(int sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 	
 	@Column(name= "cd_idade")
-	public int getIdade() {
+	public Idade getIdade() {
 		return idade;
 	}
 
-	public void setIdade(int idade) {
+	public void setIdade(Idade idade) {
 		this.idade = idade;
 	}
 
@@ -129,29 +129,29 @@ public class Animal implements Serializable {
 	}
 
 	@Column(name="cd_tempo_obito")
-	public int getTempoObito() {
+	public TempoObito getTempoObito() {
 		return tempoObito;
 	}
 
-	public void setTempoObito(int tempoObito) {
+	public void setTempoObito(TempoObito tempoObito) {
 		this.tempoObito = tempoObito;
 	}
 
 	@Column(name="cd_visceras")
-	public int getVisceras() {
+	public Viscera getVisceras() {
 		return visceras;
 	}
 
-	public void setVisceras(int visceras) {
+	public void setVisceras(Viscera visceras) {
 		this.visceras = visceras;
 	}
 
 	@Column(name="cd_classificacao_fa")
-	public int getClassificacaoFA() {
+	public ClassificacaoFA getClassificacaoFA() {
 		return classificacaoFA;
 	}
 
-	public void setClassificacaoFA(int classificacaoFA) {
+	public void setClassificacaoFA(ClassificacaoFA classificacaoFA) {
 		this.classificacaoFA = classificacaoFA;
 	}
 

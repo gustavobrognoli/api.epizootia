@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mod_epizootia_sexo")
+@Table(name = "mod_epizootia_morador")
 public class Morador implements Serializable {
 
 	/**
@@ -37,7 +37,7 @@ public class Morador implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_morador")
+	@Column(name = "nm_morador")
 	public String getMorador() {
 		return morador;
 	}
@@ -46,7 +46,7 @@ public class Morador implements Serializable {
 		this.morador = morador;
 	}
 
-	@Column(name = "ds_telefone")
+	@Column(name = "nu_telefone")
 	public String getTelefone() {
 		return telefone;
 	}

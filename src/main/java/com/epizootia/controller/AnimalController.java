@@ -154,30 +154,38 @@ public class AnimalController {
 	private Animal converteDTOParaEntity(AnimalDTO animalDTO) {
 		Animal animal = new Animal();
 		animal.setId(animalDTO.getId());
-		animal.setNomePopular(animalDTO.getNomePopular());
+		
+		NomePopularController nomePopularController = new NomePopularController();
+		animal.setNomePopular(nomePopularController.converteDTOParaEntity(animalDTO.getNomePopular()));	
 		
 		EspecieController especieController = new EspecieController(); 
 		animal.setEspecie(especieController.converteDTOParaEntity(animalDTO.getEspecie()));
+
+		SituacaoController situacaoController = new SituacaoController();
+		animal.setSituacao(situacaoController.converteDTOParaEntity(animalDTO.getSituacao()));
+	
+		AnormalidadeController anormalidadeController = new AnormalidadeController();
+		animal.setAnormalidade(anormalidadeController.converteDTOParaEntity(animalDTO.getAnormalidade()));
 		
-		animal.setSituacao(animalDTO.getSituacao());
+		SexoController sexoController = new SexoController();
+		animal.setSexo(sexoController.converteDTOParaEntity(animalDTO.getSexo()));
 		
-		animal.setAnormalidade(animalDTO.getAnormalidade());
-		
-		animal.setSexo(animalDTO.getSexo());
-		
-		animal.setIdade(animalDTO.getIdade());
+		IdadeController idadeController = new IdadeController();
+		animal.setIdade(idadeController.converteDTOParaEntity(animalDTO.getIdade()));
 		
 		animal.setApreensao(animalDTO.getApreensao());
-		
 		animal.setVidaLivre(animalDTO.getVidaLivre());
-		
 		animal.setCativeiro(animalDTO.getCativeiro());
 		
-		animal.setTempoObito(animalDTO.getTempoObito());
+		TempoObitoController tempoObitoController = new TempoObitoController();
+		animal.setTempoObito(tempoObitoController.converteDTOParaEntity(animalDTO.getTempoObito()));
 		
-		animal.setVisceras(animalDTO.getVisceras());
+		VisceraController visceraController = new VisceraController();
+		animal.setVisceras(visceraController.converteDTOParaEntity(animalDTO.getVisceras()));
 		
-		animal.setClassificacaoFA(animalDTO.getClassificacaoFA());
+		ClassificacaoFAController classificacaoFAController = new ClassificacaoFAController();
+		animal.setClassificacaoFA(classificacaoFAController.converteDTOParaEntity(animalDTO.getClassificacaoFA()));
+		
 		return animal;
 	}
 
@@ -191,19 +199,38 @@ public class AnimalController {
 	private AnimalDTO converteEntityParaDTO(Animal animal) {
 		AnimalDTO animalDTO = new AnimalDTO();
 		animalDTO.setId(animal.getId());
-		animalDTO.setNomePopular(animal.getNomePopular());
+		
+		NomePopularController nomePopularController = new NomePopularController();
+		animalDTO.setNomePopular(nomePopularController.converteEntityParaDTO(animal.getNomePopular()));	
+		
 		EspecieController especieController = new EspecieController(); 
 		animalDTO.setEspecie(especieController.converteEntityParaDTO(animal.getEspecie()));
-		animalDTO.setSituacao(animal.getSituacao());
-		animalDTO.setAnormalidade(animal.getAnormalidade());
-		animalDTO.setSexo(animal.getSexo());
-		animalDTO.setIdade(animal.getIdade());
+		
+		SituacaoController situacaoController = new SituacaoController();
+		animalDTO.setSituacao(situacaoController.converteEntityParaDTO(animal.getSituacao()));
+		
+		AnormalidadeController anormalidadeController = new AnormalidadeController();
+		animalDTO.setAnormalidade(anormalidadeController.converteEntityParaDTO(animal.getAnormalidade()));
+		
+		SexoController sexoController = new SexoController();
+		animalDTO.setSexo(sexoController.converteEntityParaDTO(animal.getSexo()));
+		
+		IdadeController idadeController = new IdadeController();
+		animalDTO.setIdade(idadeController.converteEntityParaDTO(animal.getIdade()));
+		
 		animalDTO.setApreensao(animal.getApreensao());
 		animalDTO.setVidaLivre(animal.getVidaLivre());
 		animalDTO.setCativeiro(animal.getCativeiro());
-		animalDTO.setTempoObito(animal.getTempoObito());
-		animalDTO.setVisceras(animal.getVisceras());
-		animalDTO.setClassificacaoFA(animal.getClassificacaoFA());
+		
+		TempoObitoController tempoObitoController = new TempoObitoController();
+		animalDTO.setTempoObito(tempoObitoController.converteEntityParaDTO(animal.getTempoObito()));
+		
+		VisceraController visceraController = new VisceraController();
+		animalDTO.setVisceras(visceraController.converteEntityParaDTO(animal.getVisceras()));
+		
+		ClassificacaoFAController classificacaoFAController = new ClassificacaoFAController();
+		animalDTO.setClassificacaoFA(classificacaoFAController.converteEntityParaDTO(animal.getClassificacaoFA()));
+		
 		return animalDTO;
 	}
 

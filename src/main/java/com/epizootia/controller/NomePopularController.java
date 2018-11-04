@@ -153,7 +153,7 @@ public class NomePopularController {
 	 * @return Entity
 	 */
 
-	private NomePopular converteDTOParaEntity(NomePopularDTO nomePopularDTO) {
+	public NomePopular converteDTOParaEntity(NomePopularDTO nomePopularDTO) {
 		NomePopular nomePopular = new NomePopular();
 		nomePopular.setId(nomePopularDTO.getId());
 		nomePopular.setNome(nomePopularDTO.getNome());
@@ -168,7 +168,7 @@ public class NomePopularController {
 	 * @return DTO
 	 */
 
-	private NomePopularDTO converteEntityParaDTO(NomePopular nomePopular) {
+	public NomePopularDTO converteEntityParaDTO(NomePopular nomePopular) {
 		NomePopularDTO nomePopularDTO = new NomePopularDTO();
 		nomePopularDTO.setId(nomePopular.getId());
 		nomePopularDTO.setNome(nomePopular.getNome());

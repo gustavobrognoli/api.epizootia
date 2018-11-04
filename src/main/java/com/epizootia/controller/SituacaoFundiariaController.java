@@ -152,7 +152,7 @@ public class SituacaoFundiariaController {
 	 * @param situacaoFundiariaDTO
 	 * @return Entity
 	 */
-	private SituacaoFundiaria converteDTOParaEntity(SituacaoFundiariaDTO situacaoFundiariaDTO) {
+	public SituacaoFundiaria converteDTOParaEntity(SituacaoFundiariaDTO situacaoFundiariaDTO) {
 		SituacaoFundiaria situacaoFundiaria = new SituacaoFundiaria();
 		situacaoFundiaria.setId(situacaoFundiariaDTO.getId());
 		situacaoFundiaria.setAssentamento(situacaoFundiariaDTO.getAssentamento());
@@ -175,7 +175,7 @@ public class SituacaoFundiariaController {
 	 * @param situacaoFundiaria
 	 * @return DTO
 	 */
-	private SituacaoFundiariaDTO converteEntityParaDTO(SituacaoFundiaria situacaoFundiaria) {
+	public SituacaoFundiariaDTO converteEntityParaDTO(SituacaoFundiaria situacaoFundiaria) {
 		SituacaoFundiariaDTO situacaoFundiariaDTO = new SituacaoFundiariaDTO();
 		situacaoFundiariaDTO.setId(situacaoFundiaria.getId());
 		situacaoFundiariaDTO.setAssentamento(situacaoFundiaria.getAssentamento());

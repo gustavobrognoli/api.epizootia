@@ -149,7 +149,7 @@ public class IsolamentoViralController {
 	 * @param isolamentoViralDTO
 	 * @return Entity
 	 */
-	private IsolamentoViral converteDTOParaEntity(IsolamentoViralDTO isolamentoViralDTO) {
+	public IsolamentoViral converteDTOParaEntity(IsolamentoViralDTO isolamentoViralDTO) {
 		IsolamentoViral isolamentoViral = new IsolamentoViral();
 		isolamentoViral.setId(isolamentoViralDTO.getId());
 		isolamentoViral.setIsolamentoViral(isolamentoViralDTO.getIsolamentoViral());
@@ -168,7 +168,7 @@ public class IsolamentoViralController {
 	 * @param Isolamento Viral
 	 * @return DTO
 	 */
-	private IsolamentoViralDTO converteEntityParaDTO(IsolamentoViral isolamentoViral) {
+	public IsolamentoViralDTO converteEntityParaDTO(IsolamentoViral isolamentoViral) {
 		IsolamentoViralDTO isolamentoViralDTO = new IsolamentoViralDTO();
 		isolamentoViralDTO.setId(isolamentoViral.getId());
 		isolamentoViralDTO.setIsolamentoViral(isolamentoViral.getIsolamentoViral());

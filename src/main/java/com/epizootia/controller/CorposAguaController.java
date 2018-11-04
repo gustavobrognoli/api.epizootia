@@ -152,7 +152,7 @@ public class CorposAguaController {
 	 * @param corposAguaDTO
 	 * @return Entity
 	 */
-	private CorposAgua converteDTOParaEntity(CorposAguaDTO corposAguaDTO) {
+	public CorposAgua converteDTOParaEntity(CorposAguaDTO corposAguaDTO) {
 		CorposAgua corposAgua = new CorposAgua();
 		corposAgua.setId(corposAguaDTO.getId());
 		corposAgua.setAcude(corposAguaDTO.getAcude());
@@ -178,7 +178,7 @@ public class CorposAguaController {
 	 * @param corposAgua
 	 * @return DTO
 	 */
-	private CorposAguaDTO converteEntityParaDTO(CorposAgua corposAgua) {
+	public CorposAguaDTO converteEntityParaDTO(CorposAgua corposAgua) {
 		CorposAguaDTO corposAguaDTO = new CorposAguaDTO();
 		corposAguaDTO.setId(corposAgua.getId());
 		corposAguaDTO.setAcude(corposAgua.getAcude());

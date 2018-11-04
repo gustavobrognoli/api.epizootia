@@ -151,7 +151,7 @@ public class MetodoCapturaController {
 	 * @return Entity
 	 */
 
-	private MetodoCaptura converteDTOParaEntity(MetodoCapturaDTO metodoCapturaDTO) {
+	public MetodoCaptura converteDTOParaEntity(MetodoCapturaDTO metodoCapturaDTO) {
 		MetodoCaptura metodoCaptura = new MetodoCaptura();
 		metodoCaptura.setId(metodoCapturaDTO.getId());
 		metodoCaptura.setMetodoCaptura(metodoCapturaDTO.getMetodoCaptura());
@@ -166,7 +166,7 @@ public class MetodoCapturaController {
 	 * @return DTO
 	 */
 
-	private MetodoCapturaDTO converteEntityParaDTO(MetodoCaptura metodoCaptura) {
+	public MetodoCapturaDTO converteEntityParaDTO(MetodoCaptura metodoCaptura) {
 		MetodoCapturaDTO metodoCapturaDTO = new MetodoCapturaDTO();
 		metodoCapturaDTO.setId(metodoCaptura.getId());
 		metodoCapturaDTO.setMetodoCaptura(metodoCaptura.getMetodoCaptura());

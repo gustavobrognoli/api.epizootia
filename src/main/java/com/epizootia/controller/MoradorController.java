@@ -88,6 +88,27 @@ public class MoradorController {
 
 		return ResponseEntity.ok(response);
 	}
+	
+	@GetMapping(value = "/{telefone}")
+	public ResponseEntity<Response<MoradorDTO>> consultaTelefone(@PathVariable("telefone") String telefone) {
+
+		Response<MoradorDTO> response = new Response<MoradorDTO>();
+		Optional<Morador> morador = service.findTelefone(telefone);
+
+		if (!morador.isPresent()) {
+			log.error("Telefone de Morador não cadastrado na base de dados");
+			response.getErrors().add("Telefone de Morador não cadastrado na base de dados");
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		MoradorDTO moradorDTO = converteEntityParaDTO(morador.get());
+
+		response.setData(moradorDTO);
+
+		log.info("Consulta de Morador {}", moradorDTO);
+
+		return ResponseEntity.ok(response);
+	}
 
 	/**
 	 * 
@@ -151,7 +172,7 @@ public class MoradorController {
 	 * @return Entity
 	 */
 
-	private Morador converteDTOParaEntity(MoradorDTO moradorDTO) {
+	public Morador converteDTOParaEntity(MoradorDTO moradorDTO) {
 		Morador morador = new Morador();
 		morador.setId(moradorDTO.getId());
 		morador.setMorador(moradorDTO.getMorador());
@@ -167,7 +188,7 @@ public class MoradorController {
 	 * @return DTO
 	 */
 
-	private MoradorDTO converteEntityParaDTO(Morador morador) {
+	public MoradorDTO converteEntityParaDTO(Morador morador) {
 		MoradorDTO moradorDTO = new MoradorDTO();
 		moradorDTO.setId(morador.getId());
 		moradorDTO.setMorador(morador.getMorador());
