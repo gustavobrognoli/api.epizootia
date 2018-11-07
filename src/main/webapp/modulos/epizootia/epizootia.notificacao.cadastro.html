@@ -135,10 +135,16 @@
 					<div class="form-group col-sm-6">
 						<label class="control-label">Telefone do morador:</label> 
 						
-						<select autofocus ng-required="true" id="idTelefone"
-								class="form-control" ng-model="telefoneMorador"
-								ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
+						<select
+							autofocus ng-required="true" id="idTelefone" class="form-control"
+							ng-model="telefoneMorador"
+							ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
 						</select>
+					</div>
+					<div class="form-group col-sm-6">
+						<label class="control-label">Telefone do morador:</label> <input
+							name="telefone" type="text" class="form-control"
+							ng-model="epizootias.morador.telefone" readonly>
 					</div>
 
 					<!--              --> <!-- DADOS GERAIS --> <!--              -->
@@ -335,87 +341,86 @@
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.acude"><i>Açude</i>
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.brejo"><i> </i>Aréa
 							alagada/Brejo/Banhado
 						</label>
 					</div>
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.corrixo"><i> </i>Corrixó/Igarapé/Riacho
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.estuario"><i> </i>Estuário
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.lagoa"><i> </i>Lagoa
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.lago"><i> </i>Lago
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.laguna"><i> </i>Laguna
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.mangue"><i> </i>Mangue
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.mar"><i> </i>Mar
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.represa"><i> </i>Represa
 						</label>
 					</div>
 
 					<div class="form-group col-sm-3">
 						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
+							name="corposAguaRadio" type="radio"
 							ng-model="local.corposAgua.rio"><i> </i>Rio
 						</label>
 					</div>
 					<div class="form-group col-sm-12">
 						<div class="row justify-content-start">
 							<div class="form-group col-sm-3">
-								<input name="customRadioAlt" type="checkbox"
+								<input name="corposAguaRadio" type="radio"
 									ng-model="local.corposAgua.outros"> <i></i>Outros?Quais?
 							</div>
-
 							<div class="form-group col-sm-8">
 								<input type="text" class="form-control"
 									id="local.corposAgua.ds.outros">
@@ -430,40 +435,39 @@
 					</div>
 
 					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
+						<label> <input name="situacaoRadio" type="radio"
 							ng-model="local.situacao.assentamento"> <i> </i>
 							Assentamento
 						</label>
 					</div>
 
 					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.situacao.rural"><i> </i>Comunidade
-							Rural
+						<label> <input name="situacaoRadio" type="radio"
+							ng-model="local.situacao.rural"><i> </i>Comunidade Rural
 						</label>
 					</div>
 
 					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
+						<label> <input name="situacaoRadio" type="radio"
 							ng-model="local.situacao.particular"><i> </i>Propriedade
 							Particular
 						</label>
 					</div>
 					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.situacao.governo"> <i> </i>
-							Terra do Governo
+						<label> <input name="situacaoRadio" type="radio"
+							ng-model="local.situacao.governo"> <i> </i> Terra do
+							Governo
 						</label>
 					</div>
 
 					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
+						<label> <input name="situacaoRadio" type="radio"
 							ng-model="local.situacao.indigina"><i> </i>Terra Indígena
 						</label>
 					</div>
 
 					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
+						<label> <input name="situacaoRadio" type="radio"
 							ng-model="local.situacao.quilombola"><i> </i>Terra
 							Quilombola
 						</label>
@@ -472,7 +476,7 @@
 					<div class="form-group col-sm-12">
 						<div class="row justify-content-start">
 							<div class="form-group col-sm-4">
-								<label> <input name="customRadioAlt" type="checkbox"
+								<label> <input name="situacaoRadio" type="radio"
 									ng-model="local.situacao.conservacao"><i> </i>Unidade
 									de Conservação
 								</label>
@@ -480,7 +484,8 @@
 							<div class="form-group col-sm-6">
 								<div class="input-group">
 									<select autofocus ng-required="true" id="idUnidadeConservacao"
-										class="form-control" ng-model="local.situacao.conservacao.lista"
+										class="form-control"
+										ng-model="local.situacao.conservacao.lista"
 										ng-options="u as u.unidadeConservacao for m in unidadesConservacao | orderBy:'nome' track by u.id">
 									</select> <span class="input-group-btn">
 
@@ -497,13 +502,21 @@
 
 
 					<div class="form-group col-sm-4">
-						<input name="customRadioAlt" type="checkbox"
+						<input name="situacaoRadio" type="radio"
 							ng-model="local.impactos.outros"> <i></i>Outros?Quais?
 					</div>
 
 					<div class="form-group col-sm-6">
 						<input type="text" class="form-control"
 							id="local.impactos.outros.ds">
+					</div>
+
+					<div class="form-group col-sm-12">
+						<label><b><i>Detalhamento do local:</i></b></label>
+						<hr>
+						<input name="detalheLocal"
+						type="text" class="form-control" ng-model="epizootia.detalheLocal">
+					</div>
 					</div>
 
 					<div class="row"></div>
@@ -513,7 +526,7 @@
 
 					<div class="text-right">
 
-<!-- 						<button type="button" class="btn btn-primary"
+						<!-- 						<button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="submit" class="btn btn-success"
 							ng-click="salvarFicha('dados_local')">
@@ -533,12 +546,12 @@
 
 					<div class="form-group col-sm-12">
 						<label class="checkbox-inline checkbox-custom-alt"> <input
-							name="customRadioAlt" type="radio" ng-model="animal.viscera"
+							name="visceraRadio" type="radio" ng-model="animal.viscera"
 							ng-value="true"> <i></i> Sim
 
 						</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label
 							class="checkbox-inline checkbox-custom-alt"> <input
-							name="customRadioAlt" type="radio" ng-model="animal.viscera"
+							name="visceraRadio" type="radio" ng-model="animal.viscera"
 							ng-value="false"> <i></i>Não
 						</label>
 					</div>
@@ -643,18 +656,23 @@
 						<hr>
 					</div>
 
+
 					<div class="form-group col-sm-6">
-						<label> <input name="customRadioAlt" type="checkbox"
+						<label> <input class="form-check-input"
+							name="classificacaoRadio" type="radio"
 							ng-model="regEntomologico.classificacao.asrv"> <i> </i>
 							Área sem recomendação de vacina (ASRV)
 						</label>
 					</div>
+
 					<div class="form-group col-sm-6">
-						<label> <input name="customRadioAlt" type="checkbox"
+						<label> <input class="form-check-input"
+							name="classificacaoRadio" type="radio"
 							ng-model="regEntomologico.classificacao.acrv"> <i> </i>
 							Área com recomendação de vacina (ACRV)
 						</label>
 					</div>
+
 
 					<div class="form-group col-sm-12">
 						<label><b><i>Cobertura Vacinal(%)</i></b></label>
@@ -679,7 +697,7 @@
 
 					<div class="form-group col-sm-12">
 						<label><b><i>Doses aplicadas dentro do raio de
-									300m a partir do local da Epizootia</i></b></label>
+									300m a partir do local da Epizootia:</i></b></label>
 						<hr>
 					</div>
 
@@ -690,7 +708,7 @@
 
 					<div class="form-group col-sm-12">
 						<label><b><i>Registro de focos de Aedes Aegypti
-									dentro do raio de 300m a partir do local da Epizootia</i></b></label>
+									dentro do raio de 300m a partir do local da Epizootia:</i></b></label>
 						<hr>
 					</div>
 
@@ -706,7 +724,7 @@
 
 					<div class="text-right">
 
-<!-- 						<button type="button" class="btn btn-primary"
+						<!-- 						<button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="button" class="btn btn-success"
 							ng-click="salvarFicha('dados_RegEntomologico')">

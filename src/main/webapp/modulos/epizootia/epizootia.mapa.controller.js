@@ -3,7 +3,6 @@ angular.module("vigilantos").controller("EpizootiaMapaController", function($sco
 			$scope.mapa = {};
 			$scope.isEdicao = false;
 			$scope.dengueFiltro = {};
-			//$scope.registros = {};
 			$scope.isOpen = false;
 			
 			$scope.registros = [

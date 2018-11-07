@@ -15,11 +15,9 @@
 							class="minimize fa fa-plus"></span>
 					</a></li>
 				</ul>
-
 			</div>
 
 			<div class="tile-body" ng-show="isOpen">
-
 				<div class="form-group">
 					<div class="form-group col-sm-6">
 						<label class="control-label">Regional:</label> <select
@@ -38,27 +36,31 @@
 							<option value="">Todos...</option>
 						</select>
 					</div>
+					<div class="col-sm-6"
+						ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
 
-					<div class="form-group col-sm-6">
-						<label class="control-label">Data Início Coleta: </label> <input
-							class="form-control" name="dtColetaInicio" type="text"
+						<label class="control-label">Inicio Coleta</label> <input
+							name="dtSintomasInicio" type="text" class="form-control"
 							ng-model="dengueFiltro.dtColetaInicio" bs-datepicker
 							autoclose="true" required>
 					</div>
+					<div class="col-sm-6"
+						ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
 
-					<div class="form-group col-sm-6">
-						<label class="control-label">Data Fim Coleta: </label> <input
-							class="form-control" name="dtColetaFim" type="text"
+						<label class="control-label">Fim Coleta</label> <input
+							name="dtSintomasFim" type="text" class="form-control"
 							ng-model="dengueFiltro.dtColetaFim" bs-datepicker
 							autoclose="true" required>
+
+
+						<div class="help-block"
+							ng-show="( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) )">
+							<span>Selecione o período</span>
+						</div>
 					</div>
-
 				</div>
-
 				<div class="row form-group"></div>
-
 			</div>
-
 		</section>
 
 		<section class="tile">
@@ -84,7 +86,7 @@
 					<tr>
 						<th>Data</th>
 						<th>Quantidade de Animais</th>
-						<th>Munic�pio</th>
+						<th>Munic�pio</th>
 						<th>Bairro</th>
 					</tr>
 

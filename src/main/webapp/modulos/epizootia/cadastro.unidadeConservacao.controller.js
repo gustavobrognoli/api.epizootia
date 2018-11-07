@@ -3,13 +3,13 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr, amostra){
 	
 	
 	$scope.salvarAnimal = function( animal ){
-		api.artropodes.animais.insert( animal ).then( function(response){
+/*		api.artropodes.animais.insert( animal ).then( function(response){
 			$scope.animal.id = response.data;
 
 			toastr.success("Animal salvo com sucesso");
 			//$scope.getAnimaisByTipo(animal.tipo.id);
 
-		});
+		});*/
 	}
 	
 	$scope.cancelar = function(){
@@ -17,7 +17,7 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr, amostra){
 	}
 			
 	$scope.salvar = function(){
-		if( $scope.form.$valid){
+/*		if( $scope.form.$valid){
 			
 			if( $scope.amostra.metodologia === false ){
 				$scope.amostra.tipoArmadilha = null;
@@ -36,25 +36,7 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr, amostra){
 			}else{
 				toastr.error("Selecione um animal");
 			}
-		}
+		}*/
 	}
 
-	
-    $scope.visceras= [{
-        titulo: "Figado"
-    }, {
-        titulo: "Rim"
-    }, {
-        titulo: "Cérebro"
-    },{
-        titulo: "Baço"
-    },{
-        titulo: "Pulmão"
-    },{
-        titulo: "Coração"
-    },{
-        titulo: "Sangue"
-    },{
-        titulo: "Soro"
-    }];
 });

@@ -38,23 +38,4 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr, amostra){
 			}
 		}
 	}
-
-	
-    $scope.visceras= [{
-        titulo: "Figado"
-    }, {
-        titulo: "Rim"
-    }, {
-        titulo: "Cérebro"
-    },{
-        titulo: "Baço"
-    },{
-        titulo: "Pulmão"
-    },{
-        titulo: "Coração"
-    },{
-        titulo: "Sangue"
-    },{
-        titulo: "Soro"
-    }];
 });

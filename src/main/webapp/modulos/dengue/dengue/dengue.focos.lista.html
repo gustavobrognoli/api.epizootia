@@ -1,0 +1,297 @@
+<div class="page">
+
+<form name="form" novalidate >
+
+	<section class="tile">
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Filtros</strong></h1>
+
+			<ul class="controls">
+				<li class="dropdown" uib-dropdown>
+					<a ng-click="openMenu()" href tile-control-toggle class="dropdown-toggle settings">
+						<span class="expand fa fa-minus"></span>
+						<span class="minimize fa fa-plus"></span>
+					</a>
+				</li>
+			</ul>
+				
+		</div>
+
+		<div class="tile-body" ng-show="isOpen" >
+		
+			<div class="form-group col-sm-6"
+				 ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
+				<label class="control-label">Início Coleta: </label>
+
+				<input name="dtColetaInicio"
+		               type="text"
+		               class="form-control" 
+		               ng-model="dengueFiltro.dtColetaInicio"
+		               bs-datepicker
+					   autoclose="true"
+					   required>
+			</div>
+
+			<div class="form-group col-sm-6"
+				 ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
+				
+				<label class="control-label">Fim Coleta: </label>
+				
+				<input name="dtColetaFim"
+		               type="text"
+		               class="form-control" 
+		               ng-model="dengueFiltro.dtColetaFim"
+		               bs-datepicker
+					   autoclose="true" 
+					   required>
+					   
+					   
+				<div class="help-block"
+			 		 ng-show="( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) )">
+					<span>Selecione o período coleta</span>
+				</div>	   
+			</div>
+		
+			<div class="form-group col-sm-6">
+		        <label class="control-label">Regional:</label> 
+		        
+				<select name="regional" 
+						class="form-control"
+						ng-options="r as r.nome for r in regionais track by r.id"
+						ng-model="regional"
+						ng-change="getByRegional()"
+						ng-disabled="isPermissaoMunicipio || isPermissaoMunicipioCaso || isPermissaoRegional">
+						<option value="">Todas...</option>
+				</select>
+			</div>
+				
+			<div class="form-group col-sm-6">
+		        <label class="control-label">Município:</label> 
+		        
+				<select name="municipio" 
+						class="form-control"
+						ng-options="m as m.nome for m in municipios track by m.id"
+						ng-model="municipio" 
+						ng-disabled="isPermissaoMunicipio || isPermissaoMunicipioCaso"
+						ng-change="getByMunicipio()">
+						<option value="">Todos...</option>
+				</select>
+			</div>
+			
+			<div class="form-group col-sm-12">
+			     <label class="control-label">Localidade:</label> 
+			     
+				<div custom-select="l.id as l.nome for l in localidades | filter: $searchTerm" 
+		            	 ng-model="dengueFiltro.idLocalidade"
+		            	 class="form-control">
+		            	 
+		                <div ng-show="l.id > 0">
+							<strong>Localidade: {{l.nome }}</strong><br/>
+							<span><strong>Categoria:</strong> {{ l.categoria.descricao }}</span><br/>
+							<hr>
+						</div>
+						<div ng-show="l.id == -1">
+						    <strong>{{l.nome }}</strong><br/>
+						    <hr>
+						</div>
+
+		            </div>
+				
+			</div>
+				
+			<div class="form-group col-sm-6">
+				<label class="control-label">Espécie:</label> 
+			 
+			 	<select name="especie" 
+			 	 		class="form-control"
+						ng-options="e.id as e.nome for e in especies"
+						ng-model="dengueFiltro.especie" >
+					<option value="">Todas...</option>
+				</select>
+			</div>
+				
+			<div class="form-group col-sm-6">
+				<label class="control-label">Tipo de Imóvel:</label> 
+			     
+			     <select name="tipoImovel" 
+					   	 class="form-control"
+						 ng-options="t.id as t.nome for t in tiposImoveis"
+						 ng-model="dengueFiltro.imovel" >
+			             <option value="">Todos...</option>
+				</select>
+			</div>
+				
+			<div class="form-group col-sm-6">
+		    	<label class="control-label">Tipo de Depósito:</label> 
+		     
+		     	<select name="tipoDeposito" 
+				   	 	class="form-control"
+					 	ng-options="t.id as t.nome for t in tiposDepositos"
+					 	ng-model="dengueFiltro.deposito" >
+		             	<option value="">Todos...</option>
+				</select>
+			</div>
+				
+			<div class="form-group col-sm-6">
+		    	<label class="control-label">Atividade:</label> 
+		     
+		     	<select name="atividade" 
+				   	 	class="form-control"
+					 	ng-options="a.id as (a.sigla +' - '+ a.descricao) for a in atividades"
+					 	ng-model="dengueFiltro.idAtividade" >
+		             	<option value="">Todas...</option>
+				</select>
+			</div>
+				
+			<br>
+			
+			<div class="form-group col-sm-12">
+		    	<div class="checkbox">
+		    		<label class="checkbox checkbox-custom-alt"> 
+						<input type="checkbox" ng-model="dengueFiltro.existente">
+						<i></i> 
+						Existência de mosquitos adultos
+					</label>
+				</div>
+			</div>
+			
+			<div>
+				<div class="form-group col-sm-12">
+					<label><i>Ordenação:</i></label>
+					<hr>
+				</div>
+				
+				<div class="form-group col-sm-4">
+			    	<div class="checkbox">
+			    		<label class="checkbox checkbox-custom-alt"> 
+							<input type="checkbox" ng-model="isMunicipio">
+							<i></i> 
+							Município
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group col-sm-4">
+			    	<div class="checkbox">
+				    	<label class="checkbox checkbox-custom-alt"> 
+							<input type="checkbox" ng-model="isLocalidade">
+							<i></i> 
+							Localidade
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group col-sm-4">
+			    	<div class="checkbox">
+						<label class="checkbox checkbox-custom-alt"> 
+							<input type="checkbox" ng-model="isDtColeta">
+							<i></i> 
+							Data de Coleta
+						</label>
+					</div>
+				</div>
+				
+				
+			</div>
+		
+			<div class="row form-group" > 
+			</div>
+			
+		</div>
+		
+		
+	</section>
+	
+	<section class="tile" >
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Listagem de Focos</strong></h1>
+				
+			<ul class="controls">
+				
+				<li ng-show="dengueFiltro.dtColetaInicio == null || dengueFiltro.dtColetaFim == null" >
+					<label> SELECIONE UM PERÍODO </label>
+				</li>
+				
+				<li ng-hide="dengueFiltro.dtColetaInicio == null || dengueFiltro.dtColetaFim == null" >
+					<a ng-click="pesquisar()" 
+					   href 
+					   data-toggle="tooltip" 
+		        	   title="Pesquisar">
+						<i class="fa fa-search" ></i>
+					</a>
+				</li>
+				
+				<li ng-hide="dengueFiltro.dtColetaInicio == null || dengueFiltro.dtColetaFim == null" >
+					<a ng-click="openRelatorio()" 
+					   href
+					   data-toggle="tooltip" 
+		        	   title="Gerar Relatório">
+						<i class="fa fa-file-text"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	
+		<div class="tile-body p-0">
+			<table class="table table-hover">
+			    <tr>
+			        <th>Municipio</th>
+			        <th>Localidade</th>
+			        <th>Data Coleta</th>
+			        <th>A. aegypti</th>
+			        <th>A. albopictus</th>
+			        <th>Nº Controle</th>
+			        <th>Ações</th>
+			    </tr>
+			
+			    <tr ng_repeat="f in lista">
+			        <td ng_bind="f.municipio"></td>
+			        <td ng_bind="f.localidade"></td>
+			        <td ng-bind="f.dataColeta | date:'dd/MM/yyyy'"></td>
+			        <td ng_bind="f.formasAquaticas"></td>
+			        <td ng_bind="f.formasAquaticasAlbo"></td>
+			        <td ng_bind="f.numeroControle"></td>
+			        <td>
+			        	<i class="btn btn-info btn-xs fa fa-eye"  
+		        		   ng-click="visualizaFocos(f.id)" 
+		        		   data-toggle="tooltip" 
+		        		   title="Visualizar Foco"></i>
+
+						<a class="btn btn-primary btn-xs fa fa-map-marker"  
+		        		   href="#!/dengue/mapa/{{f.id}}/false"
+		        		   target="_blank" 
+		        		   data-toggle="tooltip" 
+		        		   title="Ver Foco Mapa"></a>
+		        		
+		        		<a class="btn btn-warning btn-xs fa fa-pencil"  
+		        		   href="#!/dengue/focos/{{f.id}}"
+		        		   ng-hide="isPermissaoVisitante || isPermissaoMunicipioCaso"
+		        		   data-toggle="tooltip" 
+		        		   title="Alterar Foco"></a>
+		        		   		        		   
+		        		<i class="btn btn-danger btn-xs fa fa-times" 
+		        		   ng-click="confirmarRemover(f)" 
+		        		   ng-hide="isPermissaoVisitante || isPermissaoMunicipioCaso"
+		        		   data-toggle="tooltip" 
+		        		   title="Excluir Foco"></i>
+		        		   
+		        		<a class="btn btn-warning btn-xs fa fa-map-marker"  
+		        		    href="#!/dengue/mapa/{{f.id}}/true" 
+		        		   target="_blank"
+		        		   data-toggle="tooltip" 
+		        		   title="Editar Ponto Mapa" ></a>
+			        </td>
+			    </tr>
+			
+			</table>
+		</div>
+		
+		<div class="tile-footer dvd dvd-top">
+			<div class="row">
+				<div rodape-paginado></div>
+			</div>
+		</div>
+	</section>
+	
+</form>
+</div>

@@ -151,7 +151,7 @@ public class RegistroEntomologicoController {
 	 * @param registroEntomologicoDTO
 	 * @return Entity
 	 */
-	private RegistroEntomologico converteDTOParaEntity(RegistroEntomologicoDTO registroEntomologicoDTO) {
+	public RegistroEntomologico converteDTOParaEntity(RegistroEntomologicoDTO registroEntomologicoDTO) {
 		RegistroEntomologico registroEntomologico = new RegistroEntomologico();
 		registroEntomologico.setId(registroEntomologicoDTO.getId());
 		registroEntomologico.setDataRegistro(registroEntomologico.getDataRegistro());
@@ -183,7 +183,7 @@ public class RegistroEntomologicoController {
 	 * @param registroEntomologico
 	 * @return DTO
 	 */
-	private RegistroEntomologicoDTO converteEntityParaDTO(RegistroEntomologico registroEntomologico) {
+	public RegistroEntomologicoDTO converteEntityParaDTO(RegistroEntomologico registroEntomologico) {
 		RegistroEntomologicoDTO registroEntomologicoDTO = new RegistroEntomologicoDTO();
 		registroEntomologicoDTO.setId(registroEntomologico.getId());
 		registroEntomologicoDTO.setDataRegistro(registroEntomologico.getDataRegistro());
