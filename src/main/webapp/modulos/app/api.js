@@ -8,13 +8,13 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        
 			 animal:{
 	        	insert: function( animal ){
-	        		return $http.post("./epizootia-pnh/api/animal", animal);
+	        		return $http.post("./api/animal", animal);
 	        	},
 	        	getAll: function(){
-	        		return $http.get("./epizootia-pnh/api/animal");
+	        		return $http.get("./api/animal");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/epizootia-pnh/api/animal/" + id);
+	        		return $http.delete("/api/animal/" + id);
 	            }
 	        },
 	        

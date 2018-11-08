@@ -1,6 +1,7 @@
 package com.epizootia.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -149,20 +150,24 @@ public class AnormalidadeController {
 	 * @param anormalidadeDTO
 	 * @return Entity
 	 */
-	public Anormalidade converteDTOParaEntity(AnormalidadeDTO anormalidadeDTO) {
-		Anormalidade anormalidade = new Anormalidade();
-		anormalidade.setId(anormalidadeDTO.getId());
-		anormalidade.setBaba(anormalidadeDTO.getBaba());
-		anormalidade.setBicheira(anormalidadeDTO.getBicheira());
-		anormalidade.setCaroco(anormalidadeDTO.getCaroco());
-		anormalidade.setCegueira(anormalidadeDTO.getCegueira());
-		anormalidade.setDiarreia(anormalidadeDTO.getDiarreia());
-		anormalidade.setFratura(anormalidadeDTO.getFratura());
-		anormalidade.setQueimadura(anormalidadeDTO.getQueimadura());
-		anormalidade.setSangramento(anormalidadeDTO.getSangramento());
-		anormalidade.setSecrecao(anormalidadeDTO.getSecrecao());
-		anormalidade.setOutraAnormalidade(anormalidadeDTO.getOutraAnormalidade());
-		return anormalidade;
+	public List<Anormalidade> converteDTOParaEntity(List<AnormalidadeDTO> anormalidadesDTO) {
+		List<Anormalidade> anormalidades = new ArrayList<Anormalidade>();
+		for (AnormalidadeDTO anormalidadeDTO : anormalidadesDTO) {
+			Anormalidade anormalidade = new Anormalidade();
+			anormalidade.setId(anormalidadeDTO.getId());
+			anormalidade.setBaba(anormalidadeDTO.getBaba());
+			anormalidade.setBicheira(anormalidadeDTO.getBicheira());
+			anormalidade.setCaroco(anormalidadeDTO.getCaroco());
+			anormalidade.setCegueira(anormalidadeDTO.getCegueira());
+			anormalidade.setDiarreia(anormalidadeDTO.getDiarreia());
+			anormalidade.setFratura(anormalidadeDTO.getFratura());
+			anormalidade.setQueimadura(anormalidadeDTO.getQueimadura());
+			anormalidade.setSangramento(anormalidadeDTO.getSangramento());
+			anormalidade.setSecrecao(anormalidadeDTO.getSecrecao());
+			anormalidade.setOutraAnormalidade(anormalidadeDTO.getOutraAnormalidade());
+			anormalidades.add(anormalidade);
+		}		
+		return anormalidades;
 	}
 	/**
 	 * 
@@ -171,20 +176,24 @@ public class AnormalidadeController {
 	 * @param anormalidade
 	 * @return DTO
 	 */
-	public AnormalidadeDTO converteEntityParaDTO(Anormalidade anormalidade) {
-		AnormalidadeDTO anormalidadeDTO = new AnormalidadeDTO();
-		anormalidadeDTO.setId(anormalidade.getId());
-		anormalidadeDTO.setBaba(anormalidade.getBaba());
-		anormalidadeDTO.setBicheira(anormalidade.getBicheira());
-		anormalidadeDTO.setCaroco(anormalidade.getCaroco());
-		anormalidadeDTO.setCegueira(anormalidade.getCegueira());
-		anormalidadeDTO.setDiarreia(anormalidade.getDiarreia());
-		anormalidadeDTO.setFratura(anormalidade.getFratura());
-		anormalidadeDTO.setQueimadura(anormalidade.getQueimadura());
-		anormalidadeDTO.setSangramento(anormalidade.getSangramento());
-		anormalidadeDTO.setSecrecao(anormalidade.getSecrecao());
-		anormalidadeDTO.setOutraAnormalidade(anormalidade.getOutraAnormalidade());
-		return anormalidadeDTO;
+	public List<AnormalidadeDTO> converteEntityParaDTO(List<Anormalidade> anormalidades) {
+		List<AnormalidadeDTO> anormalidadesDTO = new ArrayList<AnormalidadeDTO>();
+		for (Anormalidade anormalidade : anormalidades) {
+			AnormalidadeDTO anormalidadeDTO = new AnormalidadeDTO();
+			anormalidadeDTO.setId(anormalidade.getId());
+			anormalidadeDTO.setBaba(anormalidade.getBaba());
+			anormalidadeDTO.setBicheira(anormalidade.getBicheira());
+			anormalidadeDTO.setCaroco(anormalidade.getCaroco());
+			anormalidadeDTO.setCegueira(anormalidade.getCegueira());
+			anormalidadeDTO.setDiarreia(anormalidade.getDiarreia());
+			anormalidadeDTO.setFratura(anormalidade.getFratura());
+			anormalidadeDTO.setQueimadura(anormalidade.getQueimadura());
+			anormalidadeDTO.setSangramento(anormalidade.getSangramento());
+			anormalidadeDTO.setSecrecao(anormalidade.getSecrecao());
+			anormalidadeDTO.setOutraAnormalidade(anormalidade.getOutraAnormalidade());
+			anormalidadesDTO.add(anormalidadeDTO);
+		}		
+		return anormalidadesDTO;
 	}
 	
 	/**

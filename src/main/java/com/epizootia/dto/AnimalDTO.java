@@ -1,12 +1,16 @@
 package com.epizootia.dto;
 
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
 public class AnimalDTO  {
 
 	private int id;
 	private NomePopularDTO nomePopular;
 	private EspecieDTO especie;
 	private SituacaoDTO situacao;
-	private AnormalidadeDTO anormalidade;
+	private List<AnormalidadeDTO> anormalidades;
 	private SexoDTO sexo;
 	private IdadeDTO idade;
 	private Boolean apreensao;
@@ -56,15 +60,15 @@ public class AnimalDTO  {
 	}
 
 	//@Min(value = 0, message = "Anormalidade não  deve ser vazia")
-	public AnormalidadeDTO getAnormalidade() {
-		return anormalidade;
+	public List<AnormalidadeDTO> getAnormalidades() {
+		return anormalidades;
 	}
 
-	public void setAnormalidade(AnormalidadeDTO anormalidade) {
-		this.anormalidade = anormalidade;
+	public void setAnormalidades(List<AnormalidadeDTO> anormalidades) {
+		this.anormalidades = anormalidades;
 	}
 
-	/*@Min(value = 0, message = "Sexo não  deve ser vazio")*/
+	@NotNull(message = "Sexo não  deve ser vazio")
 	public SexoDTO getSexo() {
 		return sexo;
 	}
@@ -73,7 +77,7 @@ public class AnimalDTO  {
 		this.sexo = sexo;
 	}
 
-/*	@Min(value = 0, message = "Idade não  deve ser vazia")*/
+	@NotNull(message = "Idade não  deve ser vazia")
 	public IdadeDTO getIdade() {
 		return idade;
 	}
@@ -82,7 +86,7 @@ public class AnimalDTO  {
 		this.idade = idade;
 	}
 
-/*	@NotNull(message = "Apreensão não  deve ser vazia")*/
+	@NotNull(message = "Apreensão não  deve ser vazia")
 	public Boolean getApreensao() {
 		return apreensao;
 	}
@@ -91,7 +95,7 @@ public class AnimalDTO  {
 		this.apreensao = apreensao;
 	}
 
-/*	@NotNull(message = "Vida Livre não  deve ser vazia")*/
+	@NotNull(message = "Vida Livre não  deve ser vazia")
 	public Boolean getVidaLivre() {
 		return vidaLivre;
 	}
@@ -100,7 +104,7 @@ public class AnimalDTO  {
 		this.vidaLivre = vidaLivre;
 	}
 
-/*	@NotNull(message = "Cativeiro não  deve ser vazio")*/
+	@NotNull(message = "Cativeiro não  deve ser vazio")
 	public Boolean getCativeiro() {
 		return cativeiro;
 	}
@@ -109,7 +113,7 @@ public class AnimalDTO  {
 		this.cativeiro = cativeiro;
 	}
 
-//	@Min(value = 0, message = "Tempo do Óbito não  deve ser vazio")
+	//@Min(value = 0, message = "Tempo do Óbito não  deve ser vazio")
 	public TempoObitoDTO getTempoObito() {
 		return tempoObito;
 	}
@@ -118,7 +122,7 @@ public class AnimalDTO  {
 		this.tempoObito = tempoObito;
 	}
 
-//	@Min(value = 0, message = "Coleta de Visceras não  deve ser vazia")
+	//@Min(value = 0, message = "Coleta de Visceras não  deve ser vazia")
 	public VisceraDTO getVisceras() {
 		return visceras;
 	}
@@ -127,7 +131,7 @@ public class AnimalDTO  {
 		this.visceras = visceras;
 	}
 
-//	@Min(value = 0, message = "Classificação de Febre Amarela não  deve ser vazia")
+	//@Min(value = 0, message = "Classificação de Febre Amarela não  deve ser vazia")
 	public ClassificacaoFADTO getClassificacaoFA() {
 		return classificacaoFA;
 	}
@@ -139,7 +143,7 @@ public class AnimalDTO  {
 	@Override
 	public String toString() {
 		return "AnimalDTO [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao="
-				+ situacao + ", anormalidade=" + anormalidade + ", sexo=" + sexo + ", idade=" + idade + ", apreensao="
+				+ situacao + ", anormalidade=" + anormalidades + ", sexo=" + sexo + ", idade=" + idade + ", apreensao="
 				+ apreensao + ", vidaLivre=" + vidaLivre + ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito
 				+ ", visceras=" + visceras + ", classificacaoFA=" + classificacaoFA + "]";
 	}

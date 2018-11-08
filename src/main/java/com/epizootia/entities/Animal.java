@@ -1,6 +1,7 @@
 package com.epizootia.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,8 @@ public class Animal implements Serializable {
 	private NomePopular nomePopular;
 	private Especie especie;
 	private Situacao situacao;
-	private Anormalidade anormalidade;
+	// OneToMany
+	private List<Anormalidade> anormalidades;
 	private Sexo sexo;
 	private Idade idade;
 	private Boolean apreensao;
@@ -75,12 +77,12 @@ public class Animal implements Serializable {
 	}
 
 	@Column(name="cd_anormalidade")
-	public Anormalidade getAnormalidade() {
-		return anormalidade;
+	public List<Anormalidade> getAnormalidades() {
+		return anormalidades;
 	}
 
-	public void setAnormalidade(Anormalidade anormalidade) {
-		this.anormalidade = anormalidade;
+	public void setAnormalidades(List<Anormalidade> anormalidades) {
+		this.anormalidades = anormalidades;
 	}
 
 	@Column(name = "cd_sexo")
@@ -158,7 +160,7 @@ public class Animal implements Serializable {
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao=" + situacao
-				+ ", anormalidade=" + anormalidade + ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao
+				+ ", anormalidade=" + anormalidades + ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao
 				+ ", vidaLivre=" + vidaLivre + ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", visceras="
 				+ visceras + ", classificacaoFA=" + classificacaoFA + "]";
 	}
