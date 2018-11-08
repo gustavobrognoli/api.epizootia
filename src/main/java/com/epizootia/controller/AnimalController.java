@@ -151,7 +151,7 @@ public class AnimalController {
 	 * @param animalDTO
 	 * @return Entity
 	 */
-	private Animal converteDTOParaEntity(AnimalDTO animalDTO) {
+	public Animal converteDTOParaEntity(AnimalDTO animalDTO) {
 		Animal animal = new Animal();
 		animal.setId(animalDTO.getId());
 		
@@ -196,7 +196,7 @@ public class AnimalController {
 	 * @param animal
 	 * @return DTO
 	 */
-	private AnimalDTO converteEntityParaDTO(Animal animal) {
+	public AnimalDTO converteEntityParaDTO(Animal animal) {
 		AnimalDTO animalDTO = new AnimalDTO();
 		animalDTO.setId(animal.getId());
 		

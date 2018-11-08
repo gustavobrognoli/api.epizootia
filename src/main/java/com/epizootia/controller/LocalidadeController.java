@@ -151,7 +151,7 @@ public class LocalidadeController {
 	 * @param localidadeDTO
 	 * @return Entity
 	 */
-	private Localidade converteDTOParaEntity(LocalidadeDTO localidadeDTO) {
+	public Localidade converteDTOParaEntity(LocalidadeDTO localidadeDTO) {
 		Localidade localidade = new Localidade();
 		
 		localidade.setId(localidadeDTO.getId());
@@ -193,7 +193,7 @@ public class LocalidadeController {
 	 * @param localidade
 	 * @return DTO
 	 */
-	private LocalidadeDTO converteEntityParaDTO(Localidade localidade) {
+	public LocalidadeDTO converteEntityParaDTO(Localidade localidade) {
 		LocalidadeDTO localidadeDTO = new LocalidadeDTO();
 		
 		localidadeDTO.setId(localidade.getId());
