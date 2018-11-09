@@ -10,6 +10,7 @@ public class AnimalDTO  {
 	private NomePopularDTO nomePopular;
 	private EspecieDTO especie;
 	private SituacaoDTO situacao;
+	
 	private List<AnormalidadeDTO> anormalidades;
 	private SexoDTO sexo;
 	private IdadeDTO idade;

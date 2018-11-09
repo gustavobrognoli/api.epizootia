@@ -83,11 +83,11 @@
 									</tr>
 
 									<tr ng_repeat="a in animais">
-										<td ng_bind="a.nomePopular"></td>
-										<td ng-bind="a.especie"></td>
-										<td ng_bind="a.situacao"></td>
-										<td ng_bind="a.sexo"></td>
-										<td ng_bind="a.idade"></td>
+										<td ng_bind="a.nomePopular.nome"></td>
+										<td ng-bind="a.especie.especie"></td>
+										<td ng_bind="a.situacao.situacao"></td>
+										<td ng_bind="a.sexo.sexo"></td>
+										<td ng_bind="a.idade.idade"></td>
 										<td><i class="btn btn-danger btn-xs fa fa-times"
 											ng-click="confirmarRemover(c)" uib-tooltip="Excluir Animal"></i>
 										</td>
@@ -134,17 +134,14 @@
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Telefone do morador:</label> 
-						
+						<!-- 
+						<input type="text" class="form-control" ng-model="m.telefone" readonly>
+						-->
 						<select
 							autofocus ng-required="true" id="idTelefone" class="form-control"
 							ng-model="telefoneMorador"
 							ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
 						</select>
-					</div>
-					<div class="form-group col-sm-6">
-						<label class="control-label">Telefone do morador:</label> <input
-							name="telefone" type="text" class="form-control"
-							ng-model="epizootias.morador.telefone" readonly>
 					</div>
 
 					<!--              --> <!-- DADOS GERAIS --> <!--              -->
@@ -332,10 +329,10 @@
 						</label>
 					</div>
 
-					<!--                 	 --> <!-- Corpos d' Água --> <!--                     -->
+					<!--  --> <!-- Corpos d' Água --> <!--  -->
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Corpos d' Água</i></b></label>
+						<label><b><i>Corpos d' Água (Trocar por Select)</i></b></label>
 						<hr>
 					</div>
 
@@ -430,7 +427,7 @@
 
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Situação Fundiária</i></b></label>
+						<label><b><i>Situação Fundiária (Trocar por Select)</i></b></label>
 						<hr>
 					</div>
 
@@ -486,7 +483,7 @@
 									<select autofocus ng-required="true" id="idUnidadeConservacao"
 										class="form-control"
 										ng-model="local.situacao.conservacao.lista"
-										ng-options="u as u.unidadeConservacao for m in unidadesConservacao | orderBy:'nome' track by u.id">
+										ng-options="u as u.unidadesConservacao for u in unidadesConservacao | orderBy:'nome' track by u.id">
 									</select> <span class="input-group-btn">
 
 										<button class="btn btn-default" type="button"
@@ -514,10 +511,13 @@
 					<div class="form-group col-sm-12">
 						<label><b><i>Detalhamento do local:</i></b></label>
 						<hr>
+					</div>
+
+					<div class="form-group col-sm-9">
 						<input name="detalheLocal"
 						type="text" class="form-control" ng-model="epizootia.detalheLocal">
 					</div>
-
+					
 					<div class="row"></div>
 					<br>
 					<hr>
@@ -525,7 +525,7 @@
 
 					<div class="text-right">
 
-						<!-- 						<button type="button" class="btn btn-primary"
+						<!-- <button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="submit" class="btn btn-success"
 							ng-click="salvarFicha('dados_local')">
@@ -555,7 +555,7 @@
 						</label>
 					</div>
 
-					<div ng-show="animal.viscera == true">
+					<div ng-hide="animal.viscera == false">
 						<div class="form-group col-sm-4">
 							<label class="control-label">Data da Coleta</label> <input
 								name="dtRegistro" type="text" class="form-control"

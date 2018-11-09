@@ -34,7 +34,7 @@ app.controller('CadastroController',
 			$scope.animal.id = response.data;
 
 			toastr.success("Animal salvo com sucesso");
-			//$scope.getAnimaisByTipo(animal.tipo.id);
+			$scope.getAnimaisByTipo(animal.tipo.id);
 
 		});
 	}

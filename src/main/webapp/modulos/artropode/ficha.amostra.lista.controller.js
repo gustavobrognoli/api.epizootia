@@ -1,13 +1,13 @@
-//angular
-//    .module("vigilantos")
-//    .controller(
-//        'FichaAmostraListaController',
-//        function($scope, api, $uibModal, toastr, $routeParams, $location) {
-//
-//            $scope.filtro = {};
-//            $scope.paginaAtual = 1;
-//            $scope.limite = 10;
-//            $scope.isOpen = false;
+/*angular
+    .module("vigilantos")
+    .controller(
+        'FichaAmostraListaController',
+        function($scope, api, $uibModal, toastr, $routeParams, $location) {
+
+            $scope.filtro = {};
+            $scope.paginaAtual = 1;
+            $scope.limite = 10;
+            $scope.isOpen = false;*/
 //
 //            $scope.exportarFichaPdf = function(ficha){
 //        			api.artropodes.fichaAmostra.geraFichaPfd( ficha );
@@ -35,10 +35,10 @@
 //        		
 //        	});
 //
-//            // api.artropodes.fichaAmostra.getFichasDto().then(
-//            // function(response){
-//            // $scope.lista = response.data;
-//            // });
+            // api.artropodes.fichaAmostra.getFichasDto().then(
+            // function(response){
+            // $scope.lista = response.data;
+            // });
 //
 //            $scope.pesquisar = function() {
 //

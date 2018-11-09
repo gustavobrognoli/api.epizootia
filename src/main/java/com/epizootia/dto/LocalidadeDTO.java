@@ -95,7 +95,7 @@ public class LocalidadeDTO {
 		this.longitude = longitude;
 	}
 
-	@Min(value = 0, message = "Imapctos não  deve ser vazio")
+	
 	public ImpactosDTO getImpactos() {
 		return impactos;
 	}
@@ -113,7 +113,7 @@ public class LocalidadeDTO {
 		this.caracteristicas = caracteristicas;
 	}
 
-	@Min(value = 0, message = "Corpos d`Água não  deve ser vazio")
+	/*@Min(value = 0, message = "Corpos d`Água não  deve ser vazio")*/
 	public CorposAguaDTO getCorposAgua() {
 		return corposAgua;
 	}
@@ -122,7 +122,7 @@ public class LocalidadeDTO {
 		this.corposAgua = corposAgua;
 	}
 
-	@Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio")
+	/*@Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio")*/
 	public SituacaoFundiariaDTO getSituacaoFundiaria() {
 		return situacaoFundiaria;
 	}

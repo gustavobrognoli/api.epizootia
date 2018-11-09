@@ -8,25 +8,25 @@
 	</div>
 
 	<div class="modal-body">
-			<input name="nome" 
+			<input name="morador" 
 					   type="hidden"
 					   class="form-control"
 					   ng-model="morador.id">
 		               
 			<div class="form-group col-sm-12"
-				 ng-class="{'has-error':form.nome.$invalid && (form.nome.$touched || form.$submitted)}">
+				 ng-class="{'has-error':form.morador.$invalid && (form.morador.$touched || form.$submitted)}">
 						        
 				<label class="control-label">Nome:</label> 
 						        
-				<input autofocus name="nome" 
+				<input autofocus name="morador" 
 					   type="text"
 					   class="form-control"
-					   ng-model="morador.nome" 
+					   ng-model="morador.morador" 
 					   maxlength="255"
 		               required >
 
 				<div class="help-block"
-					ng-show="form.nome.$error.pattern">
+					ng-show="form.morador.$error.pattern">
 					<span>Informe um nome e sobrenome válido.</span>
 				</div>
 			</div>

@@ -33,7 +33,7 @@ public class IsolamentoViral implements Serializable {
 
 	@Id
 	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}

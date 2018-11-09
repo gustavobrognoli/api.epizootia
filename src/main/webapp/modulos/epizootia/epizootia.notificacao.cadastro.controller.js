@@ -4,18 +4,24 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	api.epizootia.morador.getAll().then(function( response ) {
 		$scope.moradores = response.data.data;
 	});
+	
+	
 
-	api.epizootia.situacaoFundiaria.getAll().then(function( response ) {
-		$scope.situacoesFundiarias = response.data.data;
+	api.epizootia.animal.getAll().then(function( response ) {
+		$scope.animais = response.data.data;
 	});
+
+/*	api.epizootia.situacaoFundiaria.getAll().then(function( response ) {
+		$scope.situacoesFundiarias = response.data.data;
+	});*/
 	
 	api.epizootia.unidadeConservacao.getAll().then(function( response ) {
 		$scope.unidadesConservacao = response.data.data;
 	});
 	
-	api.epizootia.registroEntomologico.getAll().then(function( response ) {
+/*	api.epizootia.registroEntomologico.getAll().then(function( response ) {
 		$scope.registrosEntomologicos = response.data.data;
-	});
+	});*/
 	
 	api.epizootia.metodoCaptura.getAll().then(function( response ) {
 		$scope.metodosCaptura = response.data.data;
@@ -36,9 +42,9 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			}
 		});
 		
-		modalInstance.result.then(function ( amostraAnimal ){
-			if(amostraAnimal != null) {
-				$scope.epizootia.animais.push( amostraAnimal );
+		modalInstance.result.then(function ( fichaAnimal ){
+			if(fichaAnimal != null) {
+				$scope.animais.push( fichaAnimal );
 			}
 		});
 	}
@@ -59,7 +65,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		
 		modalInstance.result.then(function ( localMorador ){
 			if(localMorador != null) {
-				$scope.epizootia.morador.push( localMorador );
+				$scope.moradores.push( localMorador );
 			}
 		});
 	}

@@ -61,12 +61,13 @@
 				</select>
 			</div>
 
-			<div class="form-group col-sm-6">
+
+			<div class="form-group col-sm-6" ng-show="animal.situacao.situacao == 'Morto'">
 				<label class="control-label">Tempo aproximado do Óbito</label> <select
 					autofocus name="obitoAnimal" class="form-control"
 					ng-options="o as o.tempoObito for o in temposObitos | orderBy:'id' track by t.id"
 					ng-model="animal.tempoObito" required>
-					<option value="" hidden>Selecione...</option>
+					<option value="Selecione" hidden>Selecione...</option>
 				</select>
 			</div>
 
@@ -104,28 +105,30 @@
 					</div>
 				</div>
 
-				<div class="form-group col-sm-6">
-					<label class="control-label">Animal de Apreensão?</label>
-					<div class="row justify-content-start">
-						<div class="form-group col-sm-3">
-							<label class="checkbox-inline checkbox-custom-alt"> <input
-								name="radioApreensao" type="radio" ng-model="animal.apreensao"
-								ng-value="true"> <i></i> Sim
-							</label>
-						</div>
+				<div ng-hide="animal.vidaLivre == false || null">
+					<div class="form-group col-sm-6">
+						<label class="control-label">Animal de Apreensão?</label>
+						<div class="row justify-content-start">
+							<div class="form-group col-sm-3">
+								<label class="checkbox-inline checkbox-custom-alt"> <input
+									name="radioApreensao" type="radio" ng-model="animal.apreensao"
+									ng-value="true"> <i></i> Sim
+								</label>
+							</div>
 
-						<div class="form-group col-sm-3">
-							<label class="checkbox-inline checkbox-custom-alt"> <input
-								name="radioApreensao" type="radio" ng-model="animal.apreensao"
-								ng-value="false"> <i></i>Não
-							</label>
-						</div>
+							<div class="form-group col-sm-3">
+								<label class="checkbox-inline checkbox-custom-alt"> <input
+									name="radioApreensao" type="radio" ng-model="animal.apreensao"
+									ng-value="false"> <i></i>Não
+								</label>
+							</div>
 
-						<div class="form-group col-sm-6">
-							<label class="checkbox-inline checkbox-custom-alt"> <input
-								name="radioApreensao" type="radio" ng-model="animal.apreensao"
-								ng-value="null"> <i></i>Não sabe informar
-							</label>
+							<div class="form-group col-sm-6">
+								<label class="checkbox-inline checkbox-custom-alt"> <input
+									name="radioApreensao" type="radio" ng-model="animal.apreensao"
+									ng-value="null"> <i></i>Não sabe informar
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -361,7 +364,7 @@
 					</div>
 				</div>
 			</div>
- 
+
 
 			<!-- ============================== -->
 			<div class="form-group row"></div>
@@ -369,7 +372,7 @@
 
 
 		<div class="modal-footer">
-<!-- 			<button type="button" class="btn btn-primary"
+			<!-- 			<button type="button" class="btn btn-primary"
 				ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 			<button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
 			<button type="submit" class="btn btn-success">Salvar</button>

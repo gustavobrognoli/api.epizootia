@@ -36,12 +36,12 @@ public class AnormalidadeController {
 	@Autowired
 	private AnormalidadeService service;
 
-	/**
+/*
 	 * 
 	 * Consulta todas as anormalidades
 	 * 
 	 * @return List<AnormalidadeDTO>
-	 */
+	 *//*
 	@GetMapping
 	public ResponseEntity<Response<List<AnormalidadeDTO>>> listaTodos() {
 		Response<List<AnormalidadeDTO>> response = new Response<List<AnormalidadeDTO>>();
@@ -59,14 +59,14 @@ public class AnormalidadeController {
 		response.setData(anormalidadeDTOS);
 
 		return ResponseEntity.ok(response);
-	}
 
-	/**
+	*//**
 	 * 
 	 * Consulta de anormalidade por id
 	 * 
 	 * @return List<AnormalidadeDTO>
-	 */
+	 *//*
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Response<AnormalidadeDTO>> consulta(@PathVariable("id") int id) {
 
@@ -90,7 +90,7 @@ public class AnormalidadeController {
 		return ResponseEntity.ok(response);
 	}
 
-	/**
+	*//**
 	 * 
 	 * Cadastra nova anormalidade na base de dados
 	 * 
@@ -98,7 +98,8 @@ public class AnormalidadeController {
 	 * @param result
 	 * @return Anormalidade
 	 * @throws NoSuchAlgorithmException
-	 */
+	 *//*
+	
 	@PostMapping
 	public ResponseEntity<Response<AnormalidadeDTO>> cadastrar(@Valid @RequestBody AnormalidadeDTO DTO, BindingResult result) 
 			throws NoSuchAlgorithmException {
@@ -118,11 +119,11 @@ public class AnormalidadeController {
 		response.setData(this.converteEntityParaDTO(entity));
 		return ResponseEntity.ok(response);
 	}
-	/**
+	*//**
 	 * 
 	 * Deleta anormalidade da base de dados
 	 * 
-	 */
+	 *//*
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Response<AnormalidadeDTO>> apagar(@PathVariable("id") int id){
 		
@@ -143,7 +144,7 @@ public class AnormalidadeController {
 		
 		return ResponseEntity.ok(response);
 	}
-	/**
+	*/
 	 * 
 	 * Converte DTO para Entity
 	 * 
@@ -169,13 +170,13 @@ public class AnormalidadeController {
 		}		
 		return anormalidades;
 	}
-	/**
+	*//**
 	 * 
 	 * Converte Entity em DTO
 	 * 
 	 * @param anormalidade
 	 * @return DTO
-	 */
+	 *//*
 	public List<AnormalidadeDTO> converteEntityParaDTO(List<Anormalidade> anormalidades) {
 		List<AnormalidadeDTO> anormalidadesDTO = new ArrayList<AnormalidadeDTO>();
 		for (Anormalidade anormalidade : anormalidades) {
@@ -196,13 +197,13 @@ public class AnormalidadeController {
 		return anormalidadesDTO;
 	}
 	
-	/**
+	*//**
 	 * 
 	 * Valida se a Anormalidade ja existe na base de dados
 	 * 
 	 * @param DTO
 	 * @param result
-	 */
+	 *//*
 	private void validaSeExiste(AnormalidadeDTO dTO, BindingResult result) {
 		this.service.findById(dTO.getId())
 			.ifPresent(ano -> result.addError(new ObjectError("Anormalidade", dTO.getId() + "já existe")));

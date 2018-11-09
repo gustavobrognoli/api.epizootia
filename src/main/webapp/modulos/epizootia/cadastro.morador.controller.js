@@ -1,41 +1,16 @@
-app.controller('CadastroMoradorController', 
-function ($scope, api, $uibModal, $uibModalInstance, toastr, amostra){
-	
-	
-	$scope.salvarAnimal = function( animal ){
-		api.artropodes.animais.insert( animal ).then( function(response){
-			$scope.animal.id = response.data;
+app.controller('CadastroMoradorController', function($scope, api, $uibModal,
+		$uibModalInstance, toastr) {
 
-			toastr.success("Animal salvo com sucesso");
-			//$scope.getAnimaisByTipo(animal.tipo.id);
-
+	$scope.salvar = function(morador) {
+		api.epizootia.morador.insert(morador).then(function(response) {
+			$scope.morador.id = response.data;
+			toastr.success("Morador salvo com sucesso");
+			$uibModalInstance.close($scope.morador);
 		});
 	}
-	
-	$scope.cancelar = function(){
-		$uibModalInstance.close( null );	
-	}
-			
-	$scope.salvar = function(){
-		if( $scope.form.$valid){
-			
-			if( $scope.amostra.metodologia === false ){
-				$scope.amostra.tipoArmadilha = null;
-			}
 
-			if( !$scope.amostra.tipoArmadilha || $scope.amostra.tipoArmadilha.descricao != "Outros" ){
-				$scope.amostra.outroTipo = null;
-			}
-			
-			if($scope.amostra.ambiente.fgOrigem === false) {
-				$scope.amostra.coletaOrigem = null;
-			}
-			
-			if($scope.amostra.tipoAnimal.nome){
-				$uibModalInstance.close( $scope.amostra );	
-			}else{
-				toastr.error("Selecione um animal");
-			}
-		}
+	$scope.cancelar = function() {
+		$uibModalInstance.close(null);
 	}
+
 });

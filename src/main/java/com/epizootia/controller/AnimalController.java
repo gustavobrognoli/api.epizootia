@@ -1,7 +1,6 @@
 package com.epizootia.controller;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epizootia.dto.AnimalDTO;
-import com.epizootia.dto.AnormalidadeDTO;
 import com.epizootia.dto.ClassificacaoFADTO;
 import com.epizootia.dto.EspecieDTO;
 import com.epizootia.dto.IdadeDTO;
@@ -189,14 +187,13 @@ public class AnimalController {
 			animal.setSituacao(situacaoController.converteDTOParaEntity(animalDTO.getSituacao()));	
 		}
 			
-		
-		AnormalidadeController anormalidadeController = new AnormalidadeController();
+	
+/*		AnormalidadeController anormalidadeController = new AnormalidadeController();
 		if (animalDTO.getAnormalidades() == null){
 			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(new ArrayList<AnormalidadeDTO>()));
 		} else {
 			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(animalDTO.getAnormalidades()));
-		}
-		
+		}	*/
 			
 		SexoController sexoController = new SexoController();
 		if (animalDTO.getSexo() == null) {
@@ -226,7 +223,7 @@ public class AnimalController {
 			animal.setTempoObito(tempoObitoController.converteDTOParaEntity(animalDTO.getTempoObito()));
 		}
 		
-		
+	
 		VisceraController visceraController = new VisceraController();
 		if	(animalDTO.getVisceras() == null) {
 			animal.setVisceras(visceraController.converteDTOParaEntity(new VisceraDTO()));
@@ -265,8 +262,8 @@ public class AnimalController {
 		SituacaoController situacaoController = new SituacaoController();
 		animalDTO.setSituacao(situacaoController.converteEntityParaDTO(animal.getSituacao()));
 		
-		AnormalidadeController anormalidadeController = new AnormalidadeController();
-		animalDTO.setAnormalidades(anormalidadeController.converteEntityParaDTO(animal.getAnormalidades()));
+/*		AnormalidadeController anormalidadeController = new AnormalidadeController();
+		animalDTO.setAnormalidades(anormalidadeController.converteEntityParaDTO(animal.getAnormalidades()));*/
 		
 		SexoController sexoController = new SexoController();
 		animalDTO.setSexo(sexoController.converteEntityParaDTO(animal.getSexo()));

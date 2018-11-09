@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,13 +34,15 @@ public class Anormalidade implements Serializable {
 	private Boolean secrecao;
 	private String outraAnormalidade;
 	
+	private Animal animal;
+	
 	public Anormalidade() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Id
 	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -136,10 +141,22 @@ public class Anormalidade implements Serializable {
 		this.outraAnormalidade = outraAnormalidade;
 	}
 	
+	@ManyToOne(fetch= FetchType.EAGER)
+	//@JoinColumn(name="cd_id")
+	public Animal getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
+	}
+
 	@Override
 	public String toString() {
-		return "Anormalidade [baba=" + baba + ", bicheira=" + bicheira + ", caroco=" + caroco + ", cegueira=" + cegueira
-				+ ", diarreia=" + diarreia + ", fratura=" + fratura + ", queimadura=" + queimadura + ", sangramento="
-				+ sangramento + ", secrecao=" + secrecao + ", outraAnormalidade=" + outraAnormalidade + "]";
+		return "Anormalidade [id=" + id + ", baba=" + baba + ", bicheira=" + bicheira + ", caroco=" + caroco
+				+ ", cegueira=" + cegueira + ", diarreia=" + diarreia + ", fratura=" + fratura + ", queimadura="
+				+ queimadura + ", sangramento=" + sangramento + ", secrecao=" + secrecao + ", outraAnormalidade="
+				+ outraAnormalidade + ", animal=" + animal + "]";
 	}
+	
 }

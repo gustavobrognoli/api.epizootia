@@ -3,11 +3,14 @@ package com.epizootia.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,8 +26,9 @@ public class Animal implements Serializable {
 	private NomePopular nomePopular;
 	private Especie especie;
 	private Situacao situacao;
-	// OneToMany
+	
 	private List<Anormalidade> anormalidades;
+	
 	private Sexo sexo;
 	private Idade idade;
 	private Boolean apreensao;
@@ -40,7 +44,7 @@ public class Animal implements Serializable {
 
 	@Id
 	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -76,7 +80,7 @@ public class Animal implements Serializable {
 		this.situacao = situacao2;
 	}
 
-	@Column(name="cd_anormalidade")
+	@OneToMany(mappedBy="animal", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Anormalidade> getAnormalidades() {
 		return anormalidades;
 	}
@@ -160,7 +164,7 @@ public class Animal implements Serializable {
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao=" + situacao
-				+ ", anormalidade=" + anormalidades + ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao
+				+ ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao
 				+ ", vidaLivre=" + vidaLivre + ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", visceras="
 				+ visceras + ", classificacaoFA=" + classificacaoFA + "]";
 	}

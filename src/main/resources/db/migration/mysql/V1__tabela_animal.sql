@@ -3,7 +3,7 @@ CREATE TABLE `Epizootia`.`mod_epizootia_animal` (
 	`cd_nm_popular` INT NOT NULL , 
 	`cd_especie` INT NOT NULL , 
 	`cd_situacao` INT NOT NULL , 
-	`cd_anormalidade` INT NOT NULL ,	
+	`cd_anormalidade` INT NOT NULL,	
 	`cd_sexo` INT NOT NULL , 
 	`cd_idade` INT NOT NULL , 
 	`fg_apreensao` boolean NOT NULL , 
