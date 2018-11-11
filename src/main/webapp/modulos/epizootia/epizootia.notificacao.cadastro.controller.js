@@ -90,7 +90,9 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			
 	
 
-/*	$scope.salvarFicha = function( key ){
+/*	
+ * 
+ * $scope.salvarFicha = function( key ){
 		if( !$scope.form.$valid && ( key == 'localidade')){
 			var modalInstance = $uibModal.open({ 
 				templateUrl: "modulos/template/dialog.mensagem.html", 
@@ -135,7 +137,9 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			$scope.localidade.id = response.data;
 			toastr.success("Localidade salva com sucesso");
 		});
-	}*/
+	}
+	
+*/
 	
 	
 	$scope.addMorador = function(){
