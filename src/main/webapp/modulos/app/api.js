@@ -14,7 +14,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/animal");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/animal/" + id);
+	        		return $http.delete("./api/animal/" + id);
 	            }
 	        },
 	        
@@ -111,6 +111,18 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        	},
 	            excluir: function( id ){
 	        		return $http.delete("/api/morador/" + id);
+	            }
+	        },
+
+	        corposAgua:{
+	        	insert: function( corposAgua ){
+	        		return $http.post("./api/corposAgua", corposAgua);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/corposAgua");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/corposAgua/" + id);
 	            }
 	        },
 	        

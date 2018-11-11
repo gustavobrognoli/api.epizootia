@@ -155,19 +155,7 @@ public class CorposAguaController {
 	public CorposAgua converteDTOParaEntity(CorposAguaDTO corposAguaDTO) {
 		CorposAgua corposAgua = new CorposAgua();
 		corposAgua.setId(corposAguaDTO.getId());
-		corposAgua.setAcude(corposAguaDTO.getAcude());
-		corposAgua.setBanhado(corposAguaDTO.getBanhado());
-		corposAgua.setRiacho(corposAguaDTO.getRiacho());
-		corposAgua.setEstuario(corposAguaDTO.getEstuario());
-		corposAgua.setLagoa(corposAguaDTO.getLagoa());
-		corposAgua.setLago(corposAguaDTO.getLago());
-		corposAgua.setLaguna(corposAguaDTO.getLaguna());
-		corposAgua.setMangue(corposAguaDTO.getMangue());
-		corposAgua.setMar(corposAguaDTO.getMar());
-		corposAgua.setRepresa(corposAguaDTO.getRepresa());
-		corposAgua.setRio(corposAguaDTO.getRio());
-		corposAgua.setOutro(corposAguaDTO.getOutro());
-		corposAgua.setOutroDescricao(corposAguaDTO.getOutroDescricao());
+		corposAgua.setNome(corposAguaDTO.getNome());
 		return corposAgua;
 	}
 
@@ -181,19 +169,7 @@ public class CorposAguaController {
 	public CorposAguaDTO converteEntityParaDTO(CorposAgua corposAgua) {
 		CorposAguaDTO corposAguaDTO = new CorposAguaDTO();
 		corposAguaDTO.setId(corposAgua.getId());
-		corposAguaDTO.setAcude(corposAgua.getAcude());
-		corposAguaDTO.setBanhado(corposAgua.getBanhado());
-		corposAguaDTO.setRiacho(corposAgua.getRiacho());
-		corposAguaDTO.setEstuario(corposAgua.getEstuario());
-		corposAguaDTO.setLagoa(corposAgua.getLagoa());
-		corposAguaDTO.setLago(corposAgua.getLago());
-		corposAguaDTO.setLaguna(corposAgua.getLaguna());
-		corposAguaDTO.setMangue(corposAgua.getMangue());
-		corposAguaDTO.setMar(corposAgua.getMar());
-		corposAguaDTO.setRepresa(corposAgua.getRepresa());
-		corposAguaDTO.setRio(corposAgua.getRio());
-		corposAguaDTO.setOutro(corposAgua.getOutro());
-		corposAguaDTO.setOutroDescricao(corposAgua.getOutroDescricao());
+		corposAguaDTO.setNome(corposAgua.getNome());
 		return corposAguaDTO;
 	}
 
@@ -206,6 +182,6 @@ public class CorposAguaController {
 	 */
 	private void validaSeExiste(CorposAguaDTO dTO, BindingResult result) {
 		this.service.findById(dTO.getId())
-				.ifPresent(cor -> result.addError(new ObjectError("Situacao Fundiaria", dTO.getId() + "já existe")));
+				.ifPresent(cor -> result.addError(new ObjectError("Situacao Fundiaria", dTO.getNome() + "já existe")));
 	}
 }

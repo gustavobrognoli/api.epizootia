@@ -19,7 +19,7 @@ public class UnidadeConservacao implements Serializable {
 	private static final long serialVersionUID = 1130208186639088930L;
 
 	private int id;
-	private String unidadeConservacao;
+	private String nome;
 
 	public UnidadeConservacao() {
 		// TODO Auto-generated constructor stub
@@ -36,18 +36,18 @@ public class UnidadeConservacao implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_nome_unidade_conservacao")
-	public String getUnidadeConservacao() {
-		return unidadeConservacao;
+	@Column(name = "ds_nome")
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUnidadeConservacao(String unidadeConservacao) {
-		this.unidadeConservacao = unidadeConservacao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	@Override
 	public String toString() {
-		return "UnidadeConservacao [id=" + id + ", unidadeConservacao=" + unidadeConservacao + "]";
+		return "UnidadeConservacao [id=" + id + ", nome=" + nome + "]";
 	}
 
 }

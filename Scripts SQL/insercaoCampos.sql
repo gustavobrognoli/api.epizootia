@@ -21,8 +21,14 @@ values ("Macho"),("Fêmea"),("Não Identificado");
 INSERT INTO epizootia.mod_epizootia_tempo_obito (ds_tempo_obito) 
 values ("Até 2 horas"),("Até 8 horas"),("Até 24 horas"),("Superior a  24 horas"),("Não avaliado");
 
-INSERT INTO epizootia.mod_epizootia_unidade_conservacao (ds_nome_unidade_conservacao) 
+INSERT INTO epizootia.mod_epizootia_unidade_conservacao (ds_nome) 
 values ("Zoologico"),("Parque"),("Praça");
 
 INSERT INTO epizootia.mod_epizootia_mtd_captura (ds_mtd_captura) 
 values ("Solo"),("Copa");
+
+INSERT INTO epizootia.mod_epizootia_sit_fundiaria (ds_nome) 
+values ("Não identificada"),("Assentamento"),("Comunidade Rural"),("Propriedade particular"),("Terra do Governo"),("Terra Indigêna"),("Terra Quilombola"),("Unidade de Conservação"),("Outra");
+
+INSERT INTO epizootia.mod_epizootia_corpos_agua (ds_nome)
+values ("Nenhum"),("Açude"),("Área alagada/Brejo/Banhado"),("Corixo/Igarapé/Riacho"),("Estuário"),("Lagoa"),("Lago"),("Laguna"),("Mangue"),("Mar"),("Represa"),("Rio"),("Outro");

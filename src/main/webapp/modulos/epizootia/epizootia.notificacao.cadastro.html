@@ -8,17 +8,8 @@
 					<strong>Cadastro Ficha</strong>
 				</h1>
 			</div>
-			<div class="form-group col-sm-4">
-				<label class="control-label">Regional:</label> <select
-					name="regional" class="form-control"
-					ng-options="r as r.nome for r in regionais track by r.id"
-					ng-model="regional" ng-change="getByRegional()"
-					ng-disabled="isPermissaoMunicipio || isPermissaoMunicipioCaso || isPermissaoRegional">
-					<option value="">Todas...</option>
-				</select>
-			</div>
 
-			<div class="form-group col-sm-4">
+			<div class="form-group col-sm-6">
 				<label class="control-label">Municipio:</label> <select
 					name="municipio" class="form-control"
 					ng-options="m as m.nome for m in municipios track by m.id"
@@ -27,7 +18,7 @@
 				</select>
 			</div>
 
-			<div class="col-sm-4"
+			<div class="col-sm-6"
 				ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
 
 				<label class="control-label">Data da Ocorrência</label> <input
@@ -89,14 +80,20 @@
 										<td ng_bind="a.sexo.sexo"></td>
 										<td ng_bind="a.idade.idade"></td>
 										<td><i class="btn btn-danger btn-xs fa fa-times"
-											ng-click="confirmarRemover(c)" uib-tooltip="Excluir Animal"></i>
+											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i></td>
 										</td>
 									</tr>
-
 								</table>
+							</div>
+							<div class="text-right">
+
+								<button type="submit" ng-click="salvarFicha('dados_animal')"
+									class="btn btn-success">
+									Salvar
+									<!-- Etapa-->
+								</button>
 
 							</div>
-						</div>
 					</section>
 
 
@@ -133,13 +130,12 @@
 					</div>
 
 					<div class="form-group col-sm-6">
-						<label class="control-label">Telefone do morador:</label> 
+						<label class="control-label">Telefone do morador:</label>
 						<!-- 
 						<input type="text" class="form-control" ng-model="m.telefone" readonly>
 						-->
-						<select
-							autofocus ng-required="true" id="idTelefone" class="form-control"
-							ng-model="telefoneMorador"
+						<select autofocus ng-required="true" id="idTelefone"
+							class="form-control" ng-model="telefoneMorador"
 							ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
 						</select>
 					</div>
@@ -332,180 +328,64 @@
 					<!--  --> <!-- Corpos d' Água --> <!--  -->
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Corpos d' Água (Trocar por Select)</i></b></label>
+						<label><b><i>Corpos d' Água</i></b></label>
 						<hr>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.acude"><i>Açude</i>
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.brejo"><i> </i>Aréa
-							alagada/Brejo/Banhado
-						</label>
-					</div>
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.corrixo"><i> </i>Corrixó/Igarapé/Riacho
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.estuario"><i> </i>Estuário
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.lagoa"><i> </i>Lagoa
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.lago"><i> </i>Lago
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.laguna"><i> </i>Laguna
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.mangue"><i> </i>Mangue
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.mar"><i> </i>Mar
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.represa"><i> </i>Represa
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="corposAguaRadio" type="radio"
-							ng-model="local.corposAgua.rio"><i> </i>Rio
-						</label>
-					</div>
-					<div class="form-group col-sm-12">
-						<div class="row justify-content-start">
-							<div class="form-group col-sm-3">
-								<input name="corposAguaRadio" type="radio"
-									ng-model="local.corposAgua.outros"> <i></i>Outros?Quais?
-							</div>
-							<div class="form-group col-sm-8">
-								<input type="text" class="form-control"
-									id="local.corposAgua.ds.outros">
-							</div>
-						</div>
-					</div>
-
-
-					<div class="form-group col-sm-12">
-						<label><b><i>Situação Fundiária (Trocar por Select)</i></b></label>
-						<hr>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="situacaoRadio" type="radio"
-							ng-model="local.situacao.assentamento"> <i> </i>
-							Assentamento
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="situacaoRadio" type="radio"
-							ng-model="local.situacao.rural"><i> </i>Comunidade Rural
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="situacaoRadio" type="radio"
-							ng-model="local.situacao.particular"><i> </i>Propriedade
-							Particular
-						</label>
-					</div>
-					<div class="form-group col-sm-4">
-						<label> <input name="situacaoRadio" type="radio"
-							ng-model="local.situacao.governo"> <i> </i> Terra do
-							Governo
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="situacaoRadio" type="radio"
-							ng-model="local.situacao.indigina"><i> </i>Terra Indígena
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="situacaoRadio" type="radio"
-							ng-model="local.situacao.quilombola"><i> </i>Terra
-							Quilombola
-						</label>
-					</div>
-
-					<div class="form-group col-sm-12">
-						<div class="row justify-content-start">
-							<div class="form-group col-sm-4">
-								<label> <input name="situacaoRadio" type="radio"
-									ng-model="local.situacao.conservacao"><i> </i>Unidade
-									de Conservação
-								</label>
-							</div>
-							<div class="form-group col-sm-6">
-								<div class="input-group">
-									<select autofocus ng-required="true" id="idUnidadeConservacao"
-										class="form-control"
-										ng-model="local.situacao.conservacao.lista"
-										ng-options="u as u.unidadesConservacao for u in unidadesConservacao | orderBy:'nome' track by u.id">
-									</select> <span class="input-group-btn">
-
-										<button class="btn btn-default" type="button"
-											data-toggle="tooltip"
-											title="Adicionar nova Unidade de Conservação"
-											ng-click="addUnidade()">+</button>
-
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="form-group col-sm-4">
-						<input name="situacaoRadio" type="radio"
-							ng-model="local.impactos.outros"> <i></i>Outros?Quais?
 					</div>
 
 					<div class="form-group col-sm-6">
-						<input type="text" class="form-control"
-							id="local.impactos.outros.ds">
+						<div class="input-group">
+							<select autofocus ng-required="true" id="idCorposAgua"
+								class="form-control" ng-model="corposAgua"
+								ng-options="c as c.nome for c in corposAguas | orderBy:'id' track by m.id">
+							</select> <span class="input-group-btn">
+
+								<button class="btn btn-default" type="button"
+									data-toggle="tooltip" title="Adicionar novo Corpo d`Água"
+									ng-click="addCorpoAgua()">+</button>
+							</span>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-12">
+						<label><b><i>Situação Fundiária</i></b></label>
+						<hr>
+					</div>
+
+					<div class="form-group col-sm-6">
+						<div class="input-group">
+							<select autofocus ng-required="true" id="idSituacaoFundiaria"
+								class="form-control" ng-model="local.situacaoFundiaria"
+								ng-options="s as s.nome for s in situacoesFundiarias | orderBy:'id' track by s.id">
+							</select> <span class="input-group-btn">
+
+								<button class="btn btn-default" type="button"
+									data-toggle="tooltip" title="Adicionar nova Situação Fundiária"
+									ng-click="addSituacaoFundiaria()">+</button>
+							</span>
+						</div>
+					</div>
+
+
+					<div class="form-group col-sm-12"
+						ng-show="local.situacaoFundiaria.nome == 'Unidade de Conservação'">
+
+						<div class="form-group col-sm-6">
+
+							<label class="control-label">Unidade de Conservação</label>
+							<div class="input-group">
+								<select autofocus ng-required="true" id="idUnidadeConservacao"
+									class="form-control" ng-model="local.unidadeConservacao"
+									ng-options="u as u.nome for u in unidadesConservacao | orderBy:'id' track by u.id">
+								</select> <span class="input-group-btn">
+
+									<button class="btn btn-default" type="button"
+										data-toggle="tooltip"
+										title="Adicionar nova Unidade de Conservação"
+										ng-click="addUnidade()">+</button>
+
+								</span>
+							</div>
+						</div>
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -514,10 +394,10 @@
 					</div>
 
 					<div class="form-group col-sm-9">
-						<input name="detalheLocal"
-						type="text" class="form-control" ng-model="epizootia.detalheLocal">
+						<input name="detalheLocal" type="text" class="form-control"
+							ng-model="epizootia.detalheLocal">
 					</div>
-					
+
 					<div class="row"></div>
 					<br>
 					<hr>
@@ -528,7 +408,7 @@
 						<!-- <button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="submit" class="btn btn-success"
-							ng-click="salvarFicha('dados_local')">
+							ng-click="salvarLocalidade(localidade)">
 							Salvar
 							<!-- Etapa-->
 						</button>

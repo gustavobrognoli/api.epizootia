@@ -166,12 +166,12 @@ public class LocalidadeController {
 		localidade.setLatitude(localidadeDTO.getLatitude());
 		localidade.setLongitude(localidadeDTO.getLongitude());
 		
-		ImpactosController impactosController = new ImpactosController();
-		localidade.setImpactos(impactosController.converteDTOParaEntity(localidadeDTO.getImpactos()));
-		
+/*		ImpactosController impactosController = new ImpactosController();
+		localidade.setImpactos(impactosController.converteDTOParaEntity(localidadeDTO.getImpactos()));*/
+/*		
 		CaracteristicasController caracteristicasController = new CaracteristicasController();
 		localidade.setCaracteristicas(caracteristicasController.converteDTOParaEntity(localidadeDTO.getCaracteristicas()));
-		
+	*/	
 		CorposAguaController corposAguaController = new CorposAguaController();
 		localidade.setCorposAgua(corposAguaController.converteDTOParaEntity(localidadeDTO.getCorposAgua()));
 		

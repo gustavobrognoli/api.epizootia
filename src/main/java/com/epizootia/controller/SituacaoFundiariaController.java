@@ -155,16 +155,7 @@ public class SituacaoFundiariaController {
 	public SituacaoFundiaria converteDTOParaEntity(SituacaoFundiariaDTO situacaoFundiariaDTO) {
 		SituacaoFundiaria situacaoFundiaria = new SituacaoFundiaria();
 		situacaoFundiaria.setId(situacaoFundiariaDTO.getId());
-		situacaoFundiaria.setAssentamento(situacaoFundiariaDTO.getAssentamento());
-		situacaoFundiaria.setRural(situacaoFundiariaDTO.getRural());
-		situacaoFundiaria.setParticular(situacaoFundiariaDTO.getParticular());
-		situacaoFundiaria.setGoverno(situacaoFundiariaDTO.getGoverno());
-		situacaoFundiaria.setIndigina(situacaoFundiariaDTO.getIndigina());
-		situacaoFundiaria.setQuilombola(situacaoFundiariaDTO.getQuilombola());
-		situacaoFundiaria.setUnidadeConservacao(situacaoFundiariaDTO.getUnidadeConservacao());
-		situacaoFundiaria.setNovaUnidadeConservacao(situacaoFundiariaDTO.getNovaUnidadeConservacao());
-		situacaoFundiaria.setOutra(situacaoFundiariaDTO.getOutra());
-		situacaoFundiaria.setOutraDescricao(situacaoFundiariaDTO.getOutraDescricao());
+		situacaoFundiaria.setNome(situacaoFundiariaDTO.getNome());
 		return situacaoFundiaria;
 	}
 
@@ -178,16 +169,7 @@ public class SituacaoFundiariaController {
 	public SituacaoFundiariaDTO converteEntityParaDTO(SituacaoFundiaria situacaoFundiaria) {
 		SituacaoFundiariaDTO situacaoFundiariaDTO = new SituacaoFundiariaDTO();
 		situacaoFundiariaDTO.setId(situacaoFundiaria.getId());
-		situacaoFundiariaDTO.setAssentamento(situacaoFundiaria.getAssentamento());
-		situacaoFundiariaDTO.setRural(situacaoFundiaria.getRural());
-		situacaoFundiariaDTO.setParticular(situacaoFundiaria.getParticular());
-		situacaoFundiariaDTO.setGoverno(situacaoFundiaria.getGoverno());
-		situacaoFundiariaDTO.setIndigina(situacaoFundiaria.getIndigina());
-		situacaoFundiariaDTO.setQuilombola(situacaoFundiaria.getQuilombola());
-		situacaoFundiariaDTO.setUnidadeConservacao(situacaoFundiaria.getUnidadeConservacao());
-		situacaoFundiariaDTO.setNovaUnidadeConservacao(situacaoFundiaria.getNovaUnidadeConservacao());
-		situacaoFundiariaDTO.setOutra(situacaoFundiaria.getOutra());
-		situacaoFundiariaDTO.setOutraDescricao(situacaoFundiaria.getOutraDescricao());
+		situacaoFundiariaDTO.setNome(situacaoFundiaria.getNome());
 		return situacaoFundiariaDTO;
 	}
 

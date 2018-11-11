@@ -1,3 +1,6 @@
+/*
+
+
 package com.epizootia.controller;
 
 import java.security.NoSuchAlgorithmException;
@@ -36,12 +39,12 @@ public class AnormalidadeController {
 	@Autowired
 	private AnormalidadeService service;
 
-/*
+
 	 * 
 	 * Consulta todas as anormalidades
 	 * 
 	 * @return List<AnormalidadeDTO>
-	 *//*
+	 
 	@GetMapping
 	public ResponseEntity<Response<List<AnormalidadeDTO>>> listaTodos() {
 		Response<List<AnormalidadeDTO>> response = new Response<List<AnormalidadeDTO>>();
@@ -140,18 +143,18 @@ public class AnormalidadeController {
 		
 		response.setData(anormalidadeDTO);
 		service.apagar(anormalidade.get());
-		log.info("Deletando anormalidade {}", anormalidadeDTO);
+//		log.info("Deletando anormalidade {}", anormalidadeDTO);
 		
 		return ResponseEntity.ok(response);
 	}
-	*/
+	
 	 * 
 	 * Converte DTO para Entity
 	 * 
 	 * @param anormalidadeDTO
 	 * @return Entity
 	 */
-	public List<Anormalidade> converteDTOParaEntity(List<AnormalidadeDTO> anormalidadesDTO) {
+/*	public List<Anormalidade> converteDTOParaEntity(List<AnormalidadeDTO> anormalidadesDTO) {
 		List<Anormalidade> anormalidades = new ArrayList<Anormalidade>();
 		for (AnormalidadeDTO anormalidadeDTO : anormalidadesDTO) {
 			Anormalidade anormalidade = new Anormalidade();
@@ -208,4 +211,4 @@ public class AnormalidadeController {
 		this.service.findById(dTO.getId())
 			.ifPresent(ano -> result.addError(new ObjectError("Anormalidade", dTO.getId() + "já existe")));
 	}
-}
+}*/

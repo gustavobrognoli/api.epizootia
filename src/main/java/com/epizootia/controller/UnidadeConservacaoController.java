@@ -155,8 +155,7 @@ public class UnidadeConservacaoController {
 	public UnidadeConservacao converteDTOParaEntity(UnidadeConservacaoDTO unidadeConservacaoDTO) {
 		UnidadeConservacao unidadeConservacao = new UnidadeConservacao();
 		unidadeConservacao.setId(unidadeConservacaoDTO.getId());
-		unidadeConservacao.setUnidadeConservacao(unidadeConservacaoDTO.getUnidadeConservacao());
-
+		unidadeConservacao.setNome(unidadeConservacaoDTO.getNome());
 		return unidadeConservacao;
 	}
 
@@ -170,7 +169,7 @@ public class UnidadeConservacaoController {
 	public UnidadeConservacaoDTO converteEntityParaDTO(UnidadeConservacao unidadeConservacao) {
 		UnidadeConservacaoDTO unidadeConservacaoDTO = new UnidadeConservacaoDTO();
 		unidadeConservacaoDTO.setId(unidadeConservacao.getId());
-		unidadeConservacaoDTO.setUnidadeConservacao(unidadeConservacao.getUnidadeConservacao());
+		unidadeConservacaoDTO.setNome(unidadeConservacao.getNome());
 		return unidadeConservacaoDTO;
 	}
 
@@ -183,6 +182,6 @@ public class UnidadeConservacaoController {
 	 */
 	private void validaSeExiste(UnidadeConservacaoDTO dTO, BindingResult result) {
 		this.service.findById(dTO.getId())
-				.ifPresent(ani -> result.addError(new ObjectError("Unidade de Conservação", dTO.getUnidadeConservacao() + "já existe")));
+				.ifPresent(ani -> result.addError(new ObjectError("Unidade de Conservação", dTO.getNome() + "já existe")));
 	}
 }

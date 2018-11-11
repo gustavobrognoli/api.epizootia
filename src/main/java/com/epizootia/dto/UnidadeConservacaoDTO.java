@@ -1,11 +1,12 @@
 package com.epizootia.dto;
 
-import javax.validation.constraints.Min;
+
+import javax.validation.constraints.NotEmpty;
 
 public class UnidadeConservacaoDTO {
 
 	private int id;
-	private String unidadeConservacao;
+	private String nome;
 
 	public UnidadeConservacaoDTO() {
 		// TODO Auto-generated constructor stub
@@ -19,18 +20,18 @@ public class UnidadeConservacaoDTO {
 		this.id = id;
 	}
 
-	@Min(value = 0, message = "Unidade Conservacao não  deve ser vazia")
-	public String getUnidadeConservacao() {
-		return unidadeConservacao;
+	@NotEmpty(message = "Unidade Conservacao deve ter nome")
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUnidadeConservacao(String unidadeConservacao) {
-		this.unidadeConservacao = unidadeConservacao;
+	public void setNome(String unidadeConservacao) {
+		this.nome = unidadeConservacao;
 	}
 
 	@Override
 	public String toString() {
-		return "UnidadeConservacaoDTO [id=" + id + ", unidadeConservacao=" + unidadeConservacao + "]";
+		return "UnidadeConservacaoDTO [id=" + id + ", nome=" + nome + "]";
 	}
 	
 	
