@@ -85,14 +85,29 @@
 									</tr>
 								</table>
 							</div>
-							<div class="text-right">
 
+
+							<div class="form-group col-sm-12">
+								<div>
+									<br>
+									<hr>
+									<br> <label><b><i>Resultado de Epizootia
+												por Febre Amarela</i></b></label>
+								</div>
+								<div class="form-group col-sm-6">
+									<select autofocus ng-required="true" id="idMorador"
+										class="form-control" ng-model="nomeMorador"
+										ng-options="r as r.classificacao for r in resultados | orderBy:'classificacao' track by m.id">
+									</select>
+								</div>
+							</div>
+
+							<div class="text-right">
 								<button type="submit" ng-click="salvarFicha('dados_animal')"
 									class="btn btn-success">
 									Salvar
 									<!-- Etapa-->
 								</button>
-
 							</div>
 					</section>
 

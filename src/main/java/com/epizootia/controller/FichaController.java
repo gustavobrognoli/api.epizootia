@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.epizootia.dto.ClassificacaoFADTO;
 import com.epizootia.dto.FichaDTO;
+import com.epizootia.dto.LocalidadeDTO;
 import com.epizootia.entities.Ficha;
 import com.epizootia.response.Response;
 import com.epizootia.services.FichaService;
@@ -156,15 +158,32 @@ public class FichaController {
 		ficha.setId(fichaDTO.getId());
 		ficha.setDataOcorrencia(fichaDTO.getDataOcorrencia());
 		
-		AnimalController animalController = new AnimalController();
-		ficha.setAnimal(animalController.converteDTOParaEntity(fichaDTO.getAnimal()));	
 		
+/*		AnimalController animalController = new AnimalController();
+		if (fichaDTO.getAnimais() == null) {
+			ficha.setAnimal(animalController.converteDTOParaEntity(new ArrayList<AnimaisDTO>()));	
+		} else {
+			ficha.setAnimal(animalController.converteDTOParaEntity(fichaDTO.getAnimais()));	
+		}
+*/
+
 		ficha.setQuantidade(fichaDTO.getQuantidade());;
 
 		LocalidadeController localidadeController = new LocalidadeController();
-		ficha.setLocalidade(localidadeController.converteDTOParaEntity(fichaDTO.getLocalidade()));
-
+		if (fichaDTO.getLocalidade() == null) {
+			ficha.setLocalidade(localidadeController.converteDTOParaEntity(new LocalidadeDTO()));			
+		} else {
+			ficha.setLocalidade(localidadeController.converteDTOParaEntity(fichaDTO.getLocalidade()));
+		}
+		
 		ficha.setMunicipio(fichaDTO.getMunicipio());
+		
+		ClassificacaoFAController classificacaoFAController = new ClassificacaoFAController();
+		if (fichaDTO.getClassificacaoFA() == null) {
+			ficha.setClassificacaoFA(classificacaoFAController.converteDTOParaEntity(new ClassificacaoFADTO()));
+		} else {
+			ficha.setClassificacaoFA(classificacaoFAController.converteDTOParaEntity(fichaDTO.getClassificacaoFA()));
+		}	
 		
 		return ficha;
 	}
@@ -180,10 +199,12 @@ public class FichaController {
 		FichaDTO fichaDTO = new FichaDTO();
 		fichaDTO.setId(ficha.getId());
 		fichaDTO.setDataOcorrencia(ficha.getDataOcorrencia());
-		
+
+/*		
 		AnimalController animalController = new AnimalController();
-		fichaDTO.setAnimal(animalController.converteEntityParaDTO(ficha.getAnimal()));	
-		
+		fichaDTO.setAnimal(animalController.converteEntityParaDTO(ficha.getAnimais()));	
+
+*/		
 		fichaDTO.setQuantidade(ficha.getQuantidade());;
 
 		LocalidadeController localidadeController = new LocalidadeController();
@@ -203,6 +224,6 @@ public class FichaController {
 	 */
 	private void validaSeExiste(FichaDTO dTO, BindingResult result) {
 		this.service.findById(dTO.getId())
-				.ifPresent(ani -> result.addError(new ObjectError("Ficha", dTO.getAnimal() + "já existe")));
+				.ifPresent(ani -> result.addError(new ObjectError("Ficha", dTO.getId() + "já existe")));
 	}
 }

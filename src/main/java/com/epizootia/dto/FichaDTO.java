@@ -1,15 +1,20 @@
 package com.epizootia.dto;
 
 import java.util.Calendar;
+import java.util.List;
+
+import javax.persistence.Column;
 
 public class FichaDTO {
 
 	private int id;
 	private Calendar dataOcorrencia = Calendar.getInstance();
-	private AnimalDTO animal;
+	private List <AnimalDTO> animais;
+	
 	private int quantidade;
 	private LocalidadeDTO localidade;
 	private String municipio;
+	private ClassificacaoFADTO ClassificacaoFA;
 
 	public FichaDTO() {
 		// TODO Auto-generated constructor stub
@@ -31,12 +36,13 @@ public class FichaDTO {
 		this.dataOcorrencia = dataOcorrencia;
 	}
 
-	public AnimalDTO getAnimal() {
-		return animal;
+	@Column(name = "cd_id_animal")
+	public List<AnimalDTO> getAnimais() {
+		return animais;
 	}
 
-	public void setAnimal(AnimalDTO animal) {
-		this.animal = animal;
+	public void setAnimais(List<AnimalDTO> animais) {
+		this.animais = animais;
 	}
 
 	public int getQuantidade() {
@@ -63,5 +69,18 @@ public class FichaDTO {
 		this.municipio = municipio;
 	}
 	
-	
+	public ClassificacaoFADTO getClassificacaoFA() {
+		return ClassificacaoFA;
+	}
+
+	public void setClassificacaoFA(ClassificacaoFADTO classificacaoFA) {
+		ClassificacaoFA = classificacaoFA;
+	}
+
+	@Override
+	public String toString() {
+		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + ", animais=" + animais + ", quantidade="
+				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", ClassificacaoFA="
+				+ ClassificacaoFA + "]";
+	}
 }

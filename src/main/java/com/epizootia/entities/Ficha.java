@@ -2,6 +2,7 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,11 +22,13 @@ public class Ficha implements Serializable {
 
 	private int id;
 	private Calendar dataOcorrencia = Calendar.getInstance();
-	private Animal animal;
+/*	private List <Animal> animais;*/
 	private int quantidade;
 	private Localidade localidade;
 	private String municipio;
-
+	private ClassificacaoFA ClassificacaoFA;
+	
+	
 	public Ficha() {
 		// TODO Auto-generated constructor stub
 	}
@@ -50,14 +53,14 @@ public class Ficha implements Serializable {
 		this.dataOcorrencia = dataOcorrencia;
 	}
 
-	@Column(name = "cd_id_animal")
-	public Animal getAnimal() {
-		return animal;
+/*	@OneToMany(mappedBy="animal", fetch=FetchType.LAZY, cascade = CascadeType.ALL)*/
+/*	public List<Animal> getAnimais() {
+		return animais;
 	}
 
-	public void setAnimal(Animal animal) {
-		this.animal = animal;
-	}
+	public void setAnimais(List<Animal> animais) {
+		this.animais = animais;
+	}*/
 
 	@Column(name = "nu_quantidade")
 	public int getQuantidade() {
@@ -86,5 +89,19 @@ public class Ficha implements Serializable {
 		this.municipio = municipio;
 	}
 
+	public ClassificacaoFA getClassificacaoFA() {
+		return ClassificacaoFA;
+	}
+
+	public void setClassificacaoFA(ClassificacaoFA classificacaoFA) {
+		ClassificacaoFA = classificacaoFA;
+	}
+
+	@Override
+	public String toString() {
+		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + /*", animais=" + animais + */", quantidade="
+				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", ClassificacaoFA="
+				+ ClassificacaoFA + "]";
+	}
 
 }

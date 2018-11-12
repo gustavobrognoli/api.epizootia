@@ -49,8 +49,8 @@ public class LocalidadeController {
 
 		if (localidadeDTOS.isEmpty()) {
 
-			log.error("Não há animais cadastrados");
-			response.getErrors().add("Não há animais cadastrados");
+			log.error("Não há Localidades cadastradas");
+			response.getErrors().add("Não há Localidades cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -74,8 +74,8 @@ public class LocalidadeController {
 
 		if (!localidade.isPresent()) {
 
-			log.error("Id do Localidade não cadastrado na base de dados");
-			response.getErrors().add("Id do Localidade não cadastrado na base de dados");
+			log.error("Id da Localidade não cadastrado na base de dados");
+			response.getErrors().add("Id da Localidade não cadastrado na base de dados");
 
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -130,8 +130,8 @@ public class LocalidadeController {
 		Optional<Localidade> localidade = service.findById(id);
 
 		if (!localidade.isPresent()) {
-			log.error("Id do Localidade não cadastrado na base de dados");
-			response.getErrors().add("Id do Localidade não cadastrado na base de dados");
+			log.error("Id da Localidade não cadastrado na base de dados");
+			response.getErrors().add("Id da Localidade não cadastrado na base de dados");
 			return ResponseEntity.badRequest().body(response);
 		}
 
@@ -230,7 +230,7 @@ public class LocalidadeController {
 
 	/**
 	 * 
-	 * Valida se o Localidade ja existe na base de dados
+	 * Valida se a Localidade ja existe na base de dados
 	 * 
 	 * @param DTO
 	 * @param result

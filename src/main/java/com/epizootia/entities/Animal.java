@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,7 +37,8 @@ public class Animal implements Serializable {
 	private Boolean cativeiro;
 	private TempoObito tempoObito;
 	private Viscera visceras;
-	private ClassificacaoFA classificacaoFA;
+	
+	private Ficha ficha;
 
 	public Animal() {
 		// TODO Auto-generated constructor stub
@@ -151,14 +153,15 @@ public class Animal implements Serializable {
 	public void setVisceras(Viscera visceras) {
 		this.visceras = visceras;
 	}
-
-	@Column(name="cd_classificacao_fa")
-	public ClassificacaoFA getClassificacaoFA() {
-		return classificacaoFA;
+	
+	@ManyToOne(fetch= FetchType.EAGER)
+	//@JoinColumn(name="cd_id")
+	public Ficha getFicha() {
+		return ficha;
 	}
 
-	public void setClassificacaoFA(ClassificacaoFA classificacaoFA) {
-		this.classificacaoFA = classificacaoFA;
+	public void setFicha(Ficha ficha) {
+		this.ficha = ficha;
 	}
 
 	@Override
@@ -166,7 +169,7 @@ public class Animal implements Serializable {
 		return "Animal [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao=" + situacao
 				+ ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao
 				+ ", vidaLivre=" + vidaLivre + ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", visceras="
-				+ visceras + ", classificacaoFA=" + classificacaoFA + "]";
+				+ visceras + "]";
 	}
 
 }

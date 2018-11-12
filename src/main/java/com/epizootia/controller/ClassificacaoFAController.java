@@ -154,9 +154,7 @@ public class ClassificacaoFAController {
 	public ClassificacaoFA converteDTOParaEntity(ClassificacaoFADTO classificacaoFADTO) {
 		ClassificacaoFA classificacaoFA = new ClassificacaoFA();
 		classificacaoFA.setId(classificacaoFADTO.getId());
-		classificacaoFA.setConfirmado(classificacaoFADTO.getConfirmado());
-		classificacaoFA.setDescartado(classificacaoFADTO.getDescartado());
-		classificacaoFA.setIgnorado(classificacaoFADTO.getIgnorado());
+		classificacaoFA.setClassificacao(classificacaoFADTO.getClassificacao());
 		return classificacaoFA;
 	}
 
@@ -170,9 +168,7 @@ public class ClassificacaoFAController {
 	public ClassificacaoFADTO converteEntityParaDTO(ClassificacaoFA classificacaoFA) {
 		ClassificacaoFADTO classificacaoFADTO = new ClassificacaoFADTO();
 		classificacaoFADTO.setId(classificacaoFA.getId());
-		classificacaoFADTO.setConfirmado(classificacaoFA.getConfirmado());
-		classificacaoFADTO.setDescartado(classificacaoFA.getDescartado());
-		classificacaoFADTO.setIgnorado(classificacaoFA.getIgnorado());
+		classificacaoFADTO.setClassificacao(classificacaoFA.getClassificacao());
 		return classificacaoFADTO;
 	}
 
@@ -185,7 +181,7 @@ public class ClassificacaoFAController {
 	 */
 	private void validaSeExiste(ClassificacaoFADTO dTO, BindingResult result) {
 		this.service.findById(dTO.getId())
-				.ifPresent(ano -> result.addError(new ObjectError("ClassificacaoFA", dTO.getId() + "já existe")));
+				.ifPresent(ano -> result.addError(new ObjectError("ClassificacaoFA", dTO.getClassificacao() + "já existe")));
 	}
 
 }

@@ -14,9 +14,11 @@ public class AnimalDTO  {
 	private List<AnormalidadeDTO> anormalidades;
 	private SexoDTO sexo;
 	private IdadeDTO idade;
+	
 	private Boolean apreensao;
 	private Boolean vidaLivre;
 	private Boolean cativeiro;
+	
 	private TempoObitoDTO tempoObito;
 	private VisceraDTO visceras;
 	private ClassificacaoFADTO classificacaoFA;

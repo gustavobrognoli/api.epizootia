@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epizootia.dto.AnimalDTO;
-import com.epizootia.dto.ClassificacaoFADTO;
 import com.epizootia.dto.EspecieDTO;
 import com.epizootia.dto.IdadeDTO;
 import com.epizootia.dto.NomePopularDTO;
@@ -188,12 +187,15 @@ public class AnimalController {
 		}
 			
 	
-/*		AnormalidadeController anormalidadeController = new AnormalidadeController();
+/*		
+		AnormalidadeController anormalidadeController = new AnormalidadeController();
 		if (animalDTO.getAnormalidades() == null){
 			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(new ArrayList<AnormalidadeDTO>()));
 		} else {
 			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(animalDTO.getAnormalidades()));
-		}	*/
+		}
+		
+*/
 			
 		SexoController sexoController = new SexoController();
 		if (animalDTO.getSexo() == null) {
@@ -229,14 +231,6 @@ public class AnimalController {
 			animal.setVisceras(visceraController.converteDTOParaEntity(new VisceraDTO()));
 		} else {
 			animal.setVisceras(visceraController.converteDTOParaEntity(animalDTO.getVisceras()));			
-		}
-		
-		
-		ClassificacaoFAController classificacaoFAController = new ClassificacaoFAController();
-		if (animalDTO.getClassificacaoFA() == null) {
-			animal.setClassificacaoFA(classificacaoFAController.converteDTOParaEntity(new ClassificacaoFADTO()));
-		} else {
-			animal.setClassificacaoFA(classificacaoFAController.converteDTOParaEntity(animalDTO.getClassificacaoFA()));
 		}	
 		
 		return animal;
@@ -279,10 +273,7 @@ public class AnimalController {
 		animalDTO.setTempoObito(tempoObitoController.converteEntityParaDTO(animal.getTempoObito()));
 		
 		VisceraController visceraController = new VisceraController();
-		animalDTO.setVisceras(visceraController.converteEntityParaDTO(animal.getVisceras()));
-		
-		ClassificacaoFAController classificacaoFAController = new ClassificacaoFAController();
-		animalDTO.setClassificacaoFA(classificacaoFAController.converteEntityParaDTO(animal.getClassificacaoFA()));
+		animalDTO.setVisceras(visceraController.converteEntityParaDTO(animal.getVisceras()));		
 		
 		return animalDTO;
 	}
