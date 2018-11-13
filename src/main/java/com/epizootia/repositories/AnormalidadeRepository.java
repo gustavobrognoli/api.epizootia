@@ -12,4 +12,5 @@ public interface AnormalidadeRepository extends JpaRepository<Anormalidade, Inte
 	
 	@Override
 	List<Anormalidade> findAll();
+	
 }

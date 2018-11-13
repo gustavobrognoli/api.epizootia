@@ -2,16 +2,25 @@ package com.epizootia.dto;
 
 import java.util.List;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class AnimalDTO  {
 
 	private int id;
+	
+	@Min(value = 0, message="Nome popular não deve ser vazio")
 	private NomePopularDTO nomePopular;
+
+	@Min(value = 0, message = "Especie não  deve ser vazia")
 	private EspecieDTO especie;
+	
+	@Min(value = 0, message = "Especie não  deve ser vazia")
 	private SituacaoDTO situacao;
 	
+	
 	private List<AnormalidadeDTO> anormalidades;
+	
 	private SexoDTO sexo;
 	private IdadeDTO idade;
 	
@@ -35,7 +44,6 @@ public class AnimalDTO  {
 		this.id = id;
 	}
 
-	//@Min(value = 0, message = "Nome popular não  deve ser vazio")
 	public NomePopularDTO getNomePopular() {
 		return nomePopular;
 	}
@@ -44,7 +52,6 @@ public class AnimalDTO  {
 		this.nomePopular = nomePopular;
 	}
 
-	//@Min(value = 0, message = "Especie não  deve ser vazia")
 	public EspecieDTO getEspecie() {
 		return especie;
 	}

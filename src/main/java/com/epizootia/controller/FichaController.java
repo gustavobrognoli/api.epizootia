@@ -1,6 +1,7 @@
 package com.epizootia.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.epizootia.dto.AnimalDTO;
 import com.epizootia.dto.ClassificacaoFADTO;
 import com.epizootia.dto.FichaDTO;
 import com.epizootia.dto.LocalidadeDTO;
+import com.epizootia.entities.Animal;
 import com.epizootia.entities.Ficha;
 import com.epizootia.response.Response;
 import com.epizootia.services.FichaService;
@@ -215,6 +218,22 @@ public class FichaController {
 		return fichaDTO;
 	}
 
+	private ArrayList<Animal> converteDTOListParaEntidadeList(ArrayList<AnimalDTO> animaisDTO) {
+		ArrayList<Animal> animais = new ArrayList<>();
+		
+		for(int i = 0; i< animaisDTO.size(); i++) {
+			Animal animal = new Animal();
+			
+			animal.setId(animaisDTO.get(i).getId());
+
+			
+			
+			animais.add(animal);
+		}
+		
+		return animais;
+	}
+	
 	/**
 	 * 
 	 * Valida se o Ficha ja existe na base de dados
