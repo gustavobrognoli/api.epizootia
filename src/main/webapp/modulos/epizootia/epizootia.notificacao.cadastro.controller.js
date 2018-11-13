@@ -33,7 +33,10 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	api.epizootia.metodoCaptura.getAll().then(function( response ) {
 		$scope.metodosCaptura = response.data.data;
 	});	
-	
+
+	api.epizootia.resultado.getAll().then(function( response ) {
+		$scope.resultados = response.data.data;
+	});	
 	
 	
 	$scope.addMacaco = function(size){
@@ -62,6 +65,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	$scope.remover = function(id){
 		api.epizootia.animal.excluir(id).then(function(response){
 			toastr.success('Animal removido com sucesso');
+			$scope.animais.push( id );
 		});
 	}
 	
@@ -85,6 +89,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	
 		modalInstance.result.then(function (id){
 			$scope.remover( id );
+			$scope.animais.push( animais );
 		});
 	}
 			

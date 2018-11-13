@@ -172,7 +172,19 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	            excluir: function( id ){
 	        		return $http.delete("/api/metodoCaptura/" + id);
 	            }
-	        },     
+	        },
+	        
+	        resultado:{
+	        	insert: function( resultado ){
+	        		return $http.post("./api/classificacaoFA", resultado);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/classificacaoFA");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/classificacaoFA/" + id);
+	            }
+	        },
 	    }, 
 // =============================================================================================//
 // USUARIO //

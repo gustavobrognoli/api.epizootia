@@ -1,8 +1,12 @@
 package com.epizootia.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class AnormalidadeDTO {
 
 	private int id;
+	
+	@NotEmpty(message = "Anormalidade não deve ser vazia")
 	private String sintoma;
 
 	public int getId() {

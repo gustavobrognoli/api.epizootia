@@ -2,7 +2,6 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +21,13 @@ public class Ficha implements Serializable {
 
 	private int id;
 	private Calendar dataOcorrencia = Calendar.getInstance();
-/*	private List <Animal> animais;*/
+	
+	/*private List <Animal> animais;*/
+	
 	private int quantidade;
 	private Localidade localidade;
 	private String municipio;
+	
 	private ClassificacaoFA ClassificacaoFA;
 	
 	
@@ -53,8 +55,8 @@ public class Ficha implements Serializable {
 		this.dataOcorrencia = dataOcorrencia;
 	}
 
-/*	@OneToMany(mappedBy="animal", fetch=FetchType.LAZY, cascade = CascadeType.ALL)*/
-/*	public List<Animal> getAnimais() {
+/*	@OneToMany(mappedBy="ficha", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	public List<Animal> getAnimais() {
 		return animais;
 	}
 
@@ -89,6 +91,7 @@ public class Ficha implements Serializable {
 		this.municipio = municipio;
 	}
 
+	@Column(name = "ds_classificacaoFA")
 	public ClassificacaoFA getClassificacaoFA() {
 		return ClassificacaoFA;
 	}
@@ -99,7 +102,7 @@ public class Ficha implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + /*", animais=" + animais + */", quantidade="
+		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + /*", animais=" + animais +*/ ", quantidade="
 				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", ClassificacaoFA="
 				+ ClassificacaoFA + "]";
 	}

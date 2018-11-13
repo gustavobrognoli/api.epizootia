@@ -1,36 +1,47 @@
 package com.epizootia.dto;
 
-import java.util.List;
-
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class AnimalDTO  {
+public class AnimalDTO {
 
 	private int id;
-	
-	@Min(value = 0, message="Nome popular não deve ser vazio")
+
+	@NotNull(message = "Nome popular não deve ser vazio")
 	private NomePopularDTO nomePopular;
 
-	@Min(value = 0, message = "Especie não  deve ser vazia")
+	@NotNull(message = "Especie não  deve ser vazia")
 	private EspecieDTO especie;
-	
-	@Min(value = 0, message = "Especie não  deve ser vazia")
+
+	@NotNull(message = "Situacao não  deve ser vazia")
 	private SituacaoDTO situacao;
-	
-	
-	private List<AnormalidadeDTO> anormalidades;
-	
+
+	@NotNull(message = "Anormalidade não  deve ser vazia")
+	private AnormalidadeDTO anormalidade;
+
+	@NotNull(message = "Sexo não  deve ser vazio")
 	private SexoDTO sexo;
+
+	@NotNull(message = "Idade não  deve ser vazia")
 	private IdadeDTO idade;
-	
-	private Boolean apreensao;
-	private Boolean vidaLivre;
-	private Boolean cativeiro;
-	
+
+	@NotNull(message = "Apreensão não  deve ser vazia")
+	private ApreensaoDTO apreensao;
+
+/*	
+	@NotNull(message = "Vida Livre não  deve ser vazia")
+	private VidaLivreDTO vidaLivre;
+
+	@NotNull(message = "Cativeiro não  deve ser vazio")
+	private CativeiroDTO cativeiro;
+
+*/	
+	/* @NotNull(message = "Tempo do Óbito não  deve ser vazio") */
 	private TempoObitoDTO tempoObito;
-	private VisceraDTO visceras;
-	private ClassificacaoFADTO classificacaoFA;
+
+	/* @NotNull(message = "Viscera não  deve ser vazia") */
+	private VisceraDTO viscera;
+
+	private FichaDTO ficha;
 
 	public AnimalDTO() {
 		// TODO Auto-generated constructor stub
@@ -60,7 +71,6 @@ public class AnimalDTO  {
 		this.especie = especie;
 	}
 
-	//@Min(value = 0, message = "Situaçao não  deve ser vazia")
 	public SituacaoDTO getSituacao() {
 		return situacao;
 	}
@@ -69,16 +79,14 @@ public class AnimalDTO  {
 		this.situacao = situacao;
 	}
 
-	//@Min(value = 0, message = "Anormalidade não  deve ser vazia")
-	public List<AnormalidadeDTO> getAnormalidades() {
-		return anormalidades;
+	public AnormalidadeDTO getAnormalidade() {
+		return anormalidade;
 	}
 
-	public void setAnormalidades(List<AnormalidadeDTO> anormalidades) {
-		this.anormalidades = anormalidades;
+	public void setAnormalidade(AnormalidadeDTO anormalidade) {
+		this.anormalidade = anormalidade;
 	}
 
-	@NotNull(message = "Sexo não  deve ser vazio")
 	public SexoDTO getSexo() {
 		return sexo;
 	}
@@ -87,7 +95,6 @@ public class AnimalDTO  {
 		this.sexo = sexo;
 	}
 
-	@NotNull(message = "Idade não  deve ser vazia")
 	public IdadeDTO getIdade() {
 		return idade;
 	}
@@ -96,34 +103,32 @@ public class AnimalDTO  {
 		this.idade = idade;
 	}
 
-	@NotNull(message = "Apreensão não  deve ser vazia")
-	public Boolean getApreensao() {
+	public ApreensaoDTO getApreensao() {
 		return apreensao;
 	}
 
-	public void setApreensao(Boolean apreensao) {
+	public void setApreensao(ApreensaoDTO apreensao) {
 		this.apreensao = apreensao;
 	}
 
-	@NotNull(message = "Vida Livre não  deve ser vazia")
-	public Boolean getVidaLivre() {
+	
+/*	public VidaLivreDTO getVidaLivre() {
 		return vidaLivre;
 	}
 
-	public void setVidaLivre(Boolean vidaLivre) {
+	public void setVidaLivre(VidaLivreDTO vidaLivre) {
 		this.vidaLivre = vidaLivre;
 	}
 
-	@NotNull(message = "Cativeiro não  deve ser vazio")
-	public Boolean getCativeiro() {
+	public CativeiroDTO getCativeiro() {
 		return cativeiro;
 	}
 
-	public void setCativeiro(Boolean cativeiro) {
+	public void setCativeiro(CativeiroDTO cativeiro) {
 		this.cativeiro = cativeiro;
 	}
-
-	//@Min(value = 0, message = "Tempo do Óbito não  deve ser vazio")
+*/
+	
 	public TempoObitoDTO getTempoObito() {
 		return tempoObito;
 	}
@@ -132,30 +137,26 @@ public class AnimalDTO  {
 		this.tempoObito = tempoObito;
 	}
 
-	//@Min(value = 0, message = "Coleta de Visceras não  deve ser vazia")
-	public VisceraDTO getVisceras() {
-		return visceras;
+	public VisceraDTO getViscera() {
+		return viscera;
 	}
 
-	public void setVisceras(VisceraDTO visceras) {
-		this.visceras = visceras;
+	public void setVisceras(VisceraDTO viscera) {
+		this.viscera = viscera;
 	}
 
-	//@Min(value = 0, message = "Classificação de Febre Amarela não  deve ser vazia")
-	public ClassificacaoFADTO getClassificacaoFA() {
-		return classificacaoFA;
+	public FichaDTO getFicha() {
+		return ficha;
 	}
 
-	public void setClassificacaoFA(ClassificacaoFADTO classificacaoFA) {
-		this.classificacaoFA = classificacaoFA;
+	public void setFicha(FichaDTO ficha) {
+		this.ficha = ficha;
 	}
 
 	@Override
 	public String toString() {
 		return "AnimalDTO [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao="
-				+ situacao + ", anormalidade=" + anormalidades + ", sexo=" + sexo + ", idade=" + idade + ", apreensao="
-				+ apreensao + ", vidaLivre=" + vidaLivre + ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito
-				+ ", visceras=" + visceras + ", classificacaoFA=" + classificacaoFA + "]";
+				+ situacao + ", anormalidade=" + anormalidade + ", sexo=" + sexo + ", idade=" + idade + ", tempoObito="
+				+ tempoObito + ", viscera=" + viscera + ", ficha=" + ficha + "]";
 	}
-
 }

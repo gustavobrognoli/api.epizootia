@@ -1,52 +1,68 @@
 package com.epizootia.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "mod_epizootia_animal")
 public class Animal implements Serializable {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8669089949751249376L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "cd_nm_popular")
 	private NomePopular nomePopular;
+
+	@Column(name = "cd_especie")
 	private Especie especie;
+
+	@Column(name = "cd_situacao")
 	private Situacao situacao;
-	
-	private List<Anormalidade> anormalidades;
-	
+
+	@Column(name = "cd_sexo")
 	private Sexo sexo;
+
+	@Column(name = "cd_idade")
 	private Idade idade;
-	private Boolean apreensao;
-	private Boolean vidaLivre;
-	private Boolean cativeiro;
+
+/*	
+	@Column(name = "cd_apreensao")
+	private Apreensao apreensao;
+
+	@Column(name = "cd_vidaLivre")
+	private VidaLivre vidaLivre;
+
+	@Column(name = "cd_cativeiro")
+	private Cativeiro cativeiro;
+*/
+
+	@Column(name = "cd_tempoObito")
 	private TempoObito tempoObito;
-	private Viscera visceras;
-	
+
+	@Column(name = "cd_viscera")
+	private Viscera viscera;
+
+	@Column(name = "cd_anormalidade")
+	private Anormalidade anormalidade;
+
 	private Ficha ficha;
 
 	public Animal() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -55,7 +71,6 @@ public class Animal implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "cd_nm_popular")
 	public NomePopular getNomePopular() {
 		return nomePopular;
 	}
@@ -64,7 +79,6 @@ public class Animal implements Serializable {
 		this.nomePopular = nomePopular;
 	}
 
-	@Column(name = "cd_especie")
 	public Especie getEspecie() {
 		return especie;
 	}
@@ -73,25 +87,14 @@ public class Animal implements Serializable {
 		this.especie = especie;
 	}
 
-	@Column(name="cd_situacao")
 	public Situacao getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Situacao situacao2) {
-		this.situacao = situacao2;
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
 	}
 
-	@OneToMany(mappedBy="animal", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	public List<Anormalidade> getAnormalidades() {
-		return anormalidades;
-	}
-
-	public void setAnormalidades(List<Anormalidade> anormalidades) {
-		this.anormalidades = anormalidades;
-	}
-
-	@Column(name = "cd_sexo")
 	public Sexo getSexo() {
 		return sexo;
 	}
@@ -99,8 +102,7 @@ public class Animal implements Serializable {
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
-	
-	@Column(name= "cd_idade")
+
 	public Idade getIdade() {
 		return idade;
 	}
@@ -109,34 +111,31 @@ public class Animal implements Serializable {
 		this.idade = idade;
 	}
 
-	@Column(name = "fg_apreensao")
-	public Boolean getApreensao() {
+/*
+	public Apreensao getApreensao() {
 		return apreensao;
 	}
 
-	public void setApreensao(Boolean apreensao) {
+	public void setApreensao(Apreensao apreensao) {
 		this.apreensao = apreensao;
 	}
 
-	@Column(name = "fg_vidaLivre")
-	public Boolean getVidaLivre() {
+	public VidaLivre getVidaLivre() {
 		return vidaLivre;
 	}
 
-	public void setVidaLivre(Boolean vidaLivre) {
+	public void setVidaLivre(VidaLivre vidaLivre) {
 		this.vidaLivre = vidaLivre;
 	}
 
-	@Column(name= "fg_cativeiro")
-	public Boolean getCativeiro() {
+	public Cativeiro getCativeiro() {
 		return cativeiro;
 	}
 
-	public void setCativeiro(Boolean cativeiro) {
+	public void setCativeiro(Cativeiro cativeiro) {
 		this.cativeiro = cativeiro;
-	}
+	}*/
 
-	@Column(name="cd_tempo_obito")
 	public TempoObito getTempoObito() {
 		return tempoObito;
 	}
@@ -145,17 +144,22 @@ public class Animal implements Serializable {
 		this.tempoObito = tempoObito;
 	}
 
-	@Column(name="cd_visceras")
-	public Viscera getVisceras() {
-		return visceras;
+	public Viscera getViscera() {
+		return viscera;
 	}
 
-	public void setVisceras(Viscera visceras) {
-		this.visceras = visceras;
+	public void setViscera(Viscera viscera) {
+		this.viscera = viscera;
 	}
-	
-	@ManyToOne(fetch= FetchType.EAGER)
-	//@JoinColumn(name="cd_id")
+
+	public Anormalidade getAnormalidade() {
+		return anormalidade;
+	}
+
+	public void setAnormalidade(Anormalidade anormalidade) {
+		this.anormalidade = anormalidade;
+	}
+
 	public Ficha getFicha() {
 		return ficha;
 	}
@@ -167,9 +171,8 @@ public class Animal implements Serializable {
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao=" + situacao
-				+ ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao
-				+ ", vidaLivre=" + vidaLivre + ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", visceras="
-				+ visceras + "]";
+				+ ", sexo=" + sexo + ", idade=" + idade + ", tempoObito=" + tempoObito + ", viscera=" + viscera
+				+ ", anormalidade=" + anormalidade + ", ficha=" + ficha + "]";
 	}
 
 }

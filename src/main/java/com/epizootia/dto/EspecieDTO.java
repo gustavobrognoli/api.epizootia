@@ -5,6 +5,8 @@ import javax.validation.constraints.NotEmpty;
 public class EspecieDTO {
 
 	private int id;
+	
+	@NotEmpty(message = "Especie não deve ser vazia")
 	private String especie;
 
 	public EspecieDTO() {
@@ -19,7 +21,6 @@ public class EspecieDTO {
 		this.id = id;
 	}
 
-	@NotEmpty(message = "Especie não deve ser vazia")
 	public String getEspecie() {
 		return especie;
 	}

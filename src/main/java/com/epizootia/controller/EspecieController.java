@@ -174,7 +174,7 @@ public class EspecieController {
 
 	/**
 	 * 
-	 * Valida se o Nome Popular do Animal ja existe na base de dados
+	 * Valida se a Especie do Animal ja existe na base de dados
 	 * 
 	 * @param DTO
 	 * @param result

@@ -1,8 +1,12 @@
 package com.epizootia.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class CorposAguaDTO {
 
 	private int id;
+	
+	@NotEmpty(message = "Corpo d`Água não deve ser vazio")
 	private String nome;
 
 	public CorposAguaDTO() {

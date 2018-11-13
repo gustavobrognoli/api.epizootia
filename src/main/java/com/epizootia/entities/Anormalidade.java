@@ -2,7 +2,11 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +19,12 @@ public class Anormalidade implements Serializable {
 
 	private static final long serialVersionUID = -3247695039962861171L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "cd_sintoma")
 	private String sintoma;
 
 	public int getId() {

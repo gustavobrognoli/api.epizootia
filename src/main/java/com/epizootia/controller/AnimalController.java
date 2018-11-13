@@ -25,7 +25,6 @@ import com.epizootia.dto.AnimalDTO;
 import com.epizootia.dto.EspecieDTO;
 import com.epizootia.dto.IdadeDTO;
 import com.epizootia.dto.NomePopularDTO;
-import com.epizootia.dto.SexoDTO;
 import com.epizootia.dto.SituacaoDTO;
 import com.epizootia.dto.TempoObitoDTO;
 import com.epizootia.dto.VisceraDTO;
@@ -162,14 +161,12 @@ public class AnimalController {
 		Animal animal = new Animal();
 		animal.setId(animalDTO.getId());
 		
-		
 		NomePopularController nomePopularController = new NomePopularController();
 		if (animalDTO.getNomePopular() == null) {
 			animal.setNomePopular(nomePopularController.converteDTOParaEntity(new NomePopularDTO()));
 		} else {			
 			animal.setNomePopular(nomePopularController.converteDTOParaEntity(animalDTO.getNomePopular()));	
 		}
-		
 		
 		EspecieController especieController = new EspecieController(); 
 		if (animalDTO.getEspecie() == null) {
@@ -178,32 +175,23 @@ public class AnimalController {
 			animal.setEspecie(especieController.converteDTOParaEntity(animalDTO.getEspecie()));
 		}
 		
-		
 		SituacaoController situacaoController = new SituacaoController();
 		if (animalDTO.getSituacao() == null) {
 			animal.setSituacao(situacaoController.converteDTOParaEntity(new SituacaoDTO()));
 		} else {	
 			animal.setSituacao(situacaoController.converteDTOParaEntity(animalDTO.getSituacao()));	
-		}
-			
+		}	
 	
-/*		
-		AnormalidadeController anormalidadeController = new AnormalidadeController();
-		if (animalDTO.getAnormalidades() == null){
-			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(new ArrayList<AnormalidadeDTO>()));
+/*		AnormalidadeController anormalidadeController = new AnormalidadeController();  
+		if (animalDTO.getAnormalidade() == null){
+			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(new AnormalidadeDTO>()));
 		} else {
-			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(animalDTO.getAnormalidades()));
+			animal.setAnormalidade(anormalidadeController.converteDTOParaEntity(animalDTO.getAnormalidade()));
 		}
-		
-*/
-			
+		*/
+
 		SexoController sexoController = new SexoController();
-		if (animalDTO.getSexo() == null) {
- 			animal.setSexo(sexoController.converteDTOParaEntity(new SexoDTO()));
-		} else { 
-			animal.setSexo(sexoController.converteDTOParaEntity(animalDTO.getSexo()));
-		}
-		
+		animal.setSexo(sexoController.converteDTOParaEntity(animalDTO.getSexo()));
 		
 		IdadeController idadeController = new IdadeController();
 		if (animalDTO.getIdade() == null) {
@@ -211,13 +199,17 @@ public class AnimalController {
 		} else {
 			animal.setIdade(idadeController.converteDTOParaEntity(animalDTO.getIdade()));
 		}
+/*		
+		ApreensaoController apreensaoController = new ApreensaoController();
+		animal.setApreensao(apreensaoController.converteDTOParaEntity(animalDTO.getApreensao()));
 		
+		VidaLivreController vidaLivreController = new VidaLivreController();
+		animal.setVidaLivre(vidaLivreController.converteDTOParaEntity(animalDTO.getVidaLivre()));
 		
-		animal.setApreensao(animalDTO.getApreensao());
-		animal.setVidaLivre(animalDTO.getVidaLivre());
-		animal.setCativeiro(animalDTO.getCativeiro());
+		CativeiroController cativeiroController = new CativeiroController();
+		animal.setCativeiro(vidaLivreController.converteDTOParaEntity(animalDTO.vidaLivreController()));		
 		
-		
+*/		
 		TempoObitoController tempoObitoController = new TempoObitoController();
 		if (animalDTO.getTempoObito() == null) {
 			animal.setTempoObito(tempoObitoController.converteDTOParaEntity(new TempoObitoDTO()));
@@ -227,10 +219,10 @@ public class AnimalController {
 		
 	
 		VisceraController visceraController = new VisceraController();
-		if	(animalDTO.getVisceras() == null) {
-			animal.setVisceras(visceraController.converteDTOParaEntity(new VisceraDTO()));
+		if	(animalDTO.getViscera() == null) {
+			animal.setViscera(visceraController.converteDTOParaEntity(new VisceraDTO()));
 		} else {
-			animal.setVisceras(visceraController.converteDTOParaEntity(animalDTO.getVisceras()));			
+			animal.setViscera(visceraController.converteDTOParaEntity(animalDTO.getViscera()));			
 		}	
 		
 		return animal;
@@ -256,25 +248,35 @@ public class AnimalController {
 		SituacaoController situacaoController = new SituacaoController();
 		animalDTO.setSituacao(situacaoController.converteEntityParaDTO(animal.getSituacao()));
 		
-/*		AnormalidadeController anormalidadeController = new AnormalidadeController();
-		animalDTO.setAnormalidades(anormalidadeController.converteEntityParaDTO(animal.getAnormalidades()));*/
+		AnormalidadeController anormalidadeController = new AnormalidadeController();
+		animalDTO.setAnormalidade(anormalidadeController.converteEntityParaDTO(animal.getAnormalidade()));
 		
 		SexoController sexoController = new SexoController();
 		animalDTO.setSexo(sexoController.converteEntityParaDTO(animal.getSexo()));
 		
 		IdadeController idadeController = new IdadeController();
 		animalDTO.setIdade(idadeController.converteEntityParaDTO(animal.getIdade()));
+
+/*
+		ApreensaoController apreensaoController = new ApreensaoController();
+		animalDTO.setApreensao(apreensaoController.converteDTOParaEntity(animal.getApreensao()));
+
 		
-		animalDTO.setApreensao(animal.getApreensao());
-		animalDTO.setVidaLivre(animal.getVidaLivre());
-		animalDTO.setCativeiro(animal.getCativeiro());
+		VidaLivreController vidaLivreController = new VidaLivreController();
+		animalDTO.setVidaLivre(vidaLivreController.converteDTOParaEntity(animal.getVidaLivre()));
 		
+		CativeiroController cativeiroController = new CativeiroController();
+		animalDTO.setCativeiro(vidaLivreController.converteDTOParaEntity(animal.vidaLivreController()));	
+		
+*/		
 		TempoObitoController tempoObitoController = new TempoObitoController();
 		animalDTO.setTempoObito(tempoObitoController.converteEntityParaDTO(animal.getTempoObito()));
-		
+
+/*		
 		VisceraController visceraController = new VisceraController();
 		animalDTO.setVisceras(visceraController.converteEntityParaDTO(animal.getVisceras()));		
-		
+
+*/		
 		return animalDTO;
 	}
 
