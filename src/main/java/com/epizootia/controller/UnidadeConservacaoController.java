@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.UnidadeConservacaoDTO;
 import com.epizootia.entities.UnidadeConservacao;
 import com.epizootia.response.Response;
 import com.epizootia.services.UnidadeConservacaoService;
@@ -42,35 +40,34 @@ public class UnidadeConservacaoController {
 	 * @return List<UnidadeConservacaoDTO>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<UnidadeConservacaoDTO>>> listaTodos() {
-		Response<List<UnidadeConservacaoDTO>> response = new Response<List<UnidadeConservacaoDTO>>();
+	public ResponseEntity<Response<List<UnidadeConservacao>>> listaTodos() {
+		Response<List<UnidadeConservacao>> response = new Response<List<UnidadeConservacao>>();
 
-		List<UnidadeConservacaoDTO> unidadeConservacaoDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<UnidadeConservacao> unidadesConservacao = service.findAll();
 
-		if (unidadeConservacaoDTOS.isEmpty()) {
+		if (unidadesConservacao.isEmpty()) {
 
 			log.error("Não há unidades de conservação cadastradas");
 			response.getErrors().add("Não há unidades de conservação cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(unidadeConservacaoDTOS);
+		response.setData(unidadesConservacao);
 
 		return ResponseEntity.ok(response);
 	}
 
 	/**
 	 * 
-	 * Consulta de unidade de conservação por id
+	 * Consulta de unidades de conservação por id
 	 * 
 	 * @return List<UnidadeConservacaoDTO>
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<UnidadeConservacaoDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<UnidadeConservacao>> consulta(@PathVariable("id") int id) {
 
-		Response<UnidadeConservacaoDTO> response = new Response<UnidadeConservacaoDTO>();
+		Response<UnidadeConservacao> response = new Response<UnidadeConservacao>();
 		Optional<UnidadeConservacao> unidadeConservacao = service.findById(id);
 
 		if (!unidadeConservacao.isPresent()) {
@@ -81,11 +78,9 @@ public class UnidadeConservacaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		UnidadeConservacaoDTO unidadeConservacaoDTO = converteEntityParaDTO(unidadeConservacao.get());
+		response.setData(unidadeConservacao.get());
 
-		response.setData(unidadeConservacaoDTO);
-
-		log.info("Consulta do Unidade de Conservação {}", unidadeConservacaoDTO);
+		log.info("Consulta do Unidade de Conservação {}", unidadeConservacao);
 
 		return ResponseEntity.ok(response);
 	}
@@ -100,13 +95,12 @@ public class UnidadeConservacaoController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<UnidadeConservacaoDTO>> cadastrar(@Valid @RequestBody UnidadeConservacaoDTO DTO, BindingResult result)
+	public ResponseEntity<Response<UnidadeConservacao>> cadastrar(@Valid @RequestBody UnidadeConservacao unidadeConservacao, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Unidade de Conservação {}", DTO.toString());
+		log.info("Cadastrando Unidade de Conservação {}", unidadeConservacao.toString());
 
-		Response<UnidadeConservacaoDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		UnidadeConservacao entity = this.converteDTOParaEntity(DTO);
+		Response<UnidadeConservacao> response = new Response<>();
+		validaSeExiste(unidadeConservacao, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -114,8 +108,8 @@ public class UnidadeConservacaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(unidadeConservacao);
+		response.setData(unidadeConservacao);
 		return ResponseEntity.ok(response);
 	}
 
@@ -125,9 +119,9 @@ public class UnidadeConservacaoController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<UnidadeConservacaoDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<UnidadeConservacao>> apagar(@PathVariable("id") int id) {
 
-		Response<UnidadeConservacaoDTO> response = new Response<UnidadeConservacaoDTO>();
+		Response<UnidadeConservacao> response = new Response<UnidadeConservacao>();
 		Optional<UnidadeConservacao> unidadeConservacao = service.findById(id);
 
 		if (!unidadeConservacao.isPresent()) {
@@ -136,41 +130,11 @@ public class UnidadeConservacaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		UnidadeConservacaoDTO unidadeConservacaoDTO = converteEntityParaDTO(unidadeConservacao.get());
-
-		response.setData(unidadeConservacaoDTO);
+		response.setData(unidadeConservacao.get());
 		service.apagar(unidadeConservacao.get());
-		log.info("Deletando Unidade de Conservação {}", unidadeConservacaoDTO);
+		log.info("Deletando Unidade de Conservação {}", unidadeConservacao);
 
 		return ResponseEntity.ok(response);
-	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param unidadeConservacaoDTO
-	 * @return Entity
-	 */
-	public UnidadeConservacao converteDTOParaEntity(UnidadeConservacaoDTO unidadeConservacaoDTO) {
-		UnidadeConservacao unidadeConservacao = new UnidadeConservacao();
-		unidadeConservacao.setId(unidadeConservacaoDTO.getId());
-		unidadeConservacao.setNome(unidadeConservacaoDTO.getNome());
-		return unidadeConservacao;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param unidadeConservacao
-	 * @return DTO
-	 */
-	public UnidadeConservacaoDTO converteEntityParaDTO(UnidadeConservacao unidadeConservacao) {
-		UnidadeConservacaoDTO unidadeConservacaoDTO = new UnidadeConservacaoDTO();
-		unidadeConservacaoDTO.setId(unidadeConservacao.getId());
-		unidadeConservacaoDTO.setNome(unidadeConservacao.getNome());
-		return unidadeConservacaoDTO;
 	}
 
 	/**
@@ -180,8 +144,8 @@ public class UnidadeConservacaoController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(UnidadeConservacaoDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(ani -> result.addError(new ObjectError("Unidade de Conservação", dTO.getNome() + "já existe")));
+	private void validaSeExiste(UnidadeConservacao unidadeConservacao, BindingResult result) {
+		this.service.findById(unidadeConservacao.getId())
+				.ifPresent(ani -> result.addError(new ObjectError("Unidade de Conservação", unidadeConservacao.getNome() + "já existe")));
 	}
 }

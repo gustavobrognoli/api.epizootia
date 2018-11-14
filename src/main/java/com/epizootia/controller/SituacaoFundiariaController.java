@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.SituacaoFundiariaDTO;
 import com.epizootia.entities.SituacaoFundiaria;
 import com.epizootia.response.Response;
 import com.epizootia.services.SituacaoFundiariaService;
@@ -42,20 +40,19 @@ public class SituacaoFundiariaController {
 	 * @return List<SituacaoFundiariaDTO>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<SituacaoFundiariaDTO>>> listaTodos() {
-		Response<List<SituacaoFundiariaDTO>> response = new Response<List<SituacaoFundiariaDTO>>();
+	public ResponseEntity<Response<List<SituacaoFundiaria>>> listaTodos() {
+		Response<List<SituacaoFundiaria>> response = new Response<List<SituacaoFundiaria>>();
 
-		List<SituacaoFundiariaDTO> situacaoFundiariaDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<SituacaoFundiaria> situacoesFundiarias = service.findAll();
 
-		if (situacaoFundiariaDTOS.isEmpty()) {
+		if (situacoesFundiarias.isEmpty()) {
 
 			log.error("Não há situações fundiárias cadastradas");
 			response.getErrors().add("Não há situações fundiárias cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(situacaoFundiariaDTOS);
+		response.setData(situacoesFundiarias);
 
 		return ResponseEntity.ok(response);
 	}
@@ -68,9 +65,9 @@ public class SituacaoFundiariaController {
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<SituacaoFundiariaDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<SituacaoFundiaria>> consulta(@PathVariable("id") int id) {
 
-		Response<SituacaoFundiariaDTO> response = new Response<SituacaoFundiariaDTO>();
+		Response<SituacaoFundiaria> response = new Response<SituacaoFundiaria>();
 		Optional<SituacaoFundiaria> situacaoFundiaria = service.findById(id);
 
 		if (!situacaoFundiaria.isPresent()) {
@@ -81,11 +78,9 @@ public class SituacaoFundiariaController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		SituacaoFundiariaDTO situacaoFundiariaDTO = converteEntityParaDTO(situacaoFundiaria.get());
+		response.setData(situacaoFundiaria.get());
 
-		response.setData(situacaoFundiariaDTO);
-
-		log.info("Consulta do Situação Fundiária {}", situacaoFundiariaDTO);
+		log.info("Consulta do Situação Fundiária {}", situacaoFundiaria);
 
 		return ResponseEntity.ok(response);
 	}
@@ -100,13 +95,12 @@ public class SituacaoFundiariaController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<SituacaoFundiariaDTO>> cadastrar(@Valid @RequestBody SituacaoFundiariaDTO DTO,
+	public ResponseEntity<Response<SituacaoFundiaria>> cadastrar(@Valid @RequestBody SituacaoFundiaria situacaoFundiaria,
 			BindingResult result) throws NoSuchAlgorithmException {
-		log.info("Cadastrando Situação Fundiária {}", DTO.toString());
+		log.info("Cadastrando Situação Fundiária {}", situacaoFundiaria.toString());
 
-		Response<SituacaoFundiariaDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		SituacaoFundiaria entity = this.converteDTOParaEntity(DTO);
+		Response<SituacaoFundiaria> response = new Response<>();
+		validaSeExiste(situacaoFundiaria, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -114,8 +108,8 @@ public class SituacaoFundiariaController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(situacaoFundiaria);
+		response.setData(situacaoFundiaria);
 		return ResponseEntity.ok(response);
 	}
 
@@ -125,9 +119,9 @@ public class SituacaoFundiariaController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<SituacaoFundiariaDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<SituacaoFundiaria>> apagar(@PathVariable("id") int id) {
 
-		Response<SituacaoFundiariaDTO> response = new Response<SituacaoFundiariaDTO>();
+		Response<SituacaoFundiaria> response = new Response<SituacaoFundiaria>();
 		Optional<SituacaoFundiaria> situacaoFundiaria = service.findById(id);
 
 		if (!situacaoFundiaria.isPresent()) {
@@ -136,43 +130,12 @@ public class SituacaoFundiariaController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		SituacaoFundiariaDTO situacaoFundiariaDTO = converteEntityParaDTO(situacaoFundiaria.get());
-
-		response.setData(situacaoFundiariaDTO);
+		response.setData(situacaoFundiaria.get());
 		service.apagar(situacaoFundiaria.get());
-		log.info("Deletando Situação Fundiária {}", situacaoFundiariaDTO);
+		log.info("Deletando Situação Fundiária {}", situacaoFundiaria);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param situacaoFundiariaDTO
-	 * @return Entity
-	 */
-	public SituacaoFundiaria converteDTOParaEntity(SituacaoFundiariaDTO situacaoFundiariaDTO) {
-		SituacaoFundiaria situacaoFundiaria = new SituacaoFundiaria();
-		situacaoFundiaria.setId(situacaoFundiariaDTO.getId());
-		situacaoFundiaria.setNome(situacaoFundiariaDTO.getNome());
-		return situacaoFundiaria;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param situacaoFundiaria
-	 * @return DTO
-	 */
-	public SituacaoFundiariaDTO converteEntityParaDTO(SituacaoFundiaria situacaoFundiaria) {
-		SituacaoFundiariaDTO situacaoFundiariaDTO = new SituacaoFundiariaDTO();
-		situacaoFundiariaDTO.setId(situacaoFundiaria.getId());
-		situacaoFundiariaDTO.setNome(situacaoFundiaria.getNome());
-		return situacaoFundiariaDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se a Situacao Fundiaria ja existe na base de dados
@@ -180,8 +143,8 @@ public class SituacaoFundiariaController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(SituacaoFundiariaDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(sit -> result.addError(new ObjectError("situacao Fundiaria", dTO.getId() + "já existe")));
+	private void validaSeExiste(SituacaoFundiaria situacaoFundiaria, BindingResult result) {
+		this.service.findById(situacaoFundiaria.getId())
+				.ifPresent(sit -> result.addError(new ObjectError("situacao Fundiaria", situacaoFundiaria.getId() + "já existe")));
 	}
 }

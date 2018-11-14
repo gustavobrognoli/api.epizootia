@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.TempoObitoDTO;
 import com.epizootia.entities.TempoObito;
 import com.epizootia.response.Response;
 import com.epizootia.services.TempoObitoService;
@@ -43,13 +41,12 @@ public class TempoObitoController {
 	 */
 
 	@GetMapping
-	public ResponseEntity<Response<List<TempoObitoDTO>>> listaTodos() {
-		Response<List<TempoObitoDTO>> response = new Response<List<TempoObitoDTO>>();
+	public ResponseEntity<Response<List<TempoObito>>> listaTodos() {
+		Response<List<TempoObito>> response = new Response<List<TempoObito>>();
 
-		List<TempoObitoDTO> tempoObitoDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<TempoObito> temposObitos = service.findAll();
 
-		if (tempoObitoDTOS.isEmpty()) {
+		if (temposObitos.isEmpty()) {
 
 			log.error("Não há Tempo de Óbito cadastrados");
 			response.getErrors().add("Não há Tempo de Óbito cadastrados");
@@ -57,7 +54,7 @@ public class TempoObitoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		response.setData(tempoObitoDTOS);
+		response.setData(temposObitos);
 
 		return ResponseEntity.ok(response);
 	}
@@ -70,23 +67,20 @@ public class TempoObitoController {
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<TempoObitoDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<TempoObito>> consulta(@PathVariable("id") int id) {
 
-		Response<TempoObitoDTO> response = new Response<TempoObitoDTO>();
+		Response<TempoObito> response = new Response<TempoObito>();
 		Optional<TempoObito> tempoObito = service.findById(id);
 
 		if (!tempoObito.isPresent()) {
 			log.error("Id de Tempo de Óbito não cadastrado na base de dados");
 			response.getErrors().add("Id de Tempo de Óbito não cadastrado na base de dados");
-
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		TempoObitoDTO tempoObitoDTO = converteEntityParaDTO(tempoObito.get());
+		response.setData(tempoObito.get());
 
-		response.setData(tempoObitoDTO);
-
-		log.info("Consulta de tempo de óbito {}", tempoObitoDTO);
+		log.info("Consulta de tempo de óbito {}", tempoObito);
 
 		return ResponseEntity.ok(response);
 	}
@@ -101,13 +95,13 @@ public class TempoObitoController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<TempoObitoDTO>> cadastrar(@Valid @RequestBody TempoObitoDTO DTO,
-			BindingResult result) throws NoSuchAlgorithmException {
-		log.info("Cadastrando tempo do obito {}", DTO.toString());
+	public ResponseEntity<Response<TempoObito>> cadastrar(@Valid @RequestBody TempoObito tempoObito, BindingResult result) 
+			throws NoSuchAlgorithmException {
+		log.info("Cadastrando tempo do obito {}", tempoObito.toString());
 
-		Response<TempoObitoDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		TempoObito entity = this.converteDTOParaEntity(DTO);
+		Response<TempoObito> response = new Response<>();
+		validaSeExiste(tempoObito, result);
+		
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -115,8 +109,8 @@ public class TempoObitoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(tempoObito);
+		response.setData(tempoObito);
 		return ResponseEntity.ok(response);
 	}
 
@@ -126,9 +120,9 @@ public class TempoObitoController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<TempoObitoDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<TempoObito>> apagar(@PathVariable("id") int id) {
 
-		Response<TempoObitoDTO> response = new Response<TempoObitoDTO>();
+		Response<TempoObito> response = new Response<TempoObito>();
 		Optional<TempoObito> tempoObito = service.findById(id);
 
 		if (!tempoObito.isPresent()) {
@@ -137,41 +131,11 @@ public class TempoObitoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		TempoObitoDTO tempoObitoDTO = converteEntityParaDTO(tempoObito.get());
-
-		response.setData(tempoObitoDTO);
+		response.setData(tempoObito.get());
 		service.apagar(tempoObito.get());
-		log.info("Deletando Tempo do Obito {}", tempoObitoDTO);
+		log.info("Deletando Tempo do Obito {}", tempoObito);
 
 		return ResponseEntity.ok(response);
-	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param tempoObitoDTO
-	 * @return Entity
-	 */
-	public TempoObito converteDTOParaEntity(TempoObitoDTO tempoObitoDTO) {
-		TempoObito tempoObito = new TempoObito();
-		tempoObito.setId(tempoObitoDTO.getId());
-		tempoObito.setTempoObito(tempoObitoDTO.getTempoObito());
-		return tempoObito;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param animal
-	 * @return DTO
-	 */
-	public TempoObitoDTO converteEntityParaDTO(TempoObito tempoObito) {
-		TempoObitoDTO tempoObitoDTO = new TempoObitoDTO();
-		tempoObitoDTO.setId(tempoObito.getId());
-		tempoObitoDTO.setTempoObito(tempoObito.getTempoObito());
-		return tempoObitoDTO;
 	}
 
 	/**
@@ -181,8 +145,8 @@ public class TempoObitoController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(TempoObitoDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(obt -> result.addError(new ObjectError("Tempo óbito", dTO.getTempoObito() + "já existe")));
+	private void validaSeExiste(TempoObito tempoObito, BindingResult result) {
+		this.service.findById(tempoObito.getId())
+				.ifPresent(obt -> result.addError(new ObjectError("Tempo óbito", tempoObito.getTempoObito() + "já existe")));
 	}
 }

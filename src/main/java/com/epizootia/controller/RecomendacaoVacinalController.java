@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.RecomendacaoVacinalDTO;
 import com.epizootia.entities.RecomendacaoVacinal;
 import com.epizootia.response.Response;
 import com.epizootia.services.RecomendacaoVacinalService;
@@ -42,13 +40,12 @@ public class RecomendacaoVacinalController {
 	 * @return List<RecomendacaoVacinalDTO>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<RecomendacaoVacinalDTO>>> listaTodos() {
-		Response<List<RecomendacaoVacinalDTO>> response = new Response<List<RecomendacaoVacinalDTO>>();
+	public ResponseEntity<Response<List<RecomendacaoVacinal>>> listaTodos() {
+		Response<List<RecomendacaoVacinal>> response = new Response<List<RecomendacaoVacinal>>();
 
-		List<RecomendacaoVacinalDTO> recomendacaoVacinalDTOS = service.findAll().stream()
-				.map(this::converteEntityParaDTO).collect(Collectors.toList());
+		List<RecomendacaoVacinal> recomendacoesVacinais = service.findAll();
 
-		if (recomendacaoVacinalDTOS.isEmpty()) {
+		if (recomendacoesVacinais.isEmpty()) {
 
 			log.error("Não há Recomendações Vacinais cadastrados");
 			response.getErrors().add("Não há Recomendações Vacinais cadastrados");
@@ -56,7 +53,7 @@ public class RecomendacaoVacinalController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		response.setData(recomendacaoVacinalDTOS);
+		response.setData(recomendacoesVacinais);
 
 		return ResponseEntity.ok(response);
 	}
@@ -69,9 +66,9 @@ public class RecomendacaoVacinalController {
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<RecomendacaoVacinalDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<RecomendacaoVacinal>> consulta(@PathVariable("id") int id) {
 
-		Response<RecomendacaoVacinalDTO> response = new Response<RecomendacaoVacinalDTO>();
+		Response<RecomendacaoVacinal> response = new Response<RecomendacaoVacinal>();
 		Optional<RecomendacaoVacinal> recomendacaoVacinal = service.findById(id);
 
 		if (!recomendacaoVacinal.isPresent()) {
@@ -80,18 +77,16 @@ public class RecomendacaoVacinalController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		RecomendacaoVacinalDTO recomendacaoVacinalDTO = converteEntityParaDTO(recomendacaoVacinal.get());
+		response.setData(recomendacaoVacinal.get());
 
-		response.setData(recomendacaoVacinalDTO);
-
-		log.info("Consulta de Recomendação Vacinal {}", recomendacaoVacinalDTO);
+		log.info("Consulta de Recomendação Vacinal {}", recomendacaoVacinal);
 
 		return ResponseEntity.ok(response);
 	}
 
 	/**
 	 * 
-	 * Cadastra novaa Recomendação Vacinal na base de dados
+	 * Cadastra nova Recomendação Vacinal na base de dados
 	 * 
 	 * @param DTO
 	 * @param result
@@ -99,13 +94,12 @@ public class RecomendacaoVacinalController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<RecomendacaoVacinalDTO>> cadastrar(@Valid @RequestBody RecomendacaoVacinalDTO DTO,
+	public ResponseEntity<Response<RecomendacaoVacinal>> cadastrar(@Valid @RequestBody RecomendacaoVacinal recomendacaoVacinal,
 			BindingResult result) throws NoSuchAlgorithmException {
-		log.info("Cadastrando Recomendação Vacinal do animal {}", DTO.toString());
+		log.info("Cadastrando Recomendação Vacinal do animal {}", recomendacaoVacinal.toString());
 
-		Response<RecomendacaoVacinalDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		RecomendacaoVacinal entity = this.converteDTOParaEntity(DTO);
+		Response<RecomendacaoVacinal> response = new Response<>();
+		validaSeExiste(recomendacaoVacinal, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -113,8 +107,8 @@ public class RecomendacaoVacinalController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(recomendacaoVacinal);
+		response.setData(recomendacaoVacinal);
 		return ResponseEntity.ok(response);
 	}
 
@@ -123,9 +117,9 @@ public class RecomendacaoVacinalController {
 	 * Deleta Recomendação Vacinal do animal da base de dados
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<RecomendacaoVacinalDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<RecomendacaoVacinal>> apagar(@PathVariable("id") int id) {
 
-		Response<RecomendacaoVacinalDTO> response = new Response<RecomendacaoVacinalDTO>();
+		Response<RecomendacaoVacinal> response = new Response<RecomendacaoVacinal>();
 		Optional<RecomendacaoVacinal> recomendacaoVacinal = service.findById(id);
 
 		if (!recomendacaoVacinal.isPresent()) {
@@ -134,44 +128,15 @@ public class RecomendacaoVacinalController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		RecomendacaoVacinalDTO recomendacaoVacinalDTO = converteEntityParaDTO(recomendacaoVacinal.get());
+	
 
-		response.setData(recomendacaoVacinalDTO);
+		response.setData(recomendacaoVacinal.get());
 		service.apagar(recomendacaoVacinal.get());
-		log.info("Deletando Recomendação Vacinal do Animal {}", recomendacaoVacinalDTO);
+		log.info("Deletando Recomendação Vacinal do Animal {}", recomendacaoVacinal);
 
 		return ResponseEntity.ok(response);
 	}
 
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param recomendacaoVacinalDTO
-	 * @return Entity
-	 */
-
-	public RecomendacaoVacinal converteDTOParaEntity(RecomendacaoVacinalDTO recomendacaoVacinalDTO) {
-		RecomendacaoVacinal recomendacaoVacinal = new RecomendacaoVacinal();
-		recomendacaoVacinal.setId(recomendacaoVacinalDTO.getId());
-		recomendacaoVacinal.setRecomendacaoVacinal(recomendacaoVacinalDTO.getRecomendacaoVacinal());
-		return recomendacaoVacinal;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param recomendacaoVacinalDTO
-	 * @return DTO
-	 */
-
-	public RecomendacaoVacinalDTO converteEntityParaDTO(RecomendacaoVacinal recomendacaoVacinal) {
-		RecomendacaoVacinalDTO recomendacaoVacinalDTO = new RecomendacaoVacinalDTO();
-		recomendacaoVacinalDTO.setId(recomendacaoVacinal.getId());
-		recomendacaoVacinalDTO.setRecomendacaoVacinal(recomendacaoVacinal.getRecomendacaoVacinal());
-		return recomendacaoVacinalDTO;
-	}
 
 	/**
 	 * 
@@ -180,9 +145,9 @@ public class RecomendacaoVacinalController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(RecomendacaoVacinalDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId()).ifPresent(rec -> result
-				.addError(new ObjectError("Recomendação Vacinal", dTO.getRecomendacaoVacinal() + "já existe")));
+	private void validaSeExiste(RecomendacaoVacinal recomendacaoVacinal, BindingResult result) {
+		this.service.findById(recomendacaoVacinal.getId()).ifPresent(rec -> result
+				.addError(new ObjectError("Recomendação Vacinal", recomendacaoVacinal.getRecomendacaoVacinal() + "já existe")));
 	}
 
 }

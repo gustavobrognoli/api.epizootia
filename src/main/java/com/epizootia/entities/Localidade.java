@@ -56,7 +56,7 @@ public class Localidade implements Serializable {
 	/*@Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio")*/
 	private SituacaoFundiaria situacaoFundiaria;
 	
-	@Min(value = 0, message = "RegistroEntomologico não  deve ser vazio")
+	@Min(value = 0, message = "Registro Entomologico não  deve ser vazio")
 	private RegistroEntomologico registroEntomologico;
 	
 	@NotEmpty(message = "Descrição não  deve ser vazia")	

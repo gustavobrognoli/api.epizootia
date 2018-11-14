@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.SituacaoDTO;
 import com.epizootia.entities.Situacao;
 import com.epizootia.response.Response;
 import com.epizootia.services.SituacaoService;
@@ -42,18 +40,17 @@ public class SituacaoController {
 	 * @return List<SituacaoDTO>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<SituacaoDTO>>> listaTodos() {
-		Response<List<SituacaoDTO>> response = new Response<List<SituacaoDTO>>();
+	public ResponseEntity<Response<List<Situacao>>> listaTodos() {
+		Response<List<Situacao>> response = new Response<List<Situacao>>();
 
-		List<SituacaoDTO> situacaoDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Situacao> situacoes = service.findAll();
 			
-		if (situacaoDTOS.isEmpty()) {
+		if (situacoes.isEmpty()) {
 			
 			log.error("Não há situações cadastradas");
 			response.getErrors().add("Não há situações cadastradas");
 	}
-		response.setData(situacaoDTOS);
+		response.setData(situacoes);
 
 		return ResponseEntity.ok(response);
 	}
@@ -62,13 +59,13 @@ public class SituacaoController {
 	 * 
 	 * Consulta todas as Situações por id
 	 * 
-	 * @return List<SituacaoDTO>
+	 * @return List<Situacao>
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<SituacaoDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Situacao>> consulta(@PathVariable("id") int id) {
 
-		Response<SituacaoDTO> response = new Response<SituacaoDTO>();
+		Response<Situacao> response = new Response<Situacao>();
 		Optional<Situacao> situacao = service.findById(id);
 
 		if (!situacao.isPresent()) {
@@ -76,12 +73,10 @@ public class SituacaoController {
 			response.getErrors().add("Id de Situacao do Animal não cadastrado na base de dados");
 			return ResponseEntity.badRequest().body(response);
 		}
+		
+		response.setData(situacao.get());
 
-		SituacaoDTO situacaoDTO = converteEntityParaDTO(situacao.get());
-
-		response.setData(situacaoDTO);
-
-		log.info("Consulta de Situação do Animal {}", situacaoDTO);
+		log.info("Consulta de Situação do Animal {}", situacao);
 
 		return ResponseEntity.ok(response);
 	}
@@ -96,13 +91,12 @@ public class SituacaoController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<SituacaoDTO>> cadastrar(@Valid @RequestBody SituacaoDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Situacao>> cadastrar(@Valid @RequestBody Situacao situacao, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Situação do animal {}", DTO.toString());
+		log.info("Cadastrando Situação do animal {}", situacao.toString());
 
-		Response<SituacaoDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Situacao entity = this.converteDTOParaEntity(DTO);
+		Response<Situacao> response = new Response<>();
+		validaSeExiste(situacao, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -110,8 +104,8 @@ public class SituacaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(situacao);
+		response.setData(situacao);
 		return ResponseEntity.ok(response);
 	}
 
@@ -120,9 +114,9 @@ public class SituacaoController {
 	 * Deleta Situação do animal da base de dados
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<SituacaoDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Situacao>> apagar(@PathVariable("id") int id) {
 
-		Response<SituacaoDTO> response = new Response<SituacaoDTO>();
+		Response<Situacao> response = new Response<Situacao>();
 		Optional<Situacao> situacao = service.findById(id);
 
 		if (!situacao.isPresent()) {
@@ -131,45 +125,12 @@ public class SituacaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		SituacaoDTO situacaoDTO = converteEntityParaDTO(situacao.get());
-
-		response.setData(situacaoDTO);
+		response.setData(situacao.get());
 		service.apagar(situacao.get());
-		log.info("Deletando Situacao do Animal {}", situacaoDTO);
+		log.info("Deletando Situacao do Animal {}", situacao);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param situacaoDTO
-	 * @return Entity
-	 */
-
-	public Situacao converteDTOParaEntity(SituacaoDTO situacaoDTO) {
-		Situacao situacao = new Situacao();
-		situacao.setId(situacaoDTO.getId());
-		situacao.setSituacao(situacaoDTO.getSituacao());
-		return situacao;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param situacaoDTO
-	 * @return DTO
-	 */
-
-	public SituacaoDTO converteEntityParaDTO(Situacao situacao) {
-		SituacaoDTO situacaoDTO = new SituacaoDTO();
-		situacaoDTO.setId(situacao.getId());
-		situacaoDTO.setSituacao(situacao.getSituacao());
-		return situacaoDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se o Situacao do Animal ja existe na base de dados
@@ -177,9 +138,9 @@ public class SituacaoController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(SituacaoDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId()).ifPresent(
-				esp -> result.addError(new ObjectError("Situacao do Animal", dTO.getSituacao() + "já existe")));
+	private void validaSeExiste(Situacao situacao, BindingResult result) {
+		this.service.findById(situacao.getId()).ifPresent(
+				esp -> result.addError(new ObjectError("Situacao do Animal", situacao.getSituacao() + "já existe")));
 	}
 
 }

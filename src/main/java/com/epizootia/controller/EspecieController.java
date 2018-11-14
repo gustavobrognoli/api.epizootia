@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.EspecieDTO;
 import com.epizootia.entities.Especie;
 import com.epizootia.response.Response;
 import com.epizootia.services.EspecieService;
@@ -39,23 +37,22 @@ public class EspecieController {
 	 * 
 	 * Consulta todas as Especies
 	 * 
-	 * @return List<EspecieDTO>
+	 * @return List<Especie>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<EspecieDTO>>> listaTodos() {
-		Response<List<EspecieDTO>> response = new Response<List<EspecieDTO>>();
+	public ResponseEntity<Response<List<Especie>>> listaTodos() {
+		Response<List<Especie>> response = new Response<List<Especie>>();
 
-		List<EspecieDTO> especieDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Especie> especies = service.findAll();
 		
-		if (especieDTOS.isEmpty()) {
+		if (especies.isEmpty()) {
 
 			log.error("Não há especies cadastradas");
 			response.getErrors().add("Não há especies cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(especieDTOS);
+		response.setData(especies);
 
 		return ResponseEntity.ok(response);
 	}
@@ -64,13 +61,13 @@ public class EspecieController {
 	 * 
 	 * Consulta todas as Especies por id
 	 * 
-	 * @return List<EspecieDTO>
+	 * @return List<Especie>
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<EspecieDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Especie>> consulta(@PathVariable("id") int id) {
 
-		Response<EspecieDTO> response = new Response<EspecieDTO>();
+		Response<Especie> response = new Response<Especie>();
 		Optional<Especie> especie = service.findById(id);
 
 		if (!especie.isPresent()) {
@@ -79,11 +76,9 @@ public class EspecieController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		EspecieDTO especieDTO = converteEntityParaDTO(especie.get());
+		response.setData(especie.get());
 
-		response.setData(especieDTO);
-
-		log.info("Consulta de Especie do Animal {}", especieDTO);
+		log.info("Consulta de Especie do Animal {}", especie);
 
 		return ResponseEntity.ok(response);
 	}
@@ -92,19 +87,15 @@ public class EspecieController {
 	 * 
 	 * Cadastra nova Especie do animal na base de dados
 	 * 
-	 * @param DTO
-	 * @param result
-	 * @return Especie
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<EspecieDTO>> cadastrar(@Valid @RequestBody EspecieDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Especie>> cadastrar(@Valid @RequestBody Especie especie, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Especie do animal {}", DTO.toString());
+		log.info("Cadastrando Especie do animal {}", especie.toString());
 
-		Response<EspecieDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Especie entity = this.converteDTOParaEntity(DTO);
+		Response<Especie> response = new Response<>();
+		validaSeExiste(especie, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -112,8 +103,8 @@ public class EspecieController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(especie);
+		response.setData(especie);
 		return ResponseEntity.ok(response);
 	}
 
@@ -122,9 +113,9 @@ public class EspecieController {
 	 * Deleta Especie do animal da base de dados
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<EspecieDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Especie>> apagar(@PathVariable("id") int id) {
 
-		Response<EspecieDTO> response = new Response<EspecieDTO>();
+		Response<Especie> response = new Response<Especie>();
 		Optional<Especie> especie = service.findById(id);
 
 		if (!especie.isPresent()) {
@@ -133,55 +124,23 @@ public class EspecieController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		EspecieDTO especieDTO = converteEntityParaDTO(especie.get());
-
-		response.setData(especieDTO);
+		response.setData(especie.get());
 		service.apagar(especie.get());
-		log.info("Deletando Especie do Animal {}", especieDTO);
+		log.info("Deletando Especie do Animal {}", especie);
 
 		return ResponseEntity.ok(response);
 	}
 
 	/**
 	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param especieDTO
-	 * @return Entity
-	 */
-
-	public Especie converteDTOParaEntity(EspecieDTO especieDTO) {
-		Especie especie = new Especie();
-		especie.setId(especieDTO.getId());
-		especie.setEspecie(especieDTO.getEspecie());
-		return especie;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param especieDTO
-	 * @return DTO
-	 */
-
-	public EspecieDTO converteEntityParaDTO(Especie especie) {
-		EspecieDTO especieDTO = new EspecieDTO();
-		especieDTO.setId(especie.getId());
-		especieDTO.setEspecie(especie.getEspecie());
-		return especieDTO;
-	}
-
-	/**
-	 * 
 	 * Valida se a Especie do Animal ja existe na base de dados
 	 * 
-	 * @param DTO
+	 * @param Especie
 	 * @param result
 	 */
-	private void validaSeExiste(EspecieDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId()).
-		ifPresent( esp -> result.addError(new ObjectError("Especie do Animal", dTO.getEspecie() + "já existe")));
+	private void validaSeExiste(Especie especie, BindingResult result) {
+		this.service.findById(especie.getId()).
+		ifPresent( esp -> result.addError(new ObjectError("Especie do Animal", especie.getEspecie() + "já existe")));
 	}
 
 }

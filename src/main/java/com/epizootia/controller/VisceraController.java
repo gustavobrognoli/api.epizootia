@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.VisceraDTO;
 import com.epizootia.entities.Viscera;
 import com.epizootia.response.Response;
 import com.epizootia.services.VisceraService;
@@ -39,23 +37,22 @@ public class VisceraController {
 	 * 
 	 * Consulta todas as visceras
 	 * 
-	 * @return List<VisceraDTO>
+	 * @return List<Viscera>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<VisceraDTO>>> listaTodos() {
-		Response<List<VisceraDTO>> response = new Response<List<VisceraDTO>>();
+	public ResponseEntity<Response<List<Viscera>>> listaTodos() {
+		Response<List<Viscera>> response = new Response<List<Viscera>>();
 
-		List<VisceraDTO> visceraDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Viscera> visceras = service.findAll();
 
-		if (visceraDTOS.isEmpty()) {
+		if (visceras.isEmpty()) {
 
 			log.error("Não há visceras cadastradas");
 			response.getErrors().add("Não há visceras cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(visceraDTOS);
+		response.setData(visceras);
 
 		return ResponseEntity.ok(response);
 	}
@@ -67,9 +64,9 @@ public class VisceraController {
 	 * @return List<VisceraDTO>
 	 */
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<VisceraDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Viscera>> consulta(@PathVariable("id") int id) {
 
-		Response<VisceraDTO> response = new Response<VisceraDTO>();
+		Response<Viscera> response = new Response<Viscera>();
 		Optional<Viscera> viscera = service.findById(id);
 
 		if (!viscera.isPresent()) {
@@ -80,11 +77,9 @@ public class VisceraController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		VisceraDTO visceraDTO = converteEntityParaDTO(viscera.get());
+		response.setData(viscera.get());
 
-		response.setData(visceraDTO);
-
-		log.info("Consulta da Viscera {}", visceraDTO);
+		log.info("Consulta da Viscera {}", viscera);
 
 		return ResponseEntity.ok(response);
 	}
@@ -99,13 +94,12 @@ public class VisceraController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<VisceraDTO>> cadastrar(@Valid @RequestBody VisceraDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Viscera>> cadastrar(@Valid @RequestBody Viscera viscera, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando viscera {}", DTO.toString());
+		log.info("Cadastrando viscera {}", viscera.toString());
 
-		Response<VisceraDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Viscera entity = this.converteDTOParaEntity(DTO);
+		Response<Viscera> response = new Response<>();
+		validaSeExiste(viscera, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -113,8 +107,8 @@ public class VisceraController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(viscera);
+		response.setData(viscera);
 		return ResponseEntity.ok(response);
 	}
 
@@ -124,9 +118,9 @@ public class VisceraController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<VisceraDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Viscera>> apagar(@PathVariable("id") int id) {
 
-		Response<VisceraDTO> response = new Response<VisceraDTO>();
+		Response<Viscera> response = new Response<Viscera>();
 		Optional<Viscera> viscera = service.findById(id);
 
 		if (!viscera.isPresent()) {
@@ -135,59 +129,12 @@ public class VisceraController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		VisceraDTO visceraDTO = converteEntityParaDTO(viscera.get());
-
-		response.setData(visceraDTO);
+		response.setData(viscera.get());
 		service.apagar(viscera.get());
-		log.info("Deletando viscera {}", visceraDTO);
+		log.info("Deletando viscera {}", viscera);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param visceraDTO
-	 * @return Entity
-	 */
-	public Viscera converteDTOParaEntity(VisceraDTO visceraDTO) {
-		Viscera viscera = new Viscera();
-		viscera.setId(visceraDTO.getId());
-		viscera.setFigado(visceraDTO.getFigado());
-		viscera.setRim(visceraDTO.getRim());
-		viscera.setCerebro(visceraDTO.getCerebro());
-		viscera.setBaco(visceraDTO.getBaco());
-		viscera.setPulmao(visceraDTO.getPulmao());
-		viscera.setCoracao(visceraDTO.getCoracao());
-		viscera.setSangue(visceraDTO.getSangue());
-		viscera.setSoro(visceraDTO.getSoro());
-		viscera.setVisceraMotivo(visceraDTO.getVisceraMotivo());
-		return viscera;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param anormalidade
-	 * @return DTO
-	 */
-	public VisceraDTO converteEntityParaDTO(Viscera viscera) {
-		VisceraDTO visceraDTO = new VisceraDTO();
-		visceraDTO.setId(viscera.getId());
-		visceraDTO.setFigado(viscera.getFigado());
-		visceraDTO.setRim(viscera.getRim());
-		visceraDTO.setCerebro(viscera.getCerebro());
-		visceraDTO.setBaco(viscera.getBaco());
-		visceraDTO.setPulmao(viscera.getPulmao());
-		visceraDTO.setCoracao(viscera.getCoracao());
-		visceraDTO.setSangue(viscera.getSangue());
-		visceraDTO.setSoro(viscera.getSoro());
-		visceraDTO.setVisceraMotivo(viscera.getVisceraMotivo());
-		return visceraDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se a Anormalidade ja existe na base de dados
@@ -195,8 +142,8 @@ public class VisceraController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(VisceraDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(visc -> result.addError(new ObjectError("Viscera", dTO.getId() + "já existe")));
+	private void validaSeExiste(Viscera viscera, BindingResult result) {
+		this.service.findById(viscera.getId())
+				.ifPresent(visc -> result.addError(new ObjectError("Viscera", viscera.getId() + "já existe")));
 	}
 }
