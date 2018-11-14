@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.MoradorDTO;
 import com.epizootia.entities.Morador;
 import com.epizootia.response.Response;
 import com.epizootia.services.MoradorService;
@@ -42,13 +40,12 @@ public class MoradorController {
 	 * @return List<MoradorDTO>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<MoradorDTO>>> listaTodos() {
-		Response<List<MoradorDTO>> response = new Response<List<MoradorDTO>>();
+	public ResponseEntity<Response<List<Morador>>> listaTodos() {
+		Response<List<Morador>> response = new Response<List<Morador>>();
 
-		List<MoradorDTO> moradorDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Morador> moradores = service.findAll();
 
-		if (moradorDTOS.isEmpty()) {
+		if (moradores.isEmpty()) {
 
 			log.error("Não há Moradores cadastrados");
 			response.getErrors().add("Não há Moradores cadastrados");
@@ -56,7 +53,7 @@ public class MoradorController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		response.setData(moradorDTOS);
+		response.setData(moradores);
 
 		return ResponseEntity.ok(response);
 	}
@@ -69,9 +66,9 @@ public class MoradorController {
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<MoradorDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Morador>> consulta(@PathVariable("id") int id) {
 
-		Response<MoradorDTO> response = new Response<MoradorDTO>();
+		Response<Morador> response = new Response<Morador>();
 		Optional<Morador> morador = service.findById(id);
 
 		if (!morador.isPresent()) {
@@ -79,20 +76,18 @@ public class MoradorController {
 			response.getErrors().add("Id de Morador não cadastrado na base de dados");
 			return ResponseEntity.badRequest().body(response);
 		}
+		
+		response.setData(morador.get());
 
-		MoradorDTO moradorDTO = converteEntityParaDTO(morador.get());
-
-		response.setData(moradorDTO);
-
-		log.info("Consulta de Morador {}", moradorDTO);
+		log.info("Consulta de Morador {}", morador);
 
 		return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping(value = "/{telefone}")
-	public ResponseEntity<Response<MoradorDTO>> consultaTelefone(@PathVariable("telefone") String telefone) {
+	public ResponseEntity<Response<Morador>> consultaTelefone(@PathVariable("telefone") String telefone) {
 
-		Response<MoradorDTO> response = new Response<MoradorDTO>();
+		Response<Morador> response = new Response<Morador>();
 		Optional<Morador> morador = service.findTelefone(telefone);
 
 		if (!morador.isPresent()) {
@@ -101,11 +96,9 @@ public class MoradorController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		MoradorDTO moradorDTO = converteEntityParaDTO(morador.get());
+		response.setData(morador.get());
 
-		response.setData(moradorDTO);
-
-		log.info("Consulta de Morador {}", moradorDTO);
+		log.info("Consulta de Morador {}", morador);
 
 		return ResponseEntity.ok(response);
 	}
@@ -120,13 +113,12 @@ public class MoradorController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<MoradorDTO>> cadastrar(@Valid @RequestBody MoradorDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Morador>> cadastrar(@Valid @RequestBody Morador morador, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Morador {}", DTO.toString());
+		log.info("Cadastrando Morador {}", morador.toString());
 
-		Response<MoradorDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Morador entity = this.converteDTOParaEntity(DTO);
+		Response<Morador> response = new Response<>();
+		validaSeExiste(morador, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -134,8 +126,8 @@ public class MoradorController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(morador);
+		response.setData(morador);
 		return ResponseEntity.ok(response);
 	}
 
@@ -144,9 +136,9 @@ public class MoradorController {
 	 * Deleta Morador da base de dados
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<MoradorDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Morador>> apagar(@PathVariable("id") int id) {
 
-		Response<MoradorDTO> response = new Response<MoradorDTO>();
+		Response<Morador> response = new Response<Morador>();
 		Optional<Morador> morador = service.findById(id);
 
 		if (!morador.isPresent()) {
@@ -155,45 +147,11 @@ public class MoradorController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		MoradorDTO moradorDTO = converteEntityParaDTO(morador.get());
-
-		response.setData(moradorDTO);
+		response.setData(morador.get());
 		service.apagar(morador.get());
-		log.info("Deletando Morador{}", moradorDTO);
+		log.info("Deletando Morador{}", morador);
 
 		return ResponseEntity.ok(response);
-	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param moradorDTO
-	 * @return Entity
-	 */
-
-	public Morador converteDTOParaEntity(MoradorDTO moradorDTO) {
-		Morador morador = new Morador();
-		morador.setId(moradorDTO.getId());
-		morador.setMorador(moradorDTO.getMorador());
-		morador.setTelefone(moradorDTO.getTelefone());
-		return morador;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param moradorDTO
-	 * @return DTO
-	 */
-
-	public MoradorDTO converteEntityParaDTO(Morador morador) {
-		MoradorDTO moradorDTO = new MoradorDTO();
-		moradorDTO.setId(morador.getId());
-		moradorDTO.setMorador(morador.getMorador());
-		moradorDTO.setTelefone(morador.getTelefone());
-		return moradorDTO;
 	}
 
 	/**
@@ -203,9 +161,9 @@ public class MoradorController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(MoradorDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(sex -> result.addError(new ObjectError("Morador do Animal", dTO.getMorador() + "já existe")));
+	private void validaSeExiste(Morador morador, BindingResult result) {
+		this.service.findById(morador.getId())
+				.ifPresent(sex -> result.addError(new ObjectError("Morador do Animal", morador.getMorador() + "já existe")));
 	}
 
 }
