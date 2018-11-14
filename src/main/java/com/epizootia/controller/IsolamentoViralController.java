@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.IsolamentoViralDTO;
 import com.epizootia.entities.IsolamentoViral;
 import com.epizootia.response.Response;
 import com.epizootia.services.IsolamentoViralService;
@@ -42,20 +40,19 @@ public class IsolamentoViralController {
 	 * @return List<AnormalidadeDTO>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<IsolamentoViralDTO>>> listaTodos() {
-		Response<List<IsolamentoViralDTO>> response = new Response<List<IsolamentoViralDTO>>();
+	public ResponseEntity<Response<List<IsolamentoViral>>> listaTodos() {
+		Response<List<IsolamentoViral>> response = new Response<List<IsolamentoViral>>();
 
-		List<IsolamentoViralDTO> isolamentoViralDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<IsolamentoViral> isolamentosVirais = service.findAll();
 
-		if (isolamentoViralDTOS.isEmpty()) {
+		if (isolamentosVirais.isEmpty()) {
 
 			log.error("Não há Isolamentos Virais cadastradas");
 			response.getErrors().add("Não há Isolamentos Virais cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(isolamentoViralDTOS);
+		response.setData(isolamentosVirais);
 
 		return ResponseEntity.ok(response);
 	}
@@ -67,9 +64,9 @@ public class IsolamentoViralController {
 	 * @return List<IsolamentoViralDTO>
 	 */
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<IsolamentoViralDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<IsolamentoViral>> consulta(@PathVariable("id") int id) {
 
-		Response<IsolamentoViralDTO> response = new Response<IsolamentoViralDTO>();
+		Response<IsolamentoViral> response = new Response<IsolamentoViral>();
 		Optional<IsolamentoViral> isolamentoViral = service.findById(id);
 
 		if (!isolamentoViral.isPresent()) {
@@ -80,32 +77,26 @@ public class IsolamentoViralController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		IsolamentoViralDTO isolamentoViralDTO = converteEntityParaDTO(isolamentoViral.get());
+		response.setData(isolamentoViral.get());
 
-		response.setData(isolamentoViralDTO);
-
-		log.info("Consulta do Isolamento Viral {}", isolamentoViralDTO);
+		log.info("Consulta do Isolamento Viral {}", isolamentoViral);
 
 		return ResponseEntity.ok(response);
 	}
-
 	/**
 	 * 
 	 * Cadastra novo Isolamento Viral na base de dados
 	 * 
 	 * @param DTO
-	 * @param result
-	 * @return Isolamento Viral
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<IsolamentoViralDTO>> cadastrar(@Valid @RequestBody IsolamentoViralDTO DTO, BindingResult result) 
+	public ResponseEntity<Response<IsolamentoViral>> cadastrar(@Valid @RequestBody IsolamentoViral isolamentoViral, BindingResult result) 
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Isolamento Viral {}", DTO.toString());
+		log.info("Cadastrando Isolamento Viral {}", isolamentoViral.toString());
 		
-		Response<IsolamentoViralDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		IsolamentoViral entity = this.converteDTOParaEntity(DTO);
+		Response<IsolamentoViral> response = new Response<>();
+		validaSeExiste(isolamentoViral, result);
 		
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -113,8 +104,8 @@ public class IsolamentoViralController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(isolamentoViral);
+		response.setData(isolamentoViral);
 		return ResponseEntity.ok(response);
 	}
 	/**
@@ -123,9 +114,9 @@ public class IsolamentoViralController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<IsolamentoViralDTO>> apagar(@PathVariable("id") int id){
+	public ResponseEntity<Response<IsolamentoViral>> apagar(@PathVariable("id") int id){
 		
-		Response<IsolamentoViralDTO> response = new Response<IsolamentoViralDTO>();
+		Response<IsolamentoViral> response = new Response<IsolamentoViral>();
 		Optional<IsolamentoViral> isolamentoViral = service.findById(id);
 		
 		if (!isolamentoViral.isPresent()) {
@@ -134,51 +125,11 @@ public class IsolamentoViralController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		IsolamentoViralDTO isolamentoViralDTO = converteEntityParaDTO(isolamentoViral.get());
-		
-		response.setData(isolamentoViralDTO);
+		response.setData(isolamentoViral.get());
 		service.apagar(isolamentoViral.get());
-		log.info("Deletando Isolamento Viral {}", isolamentoViralDTO);
+		log.info("Deletando Isolamento Viral {}", isolamentoViral);
 		
 		return ResponseEntity.ok(response);
-	}
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param isolamentoViralDTO
-	 * @return Entity
-	 */
-	public IsolamentoViral converteDTOParaEntity(IsolamentoViralDTO isolamentoViralDTO) {
-		IsolamentoViral isolamentoViral = new IsolamentoViral();
-		isolamentoViral.setId(isolamentoViralDTO.getId());
-		isolamentoViral.setIsolamentoViral(isolamentoViralDTO.getIsolamentoViral());
-		isolamentoViral.setResultado(isolamentoViralDTO.getResultado());
-		isolamentoViral.setHaemagogus(isolamentoViralDTO.getHaemagogus());
-		isolamentoViral.setSabethes(isolamentoViralDTO.getSabethes());
-		isolamentoViral.setAegypti(isolamentoViralDTO.getAegypti());
-		isolamentoViral.setAnopheles(isolamentoViralDTO.getAnopheles());
-		isolamentoViral.setAlbopictus(isolamentoViralDTO.getAlbopictus());
-		return isolamentoViral;
-	}
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param Isolamento Viral
-	 * @return DTO
-	 */
-	public IsolamentoViralDTO converteEntityParaDTO(IsolamentoViral isolamentoViral) {
-		IsolamentoViralDTO isolamentoViralDTO = new IsolamentoViralDTO();
-		isolamentoViralDTO.setId(isolamentoViral.getId());
-		isolamentoViralDTO.setIsolamentoViral(isolamentoViral.getIsolamentoViral());
-		isolamentoViralDTO.setResultado(isolamentoViral.getResultado());
-		isolamentoViralDTO.setHaemagogus(isolamentoViralDTO.getHaemagogus());
-		isolamentoViralDTO.setSabethes(isolamentoViralDTO.getSabethes());
-		isolamentoViralDTO.setAegypti(isolamentoViralDTO.getAegypti());
-		isolamentoViralDTO.setAnopheles(isolamentoViralDTO.getAnopheles());
-		isolamentoViralDTO.setAlbopictus(isolamentoViralDTO.getAlbopictus());
-		return isolamentoViralDTO;
 	}
 	
 	/**
@@ -188,8 +139,8 @@ public class IsolamentoViralController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(IsolamentoViralDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-			.ifPresent(ano -> result.addError(new ObjectError("Isolamento Viral", dTO.getId() + "já existe")));
+	private void validaSeExiste(IsolamentoViral isolamentoViral, BindingResult result) {
+		this.service.findById(isolamentoViral.getId())
+			.ifPresent(iso -> result.addError(new ObjectError("Isolamento Viral", isolamentoViral.getId() + "já existe")));
 	}
 }
