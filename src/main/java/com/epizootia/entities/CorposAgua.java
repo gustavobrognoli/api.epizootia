@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "mod_epizootia_corpos_agua")
@@ -19,6 +20,8 @@ public class CorposAgua implements Serializable {
 	private static final long serialVersionUID = 8135724807364797442L;
 
 	private int id;
+	
+	@NotEmpty(message = "Corpo d`Água não deve ser vazio")
 	private String nome;
 
 	public CorposAgua() {

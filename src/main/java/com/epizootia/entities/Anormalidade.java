@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "mod_epizootia_anormalidade")
@@ -24,6 +25,7 @@ public class Anormalidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotEmpty(message = "Anormalidade não deve ser vazia")
 	@Column(name = "cd_sintoma")
 	private String sintoma;
 

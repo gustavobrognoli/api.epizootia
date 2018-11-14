@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "mod_epizootia_nm_popular")
@@ -18,16 +19,19 @@ public class NomePopular implements Serializable {
 	 */
 	private static final long serialVersionUID = 8011679044431776081L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotEmpty(message = "Nome popular não  deve ser vazio")
 	private String nome;
 
 	public NomePopular() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}

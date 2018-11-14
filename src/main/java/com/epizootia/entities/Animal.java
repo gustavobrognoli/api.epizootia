@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "mod_epizootia_animal")
@@ -22,38 +23,48 @@ public class Animal implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@NotNull(message = "Nome popular não deve ser vazio")
 	@Column(name = "cd_nm_popular")
 	private NomePopular nomePopular;
 
+	@NotNull(message = "Especie não  deve ser vazia")
 	@Column(name = "cd_especie")
 	private Especie especie;
 
+	@NotNull(message = "Situação não  deve ser vazia")
 	@Column(name = "cd_situacao")
 	private Situacao situacao;
 
+	@NotNull(message = "Sexo não  deve ser vazio")
 	@Column(name = "cd_sexo")
 	private Sexo sexo;
 
+	@NotNull(message = "Idade não  deve ser vazia")
 	@Column(name = "cd_idade")
 	private Idade idade;
 
-/*	
+/*	@NotNull(message = "Apreensão não  deve ser vazia")
 	@Column(name = "cd_apreensao")
 	private Apreensao apreensao;
 
+	@NotNull(message = "Vida Livre não  deve ser vazia")
 	@Column(name = "cd_vidaLivre")
 	private VidaLivre vidaLivre;
 
+	@NotNull(message = "Cativeiro não  deve ser vazio")
 	@Column(name = "cd_cativeiro")
 	private Cativeiro cativeiro;
 */
 
+	/* @NotNull(message = "Tempo do Óbito não  deve ser vazio") */
 	@Column(name = "cd_tempoObito")
 	private TempoObito tempoObito;
 
+	/* @NotNull(message = "Viscera não  deve ser vazia") */
 	@Column(name = "cd_viscera")
 	private Viscera viscera;
 
+	@NotNull(message = "Anormalidade não  deve ser vazia")
 	@Column(name = "cd_anormalidade")
 	private Anormalidade anormalidade;
 
@@ -120,6 +131,7 @@ public class Animal implements Serializable {
 		this.apreensao = apreensao;
 	}
 
+	
 	public VidaLivre getVidaLivre() {
 		return vidaLivre;
 	}
@@ -136,6 +148,7 @@ public class Animal implements Serializable {
 		this.cativeiro = cativeiro;
 	}*/
 
+	
 	public TempoObito getTempoObito() {
 		return tempoObito;
 	}
@@ -144,6 +157,7 @@ public class Animal implements Serializable {
 		this.tempoObito = tempoObito;
 	}
 
+	/* @NotNull(message = "Viscera não  deve ser vazia") */
 	public Viscera getViscera() {
 		return viscera;
 	}

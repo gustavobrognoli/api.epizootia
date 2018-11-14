@@ -1,0 +1,212 @@
+<script id="dengue-info-template.html" type="text/ng-template">
+	<div ng-non-bindable="">
+
+        Municipio: {{selecionado.municipio}}<br/>
+        Localidade: {{selecionado.localidade}}<br/>
+        Endereço: {{selecionado.endereco}}<br/>
+        Número de Focos: {{selecionado.qtdeFocos}}<br/>
+		Tipo de Depósito: {{selecionado.deposito}}<br/>
+		Atividade: {{selecionado.atividade}}<br/>
+		Data Coleta: {{selecionado.dataColeta}}<br/>
+		
+		<div ng-show="(selecionado.formasAquaticasAegypti > 0 || selecionado.formasOvo > 0)" >
+			<u>A. aegypti</u><br/>
+			Formas Aquáticas: {{selecionado.formasAquaticasAegypti}}<br/>
+        	Forma Ovo: {{selecionado.formasOvo}}<br/>
+		</div>        
+
+		<div ng-show="selecionado.formasAquaticasAlbo > 0" >
+			<u>A. albopictus</u> <br/>
+			Formas Aquáticas: {{selecionado.formasAquaticasAlbo}}<br/>
+		</div>
+	</div>
+</script>
+
+<div class="page">
+
+	<form name="form" novalidate >
+	
+		<section class="tile" >
+			<div class="tile-header dvd dvd-btm">
+				<h1 class="custom-font"><strong>Filtros</strong></h1>
+				
+				<ul class="controls">
+					<li class="dropdown" uib-dropdown>
+						<a ng-click="openMenu()" href tile-control-toggle class="dropdown-toggle settings">
+							<span class="expand fa fa-minus"></span>
+							<span class="minimize fa fa-plus"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="tile-body" ng-show="isOpen" >
+				<div class="form-group">
+					
+					<div class="col-sm-6"
+						 ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
+						
+						<label class="control-label">Data Início Coleta: </label>
+					
+						<input name="dtColetaInicio"
+				               type="text"
+				               class="form-control" 
+				               ng-model="dengueFiltro.dtColetaInicio"
+				               bs-datepicker
+							   autoclose="true"
+							   required>
+					</div>
+					<div class="col-sm-6"
+						 ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
+							
+						<label class="control-label">Data Fim Coleta: </label>
+					
+						<input name="dtColetaFim"
+				               type="text"
+				               class="form-control" 
+				               ng-model="dengueFiltro.dtColetaFim"
+				               bs-datepicker
+							   autoclose="true" 
+							   required>
+							   
+						<div class="help-block"
+					 		 ng-show="( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) )">
+							<span>Selecione o período coleta</span>
+						</div>	   
+					</div>
+				</div>
+				
+				<div class="form-group col-sm-6">
+			        <label class="control-label">Município:</label> 
+			        
+					<select name="municipio" 
+							class="form-control"
+							ng-options="m as m.nome for m in municipios track by m.id"
+							ng-model="municipio" 
+							ng-disabled="isPermissaoMunicipio"
+							ng-change="getByMunicipio()">
+							<option value="">Todos...</option>
+					</select>
+				</div>
+			
+				<div class="form-group col-sm-6">
+				     <label class="control-label">Localidade:</label> 
+				     
+				     <select name="localidade" 
+						   	 class="form-control"
+							 ng-options="l.id as l.nome for l in localidades"
+							 ng-model="dengueFiltro.idLocalidade" >
+				             <option value="">Todas...</option>
+					</select>
+				</div>
+				
+				<div class="form-group col-sm-12">
+						<label class="control-label">Espécie:</label> 
+					 
+					 	<select name="especie" 
+					 	 		class="form-control"
+								ng-options="e.id as e.nome for e in especies"
+								ng-model="dengueFiltro.especie" >
+							<option value="">Todas...</option>
+						</select>
+				</div>
+				
+				<div class="col-sm-12" ng-show="isPermissaoMunicipio">
+					<label class="checkbox checkbox-custom-alt"> 
+						<input type="checkbox" ng-model="isTodoEstado">
+						<i></i> 
+						Visualizar todo o estado 
+					</label>
+				</div>
+					
+				<div class="row form-group" > 
+				</div>
+				
+			</div>
+		</section>	
+			
+		<section class="tile">	
+			<div class="tile-header dvd dvd-btm">
+				<h1 class="custom-font"><strong>Mapa de Focos</strong></h1>
+				
+				<ul class="controls">
+					<li>
+						<a ng-click="buscarFocos()" href>
+							<i class="fa fa-search"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="tile-body">
+			
+				<ng-map style="height: 700px"
+				       	center="{{mapa.posicao}}" zoom="{{mapa.zoom}}" mayTypeId="HYBRID">
+				
+					<marker ng-repeat="f in focos"
+						    position="{{f.posicao}}"
+						    on-click="abrirInfo(event, $index)"
+						    ng-if="(f.formasAquaticasAegypti > 0 || f.formasOvo > 0) && f.formasAquaticasAlbo < 1"
+						    draggable="{{isEdicao}}"
+						    icon="http://maps.google.com/mapfiles/ms/icons/red-dot.png" >
+	      			</marker>
+					
+					<marker ng-repeat="f in focos"
+						    position="{{f.posicao}}"
+						    on-click="abrirInfo(event, $index)"
+						    ng-if="f.formasAquaticasAlbo > 0 && (f.formasAquaticasAegypti < 1 && f.formasOvo < 1)"
+						    draggable="{{isEdicao}}"
+						    icon="http://maps.google.com/mapfiles/ms/icons/yellow-dot.png">
+	      			</marker>
+					
+
+					<marker ng-repeat="f in focos"
+						    position="{{f.posicao}}"
+						    on-click="abrirInfo(event, $index)"
+						    ng-if="f.formasAquaticasAlbo > 0 && (f.formasAquaticasAegypti > 0 || f.formasOvo > 0 )"
+						    draggable="{{isEdicao}}"
+						    icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" >
+	      			</marker>
+				
+					
+					<shape name="circle"
+					 	   ng-repeat="f in focos" 
+					 	   ng-if="f.idAtividade != 5"	
+					 	   no-watcher="true"
+						   stroke-color="#FF0000"
+						   stroke-opacity="0.8"
+						   stroke-weight="2"
+						   fill-color="#FF0000"
+						   fill-opacity="0"
+						   center="{{f.posicao}}"
+						   radius="300">
+					</shape>
+					
+					<shape name="circle"
+					 	   ng-repeat="f in focos" 
+					 	   ng-if="f.idAtividade == 5"
+					 	   no-watcher="true"
+						   stroke-color="#0077ff"
+						   stroke-opacity="0.8"
+						   stroke-weight="2"
+						   fill-color="#0077ff"
+						   fill-opacity="0"
+						   center="{{f.posicao}}"
+						   radius="300">
+					</shape>
+				   
+				   
+					<info-window id="dengue-info"
+								template="dengue-info-template.html">
+					</info-window>
+				   
+				 </ng-map>
+				
+				
+			</div>
+			
+			
+		</section>
+		
+	</form>
+</div>

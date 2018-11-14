@@ -1,0 +1,97 @@
+<div class="modal-content">
+
+	<form name="form" ng-submit="salvar(coletador)" novalidate >
+
+	<div class="modal-header">
+    	<button type="button" class="close" aria-label="Close" ng-click="cancelar()" ><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title"><strong>Cadastro Coletador</strong></h4>
+	</div>
+
+	<div class="modal-body">
+			<input name="nome" 
+					   type="hidden"
+					   class="form-control"
+					   ng-model="coletador.id">
+		               
+			<div class="form-group col-sm-12"
+				 ng-class="{'has-error':form.nome.$invalid && (form.nome.$touched || form.$submitted)}">
+						        
+				<label class="control-label">Nome:</label> 
+						        
+				<input autofocus name="nome" 
+					   type="text"
+					   class="form-control"
+					   ng-model="coletador.nome" 
+					   maxlength="255"
+		               required >
+		        
+		        <div class="help-block"
+					ng-show="form.nome.$error.required && (form.nome.$touched || form.$submitted)">
+					<span>Nome e sobrenome é obrigatório.</span>
+				</div>
+				
+				<div class="help-block"
+					ng-show="form.nome.$error.pattern">
+					<span>Informe um nome e sobrenome válido.</span>
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-12"
+				 ng-class="{'has-error':form.email.$invalid && (form.email.$touched || form.$submitted)}">
+						        
+				<label class="control-label">Email:</label> 
+						        
+				<input name="email" 
+					   type="text"
+					   class="form-control"
+					   ng-model="coletador.email" 
+					   maxlength="100"
+					   ng-pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/"
+		                >
+		        
+		        <div class="help-block"
+					ng-show="form.email.$error.required && (form.email.$touched || form.$submitted)">
+					<span>Email é obrigatório</span>
+				</div>
+				<div class="help-block"
+					ng-show="form.email.$error.pattern">
+					<span>Informe um e-mail válido</span>
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-12"
+				 ng-class="{'has-error':form.telefone.$invalid && (form.telefone.$touched || form.$submitted)}">
+						        
+				<label class="control-label">Telefone:</label> 
+						        
+				<input maxlength="20"
+				       pattern="\d*"
+					   name="telefone" 
+					   type="text"
+					   class="form-control"
+					   ng-model="coletador.telefone"
+		               required 
+		               id="telefone"/>
+		        
+		        <div class="help-block"
+					ng-show="form.telefone.$error.required && (form.telefone.$touched || form.$submitted)">
+					<span>Telefone é obrigatório</span>
+				</div>
+				<div class="help-block"
+					ng-show="form.telefone.$error.pattern">
+					<span>Telefone deve estar no formato (XX) XXXXX-XXXX</span>
+				</div>
+			</div>
+			
+			
+    </div>
+    
+    <div class="form-group row"></div>
+    
+    <div class="modal-footer">
+    	<button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+		<button type="submit" class="btn btn-success">Salvar</button>
+	</div>
+
+	</form>
+</div>

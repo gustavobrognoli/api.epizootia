@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "mod_epizootia_morador")
@@ -18,17 +19,24 @@ public class Morador implements Serializable {
 	 */
 	private static final long serialVersionUID = 1600962819008427084L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotEmpty(message = "Morador não  deve ser vazio")
+	@Column(name = "nm_morador")
 	private String morador;
+	
+	@NotEmpty(message = "Telefone não  deve ser vazio")
+	@Column(name = "nu_telefone")
 	private String telefone;
 
 	public Morador() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}
@@ -37,7 +45,7 @@ public class Morador implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "nm_morador")
+
 	public String getMorador() {
 		return morador;
 	}
@@ -46,7 +54,7 @@ public class Morador implements Serializable {
 		this.morador = morador;
 	}
 
-	@Column(name = "nu_telefone")
+
 	public String getTelefone() {
 		return telefone;
 	}

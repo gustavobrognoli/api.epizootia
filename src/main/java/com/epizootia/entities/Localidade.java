@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "mod_epizootia_localidade")
@@ -17,28 +19,54 @@ public class Localidade implements Serializable {
 	 */
 	private static final long serialVersionUID = 3374652130920276084L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Min(value = 0, message = "Morador não  deve ser vazio")
 	private Morador morador;
+	
+	@NotEmpty(message = "CEP não  deve ser vazio")
 	private Double cep;
+	
+	@NotEmpty(message = "Bairro não  deve ser vazio")
 	private String bairro;
+	
+	@NotEmpty(message = "Logradouro não  deve ser vazio")
 	private String logradouro;
+	
+	@NotEmpty(message = "Ponto Referencia não  deve ser vazio")
 	private String pontoReferencia;
+	
+	@NotEmpty(message = "Latitude não  deve ser vazia")
 	private Double latitude;
+	
+	@NotEmpty(message = "Longitude não  deve ser vazia")
 	private Double longitude;
+	
 	private Impactos impactos;
+	
+	@Min(value = 0, message = "Caracteristicas não  deve ser vazio")
 	private Caracteristicas caracteristicas;
+	
+	/*@Min(value = 0, message = "Corpos d`Água não  deve ser vazio")*/
 	private CorposAgua corposAgua;
+	
+	/*@Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio")*/
 	private SituacaoFundiaria situacaoFundiaria;
+	
+	@Min(value = 0, message = "RegistroEntomologico não  deve ser vazio")
 	private RegistroEntomologico registroEntomologico;
+	
+	@NotEmpty(message = "Descrição não  deve ser vazia")	
 	private String descricao;
 
 	public Localidade() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}

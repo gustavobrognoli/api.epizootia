@@ -1,0 +1,37 @@
+<div class="modal-content">
+
+	<form name="form" ng-submit="salvar(corpoAgua)" novalidate >
+
+	<div class="modal-header">
+    	<button type="button" class="close" aria-label="Close" ng-click="cancelar()" ><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title"><strong>Cadastro de Corpo d`Água</strong></h4>
+	</div>
+
+	<div class="modal-body">
+			<input name="corpoAgua" 
+					   type="hidden"
+					   class="form-control"
+					   ng-model="corpoAgua.id">
+		               
+			<div class="form-group col-sm-12">
+						        
+				<label class="control-label">Nome:</label> 
+						        
+				<input autofocus name="corpoAgua" 
+					   type="text"
+					   class="form-control"
+					   ng-model="corpoAgua.nome" 
+					   maxlength="255"
+		               required >
+			</div>
+    </div>
+    
+    <div class="form-group row"></div>
+    
+    <div class="modal-footer">
+    	<button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+		<button type="submit" class="btn btn-success">Salvar</button>
+	</div>
+
+	</form>
+</div>

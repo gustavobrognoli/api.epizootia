@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "mod_epizootia_registro_entomologico")
@@ -22,13 +23,29 @@ public class RegistroEntomologico implements Serializable {
 	private int id;
 	private Calendar DataRegistro = Calendar.getInstance();
 	private Calendar DataUltimoRegistro = Calendar.getInstance();
+	
+	@Min(value = 0, message = "Metodo de Captura não  deve ser vazio")
 	private MetodoCaptura metodoCaptura;
+	
+	@Min(value = 0, message = "Equipamento não  deve ser vazio")
 	private Equipamento equipamento;
+	
+	@Min(value = 0, message = "Isolamento Viral não  deve ser vazio")
 	private IsolamentoViral isolamentoViral;
+	
+	@Min(value = 0, message = "Recomendação Viral não  deve ser vazio")
 	private RecomendacaoVacinal recomendacaoVacinal;
+	
+	@Min(value = 0, message = "Cobertura Vacinal não  deve ser vazio")
 	private int coberturaVacinal;
+	
+	@Min(value = 0, message = "Imoveis Visitados não  deve ser vazio")
 	private int imoveisVisitados300m;
+	
+	@Min(value = 0, message = "Doses aplicadas não  deve ser vazio")
 	private int dosesAplicadas300m;
+	
+	@Min(value = 0, message = "Focos Aedes não  deve ser vazio")
 	private int focosAedes300m;
 
 	public RegistroEntomologico() {

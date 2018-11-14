@@ -1,0 +1,404 @@
+<div class="page">
+	<section class="tile" >
+		
+	<form name="form" novalidate>
+		
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Visualização Ficha<b ng-show="artropodes.id">&nbsp;-&nbsp;{{artropodes.id}}&nbsp;&nbsp;</b></strong></h1>
+		</div>
+	
+		<div class="tile-body" >
+			
+			<div class="pagecontent">
+		    	<uib-tabset class="tab-animation tab-container" 
+		    				justified="true" >
+		    				
+					<uib-tab>
+
+				        <uib-tab-heading>
+							Dados da Coleta
+							<span class="badge badge-default pull-right wizard-step">1</span>
+				        </uib-tab-heading>
+				        
+				        	<div class="form-group col-sm-12">
+							<label><b><i>Dados do Cadastro</i></b></label>
+							<hr>
+						</div>
+				        
+				        <div class="form-group col-sm-6" >
+							      
+							<label class="control-label">Email:</label> 
+							     
+							<input name="uemail"
+								   type="text"
+						           class="form-control" 
+						           ng-model="artropodes.email"
+						           readonly >
+						</div>
+			        	
+			        	<div class="form-group col-sm-12">
+							<label><b><i>Dados do Coletador</i></b></label>
+							<hr>
+						</div>
+						
+			        	<div class="form-group col-sm-6"
+						     ng-class="{'has-error':form.coletador.$invalid && (form.coletador.$touched || form.$submitted)}">
+							      
+							<label class="control-label">Nome do Coletador:</label> 
+							     
+							<div class="input-group">
+								
+								
+								
+								<div name="coletador" custom-select="c as c.nome for c in coletadores | filter: $searchTerm"
+					            	 ng-model="artropodes.coletador"
+					            	 class="form-control"
+					            	 ng-disabled="true">
+										<div> 
+											{{c.nome }} <br/>
+										</div>
+					            </div>
+							     
+							 	<span class="input-group-btn">
+				                     <button class="btn btn-default" 
+				                     		 type="button" 
+				                     		 data-toggle="tooltip" 
+					        		      	 title="Adicionar novo coletador"
+					        		      	 ng-click="cadastrarColetador()"
+					        		      	 disabled>+</button>
+								</span>
+							 	
+							 	
+							</div>
+							        
+						    <div class="help-block"
+								 ng-show="form.coletador.$invalid && (form.coletador.$touched || form.$submitted)">
+								<span>Coletador é obrigatório</span>
+							</div>
+						</div>
+						
+						<div class="form-group col-sm-6">
+							
+							<label class="control-label">Email do coletador:</label> 
+							     
+							<input name="email"
+								   type="text"
+						           class="form-control" 
+						           ng-model="artropodes.coletador.email"
+						           readonly >
+						</div>
+						
+						<div class="form-group col-sm-6">
+							<label class="control-label">Telefone do coletador:</label> 
+							     
+							<input name="telefone"
+								   type="text"
+						           class="form-control" 
+						           ng-model="artropodes.coletador.telefone"
+						           readonly >
+						</div>
+						
+						
+			        	
+			        	
+			        	<div class="form-group col-sm-12">
+							<label><b><i>Dados do Local da Coleta</i></b></label>
+							<hr>
+						</div>
+			        	
+			        	<div class="form-group col-sm-4"
+							 ng-class="{'has-error':form.dtColeta.$invalid && (form.dtColeta.$touched || form.$submitted)}">
+							 
+							<label class="control-label">Data da Coleta:</label> 
+							
+							<div class="input-group">							     
+								<input name="dtColeta"
+							               type="text"
+							               class="form-control" 
+							               ng-model="artropodes.dtColeta"
+							               bs-datepicker
+							               data-date-format="dd/MM/yyyy"
+							               ng-disabled="true"
+										   autoclose="true"
+										   required >
+									   
+								<span class="input-group-addon" id="basic-addon1">
+				                	<i class="fa fa-calendar" aria-hidden="true"></i>
+								</span>
+							</div>
+						</div>
+			        	
+			        	
+						<div class="form-group col-sm-12"
+					         ng-class="{'has-error':form.municipio.$invalid && (form.municipio.$touched || form.$submitted)}">
+					        
+					        <label class="control-label">Município:</label> 
+					        
+							<select name="municipio" 
+									class="form-control"
+									ng-options="m as m.nome for m in municipios | orderBy:'nome' track by m.id"
+									ng-model="municipio" 
+									ng-change="getLocalidadesByMunicipio( municipio )"
+					                ng-disabled="true"
+					                required>
+									<option value="">Selecione...</option>
+							</select>
+					        
+					        <div class="help-block"
+								ng-show="form.municipio.$invalid && (form.municipio.$touched || form.$submitted)">
+								<span>Município é obrigatório</span>
+							</div>
+						</div>
+		
+						<div class="form-group col-sm-6"
+							 ng-class="{'has-error':form.localidade.$invalid && (form.localidade.$touched || form.$submitted)}">
+						        
+					    	<label class="control-label">Localidade:</label> 
+				
+							<div custom-select="l as l.nome for l in localidades | filter: $searchTerm"
+ 								 name="localidade"								
+					             ng-model="artropodes.endereco.localidade" 
+								 ng-change="getEnderecosByLocalidade( artropodes.endereco.localidade.id )"
+					             class="form-control"
+								 ng-disabled="true"
+					             required>					             
+					             <div>
+									<strong>Localidade: {{l.nome }}</strong><br/>
+									<span><strong>Categoria:</strong> {{ l.categoria.descricao }}</span><br/>
+									<hr>
+								 </div>
+							</div>
+						        
+					        <div class="help-block"
+								 ng-show="form.localidade.$invalid && (form.localidade.$touched || form.$submitted)">
+								<span>Localidade é obrigatório</span>
+							</div>
+						</div>
+		
+						<div class="form-group col-sm-6"
+						     ng-class="{'has-error':form.endereco.$invalid && (form.endereco.$touched || form.$submitted)}">
+							        
+							<label class="control-label">Logradouro:</label> 
+							     
+							<div class="input-group">
+								<div name="endereco"
+									 custom-select="e as e.nome for e in enderecos | filter: $searchTerm"
+					            	 ng-model="artropodes.endereco"
+					            	 class="form-control"
+									 ng-disabled="true"
+					            	 required>
+					            	 
+									<div>
+									    <strong>Logradouro: {{e.nome }}</strong><br/>
+									    <hr>
+									</div>
+					            </div>
+							      
+							 	<span class="input-group-btn">
+				                     <button class="btn btn-default" 
+				                     		 type="button" 
+				                     		 data-toggle="tooltip" 
+					        		      	 title="Adicionar novo endereço"
+					        		      	 ng-click="cadastraEndereco()"
+					        		      	 ng-disabled="true">+</button>
+								</span>
+							</div>
+							        
+						    <div class="help-block"
+								 ng-show="form.endereco.$invalid && (form.endereco.$touched || form.$submitted)">
+								<span>Endereço é obrigatório</span>
+							</div>
+						</div>
+			
+						<div class="form-group col-sm-4"
+							 ng-class="{'has-error':form.numero.$invalid && (form.numero.$touched || form.$submitted)}">
+							
+							<label class="control-label">Número:</label> 
+							     
+							<input name="numero"
+								   type="text"
+						           class="form-control" 
+						           ng-model="artropodes.numero"
+						           ng-disabled="true"
+						           required >
+						</div>
+
+						<div class="form-group col-sm-4">
+							<label class="control-label">Latitude ( -25.844319, -29.374493 ):</label>  
+							     
+							<input name="latitude"
+								   type="text"
+						           class="form-control" 
+						           ng-disabled="true"
+						           ng-model="artropodes.latitude" >
+						</div>
+						
+						<div class="form-group col-sm-4">
+							<label class="control-label">Longitude ( -48.276716, -53.952621) : </label>  
+							     
+							<input name="longitude"
+								   type="text"
+						           class="form-control"
+						           ng-disabled="true" 
+						           ng-model="artropodes.longitude" >
+						</div>
+			
+						
+			
+						<div class="form-group col-sm-12">
+							<label><b><i>Dados Adicionais</i></b></label>
+							<hr>
+						</div>
+						
+						<div class="form-group" >
+							<div class="form-group col-sm-3"
+								 ng-class="{'has-error':form.tempMaximo.$invalid && (form.tempMaximo.$touched || form.$submitted)}">
+								 
+								<label class="control-label">Temperatura Max.:</label>
+								
+								<input name="tempMaximo" 
+									   class="form-control"
+									   type="number"
+									   ng-model="artropodes.temperaturaMax"
+									   ng-disabled="true" 
+									   required >
+							</div>
+				
+							<div class="form-group col-sm-3"
+								 ng-class="{'has-error':form.tempMinima.$invalid && (form.tempMinima.$touched || form.$submitted)}">
+								 
+								<label class="control-label">Temperatura Min.:</label>
+								
+								<input name="tempMinima" 
+									   class="form-control"
+									   type="number"
+									   ng-model="artropodes.temperaturaMin"
+									   ng-disabled="true" 
+									   required >
+							</div>
+							
+							<div class="form-group col-sm-3"
+								 ng-class="{'has-error':form.umidadeMaxima.$invalid && (form.umidadeMaxima.$touched || form.$submitted)}">
+								
+								<label class="control-label">Umidade Max.:</label>
+								
+								<input name="umidadeMaxima" 
+									   class="form-control"
+									   type="number"
+									   ng-model="artropodes.umidadeMax"
+									   ng-disabled="true" 
+									   required >
+							</div>
+							
+							<div class="form-group col-sm-3"
+								 ng-class="{'has-error':form.umidadeMinima.$invalid && (form.umidadeMinima.$touched || form.$submitted)}">
+								
+								<label class="control-label">Umidade Min.:</label>
+								
+								<input name="umidadeMinima" 
+									   class="form-control"
+									   type="number"
+									   ng-model="artropodes.umidadeMin"
+									   ng-disabled="true" 
+									   required >
+							</div>
+						</div>
+
+						<div class="row"></div>
+
+	      		</uib-tab>
+
+      			<uib-tab active="cadastroAnimais">
+
+			        <uib-tab-heading>
+			        	Amostra de Animais
+						<span class="badge badge-default pull-right wizard-step">2</span>
+			        </uib-tab-heading>
+
+			<div class="form-group col-sm-12">
+		        			 			
+       			<div class="tile-header dvd dvd-btm">
+					<h1 class="custom-font"><strong>Lista de Amostras:</strong></h1>
+				</div>
+	
+				<div class="tile-body p-0">
+					<table class="table table-striped">
+					    <tr>
+					    	<th>Nº Amostra</th>
+					        <th>Tipo Animal</th>
+					        <th>Qtde animais</th>
+					        <th>Ações</th>
+					    </tr>
+		
+						<tr ng_repeat="a in artropodes.animais">
+							<td ng_bind="a.id"></td>
+							<td ng_bind="a.tipoAnimal.nome"></td>
+							<td ng_bind="a.quantidade"></td>
+							<td>
+							
+				        	<i class="btn btn-info btn-xs fa fa-eye"  
+				        		   ng-click="visualizacaoAnimal(a)" 
+				        		   uib-tooltip="Visualizar"></i>
+		        		          		   
+		        			</td>
+	    				</tr>
+					</table>
+				</div>
+			</div>
+			
+		
+			<div class="text-right">
+
+			</div>
+
+      </uib-tab>
+
+      <uib-tab>
+        <uib-tab-heading>
+          Anexos e Etiquetas
+          <span class="badge badge-default pull-right wizard-step">3</span>
+        </uib-tab-heading>
+			<div class="form-group col-sm-12">
+		        			 			
+       			<div class="tile-header dvd dvd-btm">
+					<h1 class="custom-font"><strong>Lista de Amostras:</strong></h1>
+				</div>
+	
+				<div class="tile-body p-0">
+					<table class="table table-striped">
+					    <tr>
+					        <th>Nº Amostra</th>
+					        <th>Tipo Animal</th>
+					        <th>Qtde animais</th>
+					        <th>Ações</th>
+					    </tr>
+		
+						<tr ng_repeat="a in artropodes.animais">
+							<td ng_bind="a.id"></td>
+							<td ng_bind="a.tipoAnimal.nome"></td>
+							<td ng_bind="a.quantidade"></td>
+							<td>
+				        		<i class="btn btn-greensea btn-xs fa fa-file-text" 
+				        		   ng-click="gerarEtiqueta(a)" 
+				        		   uib-tooltip="Gerar Etiquetas"></i>
+		        			</td>
+	    				</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="text-right">
+
+			</div>
+      </uib-tab>
+
+    </uib-tabset>
+  </div>
+			
+		</div>
+		
+		</form>
+		
+	</section>
+
+</div>

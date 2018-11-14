@@ -1,0 +1,13 @@
+No JSON sempre chamar pelo nome da entidade
+
+{ 
+"figado": 1,
+"rim": 1,
+"cerebro": 1,
+"baco": 1
+}
+
+{
+"nome" : "Prego",
+}
+

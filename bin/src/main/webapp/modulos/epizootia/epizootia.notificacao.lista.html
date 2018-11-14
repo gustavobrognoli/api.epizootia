@@ -1,0 +1,114 @@
+<div class="page" ng-init="init()">
+
+	<form name="form" novalidate>
+
+		<section class="tile">
+			<div class="tile-header dvd dvd-btm">
+				<h1 class="custom-font">
+					<strong>Filtros</strong>
+				</h1>
+
+				<ul class="controls">
+					<li class="dropdown" uib-dropdown><a ng-click="openMenu()"
+						href tile-control-toggle class="dropdown-toggle settings"> <span
+							class="expand fa fa-minus"></span> <span
+							class="minimize fa fa-plus"></span>
+					</a></li>
+				</ul>
+			</div>
+
+			<div class="tile-body" ng-show="isOpen">
+				<div class="form-group">
+					<div class="form-group col-sm-6">
+						<label class="control-label">Regional:</label> <select
+							name="regional" class="form-control"
+							ng-options="r as r.nome for r in regionais track by r.id"
+							ng-model="regional" ng-change="getByRegional()">
+							<option value="">Todas...</option>
+						</select>
+					</div>
+
+					<div class="form-group col-sm-6">
+						<label class="control-label">Município:</label> <select
+							name="municipio" class="form-control"
+							ng-options="m as m.nome for m in municipios track by m.id"
+							ng-model="municipio">
+							<option value="">Todos...</option>
+						</select>
+					</div>
+					<div class="col-sm-6"
+						ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
+
+						<label class="control-label">Inicio Coleta</label> <input
+							name="dtSintomasInicio" type="text" class="form-control"
+							ng-model="dengueFiltro.dtColetaInicio" bs-datepicker
+							autoclose="true" required>
+					</div>
+					<div class="col-sm-6"
+						ng-class="{'has-error': ( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) ) }">
+
+						<label class="control-label">Fim Coleta</label> <input
+							name="dtSintomasFim" type="text" class="form-control"
+							ng-model="dengueFiltro.dtColetaFim" bs-datepicker
+							autoclose="true" required>
+
+
+						<div class="help-block"
+							ng-show="( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) )">
+							<span>Selecione o período</span>
+						</div>
+					</div>
+				</div>
+				<div class="row form-group"></div>
+			</div>
+		</section>
+
+		<section class="tile">
+			<div class="tile-header dvd dvd-btm">
+				<h1 class="custom-font">
+					<strong>Listagem de Epizootias</strong>
+				</h1>
+
+				<ul class="controls">
+
+					<li><a href="#!/epizootia/notificacao/new"
+						data-toggle="tooltip" title="Adicionar Ocorrência"> <i
+							class="minimize fa fa-plus"></i>
+					</a></li>
+					<li><a ng-click="pesquisar()" href data-toggle="tooltip"
+						title="Pesquisar"> <i class="fa fa-search"></i>
+					</a></li>
+				</ul>
+			</div>
+
+			<div class="tile-body p-0">
+				<table class="table table-hover" ng-show="'vigilantos'">
+					<tr>
+						<th>Data</th>
+						<th>Quantidade de Animais</th>
+						<th>Munic�pio</th>
+						<th>Bairro</th>
+					</tr>
+
+					<tr ng_repeat="c in casos">
+						<td ng-bind="c.dataSintomas | date:'dd/MM/yyyy'"></td>
+						<td ng_bind="c.quantidade"></td>
+						<td ng_bind="c.municipio"></td>
+						<td ng_bind="c.bairro"></td>
+						<td><i class="btn btn-danger btn-xs fa fa-times"
+							ng-click="confirmarRemover(c)" uib-tooltip="Excluir Caso"></i></td>
+					</tr>
+
+				</table>
+
+			</div>
+
+			<div class="tile-footer dvd dvd-top">
+				<div class="row">
+					<div rodape-paginado></div>
+				</div>
+			</div>
+		</section>
+
+	</form>
+</div>

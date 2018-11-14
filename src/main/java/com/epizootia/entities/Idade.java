@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "mod_epizootia_idade")
@@ -15,16 +16,19 @@ public class Idade implements Serializable {
 
 	private static final long serialVersionUID = -8818286631914859949L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotEmpty(message = "Idade não deve ser vazia")
 	private String idade;
 
 	public Idade() {
 		// TODO Auto-generated constructor idadeAnimal
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}

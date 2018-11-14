@@ -19,7 +19,7 @@ public class RecomendacaoVacinalDTO {
 		this.id = id;
 	}
 
-	@NotEmpty(message = "Recomendacao Vacinal não  deve ser vazio")
+
 	public String getRecomendacaoVacinal() {
 		return recomendacaoVacinal;
 	}

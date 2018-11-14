@@ -19,7 +19,7 @@ public class NomePopularDTO {
 		this.id = id;
 	}
 
-	@NotEmpty(message = "Nome popular não  deve ser vazio")
+
 	public String getNome() {
 		return nome;
 	}

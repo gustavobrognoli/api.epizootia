@@ -1,0 +1,199 @@
+<div class="modal-content">
+	<div class="modal-header">
+    	<button type="button" class="close" aria-label="Close" ng-click="close()" ><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">Dados do Foco Dengue</h4>
+	</div>
+
+	<div class="modal-body">
+		<div class="form-group col-sm-6">
+	        <label class="control-label">Município:</label> 
+	        
+			<input name="municipio" 
+				   class="form-control"
+				   ng-model="dengue.endereco.localidade.municipio.nome" 
+				   ng-disabled="true"/>
+		</div>
+	
+		<div class="form-group col-sm-6">
+		     <label class="control-label">Localidade:</label> 
+
+			<input name="localidade" 
+				   class="form-control"
+				   ng-model="dengue.endereco.localidade.nome" 
+				   ng-disabled="true"/>
+		</div>
+	
+		<div class="form-group col-sm-12">
+			<label class="control-label">Endereço:</label> 
+			     
+			<input name="endereco" 
+				   class="form-control"
+				   ng-model="dengue.endereco.nome" 
+				   ng-disabled="true"/>
+		</div>
+	
+		<div class="form-group col-sm-6">
+	        <label class="control-label">Latitude:</label> 
+	        
+			<input name="latitude"
+	               class="form-control" 
+	               ng-model="dengue.latitude"
+	               ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+	        <label class="control-label">Longitude:</label> 
+	        
+			<input name="longitude"
+	               class="form-control" 
+	               ng-model="dengue.longitude" 
+	               ng-disabled="true"/>
+		</div>
+		
+		<div class="form-group col-sm-3">
+	        <label class="control-label">Número:</label> 
+	        
+			<input name="numero"
+	               class="form-control" 
+	               ng-model="dengue.numero" 
+	               ng-disabled="true"/>
+		</div>
+
+		<div class="form-group col-sm-3">
+	        <label class="control-label">Quarteirão:</label> 
+	        
+			<input name="quarteirao"
+	               class="form-control" 
+	               ng-model="dengue.quarteirao" 
+				   ng-disabled="true"/>
+		</div>	
+
+		<div class="form-group col-sm-6">
+	        <label class="control-label">Complemento:</label> 
+	        
+			<input name="complemento"
+	               class="form-control" 
+	               ng-model="dengue.complemento" 
+				   ng-disabled="true"/>
+		</div>
+		
+		<div class="form-group col-sm-6">
+			<label class="control-label">Tipo de Imóvel:</label> 
+			     
+			<input name="tipoImovel"
+	               class="form-control" 
+	               ng-model="dengue.imovel.nome" 
+				   ng-disabled="true"/>
+		</div>
+		
+		<div class="form-group col-sm-6">
+			<label class="control-label">Tipo de Depósito:</label> 
+			     
+			<input name="tipoDeposito"
+	               class="form-control" 
+	               ng-model="dengue.deposito.nome" 
+				   ng-disabled="true"/>
+		</div>
+					
+		<div class="form-group col-sm-12">
+			<label class="control-label">Atividade:</label> 
+
+			<input name="atividade"
+	               class="form-control" 
+	               value="{{dengue.tipoAtividade.sigla}} - {{dengue.tipoAtividade.descricao}}"
+				   ng-disabled="true">
+		</div>
+		
+		<div>
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Data da Coleta:</label> 
+		        
+				<p name="dtColeta"
+		               class="form-control" 
+		               ng-bind="dengue.dataColeta | date:'dd/MM/yyyy'"
+					   ng-disabled="true"/>
+			</div>
+
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Data da Entrada:</label> 
+		        
+				<p name="dtEntrada"
+		               class="form-control" 
+		               ng-bind="dengue.dataEntrada | date:'dd/MM/yyyy'" 
+					   ng-disabled="true"/>
+			</div>
+			
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Data do Exame:</label> 
+		        
+				<p name="dtExame"
+		               class="form-control" 
+		               ng-bind="dengue.dataExame | date:'dd/MM/yyyy'" 
+					   ng-disabled="true"/>
+			</div>
+		</div>
+		
+		<div class="form-group col-sm-12">
+			<label><b><i>A. aegypti</i></b></label>
+			<hr>
+		</div>
+		
+		<div>
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Forma de Ovo:</label> 
+		        
+				<input name="formaOvo"
+		               class="form-control" 
+		               ng-model="dengue.formaOvo" 
+					   ng-disabled="true"/>
+			</div>
+
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Formas Aquáticas:</label> 
+		        
+				<input name="formasAquaticas"
+		               class="form-control" 
+		               ng-model="dengue.formasAquaticas"
+		               ng-disabled="true"/>
+			</div>
+			
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Forma Adulta:</label> 
+		        
+				<input name="formaAdulta"
+		               class="form-control" 
+		               ng-model="dengue.formasAdultas" 
+		               ng-disabled="true"/>
+			</div>
+		</div>
+		
+		<div class="form-group col-sm-12">
+			<label><b><i>A. albopictus</i></b></label>
+			<hr>
+		</div>
+			
+		<div>
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Formas Aquáticas:</label> 
+		        
+				<input name="formasAquaticasAlbo"
+		               class="form-control" 
+		               ng-model="dengue.formasAquaticasAlbo"
+		               ng-disabled="true"/>
+			</div>
+			
+			<div class="form-group col-sm-4">
+		        <label class="control-label">Forma Adulta:</label> 
+		        
+				<input name="formaAdultaAlbo"
+		               class="form-control" 
+		               ng-model="dengue.formasAdultasAlbo"
+		               ng-disabled="true"/>
+			</div>
+		</div>	
+    </div>
+    
+    <div class="modal-header">
+	</div>
+
+</div>

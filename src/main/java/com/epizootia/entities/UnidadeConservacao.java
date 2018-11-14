@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "mod_epizootia_unidade_conservacao")
@@ -18,16 +19,20 @@ public class UnidadeConservacao implements Serializable {
 	 */
 	private static final long serialVersionUID = 1130208186639088930L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotEmpty(message = "Unidade Conservacao deve ter nome")
+	@Column(name = "ds_nome")
 	private String nome;
 
 	public UnidadeConservacao() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}
@@ -36,7 +41,7 @@ public class UnidadeConservacao implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_nome")
+	
 	public String getNome() {
 		return nome;
 	}

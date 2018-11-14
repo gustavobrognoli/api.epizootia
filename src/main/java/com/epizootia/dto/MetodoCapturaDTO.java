@@ -19,7 +19,7 @@ public class MetodoCapturaDTO {
 		this.id = id;
 	}
 
-	@NotEmpty(message = "Metodo de Captura não  deve ser vazio")
+
 	public String getMetodoCaptura() {
 		return metodoCaptura;
 	}

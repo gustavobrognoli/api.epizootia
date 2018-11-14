@@ -1,0 +1,77 @@
+<div class="page">
+
+<form name="form" novalidate >
+
+	<section class="tile" >
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Vincular Usuário com Regional</strong></h1>
+		</div>
+		
+		<div class="tile-body">
+			
+			<div class="form-group col-sm-12">
+				<label class="control-label">Usuário:</label>
+			
+				<select class="form-control"
+						ng-options="u as u.nome for u in usuarios"
+						ng-model="usuario" 
+						ng-change="getRegionaisByUser()"> 
+					<option value="" hidden>Selecione... </option>
+				</select>
+			</div>
+			
+			<div ng-class="form-group">
+				<div class="col-md-6 ng-scope">
+	                <div class="panel panel-default">
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title ng-binding">Regionais Disponiveis</h3>
+	                    </div>
+	                   <div class="panel-body ng-scope" >
+	                   		<ul dnd-list="regionais" class="ng-scope">
+								<li ng-repeat="item in regionais" 
+									dnd-draggable="item" 
+									dnd-moved="regionais.splice($index, 1)" 
+									dnd-effect-allowed="move" 
+									dnd-selected="models.selected = item" 
+									ng-class="{'selected': models.selected === item}" 
+									class="ng-binding ng-scope" 
+									draggable="true"> {{item.nome}}
+	    						</li>
+							</ul>
+						</div>
+	                </div>
+	            </div>
+	            
+	            <div class="col-md-6 ng-scope" ng-show="usuario != null">
+	                <div class="panel panel-default">
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title ng-binding">Regionais Selecionadas</h3>
+	                    </div>
+	                    
+	                	<div class="panel-body ng-scope">
+							<ul dnd-list="selecionados" class="ng-scope">
+	    						<li ng-repeat="item in selecionados" 
+	    							dnd-draggable="item" 
+	    							dnd-moved="selecionados.splice($index, 1)" 
+	    							dnd-effect-allowed="move" 
+	    							dnd-selected="models.selected = item" 
+	    							ng-class="{'selected': models.selected === item}" 
+	    							class="ng-binding ng-scope" 
+	    							draggable="true"> {{item.nome}}
+	    						</li>
+							</ul>
+						</div>
+	                </div>
+	            </div>
+			</div>
+			
+			<div class="row"></div>
+		</div>
+		
+		<div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+			<button type="button" ng-click="salvar()" class="btn btn-success" > Salvar </button>
+		</div>
+	</section>
+	
+</form>
+</div>
