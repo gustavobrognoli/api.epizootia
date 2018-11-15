@@ -45,10 +45,10 @@ public class Localidade implements Serializable {
 	@NotEmpty(message = "Longitude não  deve ser vazia")
 	private Double longitude;
 	
-	private Impactos impactos;
+	private Impacto impactos;
 	
 	@Min(value = 0, message = "Caracteristicas não  deve ser vazio")
-	private Caracteristicas caracteristicas;
+	private Caracteristica caracteristica;
 	
 	/*@Min(value = 0, message = "Corpos d`Água não  deve ser vazio")*/
 	private CorposAgua corposAgua;
@@ -139,21 +139,21 @@ public class Localidade implements Serializable {
 	}
 
 	@Column(name = "cd_impactos")
-	public Impactos getImpactos() {
+	public Impacto getImpactos() {
 		return impactos;
 	}
 
-	public void setImpactos(Impactos impactos) {
+	public void setImpactos(Impacto impactos) {
 		this.impactos = impactos;
 	}
 
 	@Column(name = "cd_caracteristicas")
-	public Caracteristicas getCaracteristicas() {
-		return caracteristicas;
+	public Caracteristica getCaracteristicas() {
+		return caracteristica;
 	}
 
-	public void setCaracteristicas(Caracteristicas caracteristicas) {
-		this.caracteristicas = caracteristicas;
+	public void setCaracteristicas(Caracteristica caracteristicas) {
+		this.caracteristica = caracteristicas;
 	}
 
 	@Column(name = "cd_corpos_agua")
@@ -196,7 +196,7 @@ public class Localidade implements Serializable {
 	public String toString() {
 		return "Localidade [id=" + id + ", morador=" + morador + ", cep=" + cep + ", bairro=" + bairro + ", logradouro="
 				+ logradouro + ", pontoReferencia=" + pontoReferencia + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", impactos=" + impactos + ", caracteristicas=" + caracteristicas + ", corposAgua="
+				+ longitude + ", impactos=" + impactos + ", caracteristicas=" + caracteristica + ", corposAgua="
 				+ corposAgua + ", situacaoFundiaria=" + situacaoFundiaria + ", registroEntomologico="
 				+ registroEntomologico + ", descricao=" + descricao + "]";
 	}

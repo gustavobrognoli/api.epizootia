@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.IdadeDTO;
 import com.epizootia.entities.Idade;
 import com.epizootia.response.Response;
 import com.epizootia.services.IdadeService;
@@ -37,25 +35,24 @@ public class IdadeController {
 
 	/**
 	 * 
-	 * Consulta todos as idades
+	 * Consulta todas as idades
 	 * 
-	 * @return List<IdadeDTO>
+	 * @return List<Idade>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<IdadeDTO>>> listaTodos() {
-		Response<List<IdadeDTO>> response = new Response<List<IdadeDTO>>();
+	public ResponseEntity<Response<List<Idade>>> listaTodos() {
+		Response<List<Idade>> response = new Response<List<Idade>>();
 
-		List<IdadeDTO> idadeDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Idade> idades = service.findAll();
 
-		if (idadeDTOS.isEmpty()) {
+		if (idades.isEmpty()) {
 
 			log.error("Não há idades cadastradas");
 			response.getErrors().add("Não há idades cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(idadeDTOS);
+		response.setData(idades);
 
 		return ResponseEntity.ok(response);
 	}
@@ -64,12 +61,12 @@ public class IdadeController {
 	 * 
 	 * Consulta de idade atravez do id
 	 * 
-	 * @return List<IdadeDTO>
+	 * @return List<Idade>
 	 */
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<IdadeDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Idade>> consulta(@PathVariable("id") int id) {
 
-		Response<IdadeDTO> response = new Response<IdadeDTO>();
+		Response<Idade> response = new Response<Idade>();
 		Optional<Idade> idade = service.findById(id);
 
 		if (!idade.isPresent()) {
@@ -79,11 +76,9 @@ public class IdadeController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		IdadeDTO idadeDTO = converteEntityParaDTO(idade.get());
+		response.setData(idade.get());
 
-		response.setData(idadeDTO);
-
-		log.info("Consulta de idade {}", idadeDTO);
+		log.info("Consulta de idade {}", idade);
 
 		return ResponseEntity.ok(response);
 	}
@@ -92,19 +87,17 @@ public class IdadeController {
 	 * 
 	 * Cadastra nova Idade na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return Idade
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<IdadeDTO>> cadastrar(@Valid @RequestBody IdadeDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Idade>> cadastrar(@Valid @RequestBody Idade idade, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando idade {}", DTO.toString());
+		log.info("Cadastrando idade {}", idade.toString());
 
-		Response<IdadeDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Idade entity = this.converteDTOParaEntity(DTO);
+		Response<Idade> response = new Response<>();
+		validaSeExiste(idade, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar as informações: {}", result.getAllErrors());
@@ -112,8 +105,8 @@ public class IdadeController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(idade);
+		response.setData(idade);
 		return ResponseEntity.ok(response);
 	}
 
@@ -124,9 +117,9 @@ public class IdadeController {
 	 */
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<IdadeDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Idade>> apagar(@PathVariable("id") int id) {
 
-		Response<IdadeDTO> response = new Response<IdadeDTO>();
+		Response<Idade> response = new Response<Idade>();
 		Optional<Idade> idade = service.findById(id);
 
 		if (!idade.isPresent()) {
@@ -135,52 +128,21 @@ public class IdadeController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		IdadeDTO idadeDTO = converteEntityParaDTO(idade.get());
-
-		response.setData(idadeDTO);
+		response.setData(idade.get());
 		service.apagar(idade.get());
-		log.info("Apagando idade {}", idadeDTO);
+		log.info("Apagando idade {}", idade);
 
 		return ResponseEntity.ok(response);
 	}
 
 	/**
 	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param idadeDTO
-	 * @return Entity
-	 */
-	public Idade converteDTOParaEntity(IdadeDTO idadeDTO) {
-		Idade idade = new Idade();
-		idade.setId(idadeDTO.getId());
-		idade.setIdade(idadeDTO.getIdade());
-		return idade;
-	}
-
-	/**
-	 * 
-	 * Converte Entity para DTO
-	 * 
-	 * @param idade
-	 * @return DTO
-	 */
-	public IdadeDTO converteEntityParaDTO(Idade idade) {
-		IdadeDTO idadeDTO = new IdadeDTO();
-		idadeDTO.setId(idade.getId());
-		idadeDTO.setIdade(idade.getIdade());
-		return idadeDTO;
-	}
-
-	/**
-	 * 
 	 * Valida se a Idade ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(IdadeDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(ida -> result.addError(new ObjectError("Idade", dTO.getIdade() + " já existe")));
+	private void validaSeExiste(Idade idade, BindingResult result) {
+		this.service.findById(idade.getId())
+				.ifPresent(ida -> result.addError(new ObjectError("Idade", idade.getIdade() + " já existe")));
 	}
 }

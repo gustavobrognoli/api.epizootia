@@ -37,7 +37,7 @@ public class SituacaoController {
 	 * 
 	 * Consulta todas as Situações
 	 * 
-	 * @return List<SituacaoDTO>
+	 * @return List<Situacao>
 	 */
 	@GetMapping
 	public ResponseEntity<Response<List<Situacao>>> listaTodos() {
@@ -84,8 +84,7 @@ public class SituacaoController {
 	/**
 	 * 
 	 * Cadastra nova Situação do animal na base de dados
-	 * 
-	 * @param DTO
+
 	 * @param result
 	 * @return Situação
 	 * @throws NoSuchAlgorithmException
@@ -135,7 +134,6 @@ public class SituacaoController {
 	 * 
 	 * Valida se o Situacao do Animal ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
 	private void validaSeExiste(Situacao situacao, BindingResult result) {

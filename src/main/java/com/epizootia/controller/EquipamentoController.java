@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.EquipamentoDTO;
 import com.epizootia.entities.Equipamento;
 import com.epizootia.response.Response;
 import com.epizootia.services.EquipamentoService;
@@ -38,23 +36,22 @@ public class EquipamentoController {
 	 * 
 	 * Consulta todos as equipamentos
 	 * 
-	 * @return List<EquipamentoDTO>
+	 * @return List<Equipamento>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<EquipamentoDTO>>> listaTodos() {
-		Response<List<EquipamentoDTO>> response = new Response<List<EquipamentoDTO>>();
+	public ResponseEntity<Response<List<Equipamento>>> listaTodos() {
+		Response<List<Equipamento>> response = new Response<List<Equipamento>>();
 
-		List<EquipamentoDTO> equipamentoDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Equipamento> equipamentos = service.findAll();
 
-		if(equipamentoDTOS.isEmpty()) {
+		if(equipamentos.isEmpty()) {
 		
 		log.error("Não há equipamentos cadastradas");
 		response.getErrors().add("Não há equipamentos cadastradas");
 		
 		return ResponseEntity.badRequest().body(response);
 	}
-		response.setData(equipamentoDTOS);
+		response.setData(equipamentos);
 
 		return ResponseEntity.ok(response);
 	}
@@ -63,12 +60,12 @@ public class EquipamentoController {
 	 * 
 	 * Consulta de equipamento atravez do id
 	 * 
-	 * @return List<EquipamentoDTO>
+	 * @return List<Equipamento>
 	 */
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<EquipamentoDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Equipamento>> consulta(@PathVariable("id") int id) {
 
-		Response<EquipamentoDTO> response = new Response<EquipamentoDTO>();
+		Response<Equipamento> response = new Response<Equipamento>();
 		Optional<Equipamento> equipamento = service.findById(id);
 
 		if(!equipamento.isPresent()) {
@@ -77,12 +74,10 @@ public class EquipamentoController {
 			
 			return ResponseEntity.badRequest().body(response);
 		}
-		
-		EquipamentoDTO equipamentoDTO = converteEntityParaDTO(equipamento.get());
 				
-		response.setData(equipamentoDTO);
+		response.setData(equipamento.get());
 		
-		log.info("Consulta de equipamento {}", equipamentoDTO);
+		log.info("Consulta de equipamento {}", equipamento);
 		
 		return ResponseEntity.ok(response);
 	}
@@ -90,20 +85,18 @@ public class EquipamentoController {
 	/**
 	 * 
 	 * Cadastra nova Equipamento na base de dados
-	 * 
-	 * @param DTO
+	 *
 	 * @param result
 	 * @return Equipamento
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<EquipamentoDTO>> cadastrar(@Valid @RequestBody EquipamentoDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Equipamento>> cadastrar(@Valid @RequestBody Equipamento equipamento, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando equipamento {}", DTO.toString());
+		log.info("Cadastrando equipamento {}", equipamento.toString());
 		
-		Response<EquipamentoDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Equipamento entity = this.converteDTOParaEntity(DTO);
+		Response<Equipamento> response = new Response<>();
+		validaSeExiste(equipamento, result);
 		
 		if (result.hasErrors()) {
 			log.error("Erro ao validar as informações: {}", result.getAllErrors());
@@ -111,8 +104,8 @@ public class EquipamentoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(equipamento);
+		response.setData(equipamento);
 		return ResponseEntity.ok(response);
 	}
 	
@@ -123,9 +116,9 @@ public class EquipamentoController {
 	 */
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<EquipamentoDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Equipamento>> apagar(@PathVariable("id") int id) {
 		
-		Response<EquipamentoDTO> response = new Response<EquipamentoDTO>();
+		Response<Equipamento> response = new Response<Equipamento>();
 		Optional<Equipamento> equipamento = service.findById(id);
 		
 		if (!equipamento.isPresent()) {
@@ -134,56 +127,21 @@ public class EquipamentoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		EquipamentoDTO equipamentoDTO = converteEntityParaDTO(equipamento.get());
-		
-		response.setData(equipamentoDTO);
+		response.setData(equipamento.get());
 		service.apagar(equipamento.get());
-		log.info("Apagando equipamento {}", equipamentoDTO);
+		log.info("Apagando equipamento {}", equipamento);
 		
 		return ResponseEntity.ok(response);
 	}
 	/**
 	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param equipamentoDTO
-	 * @return Entity
-	 */
-	public Equipamento converteDTOParaEntity(EquipamentoDTO equipamentoDTO) {
-		Equipamento equipamento = new Equipamento();
-		equipamento.setId(equipamentoDTO.getId());
-		equipamento.setPuca(equipamentoDTO.isPuca());
-		equipamento.setPuca(equipamentoDTO.isCastro());
-		equipamento.setPuca(equipamentoDTO.isShanonn());
-		equipamento.setPuca(equipamentoDTO.isCdc());
-		return equipamento;
-	}
-	/**
-	 * 
-	 * Converte Entity para DTO
-	 * 
-	 * @param equipamento
-	 * @return DTO
-	 */
-	public EquipamentoDTO converteEntityParaDTO(Equipamento equipamento) {
-		EquipamentoDTO equipamentoDTO = new EquipamentoDTO();
-		equipamentoDTO.setId(equipamento.getId());
-		equipamentoDTO.setPuca(equipamento.isPuca());
-		equipamentoDTO.setPuca(equipamento.isCastro());
-		equipamentoDTO.setPuca(equipamento.isShanonn());
-		equipamentoDTO.setPuca(equipamento.isCdc());
-		return equipamentoDTO;
-	}
-	/**
-	 * 
 	 * Valida se a Equipamento ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(EquipamentoDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-			.ifPresent(ida -> result.addError(new ObjectError("Equipamento", dTO.getId() + " já existe")));
+	private void validaSeExiste(Equipamento equipamento, BindingResult result) {
+		this.service.findById(equipamento.getId())
+			.ifPresent(eqp -> result.addError(new ObjectError("Equipamento", equipamento.getId() + " já existe")));
 	}
 }	
 

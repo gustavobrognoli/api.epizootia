@@ -37,7 +37,7 @@ public class RecomendacaoVacinalController {
 	 * 
 	 * Consulta todas Recomendações Vacinais
 	 * 
-	 * @return List<RecomendacaoVacinalDTO>
+	 * @return List<RecomendacaoVacinal>
 	 */
 	@GetMapping
 	public ResponseEntity<Response<List<RecomendacaoVacinal>>> listaTodos() {
@@ -62,7 +62,7 @@ public class RecomendacaoVacinalController {
 	 * 
 	 * Consulta todas as Recomendações Vacinais por id
 	 * 
-	 * @return List<RecomendacaoVacinalDTO>
+	 * @return List<RecomendacaoVacinal>
 	 */
 
 	@GetMapping(value = "/{id}")
@@ -88,7 +88,6 @@ public class RecomendacaoVacinalController {
 	 * 
 	 * Cadastra nova Recomendação Vacinal na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return RecomendacaoVacinal
 	 * @throws NoSuchAlgorithmException
@@ -142,7 +141,6 @@ public class RecomendacaoVacinalController {
 	 * 
 	 * Valida se o Recomendação Vacinal ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
 	private void validaSeExiste(RecomendacaoVacinal recomendacaoVacinal, BindingResult result) {

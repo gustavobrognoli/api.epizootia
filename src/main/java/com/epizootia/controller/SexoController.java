@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.SexoDTO;
 import com.epizootia.entities.Sexo;
 import com.epizootia.response.Response;
 import com.epizootia.services.SexoService;
@@ -39,16 +37,15 @@ public class SexoController {
 	 * 
 	 * Consulta todas os Sexos
 	 * 
-	 * @return List<SexoDTO>
+	 * @return List<Sexo>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<SexoDTO>>> listaTodos() {
-		Response<List<SexoDTO>> response = new Response<List<SexoDTO>>();
+	public ResponseEntity<Response<List<Sexo>>> listaTodos() {
+		Response<List<Sexo>> response = new Response<List<Sexo>>();
 
-		List<SexoDTO> sexoDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Sexo> sexos = service.findAll();
 
-		if (sexoDTOS.isEmpty()) {
+		if (sexos.isEmpty()) {
 
 			log.error("Não há sexos cadastrados");
 			response.getErrors().add("Não há sexos cadastrados");
@@ -56,7 +53,7 @@ public class SexoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		response.setData(sexoDTOS);
+		response.setData(sexos);
 
 		return ResponseEntity.ok(response);
 	}
@@ -69,9 +66,9 @@ public class SexoController {
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<SexoDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Sexo>> consulta(@PathVariable("id") int id) {
 
-		Response<SexoDTO> response = new Response<SexoDTO>();
+		Response<Sexo> response = new Response<Sexo>();
 		Optional<Sexo> sexo = service.findById(id);
 
 		if (!sexo.isPresent()) {
@@ -80,11 +77,9 @@ public class SexoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		SexoDTO sexoDTO = converteEntityParaDTO(sexo.get());
+		response.setData(sexo.get());
 
-		response.setData(sexoDTO);
-
-		log.info("Consulta de Sexo do Animal {}", sexoDTO);
+		log.info("Consulta de Sexo do Animal {}", sexo);
 
 		return ResponseEntity.ok(response);
 	}
@@ -93,19 +88,17 @@ public class SexoController {
 	 * 
 	 * Cadastra novo Sexo do animal na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return Sexo
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<SexoDTO>> cadastrar(@Valid @RequestBody SexoDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Sexo>> cadastrar(@Valid @RequestBody Sexo sexo, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Sexo do animal {}", DTO.toString());
+		log.info("Cadastrando Sexo do animal {}", sexo.toString());
 
-		Response<SexoDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Sexo entity = this.converteDTOParaEntity(DTO);
+		Response<Sexo> response = new Response<>();
+		validaSeExiste(sexo, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -113,8 +106,8 @@ public class SexoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(sexo);
+		response.setData(sexo);
 		return ResponseEntity.ok(response);
 	}
 
@@ -123,9 +116,9 @@ public class SexoController {
 	 * Deleta Sexo do animal da base de dados
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<SexoDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Sexo>> apagar(@PathVariable("id") int id) {
 
-		Response<SexoDTO> response = new Response<SexoDTO>();
+		Response<Sexo> response = new Response<Sexo>();
 		Optional<Sexo> sexo = service.findById(id);
 
 		if (!sexo.isPresent()) {
@@ -134,45 +127,12 @@ public class SexoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		SexoDTO sexoDTO = converteEntityParaDTO(sexo.get());
-
-		response.setData(sexoDTO);
+		response.setData(sexo.get());
 		service.apagar(sexo.get());
-		log.info("Deletando Sexo do Animal {}", sexoDTO);
+		log.info("Deletando Sexo do Animal {}", sexo);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param sexoDTO
-	 * @return Entity
-	 */
-
-	public Sexo converteDTOParaEntity(SexoDTO sexoDTO) {
-		Sexo sexo = new Sexo();
-		sexo.setId(sexoDTO.getId());
-		sexo.setSexo(sexoDTO.getSexo());
-		return sexo;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param sexoDTO
-	 * @return DTO
-	 */
-
-	public SexoDTO converteEntityParaDTO(Sexo sexo) {
-		SexoDTO sexoDTO = new SexoDTO();
-		sexoDTO.setId(sexo.getId());
-		sexoDTO.setSexo(sexo.getSexo());
-		return sexoDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se o Sexo do Animal ja existe na base de dados
@@ -180,9 +140,9 @@ public class SexoController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(SexoDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(sex -> result.addError(new ObjectError("Sexo do Animal", dTO.getSexo() + "já existe")));
+	private void validaSeExiste(Sexo sexo, BindingResult result) {
+		this.service.findById(sexo.getId())
+				.ifPresent(sex -> result.addError(new ObjectError("Sexo do Animal", sexo.getSexo() + "já existe")));
 	}
 
 }

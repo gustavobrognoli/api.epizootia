@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.CorposAguaDTO;
 import com.epizootia.entities.CorposAgua;
 import com.epizootia.response.Response;
 import com.epizootia.services.CorposAguaService;
@@ -39,23 +37,22 @@ public class CorposAguaController {
 	 * 
 	 * Consulta todos os animais
 	 * 
-	 * @return List<CorposAguaDTO>
+	 * @return List<CorposAgua>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<CorposAguaDTO>>> listaTodos() {
-		Response<List<CorposAguaDTO>> response = new Response<List<CorposAguaDTO>>();
+	public ResponseEntity<Response<List<CorposAgua>>> listaTodos() {
+		Response<List<CorposAgua>> response = new Response<List<CorposAgua>>();
 
-		List<CorposAguaDTO> corposAguaDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<CorposAgua> corposAguas = service.findAll();
 
-		if (corposAguaDTOS.isEmpty()) {
+		if (corposAguas.isEmpty()) {
 
 			log.error("Não há situações fundiárias cadastradas");
 			response.getErrors().add("Não há situações fundiárias cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(corposAguaDTOS);
+		response.setData(corposAguas);
 
 		return ResponseEntity.ok(response);
 	}
@@ -68,45 +65,41 @@ public class CorposAguaController {
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<CorposAguaDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<CorposAgua>> consulta(@PathVariable("id") int id) {
 
-		Response<CorposAguaDTO> response = new Response<CorposAguaDTO>();
+		Response<CorposAgua> response = new Response<CorposAgua>();
 		Optional<CorposAgua> corposAgua = service.findById(id);
 
 		if (!corposAgua.isPresent()) {
 
-			log.error("Id da Situação Fundiária não cadastrado na base de dados");
-			response.getErrors().add("Id do Situação Fundiária não cadastrado na base de dados");
+			log.error("Id do Corpo d`Água não cadastrado na base de dados");
+			response.getErrors().add("Id do Corpo d`Água não cadastrado na base de dados");
 
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		CorposAguaDTO corposAguaDTO = converteEntityParaDTO(corposAgua.get());
+		response.setData(corposAgua.get());
 
-		response.setData(corposAguaDTO);
-
-		log.info("Consulta do Situação Fundiária {}", corposAguaDTO);
+		log.info("Consulta do Corpo d`Água {}", corposAgua);
 
 		return ResponseEntity.ok(response);
 	}
 
 	/**
 	 * 
-	 * Cadastra nova corposAgua na base de dados
+	 * Cadastra novo corposAgua na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return CorposAgua
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<CorposAguaDTO>> cadastrar(@Valid @RequestBody CorposAguaDTO DTO,
+	public ResponseEntity<Response<CorposAgua>> cadastrar(@Valid @RequestBody CorposAgua corposAgua,
 			BindingResult result) throws NoSuchAlgorithmException {
-		log.info("Cadastrando Situação Fundiária {}", DTO.toString());
+		log.info("Cadastrando Situação Fundiária {}", corposAgua.toString());
 
-		Response<CorposAguaDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		CorposAgua entity = this.converteDTOParaEntity(DTO);
+		Response<CorposAgua> response = new Response<>();
+		validaSeExiste(corposAgua, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -114,8 +107,8 @@ public class CorposAguaController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(corposAgua);
+		response.setData(corposAgua);
 		return ResponseEntity.ok(response);
 	}
 
@@ -125,63 +118,31 @@ public class CorposAguaController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<CorposAguaDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<CorposAgua>> apagar(@PathVariable("id") int id) {
 
-		Response<CorposAguaDTO> response = new Response<CorposAguaDTO>();
+		Response<CorposAgua> response = new Response<CorposAgua>();
 		Optional<CorposAgua> corposAgua = service.findById(id);
 
 		if (!corposAgua.isPresent()) {
-			log.error("Id da Situação Fundiária não cadastrado na base de dados");
-			response.getErrors().add("Id da Situação Fundiária não cadastrado na base de dados");
+			log.error("Id do Corpo d`Água não cadastrado na base de dados");
+			response.getErrors().add("Id do Corpo d`Água não cadastrado na base de dados");
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		CorposAguaDTO corposAguaDTO = converteEntityParaDTO(corposAgua.get());
-
-		response.setData(corposAguaDTO);
+		response.setData(corposAgua.get());
 		service.apagar(corposAgua.get());
-		log.info("Deletando Situação Fundiária {}", corposAguaDTO);
+		log.info("Deletando Corpo d`Água {}", corposAgua);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param corposAguaDTO
-	 * @return Entity
-	 */
-	public CorposAgua converteDTOParaEntity(CorposAguaDTO corposAguaDTO) {
-		CorposAgua corposAgua = new CorposAgua();
-		corposAgua.setId(corposAguaDTO.getId());
-		corposAgua.setNome(corposAguaDTO.getNome());
-		return corposAgua;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param corposAgua
-	 * @return DTO
-	 */
-	public CorposAguaDTO converteEntityParaDTO(CorposAgua corposAgua) {
-		CorposAguaDTO corposAguaDTO = new CorposAguaDTO();
-		corposAguaDTO.setId(corposAgua.getId());
-		corposAguaDTO.setNome(corposAgua.getNome());
-		return corposAguaDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se a Situacao Fundiaria ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(CorposAguaDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(cor -> result.addError(new ObjectError("Situacao Fundiaria", dTO.getNome() + "já existe")));
+	private void validaSeExiste(CorposAgua corposAgua, BindingResult result) {
+		this.service.findById(corposAgua.getId())
+				.ifPresent(cor -> result.addError(new ObjectError("Situacao Fundiaria", corposAgua.getNome() + "já existe")));
 	}
 }

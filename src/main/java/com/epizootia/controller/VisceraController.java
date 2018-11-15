@@ -61,7 +61,7 @@ public class VisceraController {
 	 * 
 	 * Consulta de viscera por id
 	 * 
-	 * @return List<VisceraDTO>
+	 * @return List<Viscera>
 	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Response<Viscera>> consulta(@PathVariable("id") int id) {
@@ -88,7 +88,6 @@ public class VisceraController {
 	 * 
 	 * Cadastra nova viscera na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return Viscera
 	 * @throws NoSuchAlgorithmException
@@ -139,7 +138,6 @@ public class VisceraController {
 	 * 
 	 * Valida se a Anormalidade ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
 	private void validaSeExiste(Viscera viscera, BindingResult result) {

@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.ApreensaoDTO;
 import com.epizootia.entities.Apreensao;
 import com.epizootia.response.Response;
 import com.epizootia.services.ApreensaoService;
@@ -39,23 +37,22 @@ public class ApreensaoController {
 	 * 
 	 * Consulta todas as Apreensões
 	 * 
-	 * @return List<EspecieDTO>
+	 * @return List<Especie>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<ApreensaoDTO>>> listaTodos() {
-		Response<List<ApreensaoDTO>> response = new Response<List<ApreensaoDTO>>();
+	public ResponseEntity<Response<List<Apreensao>>> listaTodos() {
+		Response<List<Apreensao>> response = new Response<List<Apreensao>>();
 
-		List<ApreensaoDTO> apreensaoDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Apreensao> apreensoes = service.findAll();
 		
-		if (apreensaoDTOS.isEmpty()) {
+		if (apreensoes.isEmpty()) {
 
 			log.error("Não há Apreensões cadastradas");
 			response.getErrors().add("Não há Apreensões cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(apreensaoDTOS);
+		response.setData(apreensoes);
 
 		return ResponseEntity.ok(response);
 	}
@@ -64,13 +61,13 @@ public class ApreensaoController {
 	 * 
 	 * Consulta todas as Apreensões por id
 	 * 
-	 * @return List<ApreensaoDTO>
+	 * @return List<Apreensao>
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<ApreensaoDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Apreensao>> consulta(@PathVariable("id") int id) {
 
-		Response<ApreensaoDTO> response = new Response<ApreensaoDTO>();
+		Response<Apreensao> response = new Response<Apreensao>();
 		Optional<Apreensao> apreensao = service.findById(id);
 
 		if (!apreensao.isPresent()) {
@@ -79,11 +76,9 @@ public class ApreensaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		ApreensaoDTO apreensaoDTO = converteEntityParaDTO(apreensao.get());
+		response.setData(apreensao.get());
 
-		response.setData(apreensaoDTO);
-
-		log.info("Consulta de Apreensão do Animal {}", apreensaoDTO);
+		log.info("Consulta de Apreensão do Animal {}", apreensao);
 
 		return ResponseEntity.ok(response);
 	}
@@ -92,19 +87,17 @@ public class ApreensaoController {
 	 * 
 	 * Cadastra nova Apreensão do animal na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return apreensao
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<ApreensaoDTO>> cadastrar(@Valid @RequestBody ApreensaoDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Apreensao>> cadastrar(@Valid @RequestBody Apreensao apreensao, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Apreensão do animal {}", DTO.toString());
+		log.info("Cadastrando Apreensão do animal {}", apreensao.toString());
 
-		Response<ApreensaoDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Apreensao entity = this.converteDTOParaEntity(DTO);
+		Response<Apreensao> response = new Response<>();
+		validaSeExiste(apreensao, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -112,8 +105,8 @@ public class ApreensaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(apreensao);
+		response.setData(apreensao);
 		return ResponseEntity.ok(response);
 	}
 
@@ -122,9 +115,9 @@ public class ApreensaoController {
 	 * Deleta Especie do animal da base de dados
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<ApreensaoDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Apreensao>> apagar(@PathVariable("id") int id) {
 
-		Response<ApreensaoDTO> response = new Response<ApreensaoDTO>();
+		Response<Apreensao> response = new Response<Apreensao>();
 		Optional<Apreensao> apreensao = service.findById(id);
 
 		if (!apreensao.isPresent()) {
@@ -133,45 +126,12 @@ public class ApreensaoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		ApreensaoDTO apreensaoDTO = converteEntityParaDTO(apreensao.get());
-
-		response.setData(apreensaoDTO);
+		response.setData(apreensao.get());
 		service.apagar(apreensao.get());
-		log.info("Deletando Especie do Animal {}", apreensaoDTO);
+		log.info("Deletando Especie do Animal {}", apreensao);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param especieDTO
-	 * @return Entity
-	 */
-
-	public Apreensao converteDTOParaEntity(ApreensaoDTO apreensaoDTO) {
-		Apreensao apreensao = new Apreensao();
-		apreensao.setId(apreensaoDTO.getId());
-		apreensao.setApreensao(apreensaoDTO.getApreensao());
-		return apreensao;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param apreensaoDTO
-	 * @return DTO
-	 */
-
-	public ApreensaoDTO converteEntityParaDTO(Apreensao apreensao) {
-		ApreensaoDTO apreensaoDTO = new ApreensaoDTO();
-		apreensaoDTO.setId(apreensao.getId());
-		apreensaoDTO.setApreensao(apreensao.getApreensao());
-		return apreensaoDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se a Especie do Animal ja existe na base de dados
@@ -179,9 +139,9 @@ public class ApreensaoController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(ApreensaoDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId()).
-		ifPresent( Apr -> result.addError(new ObjectError("Apreensão do Animal", dTO.getApreensao() + "já existe")));
+	private void validaSeExiste(Apreensao apreensao, BindingResult result) {
+		this.service.findById(apreensao.getId()).
+		ifPresent( Apr -> result.addError(new ObjectError("Apreensão ", apreensao.getApreensao() + "do Animal já existe")));
 	}
 
 }

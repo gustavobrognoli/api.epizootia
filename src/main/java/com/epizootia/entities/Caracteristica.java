@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mod_epizootia_caracteristicas")
-public class Caracteristicas implements Serializable {
+@Table(name = "mod_epizootia_caracteristica")
+public class Caracteristica implements Serializable {
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class Caracteristicas implements Serializable {
 	private Boolean rural;
 	private Boolean urbano;
 	
-	public Caracteristicas() {
+	public Caracteristica() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -39,7 +39,7 @@ public class Caracteristicas implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "fg_caracteristicas_natural")
+	@Column(name = "fg_caracteristica_natural")
 	public Boolean getNatural() {
 		return natural;
 	}
@@ -48,7 +48,7 @@ public class Caracteristicas implements Serializable {
 		this.natural = natural;
 	}
 
-	@Column(name = "fg_caracteristicas_domicilio")
+	@Column(name = "fg_caracteristica_domicilio")
 	public Boolean getDomicilio() {
 		return domicilio;
 	}
@@ -57,7 +57,7 @@ public class Caracteristicas implements Serializable {
 		this.domicilio = domicilio;
 	}
 
-	@Column(name = "fg_caracteristicas_rural")
+	@Column(name = "fg_caracteristica_rural")
 	public Boolean getRural() {
 		return rural;
 	}
@@ -66,7 +66,7 @@ public class Caracteristicas implements Serializable {
 		this.rural = rural;
 	}
 
-	@Column(name = "fg_caracteristicas_urbano")
+	@Column(name = "fg_caracteristica_urbano")
 	public Boolean getUrbano() {
 		return urbano;
 	}
@@ -77,7 +77,7 @@ public class Caracteristicas implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Caracteristicas [id=" + id + ", natural=" + natural + ", domicilio=" + domicilio + ", rural=" + rural
+		return "Caracteristica [id=" + id + ", natural=" + natural + ", domicilio=" + domicilio + ", rural=" + rural
 				+ ", urbano=" + urbano + "]";
 	}
 	

@@ -37,7 +37,7 @@ public class IsolamentoViralController {
 	 * 
 	 * Consulta todos os Isolamentos Virais
 	 * 
-	 * @return List<AnormalidadeDTO>
+	 * @return List<Anormalidade>
 	 */
 	@GetMapping
 	public ResponseEntity<Response<List<IsolamentoViral>>> listaTodos() {
@@ -61,7 +61,7 @@ public class IsolamentoViralController {
 	 * 
 	 * Consulta de Isolamento Viral por id
 	 * 
-	 * @return List<IsolamentoViralDTO>
+	 * @return List<IsolamentoViral>
 	 */
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Response<IsolamentoViral>> consulta(@PathVariable("id") int id) {
@@ -87,7 +87,6 @@ public class IsolamentoViralController {
 	 * 
 	 * Cadastra novo Isolamento Viral na base de dados
 	 * 
-	 * @param DTO
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
@@ -136,7 +135,6 @@ public class IsolamentoViralController {
 	 * 
 	 * Valida se a Isolamento Viral ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
 	private void validaSeExiste(IsolamentoViral isolamentoViral, BindingResult result) {

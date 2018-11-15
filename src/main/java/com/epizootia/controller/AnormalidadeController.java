@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.AnormalidadeDTO;
 import com.epizootia.entities.Anormalidade;
 import com.epizootia.response.Response;
 import com.epizootia.services.AnormalidadeService;
@@ -42,20 +40,19 @@ public class AnormalidadeController {
 	 * @return List<AnormalidadeDTO>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<AnormalidadeDTO>>> listaTodos() {
-		Response<List<AnormalidadeDTO>> response = new Response<List<AnormalidadeDTO>>();
+	public ResponseEntity<Response<List<Anormalidade>>> listaTodos() {
+		Response<List<Anormalidade>> response = new Response<List<Anormalidade>>();
 
-		List<AnormalidadeDTO> anormalidadeDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<Anormalidade> anormalidades = service.findAll();
 		
-		if (anormalidadeDTOS.isEmpty()) {
+		if (anormalidades.isEmpty()) {
 
 			log.error("Não há Anormalidades cadastradas");
 			response.getErrors().add("Não há Anormalidades cadastradas");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(anormalidadeDTOS);
+		response.setData(anormalidades);
 
 		return ResponseEntity.ok(response);
 	}
@@ -64,13 +61,13 @@ public class AnormalidadeController {
 	 * 
 	 * Consulta todas as Anormalidades por id
 	 * 
-	 * @return List<EspecieDTO>
+	 * @return List<Especie>
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<AnormalidadeDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Anormalidade>> consulta(@PathVariable("id") int id) {
 
-		Response<AnormalidadeDTO> response = new Response<AnormalidadeDTO>();
+		Response<Anormalidade> response = new Response<Anormalidade>();
 		Optional<Anormalidade> anormalidade = service.findById(id);
 
 		if (!anormalidade.isPresent()) {
@@ -79,21 +76,16 @@ public class AnormalidadeController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		AnormalidadeDTO anormalidadeDTO = converteEntityParaDTO(anormalidade.get());
+		response.setData(anormalidade.get());
 
-		response.setData(anormalidadeDTO);
-
-		log.info("Consulta de Anormalidade do Animal {}", anormalidadeDTO);
+		log.info("Consulta de Anormalidade do Animal {}", anormalidade);
 
 		return ResponseEntity.ok(response);
 	}
 
 	
-//	@GetMapping(value = "/{id}")
-//	public ResponseEntity<Response<CaracteristicasDTO>> consulta(@PathVariable("id") int id) {
-//				Response<CaracteristicasDTO> response = new Response<CaracteristicasDTO>();
-//				Optional<ArrayList<anoraalidade>> anormalidadeLIsta = service.findByAllId(id);(Criar esse select ver autor)
-//	}
+//	Criar GET para pegar os selecionados
+	
 	
 	/**
 	 * 
@@ -105,13 +97,12 @@ public class AnormalidadeController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<AnormalidadeDTO>> cadastrar(@Valid @RequestBody AnormalidadeDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Anormalidade>> cadastrar(@Valid @RequestBody Anormalidade anormalidade, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Anormalidade do animal {}", DTO.toString());
+		log.info("Cadastrando Anormalidade do animal {}", anormalidade.toString());
 
-		Response<AnormalidadeDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Anormalidade entity = this.converteDTOParaEntity(DTO);
+		Response<Anormalidade> response = new Response<>();
+		validaSeExiste(anormalidade, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -119,8 +110,8 @@ public class AnormalidadeController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(anormalidade);
+		response.setData(anormalidade);
 		return ResponseEntity.ok(response);
 	}
 
@@ -129,9 +120,9 @@ public class AnormalidadeController {
 	 * Deleta Anormalidade do animal da base de dados
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<AnormalidadeDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Anormalidade>> apagar(@PathVariable("id") int id) {
 
-		Response<AnormalidadeDTO> response = new Response<AnormalidadeDTO>();
+		Response<Anormalidade> response = new Response<Anormalidade>();
 		Optional<Anormalidade> anormalidade = service.findById(id);
 
 		if (!anormalidade.isPresent()) {
@@ -140,45 +131,12 @@ public class AnormalidadeController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		AnormalidadeDTO anormalidadeDTO = converteEntityParaDTO(anormalidade.get());
-
-		response.setData(anormalidadeDTO);
+		response.setData(anormalidade.get());
 		service.apagar(anormalidade.get());
-		log.info("Deletando Anormalidade do Animal {}", anormalidadeDTO);
+		log.info("Deletando Anormalidade do Animal {}", anormalidade);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param anormalidadeDTO
-	 * @return Entity
-	 */
-
-	public Anormalidade converteDTOParaEntity(AnormalidadeDTO anormalidadeDTO) {
-		Anormalidade anormalidade = new Anormalidade();
-		anormalidade.setId(anormalidadeDTO.getId());
-		anormalidade.setSintoma(anormalidadeDTO.getSintoma());
-		return anormalidade;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param anormalidadeDTO
-	 * @return DTO
-	 */
-
-	public AnormalidadeDTO converteEntityParaDTO(Anormalidade anormalidade) {
-		AnormalidadeDTO anormalidadeDTO = new AnormalidadeDTO();
-		anormalidadeDTO.setId(anormalidade.getId());
-		anormalidadeDTO.setSintoma(anormalidade.getSintoma());
-		return anormalidadeDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se a Anormalidade do Animal ja existe na base de dados
@@ -186,9 +144,9 @@ public class AnormalidadeController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(AnormalidadeDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId()).
-		ifPresent( esp -> result.addError(new ObjectError("Anormalidade do Animal", dTO.getSintoma() + "já existe")));
+	private void validaSeExiste(Anormalidade anormalidade, BindingResult result) {
+		this.service.findById(anormalidade.getId()).
+		ifPresent( esp -> result.addError(new ObjectError("Anormalidade do Animal", anormalidade.getSintoma() + "já existe")));
 	}
 
 }

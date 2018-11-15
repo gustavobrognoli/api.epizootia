@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.RegistroEntomologicoDTO;
 import com.epizootia.entities.RegistroEntomologico;
 import com.epizootia.response.Response;
 import com.epizootia.services.RegistroEntomologicoService;
@@ -39,22 +37,22 @@ public class RegistroEntomologicoController {
 	 * 
 	 * Consulta todos os Registros Entomologicos
 	 * 
-	 * @return List<RegistroEntomologicoDTO>
+	 * @return List<RegistroEntomologico>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<RegistroEntomologicoDTO>>> listaTodos() {
-		Response<List<RegistroEntomologicoDTO>> response = new Response<List<RegistroEntomologicoDTO>>();
+	public ResponseEntity<Response<List<RegistroEntomologico>>> listaTodos() {
+		Response<List<RegistroEntomologico>> response = new Response<List<RegistroEntomologico>>();
 
-		List<RegistroEntomologicoDTO> registroEntomologicoDTOS = service.findAll().stream().map(this::converteEntityParaDTO).collect(Collectors.toList());
+		List<RegistroEntomologico> registrosEntomologicos = service.findAll();
 
-		if (registroEntomologicoDTOS.isEmpty()) {
+		if (registrosEntomologicos.isEmpty()) {
 
 			log.error("Não há Registros Entomologicos cadastrados");
 			response.getErrors().add("Não há Registros Entomologicos cadastrados");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(registroEntomologicoDTOS);
+		response.setData(registrosEntomologicos);
 
 		return ResponseEntity.ok(response);
 	}
@@ -63,13 +61,13 @@ public class RegistroEntomologicoController {
 	 * 
 	 * Consulta de registroEntomologico por id
 	 * 
-	 * @return List<RegistroEntomologicoDTO>
+	 * @return List<RegistroEntomologico>
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<RegistroEntomologicoDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<RegistroEntomologico>> consulta(@PathVariable("id") int id) {
 
-		Response<RegistroEntomologicoDTO> response = new Response<RegistroEntomologicoDTO>();
+		Response<RegistroEntomologico> response = new Response<RegistroEntomologico>();
 		Optional<RegistroEntomologico> registroEntomologico = service.findById(id);
 
 		if (!registroEntomologico.isPresent()) {
@@ -80,11 +78,9 @@ public class RegistroEntomologicoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		RegistroEntomologicoDTO registroEntomologicoDTO = converteEntityParaDTO(registroEntomologico.get());
+		response.setData(registroEntomologico.get());
 
-		response.setData(registroEntomologicoDTO);
-
-		log.info("Consulta do Registro Entomologico {}", registroEntomologicoDTO);
+		log.info("Consulta do Registro Entomologico {}", registroEntomologico);
 
 		return ResponseEntity.ok(response);
 	}
@@ -93,19 +89,17 @@ public class RegistroEntomologicoController {
 	 * 
 	 * Cadastra novo Registro Entomologico na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return RegistroEntomologico
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<RegistroEntomologicoDTO>> cadastrar(@Valid @RequestBody RegistroEntomologicoDTO DTO, BindingResult result)
+	public ResponseEntity<Response<RegistroEntomologico>> cadastrar(@Valid @RequestBody RegistroEntomologico registroEntomologico, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando Registro Entomologico {}", DTO.toString());
+		log.info("Cadastrando Registro Entomologico {}", registroEntomologico.toString());
 
-		Response<RegistroEntomologicoDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		RegistroEntomologico entity = this.converteDTOParaEntity(DTO);
+		Response<RegistroEntomologico> response = new Response<>();
+		validaSeExiste(registroEntomologico, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -113,8 +107,8 @@ public class RegistroEntomologicoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(registroEntomologico);
+		response.setData(registroEntomologico);
 		return ResponseEntity.ok(response);
 	}
 
@@ -124,9 +118,9 @@ public class RegistroEntomologicoController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<RegistroEntomologicoDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<RegistroEntomologico>> apagar(@PathVariable("id") int id) {
 
-		Response<RegistroEntomologicoDTO> response = new Response<RegistroEntomologicoDTO>();
+		Response<RegistroEntomologico> response = new Response<RegistroEntomologico>();
 		Optional<RegistroEntomologico> registroEntomologico = service.findById(id);
 
 		if (!registroEntomologico.isPresent()) {
@@ -135,88 +129,21 @@ public class RegistroEntomologicoController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		RegistroEntomologicoDTO registroEntomologicoDTO = converteEntityParaDTO(registroEntomologico.get());
-
-		response.setData(registroEntomologicoDTO);
+		response.setData(registroEntomologico.get());
 		service.apagar(registroEntomologico.get());
-		log.info("Deletando Registro Entomologico {}", registroEntomologicoDTO);
+		log.info("Deletando Registro Entomologico {}", registroEntomologico);
 
 		return ResponseEntity.ok(response);
 	}
 
 	/**
 	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param registroEntomologicoDTO
-	 * @return Entity
-	 */
-	public RegistroEntomologico converteDTOParaEntity(RegistroEntomologicoDTO registroEntomologicoDTO) {
-		RegistroEntomologico registroEntomologico = new RegistroEntomologico();
-		registroEntomologico.setId(registroEntomologicoDTO.getId());
-		registroEntomologico.setDataRegistro(registroEntomologico.getDataRegistro());
-		registroEntomologico.setDataUltimoRegistro(registroEntomologico.getDataUltimoRegistro());
-		
-		MetodoCapturaController metodoCapturaController = new MetodoCapturaController();
-		registroEntomologico.setMetodoCaptura(metodoCapturaController.converteDTOParaEntity(registroEntomologicoDTO.getMetodoCaptura()));
-		
-		EquipamentoController equipamentoController = new EquipamentoController();
-		registroEntomologico.setEquipamento(equipamentoController.converteDTOParaEntity(registroEntomologicoDTO.getEquipamento()));
-		
-		IsolamentoViralController isolamentoViralController = new IsolamentoViralController();
-		registroEntomologico.setIsolamentoViral(isolamentoViralController.converteDTOParaEntity(registroEntomologicoDTO.getIsolamentoViral()));
-		
-		RecomendacaoVacinalController recomendacaoVacinalController = new RecomendacaoVacinalController();
-		registroEntomologico.setRecomendacaoVacinal(recomendacaoVacinalController.converteDTOParaEntity(registroEntomologicoDTO.getRecomendacaoVacinal()));
-		
-		registroEntomologico.setCoberturaVacinal(registroEntomologicoDTO.getCoberturaVacinal());
-		registroEntomologico.setImoveisVisitados300m(registroEntomologicoDTO.getImoveisVisitados300m());
-		registroEntomologico.setDosesAplicadas300m(registroEntomologicoDTO.getDosesAplicadas300m());
-		registroEntomologico.setFocosAedes300m(registroEntomologicoDTO.getFocosAedes300m());
-		return registroEntomologico;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param registroEntomologico
-	 * @return DTO
-	 */
-	public RegistroEntomologicoDTO converteEntityParaDTO(RegistroEntomologico registroEntomologico) {
-		RegistroEntomologicoDTO registroEntomologicoDTO = new RegistroEntomologicoDTO();
-		registroEntomologicoDTO.setId(registroEntomologico.getId());
-		registroEntomologicoDTO.setDataRegistro(registroEntomologico.getDataRegistro());
-		registroEntomologicoDTO.setDataUltimoRegistro(registroEntomologico.getDataUltimoRegistro());
-		
-		MetodoCapturaController metodoCapturaController = new MetodoCapturaController();
-		registroEntomologicoDTO.setMetodoCaptura(metodoCapturaController.converteEntityParaDTO(registroEntomologico.getMetodoCaptura()));
-		
-		EquipamentoController equipamentoController = new EquipamentoController();
-		registroEntomologicoDTO.setEquipamento(equipamentoController.converteEntityParaDTO(registroEntomologico.getEquipamento()));
-		
-		IsolamentoViralController isolamentoViralController = new IsolamentoViralController();
-		registroEntomologicoDTO.setIsolamentoViral(isolamentoViralController.converteEntityParaDTO(registroEntomologico.getIsolamentoViral()));
-		
-		RecomendacaoVacinalController recomendacaoVacinalController = new RecomendacaoVacinalController();
-		registroEntomologicoDTO.setRecomendacaoVacinal(recomendacaoVacinalController.converteEntityParaDTO(registroEntomologico.getRecomendacaoVacinal()));
-		
-		registroEntomologicoDTO.setCoberturaVacinal(registroEntomologico.getCoberturaVacinal());
-		registroEntomologicoDTO.setImoveisVisitados300m(registroEntomologico.getImoveisVisitados300m());
-		registroEntomologicoDTO.setDosesAplicadas300m(registroEntomologico.getDosesAplicadas300m());
-		registroEntomologicoDTO.setFocosAedes300m(registroEntomologico.getFocosAedes300m());
-		return registroEntomologicoDTO;
-	}
-
-	/**
-	 * 
 	 * Valida se o Registro Entomologico ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(RegistroEntomologicoDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(ent -> result.addError(new ObjectError("Registro Entomologico", dTO.getId() + "já existe")));
+	private void validaSeExiste(RegistroEntomologico registroEntomologico, BindingResult result) {
+		this.service.findById(registroEntomologico.getId())
+				.ifPresent(ent -> result.addError(new ObjectError("Registro Entomologico", registroEntomologico.getId() + "já existe")));
 	}
 }

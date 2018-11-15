@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,13 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.AnimalDTO;
-import com.epizootia.dto.EspecieDTO;
-import com.epizootia.dto.IdadeDTO;
-import com.epizootia.dto.NomePopularDTO;
-import com.epizootia.dto.SituacaoDTO;
-import com.epizootia.dto.TempoObitoDTO;
-import com.epizootia.dto.VisceraDTO;
 import com.epizootia.entities.Animal;
 import com.epizootia.response.Response;
 import com.epizootia.services.AnimalService;
@@ -45,22 +37,21 @@ public class AnimalController {
 	 * 
 	 * Consulta todos os animais
 	 * 
-	 * @return List<AnimalDTO>
+	 * @return List<Animal>
 	 */
 	@GetMapping
-	public ResponseEntity<Response<List<AnimalDTO>>> listaTodos() {
-		Response<List<AnimalDTO>> response = new Response<List<AnimalDTO>>();
+	public ResponseEntity<Response<List<Animal>>> listaTodos() {
+		Response<List<Animal>> response = new Response<List<Animal>>();
 
-		List<AnimalDTO> animalDTOS = service.findAll().stream().map(this::converteEntityParaDTO).collect(Collectors.toList());
-
-		if (animalDTOS.isEmpty()) {
+		List<Animal> animais = service.findAll();
+		if (animais.isEmpty()) {
 
 			log.error("Não há animais cadastrados");
 			response.getErrors().add("Não há animais cadastrados");
 
 			return ResponseEntity.badRequest().body(response);
 		}
-		response.setData(animalDTOS);
+		response.setData(animais);
 
 		return ResponseEntity.ok(response);
 	}
@@ -73,9 +64,9 @@ public class AnimalController {
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<AnimalDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Animal>> consulta(@PathVariable("id") int id) {
 
-		Response<AnimalDTO> response = new Response<AnimalDTO>();
+		Response<Animal> response = new Response<Animal>();
 		Optional<Animal> animal = service.findById(id);
 
 		if (!animal.isPresent()) {
@@ -86,11 +77,9 @@ public class AnimalController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		AnimalDTO animalDTO = converteEntityParaDTO(animal.get());
+		response.setData(animal.get());
 
-		response.setData(animalDTO);
-
-		log.info("Consulta do animal {}", animalDTO);
+		log.info("Consulta do animal {}", animal);
 
 		return ResponseEntity.ok(response);
 	}
@@ -99,19 +88,17 @@ public class AnimalController {
 	 * 
 	 * Cadastra novo animal na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return Animal
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<AnimalDTO>> cadastrar(@Valid @RequestBody AnimalDTO DTO, BindingResult result)
+	public ResponseEntity<Response<Animal>> cadastrar(@Valid @RequestBody Animal animal, BindingResult result)
 			throws NoSuchAlgorithmException {
-		log.info("Cadastrando animal {}", DTO.toString());
+		log.info("Cadastrando animal {}", animal.toString());
 
-		Response<AnimalDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		Animal entity = this.converteDTOParaEntity(DTO);
+		Response<Animal> response = new Response<>();
+		validaSeExiste(animal, result);
 
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
@@ -119,8 +106,8 @@ public class AnimalController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(animal);
+		response.setData(animal);
 		return ResponseEntity.ok(response);
 	}
 
@@ -130,9 +117,9 @@ public class AnimalController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<AnimalDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<Animal>> apagar(@PathVariable("id") int id) {
 
-		Response<AnimalDTO> response = new Response<AnimalDTO>();
+		Response<Animal> response = new Response<Animal>();
 		Optional<Animal> animal = service.findById(id);
 
 		if (!animal.isPresent()) {
@@ -141,145 +128,12 @@ public class AnimalController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		AnimalDTO animalDTO = converteEntityParaDTO(animal.get());
-
-		response.setData(animalDTO);
+		response.setData(animal.get());
 		service.apagar(animal.get());
-		log.info("Deletando animal {}", animalDTO);
+		log.info("Deletando animal {}", animal);
 
 		return ResponseEntity.ok(response);
 	}
-
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param animalDTO
-	 * @return Entity
-	 */
-	public Animal converteDTOParaEntity(AnimalDTO animalDTO) {
-		Animal animal = new Animal();
-		animal.setId(animalDTO.getId());
-		
-		NomePopularController nomePopularController = new NomePopularController();
-		if (animalDTO.getNomePopular() == null) {
-			animal.setNomePopular(nomePopularController.converteDTOParaEntity(new NomePopularDTO()));
-		} else {			
-			animal.setNomePopular(nomePopularController.converteDTOParaEntity(animalDTO.getNomePopular()));	
-		}
-		
-		EspecieController especieController = new EspecieController(); 
-		if (animalDTO.getEspecie() == null) {
-			animal.setEspecie(especieController.converteDTOParaEntity(new EspecieDTO()));
-		} else {
-			animal.setEspecie(especieController.converteDTOParaEntity(animalDTO.getEspecie()));
-		}
-		
-		SituacaoController situacaoController = new SituacaoController();
-		if (animalDTO.getSituacao() == null) {
-			animal.setSituacao(situacaoController.converteDTOParaEntity(new SituacaoDTO()));
-		} else {	
-			animal.setSituacao(situacaoController.converteDTOParaEntity(animalDTO.getSituacao()));	
-		}	
-	
-/*		AnormalidadeController anormalidadeController = new AnormalidadeController();  
-		if (animalDTO.getAnormalidade() == null){
-			animal.setAnormalidades(anormalidadeController.converteDTOParaEntity(new AnormalidadeDTO>()));
-		} else {
-			animal.setAnormalidade(anormalidadeController.converteDTOParaEntity(animalDTO.getAnormalidade()));
-		}
-		*/
-
-		SexoController sexoController = new SexoController();
-		animal.setSexo(sexoController.converteDTOParaEntity(animalDTO.getSexo()));
-		
-		IdadeController idadeController = new IdadeController();
-		if (animalDTO.getIdade() == null) {
-			animal.setIdade(idadeController.converteDTOParaEntity(new IdadeDTO()));
-		} else {
-			animal.setIdade(idadeController.converteDTOParaEntity(animalDTO.getIdade()));
-		}
-/*		
-		ApreensaoController apreensaoController = new ApreensaoController();
-		animal.setApreensao(apreensaoController.converteDTOParaEntity(animalDTO.getApreensao()));
-		
-		VidaLivreController vidaLivreController = new VidaLivreController();
-		animal.setVidaLivre(vidaLivreController.converteDTOParaEntity(animalDTO.getVidaLivre()));
-		
-		CativeiroController cativeiroController = new CativeiroController();
-		animal.setCativeiro(vidaLivreController.converteDTOParaEntity(animalDTO.vidaLivreController()));		
-		
-*/		
-		TempoObitoController tempoObitoController = new TempoObitoController();
-		if (animalDTO.getTempoObito() == null) {
-			animal.setTempoObito(tempoObitoController.converteDTOParaEntity(new TempoObitoDTO()));
-		} else {
-			animal.setTempoObito(tempoObitoController.converteDTOParaEntity(animalDTO.getTempoObito()));
-		}
-		
-	
-		VisceraController visceraController = new VisceraController();
-		if	(animalDTO.getViscera() == null) {
-			animal.setViscera(visceraController.converteDTOParaEntity(new VisceraDTO()));
-		} else {
-			animal.setViscera(visceraController.converteDTOParaEntity(animalDTO.getViscera()));			
-		}	
-		
-		return animal;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param animal
-	 * @return DTO
-	 */
-	public AnimalDTO converteEntityParaDTO(Animal animal) {
-		AnimalDTO animalDTO = new AnimalDTO();
-		animalDTO.setId(animal.getId());
-		
-		NomePopularController nomePopularController = new NomePopularController();
-		animalDTO.setNomePopular(nomePopularController.converteEntityParaDTO(animal.getNomePopular()));	
-		
-		EspecieController especieController = new EspecieController(); 
-		animalDTO.setEspecie(especieController.converteEntityParaDTO(animal.getEspecie()));
-		
-		SituacaoController situacaoController = new SituacaoController();
-		animalDTO.setSituacao(situacaoController.converteEntityParaDTO(animal.getSituacao()));
-		
-		AnormalidadeController anormalidadeController = new AnormalidadeController();
-		animalDTO.setAnormalidade(anormalidadeController.converteEntityParaDTO(animal.getAnormalidade()));
-		
-		SexoController sexoController = new SexoController();
-		animalDTO.setSexo(sexoController.converteEntityParaDTO(animal.getSexo()));
-		
-		IdadeController idadeController = new IdadeController();
-		animalDTO.setIdade(idadeController.converteEntityParaDTO(animal.getIdade()));
-
-/*
-		ApreensaoController apreensaoController = new ApreensaoController();
-		animalDTO.setApreensao(apreensaoController.converteDTOParaEntity(animal.getApreensao()));
-
-		
-		VidaLivreController vidaLivreController = new VidaLivreController();
-		animalDTO.setVidaLivre(vidaLivreController.converteDTOParaEntity(animal.getVidaLivre()));
-		
-		CativeiroController cativeiroController = new CativeiroController();
-		animalDTO.setCativeiro(vidaLivreController.converteDTOParaEntity(animal.vidaLivreController()));	
-		
-*/		
-		TempoObitoController tempoObitoController = new TempoObitoController();
-		animalDTO.setTempoObito(tempoObitoController.converteEntityParaDTO(animal.getTempoObito()));
-
-/*		
-		VisceraController visceraController = new VisceraController();
-		animalDTO.setVisceras(visceraController.converteEntityParaDTO(animal.getVisceras()));		
-
-*/		
-		return animalDTO;
-	}
-
 	/**
 	 * 
 	 * Valida se o Animal ja existe na base de dados
@@ -287,8 +141,8 @@ public class AnimalController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(AnimalDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId())
-				.ifPresent(ani -> result.addError(new ObjectError("Animal", dTO.getNomePopular() + "já existe")));
+	private void validaSeExiste(Animal animal, BindingResult result) {
+		this.service.findById(animal.getId())
+				.ifPresent(ani -> result.addError(new ObjectError("Animal", animal.getNomePopular() + "já existe")));
 	}
 }

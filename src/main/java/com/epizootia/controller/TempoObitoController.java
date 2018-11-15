@@ -37,7 +37,7 @@ public class TempoObitoController {
 	 * 
 	 * Consulta todos os Nomes Populares
 	 * 
-	 * @return List<tempoObitoDTO>
+	 * @return List<tempoObito>
 	 */
 
 	@GetMapping
@@ -63,7 +63,7 @@ public class TempoObitoController {
 	 * 
 	 * Consulta de Tempo de Óbito por id
 	 * 
-	 * @return List<TempoObitoDTO>
+	 * @return List<TempoObito>
 	 */
 
 	@GetMapping(value = "/{id}")
@@ -89,7 +89,6 @@ public class TempoObitoController {
 	 * 
 	 * Cadastra novo animal na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return TempoObito
 	 * @throws NoSuchAlgorithmException
@@ -142,7 +141,6 @@ public class TempoObitoController {
 	 * 
 	 * Valida se o TempoObtito ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
 	private void validaSeExiste(TempoObito tempoObito, BindingResult result) {

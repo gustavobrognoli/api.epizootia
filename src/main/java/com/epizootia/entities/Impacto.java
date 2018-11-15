@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "mod_epizootia_impactos_observados")
-public class Impactos implements Serializable {
+public class Impacto implements Serializable {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class Impactos implements Serializable {
 	private Boolean impactosOutro;
 	private String outroImpacto;
 
-	public Impactos() {
+	public Impacto() {
 		// TODO Auto-generated constructor stub
 	}
 

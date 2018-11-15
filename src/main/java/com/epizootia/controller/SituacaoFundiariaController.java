@@ -37,7 +37,7 @@ public class SituacaoFundiariaController {
 	 * 
 	 * Consulta todos os animais
 	 * 
-	 * @return List<SituacaoFundiariaDTO>
+	 * @return List<SituacaoFundiaria>
 	 */
 	@GetMapping
 	public ResponseEntity<Response<List<SituacaoFundiaria>>> listaTodos() {
@@ -61,7 +61,7 @@ public class SituacaoFundiariaController {
 	 * 
 	 * Consulta de situacaoFundiaria por id
 	 * 
-	 * @return List<SituacaoFundiariaDTO>
+	 * @return List<SituacaoFundiaria>
 	 */
 
 	@GetMapping(value = "/{id}")
@@ -89,7 +89,6 @@ public class SituacaoFundiariaController {
 	 * 
 	 * Cadastra nova situacaoFundiaria na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 * @return SituacaoFundiaria
 	 * @throws NoSuchAlgorithmException
@@ -140,7 +139,6 @@ public class SituacaoFundiariaController {
 	 * 
 	 * Valida se a Situacao Fundiaria ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
 	private void validaSeExiste(SituacaoFundiaria situacaoFundiaria, BindingResult result) {

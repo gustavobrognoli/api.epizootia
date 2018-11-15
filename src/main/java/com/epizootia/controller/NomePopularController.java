@@ -3,7 +3,6 @@ package com.epizootia.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epizootia.dto.NomePopularDTO;
 import com.epizootia.entities.NomePopular;
 import com.epizootia.response.Response;
 import com.epizootia.services.NomePopularService;
@@ -39,17 +37,16 @@ public class NomePopularController {
 	 * 
 	 * Consulta todos os Nomes Populares
 	 * 
-	 * @return List<NomePopularDTO>
+	 * @return List<NomePopular>
 	 */
 
 	@GetMapping
-	public ResponseEntity<Response<List<NomePopularDTO>>> listaTodos() {
-		Response<List<NomePopularDTO>> response = new Response<List<NomePopularDTO>>();
+	public ResponseEntity<Response<List<NomePopular>>> listaTodos() {
+		Response<List<NomePopular>> response = new Response<List<NomePopular>>();
 
-		List<NomePopularDTO> nomePopularDTOS = service.findAll().stream().map(this::converteEntityParaDTO)
-				.collect(Collectors.toList());
+		List<NomePopular> nomesPopulares = service.findAll();
 
-		if (nomePopularDTOS.isEmpty()) {
+		if (nomesPopulares.isEmpty()) {
 
 			log.error("Não há nomes populares cadastradas");
 			response.getErrors().add("Não há nomes populares cadastradas");
@@ -57,7 +54,7 @@ public class NomePopularController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		response.setData(nomePopularDTOS);
+		response.setData(nomesPopulares);
 
 		return ResponseEntity.ok(response);
 	}
@@ -66,13 +63,13 @@ public class NomePopularController {
 	 * 
 	 * Consulta de Nomes Popular por id
 	 * 
-	 * @return List<AnimalDTO>
+	 * @return List<Animal>
 	 */
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Response<NomePopularDTO>> consulta(@PathVariable("id") int id) {
+	public ResponseEntity<Response<NomePopular>> consulta(@PathVariable("id") int id) {
 
-		Response<NomePopularDTO> response = new Response<NomePopularDTO>();
+		Response<NomePopular> response = new Response<NomePopular>();
 		Optional<NomePopular> nomePopular = service.findById(id);
 
 		if (!nomePopular.isPresent()) {
@@ -81,11 +78,9 @@ public class NomePopularController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		NomePopularDTO nomePopularDTO = converteEntityParaDTO(nomePopular.get());
+		response.setData(nomePopular.get());
 
-		response.setData(nomePopularDTO);
-
-		log.info("Consulta do Nome Popular do Animal {}", nomePopularDTO);
+		log.info("Consulta do Nome Popular do Animal {}", nomePopular);
 
 		return ResponseEntity.ok(response);
 	}
@@ -93,29 +88,27 @@ public class NomePopularController {
 	/**
 	 * 
 	 * Cadastra novo Nome Popular do animal na base de dados
-	 * 
-	 * @param DTO
+
 	 * @param result
 	 * @return NomePopular
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<NomePopularDTO>> cadastrar(@Valid @RequestBody NomePopularDTO DTO,
+	public ResponseEntity<Response<NomePopular>> cadastrar(@Valid @RequestBody NomePopular nomePopular,
 			BindingResult result) throws NoSuchAlgorithmException {
-		log.info("Cadastrando Nome Popular do animal {}", DTO.toString());
+		log.info("Cadastrando Nome Popular do animal {}", nomePopular.toString());
 
-		Response<NomePopularDTO> response = new Response<>();
-		validaSeExiste(DTO, result);
-		NomePopular entity = this.converteDTOParaEntity(DTO);
-
+		Response<NomePopular> response = new Response<>();
+		validaSeExiste(nomePopular, result);
+		
 		if (result.hasErrors()) {
 			log.error("Erro ao validar informações: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.persistir(entity);
-		response.setData(this.converteEntityParaDTO(entity));
+		this.service.persistir(nomePopular);
+		response.setData(nomePopular);
 		return ResponseEntity.ok(response);
 	}
 
@@ -125,9 +118,9 @@ public class NomePopularController {
 	 * 
 	 */
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Response<NomePopularDTO>> apagar(@PathVariable("id") int id) {
+	public ResponseEntity<Response<NomePopular>> apagar(@PathVariable("id") int id) {
 
-		Response<NomePopularDTO> response = new Response<NomePopularDTO>();
+		Response<NomePopular> response = new Response<NomePopular>();
 		Optional<NomePopular> nomePopular = service.findById(id);
 
 		if (!nomePopular.isPresent()) {
@@ -136,44 +129,13 @@ public class NomePopularController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		NomePopularDTO nomePopularDTO = converteEntityParaDTO(nomePopular.get());
-
-		response.setData(nomePopularDTO);
+		response.setData(nomePopular.get());
 		service.apagar(nomePopular.get());
-		log.info("Deletando nomePopular {}", nomePopularDTO);
+		log.info("Deletando nomePopular {}", nomePopular);
 
 		return ResponseEntity.ok(response);
 	}
 
-	/**
-	 * 
-	 * Converte DTO para Entity
-	 * 
-	 * @param nomePopularDTO
-	 * @return Entity
-	 */
-
-	public NomePopular converteDTOParaEntity(NomePopularDTO nomePopularDTO) {
-		NomePopular nomePopular = new NomePopular();
-		nomePopular.setId(nomePopularDTO.getId());
-		nomePopular.setNome(nomePopularDTO.getNome());
-		return nomePopular;
-	}
-
-	/**
-	 * 
-	 * Converte Entity em DTO
-	 * 
-	 * @param nomePopularDTO
-	 * @return DTO
-	 */
-
-	public NomePopularDTO converteEntityParaDTO(NomePopular nomePopular) {
-		NomePopularDTO nomePopularDTO = new NomePopularDTO();
-		nomePopularDTO.setId(nomePopular.getId());
-		nomePopularDTO.setNome(nomePopular.getNome());
-		return nomePopularDTO;
-	}
 
 	/**
 	 * 
@@ -182,9 +144,9 @@ public class NomePopularController {
 	 * @param DTO
 	 * @param result
 	 */
-	private void validaSeExiste(NomePopularDTO dTO, BindingResult result) {
-		this.service.findById(dTO.getId()).ifPresent(
-				nmp -> result.addError(new ObjectError("Nome Popular do Animal", dTO.getNome() + "já existe")));
+	private void validaSeExiste(NomePopular nomePopular, BindingResult result) {
+		this.service.findById(nomePopular.getId()).ifPresent(
+				nmp -> result.addError(new ObjectError("Nome Popular do Animal", nomePopular.getNome() + "já existe")));
 	}
 
 }

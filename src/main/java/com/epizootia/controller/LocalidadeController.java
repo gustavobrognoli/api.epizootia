@@ -61,7 +61,7 @@ public class LocalidadeController {
 	 * 
 	 * Consulta de localidade por id
 	 * 
-	 * @return List<LocalidadeDTO>
+	 * @return List<Localidade>
 	 */
 
 	@GetMapping(value = "/{id}")
@@ -89,7 +89,7 @@ public class LocalidadeController {
 	 * 
 	 * Cadastra novo localidade na base de dados
 	 * 
-	 * @param DTO
+
 	 * @param result
 	 * @return Localidade
 	 * @throws NoSuchAlgorithmException
@@ -142,7 +142,6 @@ public class LocalidadeController {
 	 * 
 	 * Valida se a Localidade ja existe na base de dados
 	 * 
-	 * @param DTO
 	 * @param result
 	 */
 	private void validaSeExiste(Localidade localidade, BindingResult result) {
