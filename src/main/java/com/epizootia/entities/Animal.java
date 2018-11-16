@@ -25,24 +25,29 @@ public class Animal implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@ManyToOne
+	@JoinColumn(name = "cd_nm_popular")
 	@NotNull(message = "Nome popular não deve ser vazio")
-	@Column(name = "cd_nm_popular")
 	private NomePopular nomePopular;
 
+	@ManyToOne
+	@JoinColumn(name = "cd_especie")
 	@NotNull(message = "Especie não  deve ser vazia")
-	@Column(name = "cd_especie")
 	private Especie especie;
 
+	@ManyToOne
+	@JoinColumn(name = "cd_situacao")
 	@NotNull(message = "Situação não  deve ser vazia")
-	@Column(name = "cd_situacao")
 	private Situacao situacao;
 
+	@ManyToOne
+	@JoinColumn(name = "cd_sexo")
 	@NotNull(message = "Sexo não  deve ser vazio")
-	@Column(name = "cd_sexo")
 	private Sexo sexo;
 
+	@ManyToOne
+	@JoinColumn(name = "cd_idade")
 	@NotNull(message = "Idade não  deve ser vazia")
-	@Column(name = "cd_idade")
 	private Idade idade;
 
 /*	@NotNull(message = "Apreensão não  deve ser vazia")
@@ -58,20 +63,23 @@ public class Animal implements Serializable {
 	private Cativeiro cativeiro;
 */
 
+	@ManyToOne
+	@JoinColumn(name = "cd_tempoObito")
 	/* @NotNull(message = "Tempo do Óbito não  deve ser vazio") */
-	@Column(name = "cd_tempoObito")
 	private TempoObito tempoObito;
 
+	@ManyToOne
+	@JoinColumn(name = "cd_viscera")
 	/* @NotNull(message = "Viscera não  deve ser vazia") */
-	@Column(name = "cd_viscera")
 	private Viscera viscera;
 
+	@ManyToOne
+	@JoinColumn(name = "cd_anormalidade")
 	@NotNull(message = "Anormalidade não  deve ser vazia")
-	@Column(name = "cd_anormalidade")
 	private Anormalidade anormalidade;
 
 	@ManyToOne
-    @JoinColumn(name = "cd_id_ficha")
+    @JoinColumn(name = "cd_ficha")
 	private Ficha ficha;
 
 	public Animal() {

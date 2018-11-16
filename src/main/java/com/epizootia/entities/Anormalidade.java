@@ -1,14 +1,20 @@
 package com.epizootia.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "mod_epizootia_anormalidade")
@@ -29,6 +35,10 @@ public class Anormalidade implements Serializable {
 	@Column(name = "cd_sintoma")
 	private String sintoma;
 
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "anormalidade", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Animal> animais;
+
 	public int getId() {
 		return id;
 	}
@@ -45,9 +55,17 @@ public class Anormalidade implements Serializable {
 		this.sintoma = sintoma;
 	}
 
+	public Set<Animal> getAnimais() {
+		return animais;
+	}
+
+	public void setAnimais(Set<Animal> animais) {
+		this.animais = animais;
+	}
+
 	@Override
 	public String toString() {
-		return "Anormalidade [id=" + id + ", sintoma=" + sintoma + "]";
+		return "Anormalidade [id=" + id + ", sintoma=" + sintoma + ", animais=" + animais + "]";
 	}
 
 }

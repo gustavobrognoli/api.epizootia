@@ -36,7 +36,7 @@ values ("Nenhum"),("Açude"),("Área alagada/Brejo/Banhado"),("Corixo/Igarapé/R
 INSERT INTO epizootia.mod_epizootia_classificacao_fa (ds_classificacao_fa) 
 values ("Confirmado"),("Descartado"),("Ignorado");
 
-INSERT INTO epizootia.mod_epizootia_animal (cd_anormalidade, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_id_ficha) 
+INSERT INTO epizootia.mod_epizootia_animal (cd_anormalidade, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_ficha) 
 values ("1","1","1","1","1","1","1","1","1");
 
 INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristicas, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_registro_entomologico, cd_situacao_fundiaria) 
@@ -44,3 +44,6 @@ values ("1","1","1","1","1","1","1","1","1","1","1","1");
 
 INSERT INTO epizootia.mod_epizootia_ficha (ds_classificacaofa, dt_data_ocorrencia, cd_id_localidade, cd_municipio, nu_quantidade)
 values ("1","1998-01-01 23:59:59.997","1","1","1");
+
+INSERT INTO epizootia.mod_epizootia_anormalidade (cd_sintoma)
+values ("Nenhum"),("Baba"),("Bicheira");
