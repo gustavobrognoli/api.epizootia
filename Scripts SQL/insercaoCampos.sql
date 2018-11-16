@@ -33,6 +33,9 @@ values ("Não identificada"),("Assentamento"),("Comunidade Rural"),("Propriedade
 INSERT INTO epizootia.mod_epizootia_corpos_agua (ds_nome)
 values ("Nenhum"),("Açude"),("Área alagada/Brejo/Banhado"),("Corixo/Igarapé/Riacho"),("Estuário"),("Lagoa"),("Lago"),("Laguna"),("Mangue"),("Mar"),("Represa"),("Rio"),("Outro");
 
+INSERT INTO epizootia.mod_epizootia_classificacao_fa (ds_classificacao_fa) 
+values ("Confirmado"),("Descartado"),("Ignorado");
+
 INSERT INTO epizootia.mod_epizootia_animal (cd_anormalidade, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_id_ficha) 
 values ("1","1","1","1","1","1","1","1","1");
 
