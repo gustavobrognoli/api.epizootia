@@ -20,31 +20,46 @@ public class RegistroEntomologico implements Serializable {
 	 */
 	private static final long serialVersionUID = -7672569530321767877L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@Column(name = "dt_data_registro")
 	private Calendar DataRegistro = Calendar.getInstance();
+
+	@Column(name = "dt_data_ultimo_registro")
 	private Calendar DataUltimoRegistro = Calendar.getInstance();
-	
+
+	@Column(name = "cd_metodoCaptura")
 	@Min(value = 0, message = "Metodo de Captura não  deve ser vazio")
 	private MetodoCaptura metodoCaptura;
-	
+
+	@Column(name = "cd_equipamento")
 	@Min(value = 0, message = "Equipamento não  deve ser vazio")
 	private Equipamento equipamento;
-	
+
+	@Column(name = "cd_isolamento_viral")
 	@Min(value = 0, message = "Isolamento Viral não  deve ser vazio")
 	private IsolamentoViral isolamentoViral;
-	
+
+	@Column(name = "cd_recomendacao_vacinal")
 	@Min(value = 0, message = "Recomendação Viral não  deve ser vazio")
 	private RecomendacaoVacinal recomendacaoVacinal;
-	
+
+	@Column(name = "nu_cobertura_vacinal")
 	@Min(value = 0, message = "Cobertura Vacinal não  deve ser vazio")
 	private int coberturaVacinal;
-	
+
+	@Column(name = "nu_imoveis_visitados_300m")
 	@Min(value = 0, message = "Imoveis Visitados não  deve ser vazio")
 	private int imoveisVisitados300m;
-	
+
+	@Column(name = "nu_doses_aplicadas_300m")
 	@Min(value = 0, message = "Doses aplicadas não  deve ser vazio")
 	private int dosesAplicadas300m;
-	
+
+	@Column(name = "nu_focos_aedes_300m")
 	@Min(value = 0, message = "Focos Aedes não  deve ser vazio")
 	private int focosAedes300m;
 
@@ -52,9 +67,6 @@ public class RegistroEntomologico implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
 	}
@@ -63,7 +75,6 @@ public class RegistroEntomologico implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "dt_data_registro")
 	public Calendar getDataRegistro() {
 		return DataRegistro;
 	}
@@ -72,7 +83,6 @@ public class RegistroEntomologico implements Serializable {
 		DataRegistro = dataRegistro;
 	}
 
-	@Column(name = "dt_data_ultimo_registro")
 	public Calendar getDataUltimoRegistro() {
 		return DataUltimoRegistro;
 	}
@@ -81,7 +91,6 @@ public class RegistroEntomologico implements Serializable {
 		DataUltimoRegistro = dataUltimoRegistro;
 	}
 
-	@Column(name = "cd_metodoCaptura")
 	public MetodoCaptura getMetodoCaptura() {
 		return metodoCaptura;
 	}
@@ -90,7 +99,6 @@ public class RegistroEntomologico implements Serializable {
 		this.metodoCaptura = metodoCaptura;
 	}
 
-	@Column(name = "cd_equipamento")
 	public Equipamento getEquipamento() {
 		return equipamento;
 	}
@@ -99,7 +107,6 @@ public class RegistroEntomologico implements Serializable {
 		this.equipamento = equipamento;
 	}
 
-	@Column(name = "cd_isolamento_viral")
 	public IsolamentoViral getIsolamentoViral() {
 		return isolamentoViral;
 	}
@@ -108,7 +115,6 @@ public class RegistroEntomologico implements Serializable {
 		this.isolamentoViral = isolamentoViral;
 	}
 
-	@Column(name = "cd_recomendacao_vacinal")
 	public RecomendacaoVacinal getRecomendacaoVacinal() {
 		return recomendacaoVacinal;
 	}
@@ -117,7 +123,6 @@ public class RegistroEntomologico implements Serializable {
 		this.recomendacaoVacinal = recomendacaoVacinal;
 	}
 
-	@Column(name = "nu_cobertura_vacinal")
 	public int getCoberturaVacinal() {
 		return coberturaVacinal;
 	}
@@ -126,7 +131,6 @@ public class RegistroEntomologico implements Serializable {
 		this.coberturaVacinal = coberturaVacinal;
 	}
 
-	@Column(name = "nu_imoveis_visitados_300m")
 	public int getImoveisVisitados300m() {
 		return imoveisVisitados300m;
 	}
@@ -135,7 +139,6 @@ public class RegistroEntomologico implements Serializable {
 		this.imoveisVisitados300m = imoveisVisitados300m;
 	}
 
-	@Column(name = "nu_doses_aplicadas_300m")
 	public int getDosesAplicadas300m() {
 		return dosesAplicadas300m;
 	}
@@ -144,7 +147,6 @@ public class RegistroEntomologico implements Serializable {
 		this.dosesAplicadas300m = dosesAplicadas300m;
 	}
 
-	@Column(name = "nu_focos_aedes_300m")
 	public int getFocosAedes300m() {
 		return focosAedes300m;
 	}

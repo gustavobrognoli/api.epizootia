@@ -23,49 +23,62 @@ public class Localidade implements Serializable {
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+	@Column(name = "cd_morador")
 	@Min(value = 0, message = "Morador não  deve ser vazio")
 	private Morador morador;
-	
+
+	@Column(name = "nu_cep")
 	@NotEmpty(message = "CEP não  deve ser vazio")
 	private Double cep;
-	
+
+	@Column(name = "nm_bairro")
 	@NotEmpty(message = "Bairro não  deve ser vazio")
 	private String bairro;
-	
+
+	@Column(name = "nm_logradouro")
 	@NotEmpty(message = "Logradouro não  deve ser vazio")
 	private String logradouro;
-	
+
+	@Column(name = "ds_ponto_referencia")
 	@NotEmpty(message = "Ponto Referencia não  deve ser vazio")
 	private String pontoReferencia;
-	
+
+	@Column(name = "nu_latitude")
 	@NotEmpty(message = "Latitude não  deve ser vazia")
 	private Double latitude;
-	
+
+	@Column(name = "nu_longitude")
 	@NotEmpty(message = "Longitude não  deve ser vazia")
 	private Double longitude;
-	
+
+	@Column(name = "cd_impacto")
+	@Min(value = 0, message = "Impacto não  deve ser vazio")
 	private Impacto impactos;
-	
+
+	@Column(name = "cd_caracteristicas")
 	@Min(value = 0, message = "Caracteristicas não  deve ser vazio")
 	private Caracteristica caracteristica;
-	
-	/*@Min(value = 0, message = "Corpos d`Água não  deve ser vazio")*/
+
+	@Column(name = "cd_corpos_agua")
+	/* @Min(value = 0, message = "Corpos d`Água não  deve ser vazio") */
 	private CorposAgua corposAgua;
-	
-	/*@Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio")*/
+
+	@Column(name = "cd_situacao_fundiaria")
+	/* @Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio") */
 	private SituacaoFundiaria situacaoFundiaria;
-	
+
+	@Column(name = "cd_registro_entomologico")
 	@Min(value = 0, message = "Registro Entomologico não  deve ser vazio")
 	private RegistroEntomologico registroEntomologico;
-	
-	@NotEmpty(message = "Descrição não  deve ser vazia")	
+
+	@Column(name = "ds_descricao")
+	@NotEmpty(message = "Descrição não  deve ser vazia")
 	private String descricao;
 
 	public Localidade() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public int getId() {
 		return id;
@@ -75,7 +88,6 @@ public class Localidade implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "cd_morador")
 	public Morador getMorador() {
 		return morador;
 	}
@@ -84,7 +96,6 @@ public class Localidade implements Serializable {
 		this.morador = morador;
 	}
 
-	@Column(name = "nu_cep")
 	public Double getCep() {
 		return cep;
 	}
@@ -93,7 +104,6 @@ public class Localidade implements Serializable {
 		this.cep = cep;
 	}
 
-	@Column(name = "nm_bairro")
 	public String getBairro() {
 		return bairro;
 	}
@@ -102,7 +112,6 @@ public class Localidade implements Serializable {
 		this.bairro = bairro;
 	}
 
-	@Column(name = "nm_logradouro")
 	public String getLogradouro() {
 		return logradouro;
 	}
@@ -111,7 +120,6 @@ public class Localidade implements Serializable {
 		this.logradouro = logradouro;
 	}
 
-	@Column(name = "ds_ponto_referencia")
 	public String getPontoReferencia() {
 		return pontoReferencia;
 	}
@@ -120,7 +128,6 @@ public class Localidade implements Serializable {
 		this.pontoReferencia = pontoReferencia;
 	}
 
-	@Column(name = "nu_latitude")
 	public Double getLatitude() {
 		return latitude;
 	}
@@ -129,7 +136,6 @@ public class Localidade implements Serializable {
 		this.latitude = latitude;
 	}
 
-	@Column(name = "nu_longitude")
 	public Double getLongitude() {
 		return longitude;
 	}
@@ -138,7 +144,6 @@ public class Localidade implements Serializable {
 		this.longitude = longitude;
 	}
 
-	@Column(name = "cd_impactos")
 	public Impacto getImpactos() {
 		return impactos;
 	}
@@ -147,7 +152,6 @@ public class Localidade implements Serializable {
 		this.impactos = impactos;
 	}
 
-	@Column(name = "cd_caracteristicas")
 	public Caracteristica getCaracteristicas() {
 		return caracteristica;
 	}
@@ -156,7 +160,6 @@ public class Localidade implements Serializable {
 		this.caracteristica = caracteristicas;
 	}
 
-	@Column(name = "cd_corpos_agua")
 	public CorposAgua getCorposAgua() {
 		return corposAgua;
 	}
@@ -165,7 +168,6 @@ public class Localidade implements Serializable {
 		this.corposAgua = corposAgua;
 	}
 
-	@Column(name = "cd_situacao_fundiaria")
 	public SituacaoFundiaria getSituacaoFundiaria() {
 		return situacaoFundiaria;
 	}
@@ -174,7 +176,6 @@ public class Localidade implements Serializable {
 		this.situacaoFundiaria = situacaoFundiaria;
 	}
 
-	@Column(name = "cd_registro_entomologico")
 	public RegistroEntomologico getRegistroEntomologico() {
 		return registroEntomologico;
 	}
@@ -183,7 +184,6 @@ public class Localidade implements Serializable {
 		this.registroEntomologico = registroEntomologico;
 	}
 
-	@Column(name = "ds_descricao")
 	public String getDescricao() {
 		return descricao;
 	}

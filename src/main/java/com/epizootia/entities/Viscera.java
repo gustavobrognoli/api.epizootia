@@ -18,24 +18,19 @@ public class Viscera implements Serializable {
 	 */
 	private static final long serialVersionUID = 6195875444412713276L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private Boolean figado;
-	private Boolean rim;
-	private Boolean cerebro;
-	private Boolean baco;
-	private Boolean pulmao;
-	private Boolean coracao;
-	private Boolean sangue;
-	private Boolean soro;
-	private String visceraMotivo;
+	
+	@Column(name = "ds_viscera")
+	private String viscera;
 
 	public Viscera() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}
@@ -44,92 +39,20 @@ public class Viscera implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "fg_visceras_figado")
-	public Boolean getFigado() {
-		return figado;
+
+	public String getViscera() {
+		return viscera;
 	}
 
-	public void setFigado(Boolean figado) {
-		this.figado = figado;
+
+	public void setViscera(String viscera) {
+		this.viscera = viscera;
 	}
 
-	@Column(name = "fg_visceras_rim")
-	public Boolean getRim() {
-		return rim;
-	}
-
-	public void setRim(Boolean rim) {
-		this.rim = rim;
-	}
-
-	@Column(name = "fg_visceras_cerebro")
-	public Boolean getCerebro() {
-		return cerebro;
-	}
-
-	public void setCerebro(Boolean cerebro) {
-		this.cerebro = cerebro;
-	}
-
-	@Column(name = "fg_visceras_baco")
-	public Boolean getBaco() {
-		return baco;
-	}
-
-	public void setBaco(Boolean baco) {
-		this.baco = baco;
-	}
-
-	@Column(name = "fg_visceras_pulmao")
-	public Boolean getPulmao() {
-		return pulmao;
-	}
-
-	public void setPulmao(Boolean pulmao) {
-		this.pulmao = pulmao;
-	}
-
-	@Column(name = "fg_visceras_coracao")
-	public Boolean getCoracao() {
-		return coracao;
-	}
-
-	public void setCoracao(Boolean coracao) {
-		this.coracao = coracao;
-	}
-
-	@Column(name = "fg_visceras_sangue")
-	public Boolean getSangue() {
-		return sangue;
-	}
-
-	public void setSangue(Boolean sangue) {
-		this.sangue = sangue;
-	}
-
-	@Column(name = "fg_visceras_soro")
-	public Boolean getSoro() {
-		return soro;
-	}
-
-	public void setSoro(Boolean soro) {
-		this.soro = soro;
-	}
-
-	@Column(name = "ds_visceras_motivo")
-	public String getVisceraMotivo() {
-		return visceraMotivo;
-	}
-
-	public void setVisceraMotivo(String visceraMotivo) {
-		this.visceraMotivo = visceraMotivo;
-	}
 
 	@Override
 	public String toString() {
-		return "Viscera [id=" + id + ", figado=" + figado + ", rim=" + rim + ", cerebro=" + cerebro + ", baco=" + baco
-				+ ", pulmao=" + pulmao + ", coracao=" + coracao + ", sangue=" + sangue + ", soro=" + soro
-				+ ", visceraMotivo=" + visceraMotivo + "]";
+		return "Viscera [id=" + id + ", viscera=" + viscera + "]";
 	}
 
 }

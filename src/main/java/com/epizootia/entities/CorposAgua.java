@@ -19,18 +19,19 @@ public class CorposAgua implements Serializable {
 	 */
 	private static final long serialVersionUID = 8135724807364797442L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotEmpty(message = "Corpo d`Água não deve ser vazio")
+	@Column(name = "ds_nome")
 	private String nome;
 
 	public CorposAgua() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}
@@ -39,7 +40,6 @@ public class CorposAgua implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_nome")
 	public String getNome() {
 		return nome;
 	}

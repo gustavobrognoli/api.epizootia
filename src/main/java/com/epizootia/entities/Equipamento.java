@@ -18,19 +18,18 @@ public class Equipamento implements Serializable {
 	 */
 	private static final long serialVersionUID = 6404327884717730072L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private boolean puca;
-	private boolean castro;
-	private boolean shanonn;
-	private boolean cdc;
+
+	@Column(name = "ds_equipamento")
+	private String equipamento;
 
 	public Equipamento() {
 		// TODO Auto-generated constructor idadeAnimal
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -38,47 +37,17 @@ public class Equipamento implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	@Column(name = "fg_equipamento_puca")
-	public boolean isPuca() {
-		return puca;
+
+	public String getEquipamento() {
+		return equipamento;
 	}
 
-	public void setPuca(boolean puca) {
-		this.puca = puca;
-	}
-
-	@Column(name = "fg_equipamento_castro")
-	public boolean isCastro() {
-		return castro;
-	}
-
-	public void setCastro(boolean castro) {
-		this.castro = castro;
-	}
-
-	@Column(name = "fg_equipamento_shanoon")
-	public boolean isShanonn() {
-		return shanonn;
-	}
-
-	public void setShanonn(boolean shanonn) {
-		this.shanonn = shanonn;
-	}
-
-	@Column(name = "fg_equipamento_cdc")
-	public boolean isCdc() {
-		return cdc;
-	}
-
-	public void setCdc(boolean cdc) {
-		this.cdc = cdc;
+	public void setEquipamento(String equipamento) {
+		this.equipamento = equipamento;
 	}
 
 	@Override
 	public String toString() {
-		return "Equipamento [id=" + id + ", puca=" + puca + ", castro=" + castro + ", shanonn=" + shanonn + ", cdc="
-				+ cdc + "]";
+		return "Equipamento [id=" + id + ", equipamento=" + equipamento + "]";
 	}
-
 }

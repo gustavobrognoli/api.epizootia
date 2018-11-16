@@ -25,6 +25,7 @@ public class Situacao implements Serializable {
 	private int id;
 	
 	@NotEmpty(message = "Situacao não deve ser vazia")
+	@Column(name = "ds_situacao")
 	private String situacao;
 
 	public Situacao() {
@@ -40,7 +41,7 @@ public class Situacao implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_situacao")
+
 	public String getSituacao() {
 		return situacao;
 	}

@@ -25,6 +25,7 @@ public class MetodoCaptura implements Serializable {
 	private int id;
 	
 	@NotEmpty(message = "Metodo de Captura não  deve ser vazio")
+	@Column(name = "ds_mtd_captura")
 	private String metodoCaptura;
 
 	public MetodoCaptura() {
@@ -40,7 +41,6 @@ public class MetodoCaptura implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_mtd_captura")
 	public String getMetodoCaptura() {
 		return metodoCaptura;
 	}

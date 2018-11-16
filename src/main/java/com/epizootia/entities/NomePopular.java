@@ -25,6 +25,7 @@ public class NomePopular implements Serializable {
 	private int id;
 	
 	@NotEmpty(message = "Nome popular não  deve ser vazio")
+	@Column(name = "ds_nome")
 	private String nome;
 
 	public NomePopular() {
@@ -40,7 +41,7 @@ public class NomePopular implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_nome")
+	
 	public String getNome() {
 		return nome;
 	}

@@ -22,6 +22,7 @@ public class Idade implements Serializable {
 	private int id;
 	
 	@NotEmpty(message = "Idade não deve ser vazia")
+	@Column(name = "ds_idade")
 	private String idade;
 
 	public Idade() {
@@ -37,7 +38,7 @@ public class Idade implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_idade")
+	
 	public String getIdade() {
 		return idade;
 	}

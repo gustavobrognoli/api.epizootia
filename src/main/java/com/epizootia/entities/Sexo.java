@@ -23,14 +23,13 @@ public class Sexo implements Serializable {
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotEmpty(message = "Sexo não  deve ser vazio")
 	private String sexo;
 
 	public Sexo() {
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public int getId() {
 		return id;

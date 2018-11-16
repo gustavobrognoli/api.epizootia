@@ -19,18 +19,19 @@ public class Especie implements Serializable {
 	 */
 	private static final long serialVersionUID = -5703247103098292551L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotEmpty(message = "Especie não deve ser vazia")
+	@Column(name = "ds_especie")
 	private String especie;
 
 	public Especie() {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -39,7 +40,6 @@ public class Especie implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_especie")
 	public String getEspecie() {
 		return especie;
 	}

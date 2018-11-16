@@ -18,19 +18,18 @@ public class Caracteristica implements Serializable {
 	 */
 	private static final long serialVersionUID = 6577865937001692333L;
 
-	private int id;
-	private Boolean natural;
-	private Boolean domicilio;
-	private Boolean rural;
-	private Boolean urbano;
-	
-	public Caracteristica() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	@Id
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "nm_caracteristica")
+	private String caracteristica;
+
+	public Caracteristica() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -39,46 +38,17 @@ public class Caracteristica implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "fg_caracteristica_natural")
-	public Boolean getNatural() {
-		return natural;
+	public String getCaracteristica() {
+		return caracteristica;
 	}
 
-	public void setNatural(Boolean natural) {
-		this.natural = natural;
-	}
-
-	@Column(name = "fg_caracteristica_domicilio")
-	public Boolean getDomicilio() {
-		return domicilio;
-	}
-
-	public void setDomicilio(Boolean domicilio) {
-		this.domicilio = domicilio;
-	}
-
-	@Column(name = "fg_caracteristica_rural")
-	public Boolean getRural() {
-		return rural;
-	}
-
-	public void setRural(Boolean rural) {
-		this.rural = rural;
-	}
-
-	@Column(name = "fg_caracteristica_urbano")
-	public Boolean getUrbano() {
-		return urbano;
-	}
-
-	public void setUrbano(Boolean urbano) {
-		this.urbano = urbano;
+	public void setCaracteristica(String caracteristica) {
+		this.caracteristica = caracteristica;
 	}
 
 	@Override
 	public String toString() {
-		return "Caracteristica [id=" + id + ", natural=" + natural + ", domicilio=" + domicilio + ", rural=" + rural
-				+ ", urbano=" + urbano + "]";
+		return "Caracteristica [id=" + id + ", caracteristica=" + caracteristica + "]";
 	}
-	
+
 }

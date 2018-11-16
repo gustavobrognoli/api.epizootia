@@ -18,16 +18,19 @@ public class TempoObito implements Serializable {
 	 */
 	private static final long serialVersionUID = -6622200158947070017L;
 
+	@Id
+	@Column(name = "cd_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "ds_tempo_obito")
 	private String tempoObito;
 	
 	public TempoObito() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Id
-	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	public int getId() {
 		return id;
 	}
@@ -36,7 +39,7 @@ public class TempoObito implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name = "ds_tempo_obito")
+
 	public String getTempoObito() {
 		return tempoObito;
 	}

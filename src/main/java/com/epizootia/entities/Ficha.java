@@ -2,13 +2,19 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "mod_epizootia_ficha")
@@ -19,25 +25,34 @@ public class Ficha implements Serializable {
 	 */
 	private static final long serialVersionUID = -6511305471275217658L;
 
-	private int id;
-	private Calendar dataOcorrencia = Calendar.getInstance();
-	
-	/*private List <Animal> animais;*/
-	
-	private int quantidade;
-	private Localidade localidade;
-	private String municipio;
-	
-	private ClassificacaoFA ClassificacaoFA;
-	
-	
-	public Ficha() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	@Id
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "dt_data_ocorrencia")
+	private Calendar dataOcorrencia = Calendar.getInstance();
+	
+	@JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Animal> animais;
+
+	@Column(name = "nu_quantidade")
+	private int quantidade;
+
+	@Column(name = "cd_id_localidade")
+	private Localidade localidade;
+
+	@Column(name = "cd_municipio")
+	private String municipio;
+
+	@Column(name = "ds_classificacaoFA")
+	private ClassificacaoFA ClassificacaoFA;
+
+	public Ficha() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -46,7 +61,6 @@ public class Ficha implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "dt_data_ocorrencia")
 	public Calendar getDataOcorrencia() {
 		return dataOcorrencia;
 	}
@@ -55,16 +69,14 @@ public class Ficha implements Serializable {
 		this.dataOcorrencia = dataOcorrencia;
 	}
 
-/*	@OneToMany(mappedBy="ficha", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	public List<Animal> getAnimais() {
+	public Set<Animal> getAnimais() {
 		return animais;
 	}
 
-	public void setAnimais(List<Animal> animais) {
+	public void setAnimais(Set<Animal> animais) {
 		this.animais = animais;
-	}*/
+	}
 
-	@Column(name = "nu_quantidade")
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -73,7 +85,6 @@ public class Ficha implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	@Column(name = "cd_id_localidade")
 	public Localidade getLocalidade() {
 		return localidade;
 	}
@@ -82,7 +93,6 @@ public class Ficha implements Serializable {
 		this.localidade = localidade;
 	}
 
-	@Column(name = "cd_municipio")
 	public String getMunicipio() {
 		return municipio;
 	}
@@ -91,7 +101,6 @@ public class Ficha implements Serializable {
 		this.municipio = municipio;
 	}
 
-	@Column(name = "ds_classificacaoFA")
 	public ClassificacaoFA getClassificacaoFA() {
 		return ClassificacaoFA;
 	}
@@ -102,7 +111,7 @@ public class Ficha implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + /*", animais=" + animais +*/ ", quantidade="
+		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + ", animais=" + animais + ", quantidade="
 				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", ClassificacaoFA="
 				+ ClassificacaoFA + "]";
 	}
