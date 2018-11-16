@@ -71,7 +71,7 @@ public class Animal implements Serializable {
 	private Anormalidade anormalidade;
 
 	@ManyToOne
-    @JoinColumn(name = "ficha")
+    @JoinColumn(name = "cd_id_ficha")
 	private Ficha ficha;
 
 	public Animal() {

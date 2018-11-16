@@ -25,6 +25,7 @@ public class Sexo implements Serializable {
 	private int id;
 
 	@NotEmpty(message = "Sexo não  deve ser vazio")
+	@Column(name = "ds_sexo")
 	private String sexo;
 
 	public Sexo() {
@@ -39,7 +40,7 @@ public class Sexo implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "ds_sexo")
+
 	public String getSexo() {
 		return sexo;
 	}
