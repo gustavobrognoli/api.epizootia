@@ -11,7 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,22 +34,24 @@ public class Ficha implements Serializable {
 
 	@Column(name = "dt_data_ocorrencia")
 	private Calendar dataOcorrencia = Calendar.getInstance();
-	
+
 	@JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Animal> animais;
 
 	@Column(name = "nu_quantidade")
 	private int quantidade;
 
-	@Column(name = "cd_id_localidade")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_localidade", referencedColumnName = "cd_id")
 	private Localidade localidade;
 
-	@Column(name = "cd_municipio")
+	@Column(name = "ds_municipio")
 	private String municipio;
 
-	@Column(name = "ds_classificacaoFA")
-	private ClassificacaoFA ClassificacaoFA;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_classificacaoFA", referencedColumnName = "cd_id")
+	private ClassificacaoFA classificacaoFA;
 
 	public Ficha() {
 		// TODO Auto-generated constructor stub
@@ -102,18 +106,18 @@ public class Ficha implements Serializable {
 	}
 
 	public ClassificacaoFA getClassificacaoFA() {
-		return ClassificacaoFA;
+		return classificacaoFA;
 	}
 
 	public void setClassificacaoFA(ClassificacaoFA classificacaoFA) {
-		ClassificacaoFA = classificacaoFA;
+		this.classificacaoFA = classificacaoFA;
 	}
 
 	@Override
 	public String toString() {
 		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + ", animais=" + animais + ", quantidade="
-				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", ClassificacaoFA="
-				+ ClassificacaoFA + "]";
+				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", classificacaoFA="
+				+ classificacaoFA + "]";
 	}
 
 }

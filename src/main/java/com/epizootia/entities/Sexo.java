@@ -34,10 +34,10 @@ public class Sexo implements Serializable {
 	@Column(name = "ds_sexo")
 	private String sexo;
 
-	@JsonIgnore
+/*	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sexo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Animal> animais;
-
+*/
 	public int getId() {
 		return id;
 	}
@@ -54,17 +54,17 @@ public class Sexo implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public Set<Animal> getAnimais() {
+/*	public Set<Animal> getAnimais() {
 		return animais;
 	}
 
 	public void setAnimais(Set<Animal> animais) {
 		this.animais = animais;
 	}
-
+*/
 	@Override
 	public String toString() {
-		return "Sexo [id=" + id + ", sexo=" + sexo + ", animais=" + animais + "]";
+		return "Sexo [id=" + id + ", sexo=" + sexo + /*", animais=" + animais + */"]";
 	}
 
 }

@@ -2,11 +2,15 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,8 +26,13 @@ public class IsolamentoViral implements Serializable {
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "ds_resultado")
 	private String resultado;
-	/* private Genero genero; */
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_genero", referencedColumnName = "cd_id")
+	private Genero genero;
 
 	public IsolamentoViral() {
 		// TODO Auto-generated constructor stub
@@ -45,9 +54,17 @@ public class IsolamentoViral implements Serializable {
 		this.resultado = resultado;
 	}
 
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
+	}
+
 	@Override
 	public String toString() {
-		return "IsolamentoViral [id=" + id + ", resultado=" + resultado + "]";
+		return "IsolamentoViral [id=" + id + ", resultado=" + resultado + ", genero=" + genero + "]";
 	}
 
 }

@@ -89,7 +89,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	
 		modalInstance.result.then(function (id){
 			$scope.remover( id );
-			$scope.animais.push( animais );
+			$scope.animais.push( fichaAnimal );
 		});
 	}
 			

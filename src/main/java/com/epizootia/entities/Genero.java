@@ -11,23 +11,24 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "mod_epizootia_apreensao")
-public class Apreensao implements Serializable {
+@Table(name = "mod_epizootia_genero")
+public class Genero implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 652329810544442867L;
+	private static final long serialVersionUID = 3237103891220296970L;
 
 	@Id
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotEmpty(message = "Apreensão não deve ser vazia")
-	@Column(name = "ds_apreensao")
-	private String apreensao;
+	@NotEmpty(message = "Gênero não deve ser vazio")
+	@Column(name = "ds_genero")
+	private String genero;
 
-	public Apreensao() {
+	public Genero() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -39,16 +40,17 @@ public class Apreensao implements Serializable {
 		this.id = id;
 	}
 
-	public String getApreensao() {
-		return apreensao;
+	public String getGenero() {
+		return genero;
 	}
 
-	public void setApreensao(String apreensao) {
-		this.apreensao = apreensao;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
 	@Override
 	public String toString() {
-		return "Apreensao [id=" + id + ", apreensao=" + apreensao + "]";
+		return "Genero [id=" + id + ", genero=" + genero + "]";
 	}
+
 }

@@ -164,7 +164,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        
 	        metodoCaptura:{
 	        	insert: function( metodoCaptura ){
-	        		return $http.post("./api/metodoCaptura", unidadeConservacao);
+	        		return $http.post("./api/metodoCaptura", metodoCaptura);
 	        	},
 	        	getAll: function(){
 	        		return $http.get("./api/metodoCaptura");
@@ -183,6 +183,21 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        	},
 	            excluir: function( id ){
 	        		return $http.delete("/api/classificacaoFA/" + id);
+	            }
+	        },
+	        
+	        ficha:{
+	        	insert: function( resultado ){
+	        		return $http.post("./api/ficha", ficha);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/ficha");
+	        	},
+	            get: function( id ){
+	        		return $http.get("/api/ficha/" + id);
+	            },
+	            excluir: function( id ){
+	        		return $http.delete("/api/ficha/" + id);
 	            }
 	        },
 	    }, 

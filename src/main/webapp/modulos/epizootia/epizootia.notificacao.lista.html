@@ -86,17 +86,26 @@
 					<tr>
 						<th>Data</th>
 						<th>Quantidade de Animais</th>
-						<th>Munic�pio</th>
+						<th>Município</th>
 						<th>Bairro</th>
 					</tr>
 
-					<tr ng_repeat="c in casos">
-						<td ng-bind="c.dataSintomas | date:'dd/MM/yyyy'"></td>
-						<td ng_bind="c.quantidade"></td>
-						<td ng_bind="c.municipio"></td>
-						<td ng_bind="c.bairro"></td>
-						<td><i class="btn btn-danger btn-xs fa fa-times"
-							ng-click="confirmarRemover(c)" uib-tooltip="Excluir Caso"></i></td>
+					<tr ng_repeat="f in fichas">
+						<td ng-bind="f.dataOcorrencia | date:'dd/MM/yyyy'"></td>
+						<td ng_bind="f.quantidade"></td>
+						<td ng_bind="f.municipio"></td>
+						<td ng_bind="f.localidade.bairro"></td>
+			        <td>
+			        	<i class="btn btn-info btn-xs fa fa-eye"  
+		        		   ng-click="visualizaRegistro(f.id)" 
+		        		   data-toggle="tooltip" 
+		        		   title="Visualizar Registro"></i>
+		        		   		        		   
+		        		<i class="btn btn-danger btn-xs fa fa-times" 
+		        		   ng-click="confirmarRemover(f)" 
+		        		   data-toggle="tooltip" 
+		        		   title="Excluir Registro"></i>
+			        </td>
 					</tr>
 
 				</table>

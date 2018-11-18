@@ -34,9 +34,9 @@ public class NomePopular implements Serializable {
 	@Column(name = "ds_nome")
 	private String nome;
 
-	@JsonIgnore
+/*	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "nomePopular", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Animal> animais;
+	private Set<Animal> animais;*/
 
 	public NomePopular() {
 		// TODO Auto-generated constructor stub
@@ -58,17 +58,17 @@ public class NomePopular implements Serializable {
 		this.nome = nome;
 	}
 
-	public Set<Animal> getAnimais() {
+/*	public Set<Animal> getAnimais() {
 		return animais;
 	}
 
 	public void setAnimais(Set<Animal> animais) {
 		this.animais = animais;
-	}
+	}*/
 
 	@Override
 	public String toString() {
-		return "NomePopular [id=" + id + ", nome=" + nome + ", animais=" + animais + "]";
+		return "NomePopular [id=" + id + ", nome=" + nome /*+ ", animais=" + animais*/ + "]";
 	}
 
 }

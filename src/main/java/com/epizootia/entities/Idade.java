@@ -31,9 +31,9 @@ public class Idade implements Serializable {
 	@Column(name = "ds_idade")
 	private String idade;
 
-	@JsonIgnore
+/*	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "idade", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Animal> animais;
+	private Set<Animal> animais;*/
 
 	public Idade() {
 		// TODO Auto-generated constructor idadeAnimal
@@ -55,17 +55,17 @@ public class Idade implements Serializable {
 		this.idade = idade;
 	}
 
-	public Set<Animal> getAnimais() {
+/*	public Set<Animal> getAnimais() {
 		return animais;
 	}
 
 	public void setAnimais(Set<Animal> animais) {
 		this.animais = animais;
-	}
+	}*/
 
 	@Override
 	public String toString() {
-		return "Idade [id=" + id + ", idade=" + idade + ", animais=" + animais + "]";
+		return "Idade [id=" + id + ", idade=" + idade + /*", animais=" + animais +*/ "]";
 	}
 
 }

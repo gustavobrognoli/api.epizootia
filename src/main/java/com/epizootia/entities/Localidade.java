@@ -2,11 +2,15 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -24,7 +28,8 @@ public class Localidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "cd_morador")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_morador", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Morador não  deve ser vazio")
 	private Morador morador;
 
@@ -52,24 +57,27 @@ public class Localidade implements Serializable {
 	@NotEmpty(message = "Longitude não  deve ser vazia")
 	private Double longitude;
 
-	@Column(name = "cd_impacto")
-	@Min(value = 0, message = "Impacto não  deve ser vazio")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_impacto", referencedColumnName = "cd_id")
 	private Impacto impactos;
 
-	@Column(name = "cd_caracteristicas")
-	@Min(value = 0, message = "Caracteristicas não  deve ser vazio")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_caracteristica", referencedColumnName = "cd_id")
 	private Caracteristica caracteristica;
 
-	@Column(name = "cd_corpos_agua")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_corpos_agua", referencedColumnName = "cd_id")
 	/* @Min(value = 0, message = "Corpos d`Água não  deve ser vazio") */
 	private CorposAgua corposAgua;
 
-	@Column(name = "cd_situacao_fundiaria")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_situacao_fundiaria", referencedColumnName = "cd_id")
 	/* @Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio") */
 	private SituacaoFundiaria situacaoFundiaria;
 
-	@Column(name = "cd_registro_entomologico")
-	@Min(value = 0, message = "Registro Entomologico não  deve ser vazio")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_registro_entomologico", referencedColumnName = "cd_id")
+//	@Min(value = 0, message = "Registro Entomologico não  deve ser vazio")
 	private RegistroEntomologico registroEntomologico;
 
 	@Column(name = "ds_descricao")

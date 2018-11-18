@@ -24,6 +24,10 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 		$scope.isOpen = true;
 	}
 	
+	api.epizootia.ficha.getAll().then(function( response ) {
+		$scope.fichas = response.data.data;
+	});
+	
 	$scope.getMunicipipoSC = function(){
 		api.municipio.getByUF('SC').then(function(response){
 			$scope.municipios = response.data;
@@ -119,9 +123,9 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
         }
 	}
 
-	$scope.visualizaFocos = function( id ){
+	$scope.visualizaRegistro = function( id ){
 		
-		api.dengue.get( id ).then(function(response) {
+		api.epizootia.ficha.get( id ).then(function(response) {
 			var modalInstance = $uibModal.open({ 
 				templateUrl: "modulos/dengue/dengue.focos.visualizacao.html", 
 				controller: "ModalVisualizaFocosController",
@@ -142,14 +146,14 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 	}
 	
 	$scope.remover = function(id){
-		api.dengue.delete(id).then(function(response){
+		api.epizootia.ficha.excluir(id).then(function(response){
 			$scope.pesquisar();
-			toastr.success('Foco dengue removido com sucesso');
+			toastr.success('Registro removido com sucesso');
 		});
 	}
 	
-	$scope.confirmarRemover = function( focos ){
-		var mensagem = "Confirma exclusão do foco de "+ focos.localidade +" - "+ focos.municipio + " com data de coleta: "+ $filter('date')( focos.dataColeta , 'dd/MM/yyyy') +"?";
+	$scope.confirmarRemover = function( ficha ){
+		var mensagem = "Confirma exclusão deste Registro"+"?";
 		
 		var modalInstance = $uibModal.open({ 
 			templateUrl: "modulos/template/confirma.exclusao.html", 
@@ -159,7 +163,7 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 		    		return mensagem;
 		        },
 		        id: function(){
-		        	return focos.id;
+		        	return ficha.id;
 		        }
 		      }
 		    });

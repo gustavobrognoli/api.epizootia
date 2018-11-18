@@ -3,11 +3,15 @@ package com.epizootia.entities;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
@@ -22,7 +26,7 @@ public class RegistroEntomologico implements Serializable {
 
 	@Id
 	@Column(name = "cd_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "dt_data_registro")
@@ -31,19 +35,23 @@ public class RegistroEntomologico implements Serializable {
 	@Column(name = "dt_data_ultimo_registro")
 	private Calendar DataUltimoRegistro = Calendar.getInstance();
 
-	@Column(name = "cd_metodoCaptura")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_metodoCaptura", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Metodo de Captura não  deve ser vazio")
 	private MetodoCaptura metodoCaptura;
 
-	@Column(name = "cd_equipamento")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_equipamento", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Equipamento não  deve ser vazio")
 	private Equipamento equipamento;
 
-	@Column(name = "cd_isolamento_viral")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_isolamento_viral", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Isolamento Viral não  deve ser vazio")
 	private IsolamentoViral isolamentoViral;
 
-	@Column(name = "cd_recomendacao_vacinal")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_recomendacao_vacinal", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Recomendação Viral não  deve ser vazio")
 	private RecomendacaoVacinal recomendacaoVacinal;
 

@@ -2,13 +2,15 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -25,61 +27,54 @@ public class Animal implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "cd_nm_popular")
-	@NotNull(message = "Nome popular não deve ser vazio")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_nm_popular", referencedColumnName = "cd_id")
 	private NomePopular nomePopular;
 
-	@ManyToOne
-	@JoinColumn(name = "cd_especie")
-	@NotNull(message = "Especie não  deve ser vazia")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_especie", referencedColumnName = "cd_id")
 	private Especie especie;
 
-	@ManyToOne
-	@JoinColumn(name = "cd_situacao")
-	@NotNull(message = "Situação não  deve ser vazia")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_situacao", referencedColumnName = "cd_id")
 	private Situacao situacao;
 
-	@ManyToOne
-	@JoinColumn(name = "cd_sexo")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_sexo", referencedColumnName = "cd_id")
 	@NotNull(message = "Sexo não  deve ser vazio")
 	private Sexo sexo;
 
-	@ManyToOne
-	@JoinColumn(name = "cd_idade")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_idade", referencedColumnName = "cd_id")
 	@NotNull(message = "Idade não  deve ser vazia")
 	private Idade idade;
 
-/*	@NotNull(message = "Apreensão não  deve ser vazia")
-	@Column(name = "cd_apreensao")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_apreensao", referencedColumnName = "cd_id")
 	private Apreensao apreensao;
 
-	@NotNull(message = "Vida Livre não  deve ser vazia")
-	@Column(name = "cd_vidaLivre")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_vida_livre", referencedColumnName = "cd_id")
 	private VidaLivre vidaLivre;
 
-	@NotNull(message = "Cativeiro não  deve ser vazio")
-	@Column(name = "cd_cativeiro")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_cativeiro", referencedColumnName = "cd_id")
 	private Cativeiro cativeiro;
-*/
 
-	@ManyToOne
-	@JoinColumn(name = "cd_tempoObito")
-	/* @NotNull(message = "Tempo do Óbito não  deve ser vazio") */
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_tempoObito", referencedColumnName = "cd_id")
 	private TempoObito tempoObito;
 
-	@ManyToOne
-	@JoinColumn(name = "cd_viscera")
-	/* @NotNull(message = "Viscera não  deve ser vazia") */
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_viscera", referencedColumnName = "cd_id")
 	private Viscera viscera;
 
-	@ManyToOne
-	@JoinColumn(name = "cd_anormalidade")
-	@NotNull(message = "Anormalidade não  deve ser vazia")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_anormalidade", referencedColumnName = "cd_id")
 	private Anormalidade anormalidade;
 
-	@ManyToOne
-    @JoinColumn(name = "cd_ficha")
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cd_ficha", referencedColumnName = "cd_id")
 	private Ficha ficha;
 
 	public Animal() {
@@ -134,6 +129,30 @@ public class Animal implements Serializable {
 		this.idade = idade;
 	}
 
+	public Apreensao getApreensao() {
+		return apreensao;
+	}
+
+	public void setApreensao(Apreensao apreensao) {
+		this.apreensao = apreensao;
+	}
+
+	public VidaLivre getVidaLivre() {
+		return vidaLivre;
+	}
+
+	public void setVidaLivre(VidaLivre vidaLivre) {
+		this.vidaLivre = vidaLivre;
+	}
+
+	public Cativeiro getCativeiro() {
+		return cativeiro;
+	}
+
+	public void setCativeiro(Cativeiro cativeiro) {
+		this.cativeiro = cativeiro;
+	}
+
 	public TempoObito getTempoObito() {
 		return tempoObito;
 	}
@@ -169,8 +188,9 @@ public class Animal implements Serializable {
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao=" + situacao
-				+ ", sexo=" + sexo + ", idade=" + idade + ", tempoObito=" + tempoObito + ", viscera=" + viscera
-				+ ", anormalidade=" + anormalidade + ", ficha=" + ficha + "]";
+				+ ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao + ", vidaLivre=" + vidaLivre
+				+ ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", viscera=" + viscera + ", anormalidade="
+				+ anormalidade + ", ficha=" + ficha + "]";
 	}
 
 }
