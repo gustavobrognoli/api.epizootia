@@ -23,12 +23,21 @@ public class Viscera implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name = "fg_coleta")
+	private Boolean coleta;
+
 	@Column(name = "ds_viscera")
 	private String viscera;
 
-/*	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "viscera", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Animal> animais;*/
+	@Column(name = "ds_motivo")
+	private String motivo;
+
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(fetch = FetchType.EAGER, mappedBy = "viscera", cascade =
+	 * CascadeType.ALL, orphanRemoval = true) private Set<Animal> animais;
+	 */
 
 	public Viscera() {
 		// TODO Auto-generated constructor stub
@@ -50,17 +59,31 @@ public class Viscera implements Serializable {
 		this.viscera = viscera;
 	}
 
-/*	public Set<Animal> getAnimais() {
-		return animais;
+	public Boolean getColeta() {
+		return coleta;
 	}
 
-	public void setAnimais(Set<Animal> animais) {
-		this.animais = animais;
-	}*/
+	public void setColeta(Boolean coleta) {
+		this.coleta = coleta;
+	}
+
+	/*
+	 * public Set<Animal> getAnimais() { return animais; }
+	 * 
+	 * public void setAnimais(Set<Animal> animais) { this.animais = animais; }
+	 */
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
 
 	@Override
 	public String toString() {
-		return "Viscera [id=" + id + ", viscera=" + viscera + /*", animais=" + animais +*/ "]";
+		return "Viscera [id=" + id + ", coleta=" + coleta + ", viscera=" + viscera + ", motivo=" + motivo + "]";
 	}
 
 }

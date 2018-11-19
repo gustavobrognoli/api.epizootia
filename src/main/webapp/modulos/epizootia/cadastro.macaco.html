@@ -11,6 +11,7 @@
 		</div>
 
 		<div class="modal-body">
+
 			<div class="form-group col-sm-12">
 				<label><b><i>Dados da Animal</i></b></label>
 				<hr>
@@ -62,11 +63,12 @@
 			</div>
 
 
-			<div class="form-group col-sm-6" ng-show="animal.situacao.situacao == 'Morto'">
+			<div class="form-group col-sm-6"
+				ng-show="animal.situacao.situacao == 'Morto'">
 				<label class="control-label">Tempo aproximado do Óbito</label> <select
 					autofocus name="obitoAnimal" class="form-control"
 					ng-options="o as o.tempoObito for o in temposObitos | orderBy:'id' track by t.id"
-					ng-model="animal.tempoObito" required>
+					ng-model="animal.tempoObito.tempoObito" required>
 					<option value="Selecione" hidden>Selecione...</option>
 				</select>
 			</div>
@@ -76,89 +78,32 @@
 				<label><b><i>Parecer do Animal</i></b></label>
 				<hr>
 			</div>
-			<div class="form-group col-sm-12">
-				<div class="form-group col-sm-6">
-					<div class="row justify-content-start">
-						<label class="control-label">Animal de Vida Livre?</label>
-						<div class="row justify-content-start">
-							<div class="form-group col-sm-3">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radVidaLivre" type="radio" ng-model="animal.vidaLivre"
-									ng-value="true"> <i></i> Sim
-								</label>
-							</div>
 
-							<div class="form-group col-sm-3">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radVidaLivre" type="radio" ng-model="animal.vidaLivre"
-									ng-value="false"> <i></i>Não
-								</label>
-							</div>
+			<div class="form-group col-sm-6">
+				<label class="control-label">Animal de Vida Livre?</label> <select
+					autofocus name="vidaLivreAnimal" class="form-control"
+					ng-options="v as v.vidaLivre for v in vidasLivre | orderBy:'id' track by t.id"
+					ng-model="animal.vidaLivre" required>
+					<option value="Selecione" hidden>Selecione...</option>
+				</select>
+			</div>
 
-							<div class="form-group col-sm-6">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radVidaLivre" type="radio" ng-model="animal.vidaLivre"
-									ng-value="null"> <i></i>Não sabe informar
-								</label>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="form-group col-sm-6">
+				<label class="control-label">Animal de Apreensão?</label> <select
+					autofocus name="apreensaoAnimal" class="form-control"
+					ng-options="a as a.apreensao for a in apreensoes | orderBy:'id' track by t.id"
+					ng-model="animal.apreensao" required>
+					<option value="Selecione" hidden>Selecione...</option>
+				</select>
+			</div>
 
-				
-					<div class="form-group col-sm-6"  ng-hide="animal.vidaLivre == true" ng-init="animal.apreensao=false">
-						<label class="control-label">Animal de Apreensão?</label>
-						<div class="row justify-content-start">
-							<div class="form-group col-sm-3">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radioApreensao" type="radio" ng-model="animal.apreensao"
-									ng-value="true"> <i></i> Sim
-								</label>
-							</div>
-
-							<div class="form-group col-sm-3">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radioApreensao" type="radio" ng-model="animal.apreensao"
-									ng-value="false"> <i></i>Não
-								</label>
-							</div>
-
-							<div class="form-group col-sm-6">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radioApreensao" type="radio" ng-model="animal.apreensao"
-									ng-value="null"> <i></i>Não sabe informar
-								</label>
-							</div>
-						</div>
-					</div>
-				
-				<div class="form-group col-sm-6"  ng-hide="animal.vidaLivre == true" ng-init="animal.cativeiro=false" >
-					<div class="row justify-content-start">
-						<label class="control-label">Animal de Cativeiro?</label>
-						<div class="row justify-content-start">
-							<div class="form-group col-sm-3">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radioCativeiro" type="radio" ng-model="animal.cativeiro"
-									ng-value="true"> <i></i> Sim
-								</label>
-							</div>
-
-							<div class="form-group col-sm-3">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radioCativeiro" type="radio" ng-model="animal.cativeiro"
-									ng-value="false"> <i></i>Não
-								</label>
-							</div>
-
-							<div class="form-group col-sm-6">
-								<label class="checkbox-inline checkbox-custom-alt"> <input
-									name="radioCativeiro" type="radio" ng-model="animal.cativeiro"
-									ng-value="null"> <i></i>Não sabe informar
-								</label>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div class="form-group col-sm-6">
+				<label class="control-label">Animal de Cativeiro?</label> <select
+					autofocus name="cativeiroAnimal" class="form-control"
+					ng-options="c as c.cativeiro for c in cativeiros | orderBy:'id' track by t.id"
+					ng-model="animal.cativeiro" required>
+					<option value="Selecione" hidden>Selecione...</option>
+				</select>
 			</div>
 
 			<div class="form-group col-sm-12">
@@ -174,162 +119,64 @@
 
 					<div class="form-group col-sm-12">
 						<label class="checkbox-inline checkbox-custom-alt"> <input
-							name="customRadioAlt" type="radio" ng-model="animal.viscera"
-							ng-value="true"> <i></i> Sim
-						</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label
+							name="customRadioAlt" type="radio"
+							ng-model="animal.viscera.coleta" ng-value="true"> <i></i>Sim
+						</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label
 							class="checkbox-inline checkbox-custom-alt"> <input
-							name="customRadioAlt" type="radio" ng-model="animal.viscera"
-							ng-value="false"> <i></i>Não
+							name="customRadioAlt" type="radio"
+							ng-model="animal.viscera.coleta" ng-value="false"> <i></i>Não
 						</label>
 					</div>
 
-					<div ng-hide="animal.viscera == false">
-						<div class="form-group col-sm-3">
-							<label> <input name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.figado"> <i> </i> Figado
-							</label>
-						</div>
-
-						<div class="form-group col-sm-3">
-							<label> <input name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.rim"><i> </i>Rim
-							</label>
-						</div>
-
-						<div class="form-group col-sm-3">
-							<label class="form-check form-check-inline"> <input
-								name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.cerebro"> <i> </i>Cérebro
-							</label>
-						</div>
-
-						<div class="form-group col-sm-3">
-							<label class="form-check form-check-inline"> <input
-								name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.baco"><i> </i>Baço
-							</label>
-						</div>
-
-						<div class="form-group col-sm-3">
-							<label class="form-check form-check-inline"> <input
-								name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.pulmao"><i> </i>Pulmão
-							</label>
-						</div>
-
-						<div class="form-group col-sm-3">
-							<label class="form-check form-check-inline"> <input
-								name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.coracao"><i> </i>Coração
-							</label>
-						</div>
-
-						<div class="form-group col-sm-3">
-							<label class="form-check form-check-inline"> <input
-								name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.sangue"> <i> </i>Sangue
-							</label>
-						</div>
-
-						<div class="form-group col-sm-3">
-							<label class="form-check form-check-inline"><input
-								name="customRadioAlt" type="checkbox"
-								ng-model="animal.viscera.soro"> <i></i>Soro </label>
+					<div ng-hide="animal.viscera.coleta == false">
+						<div class="form-group col-sm-6">
+							<label class="control-label">Viscera Coletada</label> <select
+								autofocus name="visceraAnimal" class="form-control"
+								ng-options="v as v.viscera for v in visceras | orderBy:'id' track by t.id"
+								ng-model="animal.viscera.viscera" required>
+								<option value="Selecione" hidden>Selecione...</option>
+							</select>
 						</div>
 					</div>
-
-					<div ng-show="animal.viscera == false">
-
-						<div class="form-group col-sm-3" ng-show="animal.viscera == false">
+					<div ng-show="animal.viscera.coleta == false"
+						class="form-group col-sm-12">
+						<div class="form-group col-sm-12">
 							<label class="control-label">Motivo:</label>
 						</div>
-						<div class="form-group col-sm-9">
-							<input type="text" class="form-control" id="visceraMotivo" ng-model="visceraMotivo">
+						<div class="form-group col-sm-12">
+							<input name="motivo" type="text" class="form-control"
+								ng-model="animal.viscera.motivo">
 						</div>
 					</div>
 				</div>
-				
-				
- 			</div>
-	<!-- 		<div class="form-group col-sm-6">
 
+			</div>
+			<!-- 
 				\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Anormalidades Observadas ///////////////////////////////////
 
-				<label class="control-label">Anormalidades Observadas:</label>
+ -->
+			<div class="form-group col-sm-6">
 
-				<div class="row justify-content-start">
+				<div class="form-group col-sm-12">
 
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidade.baba"> <i> </i> Baba
-						</label>
-					</div>
+					<label class="control-label">Anormalidade Observada:</label>
 
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidade.bicheira"><i> </i>Bicheira
-						</label>
-					</div>
+					<div class="input-group">
+						<select autofocus ng-required="true" id="idAnormalidade"
+							class="form-control" ng-model="animal.anormalidade.sintoma"
+							ng-options="a as a.sintoma for a in anormalidades | orderBy:'nome' track by m.id">
+						</select> <span class="input-group-btn">
 
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidade.caroco"><i> </i>Caroço/Tumor
-						</label>
-					</div>
+							<button class="btn btn-default" type="button"
+								data-toggle="tooltip" title="Adicionar outra anormalidade"
+								ng-click="addAnormalidade()">+</button>
+						</span>
 
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidade.cegueira"><i> </i>Cegueira
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidade.diarreia"><i> </i>Diarreia
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidade.sangramento"><i> </i>Sangramento
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="animal.viscera.queimadura"> <i> </i>Queimadura
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"><input
-							name="customRadioAlt" type="checkbox"
-							ng-model="animal.viscera.fratura"> <i> </i>Fratura </label>
-					</div>
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"><input
-							name="customRadioAlt" type="checkbox"
-							ng-model="animal.viscera.secrecao"> <i> </i>Secreção</label>
 					</div>
 				</div>
 
+			</div>
 
-				<div class="form-group col-sm-4">
-					<div class="row justify-content-start">
-						<input name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidades.outros"> <i></i>Outros?Quais?
-					</div>
-				</div>
-				<div class="form-group col-sm-8">
-					<input type="text" class="form-control" id="anormalidade_epizootia">
-				</div>
-			</div>  -->
-				
 			<div class="form-group row"></div>
 		</div>
 

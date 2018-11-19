@@ -39,8 +39,8 @@ values ("Confirmado"),("Descartado"),("Ignorado");
 INSERT INTO epizootia.mod_epizootia_anormalidade (cd_sintoma)
 values ("Nenhum"),("Baba"),("Bicheira"),("Caroço/Tumor"),("Cegueira"),("Diarreia"),("Fratura"),("Queimadura"),("Sangramento"),("Secreção"),("Outros");
 
-INSERT INTO epizootia.mod_epizootia_visceras (ds_viscera)
-values ("Fígado"),("Rim"),("Cérebro"),("Baço"),("Pulmão"),("Coração"),("Sangue"),("Soro");
+INSERT INTO epizootia.mod_epizootia_visceras (fg_coleta, ds_viscera)
+values (1, "Fígado"),(1, "Rim"),(1, "Cérebro"),(1, "Baço"),(1, "Pulmão"),(1, "Coração"),(1, "Sangue"),(1, "Soro");
 
 INSERT INTO epizootia.mod_epizootia_genero (ds_genero)
 values ("Haemagogus"),("Sabethes"),("Aedes Aegypti"),("Aedes Albopictus"),("Anopheles");
@@ -82,7 +82,10 @@ INSERT INTO epizootia.mod_epizootia_isolamento_viral (ds_resultado, cd_genero)
 values ("1","1");
 
 INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_registro_entomologico, cd_situacao_fundiaria) 
-values ("1","1","1","1","1","1","-27.593854", "-48.577817","1","1","1","1","1");
+values ("Barreiros","1","1","1","1","1","-27.593854", "-48.577817","1","1","1","1","1");
+
+INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_registro_entomologico, cd_situacao_fundiaria) 
+values ("Floresta","1","1","1","1","1","-27.593854", "-48.577817","1","1","1","1","1");
 
 INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
 values ("2018-01-01 23:59:59.997","1","São José","1","1");
@@ -91,7 +94,7 @@ INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds
 values ("2018-01-01 23:59:59.997","1","São José","1","1");
 
 INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
-values ("2018-01-01 23:59:59.997","1","São José","1","1");
+values ("2018-01-01 23:59:59.997","2","São José","1","1");
 
 INSERT INTO epizootia.mod_epizootia_registro_entomologico (dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura, cd_recomendacao_vacinal)
-values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1", "1")
+values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1", "1");

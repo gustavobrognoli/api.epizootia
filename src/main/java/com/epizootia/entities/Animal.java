@@ -51,26 +51,32 @@ public class Animal implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_apreensao", referencedColumnName = "cd_id")
+	@NotNull(message = "Apreensao não  deve ser vazia")
 	private Apreensao apreensao;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_vida_livre", referencedColumnName = "cd_id")
+//	@NotNull(message = "Vida Livre não  deve ser vazia")
 	private VidaLivre vidaLivre;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_cativeiro", referencedColumnName = "cd_id")
+	@NotNull(message = "Cativeiro não  deve ser vazio")
 	private Cativeiro cativeiro;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_tempoObito", referencedColumnName = "cd_id")
+//	@NotNull(message = "Tempo Obito não  deve ser vazio")
 	private TempoObito tempoObito;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_viscera", referencedColumnName = "cd_id")
+	@NotNull(message = "Viscera não  deve ser vazia")
 	private Viscera viscera;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_anormalidade", referencedColumnName = "cd_id")
+	@NotNull(message = "Anormalidade não  deve ser vazia")
 	private Anormalidade anormalidade;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -89,6 +89,66 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.delete("/api/tempoObito/" + id);
 	            }
 	        },
+
+	        vidaLivre:{
+	        	insert: function( vidaLivre ){
+	        		return $http.post("./api/vidaLivre", vidaLivre);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/vidaLivre");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/vidaLivre/" + id);
+	            }
+	        },
+	        
+	        apreensao:{
+	        	insert: function( apreensao ){
+	        		return $http.post("./api/apreensao", apreensao);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/apreensao");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/apreensao/" + id);
+	            }
+	        },
+	        
+	        cativeiro:{
+	        	insert: function( cativeiro ){
+	        		return $http.post("./api/cativeiro", cativeiro);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/cativeiro");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/cativeiro/" + id);
+	            }
+	        },
+	        
+	        viscera:{
+	        	insert: function( viscera ){
+	        		return $http.post("./api/viscera", viscera);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/viscera");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/viscera/" + id);
+	            }
+	        },
+	        
+	        anormalidade:{
+	        	insert: function( anormalidade ){
+	        		return $http.post("./api/anormalidade", anormalidade);
+	        	},
+	        	getAll: function(){
+	        		return $http.get("./api/anormalidade");
+	        	},
+	            excluir: function( id ){
+	        		return $http.delete("/api/anormalidade/" + id);
+	            }
+	        },
 	        
 	        localidade:{
 	        	insert: function( localidade ){

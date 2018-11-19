@@ -25,6 +25,26 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr){
 	api.epizootia.tempoObito.getAll().then(function( response ) {
 		$scope.temposObitos = response.data.data;
 	});
+
+	api.epizootia.vidaLivre.getAll().then(function( response ) {
+		$scope.vidasLivre = response.data.data;
+	});
+	
+	api.epizootia.apreensao.getAll().then(function( response ) {
+		$scope.apreensoes = response.data.data;
+	});
+	
+	api.epizootia.cativeiro.getAll().then(function( response ) {
+		$scope.cativeiros = response.data.data;
+	});
+	
+	api.epizootia.viscera.getAll().then(function( response ) {
+		$scope.visceras = response.data.data;
+	});
+
+	api.epizootia.anormalidade.getAll().then(function( response ) {
+		$scope.anormalidades = response.data.data;
+	});
 	
 	$scope.salvar = function(animal){
 		api.epizootia.animal.insert( animal ).then( function(response){

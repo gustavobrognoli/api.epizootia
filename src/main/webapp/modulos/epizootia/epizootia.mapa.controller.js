@@ -6,7 +6,10 @@ angular.module("vigilantos").controller(
 			$scope.isEdicao = false;
 			$scope.dengueFiltro = {};
 			$scope.isOpen = false;
-
+			
+			
+			
+			
 			$scope.registros = [ {
 				posicao : [ -27.593854, -48.577817 ]
 			}, {
