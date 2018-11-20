@@ -26,7 +26,7 @@ public class FichaServiceImpl implements FichaService {
 		Optional<Ficha> ficha = repository.findById(id);
 		return ficha;
 	}
-	
+
 	@Override
 	public Ficha persistir(Ficha ficha) {
 		log.info("Cadastrando Ficha: {}", ficha.toString());
@@ -48,5 +48,5 @@ public class FichaServiceImpl implements FichaService {
 	public List<Ficha> findAllByClassificacao(int id_classificacaoFA) {
 		return repository.ListFichasByClassificacao(id_classificacaoFA);
 	}
-	
+
 }
