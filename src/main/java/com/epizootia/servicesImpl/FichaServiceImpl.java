@@ -46,7 +46,7 @@ public class FichaServiceImpl implements FichaService {
 
 	@Override
 	public List<Ficha> findAllByClassificacao(int id_classificacaoFA) {
-		return repository.ListFichasByClassificacao(id_classificacaoFA);
+		return repository.findAllByClassificacao(id_classificacaoFA);
 	}
 
 }

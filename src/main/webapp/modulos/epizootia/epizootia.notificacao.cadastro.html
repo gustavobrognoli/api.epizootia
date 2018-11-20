@@ -79,10 +79,15 @@
 										<td ng_bind="a.situacao.situacao"></td>
 										<td ng_bind="a.sexo.sexo"></td>
 										<td ng_bind="a.idade.idade"></td>
-										<td><i class="btn btn-danger btn-xs fa fa-times"
+										<td>
+										
+										<i class="btn btn-info btn-xs fa fa-eye"
+											ng-click="visualizaFocos(f.id)" data-toggle="tooltip"
+											title="Visualizar Animal"></i> 
+											
+										<i class="btn btn-danger btn-xs fa fa-times"
 											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i></td>
 										</td>
-									</tr>
 								</table>
 							</div>
 
@@ -94,7 +99,7 @@
 									<br> <label><b><i>Resultado de Epizootia
 												por Febre Amarela</i></b></label>
 								</div>
-								
+
 								<div class="form-group col-sm-6 row justify-content-start">
 									<select autofocus ng-required="true" id="idMorador"
 										class="form-control" ng-model="nomeMorador"

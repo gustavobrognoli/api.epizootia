@@ -38,6 +38,13 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		$scope.resultados = response.data.data;
 	});	
 	
+	$scope.municipios = [ {
+		nome : ["Palhoça"]
+	}, {
+		nome : [ "São José" ]
+	}, {
+		nome : [ "Florianópolis" ]
+	} ];
 	
 	$scope.addMacaco = function(size){
 		var modalInstance = $uibModal.open({ 

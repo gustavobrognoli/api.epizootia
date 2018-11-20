@@ -65,10 +65,10 @@ public class FichaController {
 	 */
 	
 	@GetMapping(value = "/classificacao/{id}")
-	public ResponseEntity<Response<List<Ficha>>> listaFichasClassificacao(int id_classificacaoFA) {
+	public ResponseEntity<Response<List<Ficha>>> listaFichasClassificacao(@PathVariable("id") int id) {
 		Response<List<Ficha>> response = new Response<List<Ficha>>();
 
-		List<Ficha> fichas = service.findAllByClassificacao(id_classificacaoFA); ;
+		List<Ficha> fichas = service.findAllByClassificacao(id);
 
 		if (fichas.isEmpty()) {
 
