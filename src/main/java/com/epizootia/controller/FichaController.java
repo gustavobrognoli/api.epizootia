@@ -35,7 +35,7 @@ public class FichaController {
 
 	/**
 	 * 
-	 * Consulta todas as fichas
+	 * Consulta todos os fichas
 	 * 
 	 * @return List<Ficha>
 	 */
@@ -49,31 +49,6 @@ public class FichaController {
 
 			log.error("Não há fichas cadastradas");
 			response.getErrors().add("Não há fichas cadastradas");
-
-			return ResponseEntity.badRequest().body(response);
-		}
-		response.setData(fichas);
-
-		return ResponseEntity.ok(response);
-	}
-	
-	/**
-	 * 
-	 * Consulta todas as fichas por Classificação
-	 * 
-	 * @return List<Ficha>
-	 */
-	
-	@GetMapping(value = "/classificacao/{id}")
-	public ResponseEntity<Response<List<Ficha>>> listaFichasClassificacao(int id_classificacaoFA) {
-		Response<List<Ficha>> response = new Response<List<Ficha>>();
-
-		List<Ficha> fichas = service.findAllByClassificacao(id_classificacaoFA); ;
-
-		if (fichas.isEmpty()) {
-
-			log.error("Não há fichas cadastradas com esta Classificação");
-			response.getErrors().add("Não há fichas cadastradas com esta Classificação");
 
 			return ResponseEntity.badRequest().body(response);
 		}

@@ -14,6 +14,4 @@ public interface FichaService {
 	void apagar(Ficha ficha);
 	
 	List<Ficha> findAll();
-	
-	List<Ficha> findAllByClassificacao(int id_classificacaoFA);
 }
