@@ -50,11 +50,6 @@ public class RegistroEntomologico implements Serializable {
 	@Min(value = 0, message = "Isolamento Viral não  deve ser vazio")
 	private IsolamentoViral isolamentoViral;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "cd_recomendacao_vacinal", referencedColumnName = "cd_id")
-	@Min(value = 0, message = "Recomendação Viral não  deve ser vazio")
-	private RecomendacaoVacinal recomendacaoVacinal;
-
 	@Column(name = "nu_cobertura_vacinal")
 	@Min(value = 0, message = "Cobertura Vacinal não  deve ser vazio")
 	private int coberturaVacinal;
@@ -123,14 +118,6 @@ public class RegistroEntomologico implements Serializable {
 		this.isolamentoViral = isolamentoViral;
 	}
 
-	public RecomendacaoVacinal getRecomendacaoVacinal() {
-		return recomendacaoVacinal;
-	}
-
-	public void setRecomendacaoVacinal(RecomendacaoVacinal recomendacaoVacinal) {
-		this.recomendacaoVacinal = recomendacaoVacinal;
-	}
-
 	public int getCoberturaVacinal() {
 		return coberturaVacinal;
 	}
@@ -167,8 +154,7 @@ public class RegistroEntomologico implements Serializable {
 	public String toString() {
 		return "RegistroEntomologico [id=" + id + ", DataRegistro=" + DataRegistro + ", DataUltimoRegistro="
 				+ DataUltimoRegistro + ", metodoCaptura=" + metodoCaptura + ", equipamento=" + equipamento
-				+ ", isolamentoViral=" + isolamentoViral + ", recomendacaoVacinal=" + recomendacaoVacinal
-				+ ", coberturaVacinal=" + coberturaVacinal + ", imoveisVisitados300m=" + imoveisVisitados300m
+				+ ", isolamentoViral=" + isolamentoViral + ", coberturaVacinal=" + coberturaVacinal + ", imoveisVisitados300m=" + imoveisVisitados300m
 				+ ", dosesAplicadas300m=" + dosesAplicadas300m + ", focosAedes=" + focosAedes300m + "]";
 	}
 

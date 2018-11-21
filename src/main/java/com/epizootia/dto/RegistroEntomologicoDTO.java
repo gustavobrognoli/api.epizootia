@@ -12,7 +12,6 @@ public class RegistroEntomologicoDTO {
 	private MetodoCapturaDTO metodoCaptura;
 	private EquipamentoDTO equipamento;
 	private IsolamentoViralDTO isolamentoViral;
-	private RecomendacaoVacinalDTO recomendacaoVacinal;
 	private int coberturaVacinal;
 	private int imoveisVisitados300m;
 	private int dosesAplicadas300m;
@@ -73,14 +72,6 @@ public class RegistroEntomologicoDTO {
 		this.isolamentoViral = isolamentoViral;
 	}
 
-	@Min(value = 0, message = "Recomendação Viral não  deve ser vazio")
-	public RecomendacaoVacinalDTO getRecomendacaoVacinal() {
-		return recomendacaoVacinal;
-	}
-
-	public void setRecomendacaoVacinal(RecomendacaoVacinalDTO recomendacaoVacinal) {
-		this.recomendacaoVacinal = recomendacaoVacinal;
-	}
 
 	@Min(value = 0, message = "Cobertura Vacinal não  deve ser vazio")
 	public int getCoberturaVacinal() {

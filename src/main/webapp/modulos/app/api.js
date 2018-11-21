@@ -26,7 +26,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/nomePopular");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/nomePopular" + id);
+	        		return $http.delete("./api/nomePopular" + id);
 	            }
 	        },
 	        
@@ -38,7 +38,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/especie");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/especie/" + id);
+	        		return $http.delete("./api/especie/" + id);
 	            }
 	        },
 	        	        
@@ -50,7 +50,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/idade");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/idade/" + id);
+	        		return $http.delete("./api/idade/" + id);
 	            }
 	        },
 	        
@@ -62,7 +62,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/sexo");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/sexo/" + id);
+	        		return $http.delete("./api/sexo/" + id);
 	            }
 	        },
 	        
@@ -74,7 +74,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/situacao");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/situacao/" + id);
+	        		return $http.delete("./api/situacao/" + id);
 	            }
 	        },
 	        
@@ -86,7 +86,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/tempoObito");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/tempoObito/" + id);
+	        		return $http.delete("./api/tempoObito/" + id);
 	            }
 	        },
 
@@ -98,7 +98,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/vidaLivre");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/vidaLivre/" + id);
+	        		return $http.delete("./api/vidaLivre/" + id);
 	            }
 	        },
 	        
@@ -110,7 +110,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/apreensao");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/apreensao/" + id);
+	        		return $http.delete("./api/apreensao/" + id);
 	            }
 	        },
 	        
@@ -122,7 +122,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/cativeiro");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/cativeiro/" + id);
+	        		return $http.delete("./api/cativeiro/" + id);
 	            }
 	        },
 	        
@@ -134,7 +134,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/viscera");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/viscera/" + id);
+	        		return $http.delete("./api/viscera/" + id);
 	            }
 	        },
 	        
@@ -146,7 +146,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/anormalidade");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/anormalidade/" + id);
+	        		return $http.delete("./api/anormalidade/" + id);
 	            }
 	        },
 	        
@@ -158,7 +158,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/localidade");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/localidade/" + id);
+	        		return $http.delete("./api/localidade/" + id);
 	            }
 	        },
 	        
@@ -170,7 +170,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/morador");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/morador/" + id);
+	        		return $http.delete("./api/morador/" + id);
 	            }
 	        },
 
@@ -182,7 +182,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/corposAgua");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/corposAgua/" + id);
+	        		return $http.delete("./api/corposAgua/" + id);
 	            }
 	        },
 	        
@@ -194,7 +194,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/situacaoFundiaria");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/situacaoFundiaria/" + id);
+	        		return $http.delete("./api/situacaoFundiaria/" + id);
 	            }
 	        },
 
@@ -206,7 +206,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/unidadeConservacao");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/unidadeConservacao/" + id);
+	        		return $http.delete("./api/unidadeConservacao/" + id);
 	            }
 	        },
 	        
@@ -218,7 +218,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/registroEntomologico");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/registroEntomologico/" + id);
+	        		return $http.delete("./api/registroEntomologico/" + id);
 	            }
 	        },
 	        
@@ -230,7 +230,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/metodoCaptura");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/metodoCaptura/" + id);
+	        		return $http.delete("./api/metodoCaptura/" + id);
 	            }
 	        },
 	        
@@ -242,7 +242,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/classificacaoFA");
 	        	},
 	            excluir: function( id ){
-	        		return $http.delete("/api/classificacaoFA/" + id);
+	        		return $http.delete("./api/classificacaoFA/" + id);
 	            }
 	        },
 	        
@@ -254,10 +254,13 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/ficha");
 	        	},
 	            get: function( id ){
-	        		return $http.get("/api/ficha/" + id);
+	        		return $http.get("./api/ficha/" + id);
 	            },
 	            excluir: function( id ){
-	        		return $http.delete("/api/ficha/" + id);
+	        		return $http.delete("./api/ficha/" + id);
+	            },
+	            getClassificao: function( id ){
+	            	return $http.get("./api/ficha/classificacao/" + id);
 	            }
 	        },
 	    }, 

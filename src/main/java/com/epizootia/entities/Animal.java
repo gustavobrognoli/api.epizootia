@@ -78,6 +78,9 @@ public class Animal implements Serializable {
 	@JoinColumn(name = "cd_anormalidade", referencedColumnName = "cd_id")
 	@NotNull(message = "Anormalidade não  deve ser vazia")
 	private Anormalidade anormalidade;
+	
+	@Column(name = "ds_outrasInformacoes")
+	private String outrasInformacoes;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_ficha", referencedColumnName = "cd_id")
@@ -182,6 +185,14 @@ public class Animal implements Serializable {
 	public void setAnormalidade(Anormalidade anormalidade) {
 		this.anormalidade = anormalidade;
 	}
+	
+	public String getOutrasInformacoes() {
+		return outrasInformacoes;
+	}
+
+	public void setOutrasInformacoes(String outrasInformacoes) {
+		this.outrasInformacoes = outrasInformacoes;
+	}
 
 	public Ficha getFicha() {
 		return ficha;
@@ -196,7 +207,8 @@ public class Animal implements Serializable {
 		return "Animal [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao=" + situacao
 				+ ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao + ", vidaLivre=" + vidaLivre
 				+ ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", viscera=" + viscera + ", anormalidade="
-				+ anormalidade + ", ficha=" + ficha + "]";
+				+ anormalidade + ", outrasInformacoes=" + outrasInformacoes + ", ficha=" + ficha + "]";
 	}
+
 
 }

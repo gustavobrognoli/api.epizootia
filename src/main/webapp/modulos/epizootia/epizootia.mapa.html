@@ -3,8 +3,7 @@
 
         Data Coleta: 10/10/2018 <br/>
         Latitude e Longitude: {{registros.posicao}}<br/>
-        Animais: Macaco-Prego<br/>
-		Resultado Laboratorial: Confirmado  		
+		Status: Confirmado  		
 
 	</div>
 </script>
@@ -29,16 +28,7 @@
 
 			<div class="tile-body" ng-show="isOpen">
 				<div class="form-group">
-					<div class="form-group col-sm-6">
-						<label class="control-label">Regional:</label> <select
-							name="regional" class="form-control"
-							ng-options="r as r.nome for r in regionais track by r.id"
-							ng-model="regional" ng-change="getByRegional()">
-							<option value="">Todas...</option>
-						</select>
-					</div>
-
-					<div class="form-group col-sm-6">
+					<div class="form-group col-sm-8">
 						<label class="control-label">Município:</label> <select
 							name="municipio" class="form-control"
 							ng-options="m as m.nome for m in municipios track by m.id"
@@ -51,7 +41,7 @@
 
 						<label class="control-label">Inicio Coleta</label> <input
 							name="dtSintomasInicio" type="text" class="form-control"
-							ng-model="dengueFiltro.dtColetaInicio" bs-datepicker
+							ng-model="epizootiaFiltro.dtColetaInicio" bs-datepicker
 							autoclose="true" required>
 					</div>
 					<div class="col-sm-6"
@@ -59,7 +49,7 @@
 
 						<label class="control-label">Fim Coleta</label> <input
 							name="dtSintomasFim" type="text" class="form-control"
-							ng-model="dengueFiltro.dtColetaFim" bs-datepicker
+							ng-model="epizootiaFiltro.dtColetaFim" bs-datepicker
 							autoclose="true" required>
 
 
@@ -97,47 +87,95 @@
 					zoom="{{mapa.zoom}}" 
 					mayTypeId="HYBRID">
 
+					<!-- CLASSIFICAÇÂO EM ANÀLISE -->
 					<marker 
-					ng-repeat="r in registros" 
-					position="{{r.posicao}}"
+					ng-repeat="a in analises" 
+					position="{{a.posicao}}"
 					on-click="abrirInfo(event, $index, false)" 
 					draggable="{{isEdicao}}"
-					icon="assets/imagens/icone_macaco1.png">
-					</marker>
-						
-					<shape
-					name="circle" 
-					ng-if="!isEdicao" 
-					ng-repeat="r in registros"
-					no-watcher="true" 
-					stroke-color="#FF0000" 
-					stroke-opacity="0.8"
-					stroke-weight="2" 
-					fill-color="#FF0000" 
-					fill-opacity="0"
-					center="{{r.posicao}}" 
-					radius="300"> 
-					</shape>
-					
-					<marker 
-					ng-repeat="fa in registrosFA" 
-					position="{{fa.posicao}}"
-					on-click="abrirInfo(event, $index, false)" 
-					draggable="{{isEdicao}}"
-					icon="assets/imagens/icone_macaco_febre_amarela.png">
+					icon="assets/imagens/icone_macaco_amarelo.png">
 					</marker>  
 					
 					<shape
 					name="circle" 
 					ng-if="!isEdicao" 
-					ng-repeat="fa in registrosFA"
+					ng-repeat="a in analises"
 					no-watcher="true" 
 					stroke-color="#FF0000" 
 					stroke-opacity="0.8"
 					stroke-weight="2" 
 					fill-color="#FF0000" 
 					fill-opacity="0"
-					center="{{fa.posicao}}" 
+					center="{{a.posicao}}" 
+					radius="300"> 
+					</shape>
+					
+					<!-- CLASSIFICAÇÂO IGNORADOS -->
+					<marker 
+					ng-repeat="i in ignorado" 
+					position="{{i.posicao}}"
+					on-click="abrirInfo(event, $index, false)" 
+					draggable="{{isEdicao}}"
+					icon="assets/imagens/icone_macaco_verde.png">
+					</marker>
+						
+					<shape
+					name="circle" 
+					ng-if="!isEdicao" 
+					ng-repeat="i in ignorados"
+					no-watcher="true" 
+					stroke-color="#FF0000" 
+					stroke-opacity="0.8"
+					stroke-weight="2" 
+					fill-color="#FF0000" 
+					fill-opacity="0"
+					center="{{i.posicao}}" 
+					radius="300"> 
+					</shape>
+					
+					<!-- CLASSIFICAÇÂO DESCARTADOS -->
+					<marker 
+					ng-repeat="d in descartados" 
+					position="{{d.posicao}}"
+					on-click="abrirInfo(event, $index, false)" 
+					draggable="{{isEdicao}}"
+					icon="assets/imagens/icone_macaco_verde.png">
+					</marker>
+						
+					<shape
+					name="circle" 
+					ng-if="!isEdicao" 
+					ng-repeat="d in descartados"
+					no-watcher="true" 
+					stroke-color="#FF0000" 
+					stroke-opacity="0.8"
+					stroke-weight="2" 
+					fill-color="#FF0000" 
+					fill-opacity="0"
+					center="{{d.posicao}}" 
+					radius="300"> 
+					</shape>
+					
+					<!-- CLASSIFICAÇÂO CONFIRMADOS -->
+					<marker 
+					ng-repeat="c in confirmados" 
+					position="{{c.posicao}}"
+					on-click="abrirInfo(event, $index, false)" 
+					draggable="{{isEdicao}}"
+					icon="assets/imagens/icone_macaco_vermelho.png">
+					</marker>
+						
+					<shape
+					name="circle" 
+					ng-if="!isEdicao" 
+					ng-repeat="c in confirmados"
+					no-watcher="true" 
+					stroke-color="#FF0000" 
+					stroke-opacity="0.8"
+					stroke-weight="2" 
+					fill-color="#FF0000" 
+					fill-opacity="0"
+					center="{{c.posicao}}" 
 					radius="300"> 
 					</shape>
 					

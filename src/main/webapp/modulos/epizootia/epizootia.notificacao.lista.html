@@ -2,7 +2,7 @@
 
 	<form name="form" novalidate>
 
-		<section class="tile">
+				<section class="tile">
 			<div class="tile-header dvd dvd-btm">
 				<h1 class="custom-font">
 					<strong>Filtros</strong>
@@ -19,16 +19,7 @@
 
 			<div class="tile-body" ng-show="isOpen">
 				<div class="form-group">
-					<div class="form-group col-sm-6">
-						<label class="control-label">Regional:</label> <select
-							name="regional" class="form-control"
-							ng-options="r as r.nome for r in regionais track by r.id"
-							ng-model="regional" ng-change="getByRegional()">
-							<option value="">Todas...</option>
-						</select>
-					</div>
-
-					<div class="form-group col-sm-6">
+					<div class="form-group col-sm-8">
 						<label class="control-label">Município:</label> <select
 							name="municipio" class="form-control"
 							ng-options="m as m.nome for m in municipios track by m.id"
@@ -59,6 +50,9 @@
 						</div>
 					</div>
 				</div>
+
+
+
 				<div class="row form-group"></div>
 			</div>
 		</section>
