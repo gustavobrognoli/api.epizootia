@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,20 +35,25 @@ public class Ficha implements Serializable {
 	private Calendar dataOcorrencia = Calendar.getInstance();
 
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", orphanRemoval = true)
 	private Set<Animal> animais;
 
 	@Column(name = "nu_quantidade")
 	private int quantidade;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_localidade", referencedColumnName = "cd_id")
 	private Localidade localidade;
 
 	@Column(name = "ds_municipio")
 	private String municipio;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cd_registro_entomologico", referencedColumnName = "cd_id")
+//	@Min(value = 0, message = "Registro Entomologico não  deve ser vazio")
+	private RegistroEntomologico registroEntomologico;
+	
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_classificacaoFA", referencedColumnName = "cd_id")
 	private ClassificacaoFA classificacaoFA;
 
@@ -105,6 +109,14 @@ public class Ficha implements Serializable {
 		this.municipio = municipio;
 	}
 
+	public RegistroEntomologico getRegistroEntomologico() {
+		return registroEntomologico;
+	}
+
+	public void setRegistroEntomologico(RegistroEntomologico registroEntomologico) {
+		this.registroEntomologico = registroEntomologico;
+	}
+	
 	public ClassificacaoFA getClassificacaoFA() {
 		return classificacaoFA;
 	}
@@ -116,8 +128,8 @@ public class Ficha implements Serializable {
 	@Override
 	public String toString() {
 		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + ", animais=" + animais + ", quantidade="
-				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", classificacaoFA="
-				+ classificacaoFA + "]";
+				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", registroEntomologico="
+				+ registroEntomologico + ", classificacaoFA=" + classificacaoFA + "]";
 	}
 
 }

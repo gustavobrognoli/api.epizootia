@@ -1,9 +1,10 @@
 <script id="epizootia-info-template.html" type="text/ng-template">
 	<div ng-non-bindable="">
 
-        Data Coleta: 10/10/2018 <br/>
-        Latitude e Longitude: {{registros.posicao}}<br/>
-		Status: Confirmado  		
+        Data Coleta: 27/02/2018 <br/>
+        Latitude: -27.461970 <br/>
+		Longitude: -50.939317 <br/>
+		Status: Descartado  		
 
 	</div>
 </script>
@@ -112,7 +113,7 @@
 					
 					<!-- CLASSIFICAÇÂO IGNORADOS -->
 					<marker 
-					ng-repeat="i in ignorado" 
+					ng-repeat="i in ignorados" 
 					position="{{i.posicao}}"
 					on-click="abrirInfo(event, $index, false)" 
 					draggable="{{isEdicao}}"

@@ -64,26 +64,26 @@ values ("Assentamento "),("Alteração de rios/lagos/lagoas"),("Avanço Agropecu
 INSERT INTO epizootia.mod_epizootia_equipamento (ds_equipamento)
 values ("Puçá"),("Castro"),("Shanonn"), ("Barraca"),("Armadilha CDC");
 
-INSERT INTO epizootia.mod_epizootia_animal (cd_anormalidade, ds_outras_informacoes, cd_apreensao, cd_vida_livre, cd_cativeiro, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_ficha) 
-values ("1","Animal 1","1","1","1","1","1","1","1","1","1","1","1");
+INSERT INTO epizootia.mod_epizootia_animal (ds_outras_informacoes, cd_apreensao, cd_vida_livre, cd_cativeiro, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_ficha) 
+values ("Animal 1","1","1","1","1","1","1","1","1","1","1","1");
 
-INSERT INTO epizootia.mod_epizootia_animal (cd_anormalidade, ds_outras_informacoes, cd_apreensao, cd_vida_livre, cd_cativeiro, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_ficha) 
-values ("1","Animal 2","1","1","1","1","1","1","1","1","1","1","1");
+INSERT INTO epizootia.mod_epizootia_animal (ds_outras_informacoes, cd_apreensao, cd_vida_livre, cd_cativeiro, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_ficha) 
+values ("Animal 2","1","1","1","1","1","1","1","1","1","1","1");
 
-INSERT INTO epizootia.mod_epizootia_animal (cd_anormalidade, ds_outras_informacoes, cd_apreensao, cd_vida_livre, cd_cativeiro, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_ficha) 
-values ("2","Animal 3","2","2","2","2","2","2","2","2","2","2","1");
+INSERT INTO epizootia.mod_epizootia_animal (ds_outras_informacoes, cd_apreensao, cd_vida_livre, cd_cativeiro, cd_especie, cd_idade, cd_nm_popular, cd_sexo, cd_situacao, cd_tempo_obito, cd_viscera, cd_ficha) 
+values ("Animal 3","2","2","2","2","2","2","2","2","2","2","1");
 
 INSERT INTO epizootia.mod_epizootia_isolamento_viral (ds_resultado, cd_genero)
 values ("1","1");
 
-INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_registro_entomologico, cd_situacao_fundiaria) 
-values ("Barreiros","1","1","1","1","1","-27.593854", "-48.577817","1","1","1","1","1");
+INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_situacao_fundiaria) 
+values ("Barreiros","1","1","1","1","1",-27.592392,-48.581441,"1","1","1","1");
 
-INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_registro_entomologico, cd_situacao_fundiaria) 
-values ("Floresta","1","1","1","1","1","-27.593555", "-48.577333","1","1","1","1","1");
+INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_situacao_fundiaria) 
+values ("Floresta","1","1","1","1","1",-27.586005,-48.586491,"1","1","1","1");
 
-INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_registro_entomologico, cd_situacao_fundiaria) 
-values ("Floresta","1","1","1","1","1","-27.595385", "-48.577163","1","1","1","1","1");
+INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_situacao_fundiaria) 
+values ("Floresta","1","1","1","1","1",-27.595385, -48.577163,"1","1","1","1");
 
 INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
 values ("2018-01-01 23:59:59.997","1","São José","1","1");
@@ -96,6 +96,12 @@ values ("2018-01-01 23:59:59.997","3","São José","2","1");
 
 INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
 values ("2018-01-01 23:59:59.997","2","São José","3","1");
+
+INSERT INTO epizootia.mod_epizootia_registro_entomologico (dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
+values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");
+
+INSERT INTO epizootia.mod_epizootia_registro_entomologico (dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
+values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");
 
 INSERT INTO epizootia.mod_epizootia_registro_entomologico (dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
 values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");

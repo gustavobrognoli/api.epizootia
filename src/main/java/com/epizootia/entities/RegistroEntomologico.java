@@ -3,7 +3,6 @@ package com.epizootia.entities;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,17 +34,17 @@ public class RegistroEntomologico implements Serializable {
 	@Column(name = "dt_data_ultimo_registro")
 	private Calendar DataUltimoRegistro = Calendar.getInstance();
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_metodoCaptura", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Metodo de Captura não  deve ser vazio")
 	private MetodoCaptura metodoCaptura;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_equipamento", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Equipamento não  deve ser vazio")
 	private Equipamento equipamento;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_isolamento_viral", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Isolamento Viral não  deve ser vazio")
 	private IsolamentoViral isolamentoViral;

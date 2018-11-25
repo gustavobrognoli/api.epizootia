@@ -2,7 +2,6 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +27,7 @@ public class Localidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_morador", referencedColumnName = "cd_id")
 	@Min(value = 0, message = "Morador não  deve ser vazio")
 	private Morador morador;
@@ -57,28 +56,23 @@ public class Localidade implements Serializable {
 	@NotEmpty(message = "Longitude não  deve ser vazia")
 	private Double longitude;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_impacto", referencedColumnName = "cd_id")
 	private Impacto impactos;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_caracteristica", referencedColumnName = "cd_id")
 	private Caracteristica caracteristica;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_corpos_agua", referencedColumnName = "cd_id")
 	/* @Min(value = 0, message = "Corpos d`Água não  deve ser vazio") */
 	private CorposAgua corposAgua;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_situacao_fundiaria", referencedColumnName = "cd_id")
 	/* @Min(value = 0, message = "Situacao Fundiaria não  deve ser vazio") */
 	private SituacaoFundiaria situacaoFundiaria;
-
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "cd_registro_entomologico", referencedColumnName = "cd_id")
-//	@Min(value = 0, message = "Registro Entomologico não  deve ser vazio")
-	private RegistroEntomologico registroEntomologico;
 
 	@Column(name = "ds_descricao")
 	@NotEmpty(message = "Descrição não  deve ser vazia")
@@ -184,14 +178,6 @@ public class Localidade implements Serializable {
 		this.situacaoFundiaria = situacaoFundiaria;
 	}
 
-	public RegistroEntomologico getRegistroEntomologico() {
-		return registroEntomologico;
-	}
-
-	public void setRegistroEntomologico(RegistroEntomologico registroEntomologico) {
-		this.registroEntomologico = registroEntomologico;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -204,8 +190,7 @@ public class Localidade implements Serializable {
 	public String toString() {
 		return "Localidade [id=" + id + ", morador=" + morador + ", cep=" + cep + ", bairro=" + bairro + ", logradouro="
 				+ logradouro + ", pontoReferencia=" + pontoReferencia + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", impactos=" + impactos + ", caracteristicas=" + caracteristica + ", corposAgua="
-				+ corposAgua + ", situacaoFundiaria=" + situacaoFundiaria + ", registroEntomologico="
-				+ registroEntomologico + ", descricao=" + descricao + "]";
+				+ longitude + ", impactos=" + impactos + ", caracteristica=" + caracteristica + ", corposAgua="
+				+ corposAgua + ", situacaoFundiaria=" + situacaoFundiaria + ", descricao=" + descricao + "]";
 	}
 }

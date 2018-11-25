@@ -32,7 +32,7 @@
 
 						<label class="control-label">Inicio Coleta</label> <input
 							name="dtSintomasInicio" type="text" class="form-control"
-							ng-model="dengueFiltro.dtColetaInicio" bs-datepicker
+							ng-model="epizootiaFiltro.dtColetaInicio" bs-datepicker
 							autoclose="true" required>
 					</div>
 					<div class="col-sm-6"
@@ -40,7 +40,7 @@
 
 						<label class="control-label">Fim Coleta</label> <input
 							name="dtSintomasFim" type="text" class="form-control"
-							ng-model="dengueFiltro.dtColetaFim" bs-datepicker
+							ng-model="epizootiaFiltro.dtColetaFim" bs-datepicker
 							autoclose="true" required>
 
 
@@ -91,7 +91,7 @@
 						<td ng_bind="f.localidade.bairro"></td>
 			        <td>
 			        	<i class="btn btn-info btn-xs fa fa-eye"  
-		        		   ng-click="visualizaRegistro(f.id)" 
+		        		   ng-click="visualizaRegistro(f.id, lg)" 
 		        		   data-toggle="tooltip" 
 		        		   title="Visualizar Registro"></i>
 		        		   		        		   
