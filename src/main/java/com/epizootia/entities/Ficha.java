@@ -40,9 +40,6 @@ public class Ficha implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", orphanRemoval = true)
 	private Set<Animal> animais;
 
-	@Column(name = "nu_quantidade")
-	private int quantidade;
-
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_localidade", referencedColumnName = "cd_id")
 	private Localidade localidade;
@@ -52,9 +49,8 @@ public class Ficha implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_registro_entomologico", referencedColumnName = "cd_id")
-//	@Min(value = 0, message = "Registro Entomologico não  deve ser vazio")
 	private RegistroEntomologico registroEntomologico;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_classificacaoFA", referencedColumnName = "cd_id")
 	private ClassificacaoFA classificacaoFA;
@@ -87,14 +83,6 @@ public class Ficha implements Serializable {
 		this.animais = animais;
 	}
 
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public Localidade getLocalidade() {
 		return localidade;
 	}
@@ -118,7 +106,7 @@ public class Ficha implements Serializable {
 	public void setRegistroEntomologico(RegistroEntomologico registroEntomologico) {
 		this.registroEntomologico = registroEntomologico;
 	}
-	
+
 	public ClassificacaoFA getClassificacaoFA() {
 		return classificacaoFA;
 	}
@@ -129,9 +117,9 @@ public class Ficha implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + ", animais=" + animais + ", quantidade="
-				+ quantidade + ", localidade=" + localidade + ", municipio=" + municipio + ", registroEntomologico="
-				+ registroEntomologico + ", classificacaoFA=" + classificacaoFA + "]";
+		return "Ficha [id=" + id + ", dataOcorrencia=" + dataOcorrencia + ", animais=" + animais + ", localidade="
+				+ localidade + ", municipio=" + municipio + ", registroEntomologico=" + registroEntomologico
+				+ ", classificacaoFA=" + classificacaoFA + "]";
 	}
 
 }

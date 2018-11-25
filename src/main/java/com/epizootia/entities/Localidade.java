@@ -33,27 +33,27 @@ public class Localidade implements Serializable {
 	private Morador morador;
 
 	@Column(name = "nu_cep")
-	@NotEmpty(message = "CEP não  deve ser vazio")
+//	@NotEmpty(message = "CEP não  deve ser vazio")
 	private Double cep;
 
 	@Column(name = "nm_bairro")
-	@NotEmpty(message = "Bairro não  deve ser vazio")
+//	@NotEmpty(message = "Bairro não  deve ser vazio")
 	private String bairro;
 
 	@Column(name = "nm_logradouro")
-	@NotEmpty(message = "Logradouro não  deve ser vazio")
+//	@NotEmpty(message = "Logradouro não  deve ser vazio")
 	private String logradouro;
 
 	@Column(name = "ds_ponto_referencia")
-	@NotEmpty(message = "Ponto Referencia não  deve ser vazio")
+//	@NotEmpty(message = "Ponto Referencia não  deve ser vazio")
 	private String pontoReferencia;
 
 	@Column(name = "nu_latitude")
-	@NotEmpty(message = "Latitude não  deve ser vazia")
+//	@NotEmpty(message = "Latitude não  deve ser vazia")
 	private Double latitude;
 
 	@Column(name = "nu_longitude")
-	@NotEmpty(message = "Longitude não  deve ser vazia")
+//	@NotEmpty(message = "Longitude não  deve ser vazia")
 	private Double longitude;
 
 	@OneToOne(fetch = FetchType.EAGER)

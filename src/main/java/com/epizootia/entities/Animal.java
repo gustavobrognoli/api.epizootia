@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,17 +44,17 @@ public class Animal implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_sexo", referencedColumnName = "cd_id")
-	@NotNull(message = "Sexo não  deve ser vazio")
+//	@NotNull(message = "Sexo não  deve ser vazio")
 	private Sexo sexo;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_idade", referencedColumnName = "cd_id")
-	@NotNull(message = "Idade não  deve ser vazia")
+//	@NotNull(message = "Idade não  deve ser vazia")
 	private Idade idade;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_apreensao", referencedColumnName = "cd_id")
-	@NotNull(message = "Apreensao não  deve ser vazia")
+//	@NotNull(message = "Apreensao não  deve ser vazia")
 	private Apreensao apreensao;
 
 	@OneToOne(fetch = FetchType.EAGER)
@@ -65,7 +64,7 @@ public class Animal implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_cativeiro", referencedColumnName = "cd_id")
-	@NotNull(message = "Cativeiro não  deve ser vazio")
+//	@NotNull(message = "Cativeiro não  deve ser vazio")
 	private Cativeiro cativeiro;
 
 	@OneToOne(fetch = FetchType.EAGER)
@@ -75,7 +74,7 @@ public class Animal implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_viscera", referencedColumnName = "cd_id")
-	@NotNull(message = "Viscera não  deve ser vazia")
+//	@NotNull(message = "Viscera não  deve ser vazia")
 	private Viscera viscera;
 	
 	@Transient
