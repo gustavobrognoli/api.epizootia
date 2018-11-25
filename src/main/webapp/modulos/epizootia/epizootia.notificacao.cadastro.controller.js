@@ -69,10 +69,10 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	}
 	
 	
-	$scope.remover = function(id){
-		api.epizootia.animal.excluir(id).then(function(response){
+	$scope.remover = function(fichaAnimal){
+		api.epizootia.animal.excluir(fichaAnimal.id).then(function(response){
 			toastr.success('Animal removido com sucesso');
-			$scope.animais.push( id );
+			$scope.animais.splice(animais.indexOf(animal), 1);
 		});
 	}
 	
@@ -88,15 +88,14 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				mensagem: function () {
 					return mensagem;
 				},
-				id: function(){
-					return fichaAnimal.id;
+				fichaAnimal: function(){
+					return fichaAnimal;
 				}
 			}
 		});
 	
 		modalInstance.result.then(function (id){
 			$scope.remover( id );
-			$scope.animais.push( fichaAnimal );
 		});
 	}
 			

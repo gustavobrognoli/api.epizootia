@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,13 +71,6 @@ public class FichaController {
 
 		List<Ficha> fichas = service.findAllByClassificacao(id);
 
-		if (fichas.isEmpty()) {
-
-			log.error("Não há fichas cadastradas com esta Classificação");
-			response.getErrors().add("Não há fichas cadastradas com esta Classificação");
-
-			return ResponseEntity.badRequest().body(response);
-		}
 		response.setData(fichas);
 
 		return ResponseEntity.ok(response);
@@ -137,6 +131,35 @@ public class FichaController {
 		return ResponseEntity.ok(response);
 	}
 
+	/**
+	 * 
+	 * Cadastra novo ficha na base de dados
+	 * 
+	 * @param result
+	 * @return Ficha
+	 * @throws NoSuchAlgorithmException
+	 */
+/*	@PutMapping(value = "/{id}")
+	public ResponseEntity<Response<Ficha>> atualizar(@PathVariable("id") int id, @Valid @RequestBody Ficha ficha, BindingResult result)
+			throws NoSuchAlgorithmException {
+		log.info("Atualizando ficha {}", ficha.toString());
+
+		Response<Ficha> response = new Response<>();
+		validaSeExiste(ficha, result);
+		
+		
+		if (result.hasErrors()) {
+			log.error("Erro ao validar informações: {}", result.getAllErrors());
+			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+			return ResponseEntity.badRequest().body(response);
+		}
+
+		this.service.atualizar(ficha);
+		response.setData(ficha);
+		return ResponseEntity.ok(response);
+	}
+*/
+	
 	/**
 	 * 
 	 * Deleta ficha da base de dados

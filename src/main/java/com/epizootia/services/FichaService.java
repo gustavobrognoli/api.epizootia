@@ -10,6 +10,8 @@ public interface FichaService {
 	Optional<Ficha> findById(int id);
 	
 	Ficha persistir(Ficha ficha);
+
+	Ficha atualizar(Ficha ficha);
 	
 	void apagar(Ficha ficha);
 	

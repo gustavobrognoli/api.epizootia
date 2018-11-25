@@ -34,6 +34,12 @@ public class FichaServiceImpl implements FichaService {
 	}
 
 	@Override
+	public Ficha atualizar(Ficha ficha) {
+		log.info("Atualizando Ficha: {}", ficha.toString());
+		return this.repository.save(ficha);
+	}
+	
+	@Override
 	public void apagar(Ficha ficha) {
 		log.info("Apagando Ficha: {}", ficha.toString());
 		repository.delete(ficha);
@@ -48,5 +54,6 @@ public class FichaServiceImpl implements FichaService {
 	public List<Ficha> findAllByClassificacao(int id_classificacaoFA) {
 		return repository.findAllByClassificacao(id_classificacaoFA);
 	}
+
 
 }
