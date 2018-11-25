@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -76,7 +77,8 @@ public class Animal implements Serializable {
 	@JoinColumn(name = "cd_viscera", referencedColumnName = "cd_id")
 	@NotNull(message = "Viscera não  deve ser vazia")
 	private Viscera viscera;
-
+	
+	@Transient
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "animal", orphanRemoval = true)
 	private Set<Anormalidade> anormalidades;
