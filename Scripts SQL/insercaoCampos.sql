@@ -85,14 +85,14 @@ values ("Floresta","1","1","1","1","1",-27.586005,-48.586491,"1","1","1","1");
 INSERT INTO epizootia.mod_epizootia_localidade (nm_bairro, cd_caracteristica, nu_cep, cd_corpos_agua, ds_descricao, cd_impacto, nu_longitude, nu_latitude, nm_logradouro, cd_morador, ds_ponto_referencia, cd_situacao_fundiaria) 
 values ("Floresta","1","1","1","1","1",-27.595385, -48.577163,"1","1","1","1");
 
-INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
-values ("2018-01-01 23:59:59.997","1","São José","1","1");
+INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade, cd_registro_entomologico)
+values ("2018-01-01 23:59:59.997","1","São José","1","1","1");
 
-INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
-values ("2018-01-01 23:59:59.997","2","São José","1","1");
+INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade, cd_registro_entomologico)
+values ("2018-01-01 23:59:59.997","2","São José","1","1","1");
 
-INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
-values ("2018-01-01 23:59:59.997","3","São José","2","1");
+INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade,cd_registro_entomologico)
+values ("2018-01-01 23:59:59.997","3","São José","2","1","1");
 
 INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, nu_quantidade)
 values ("2018-01-01 23:59:59.997","2","São José","3","1");
