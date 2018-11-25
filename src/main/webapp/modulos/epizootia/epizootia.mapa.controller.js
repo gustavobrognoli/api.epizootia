@@ -70,7 +70,7 @@ angular.module("vigilantos").controller(
 					$scope.fichas = response.data.data;
 					for (var i = 0; i < $scope.fichas.length; i++) {
 						var ficha = $scope.fichas[i];
-						var posicao = [ficha.localidade.longitude, ficha.localidade.latitude];
+						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
 						$scope.analises.push( posicao );
 					}
 				});
