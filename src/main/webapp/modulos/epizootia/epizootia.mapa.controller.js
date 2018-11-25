@@ -60,7 +60,7 @@ angular.module("vigilantos").controller(
 			});
 
 			$scope.init = function() {
-/*				var clsEmAnalise = 1; 
+				var clsEmAnalise = 1; 
 				var clsIgnorado = 2; 
 				var clsDescardado = 3; 
 				var clsConfirmado = 4; 
@@ -105,7 +105,7 @@ angular.module("vigilantos").controller(
 					}
 				});
 				
-	*/			
+		
 				$scope.mapa.posicao = [ -27.4658, -50.7504 ];
 				$scope.mapa.zoom = 8;
 
