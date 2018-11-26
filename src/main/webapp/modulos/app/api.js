@@ -13,6 +13,9 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        	getAll: function(){
 	        		return $http.get("./api/animal");
 	        	},
+	        	get: function( id ){
+	        		return $http.get("./api/animal/" + id);
+	            },
 	            excluir: function( id ){
 	        		return $http.delete("./api/animal/" + id);
 	            }
@@ -231,6 +234,18 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        	},
 	            excluir: function( id ){
 	        		return $http.delete("./api/metodoCaptura/" + id);
+	            }
+	        },
+	        
+	        impacto:{
+	        	getAll: function(){
+	        		return $http.get("./api/impacto");
+	            }
+	        },
+	        
+	        caracteristica:{
+	        	getAll: function(){
+	        		return $http.get("./api/caracteristica");
 	            }
 	        },
 	        

@@ -72,11 +72,12 @@ public class Animal implements Serializable {
 //	@NotNull(message = "Tempo Obito não  deve ser vazio")
 	private TempoObito tempoObito;
 
+/*	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_viscera", referencedColumnName = "cd_id")
-//	@NotNull(message = "Viscera não  deve ser vazia")
 	private Viscera viscera;
-	
+
+*/	
 	@Transient
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "animal", orphanRemoval = true)
@@ -173,6 +174,7 @@ public class Animal implements Serializable {
 		this.tempoObito = tempoObito;
 	}
 
+/*	
 	public Viscera getViscera() {
 		return viscera;
 	}
@@ -181,6 +183,7 @@ public class Animal implements Serializable {
 		this.viscera = viscera;
 	}
 
+*/	
 	public Set<Anormalidade> getAnormalidades() {
 		return anormalidades;
 	}
@@ -209,9 +212,8 @@ public class Animal implements Serializable {
 	public String toString() {
 		return "Animal [id=" + id + ", nomePopular=" + nomePopular + ", especie=" + especie + ", situacao=" + situacao
 				+ ", sexo=" + sexo + ", idade=" + idade + ", apreensao=" + apreensao + ", vidaLivre=" + vidaLivre
-				+ ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", viscera=" + viscera
-				+ ", anormalidades=" + anormalidades + ", outrasInformacoes=" + outrasInformacoes + ", ficha=" + ficha
-				+ "]";
+				+ ", cativeiro=" + cativeiro + ", tempoObito=" + tempoObito + ", anormalidades=" + anormalidades
+				+ ", outrasInformacoes=" + outrasInformacoes + ", ficha=" + ficha + "]";
 	}
 
 }

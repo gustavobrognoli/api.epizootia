@@ -116,6 +116,7 @@ angular.module("vigilantos").controller(
 			}
 
 			$scope.abrirInfo = function(event, $index) {
+				$scope.selecionado = $scope.fichas[$index]
 				$scope.googlemaps.showInfoWindow("epizootia-info", this);
 			}
 

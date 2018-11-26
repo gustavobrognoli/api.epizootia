@@ -79,13 +79,10 @@
 										<td ng_bind="a.situacao.situacao"></td>
 										<td ng_bind="a.sexo.sexo"></td>
 										<td ng_bind="a.idade.idade"></td>
-										<td>
-										
-										<i class="btn btn-info btn-xs fa fa-eye"
-											ng-click="visualizaFocos(f.id)" data-toggle="tooltip"
-											title="Visualizar Animal"></i> 
-											
-										<i class="btn btn-danger btn-xs fa fa-times"
+										<td><i class="btn btn-info btn-xs fa fa-eye"
+											ng-click="visualizaAnimal(a.id)" data-toggle="tooltip"
+											title="Visualizar Animal"></i> <i
+											class="btn btn-danger btn-xs fa fa-times"
 											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i></td>
 										</td>
 								</table>
@@ -210,105 +207,20 @@
 						<hr>
 					</div>
 
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.assentamento"> <i> </i>
-							Assentamento
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.alteracao"><i> </i>Alteração de
-							rios/lagos/lagoas
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.avanco"><i> </i>Avanço
-							Agropecuário
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.desastres"><i> </i>Desastres
-							naturais
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.exploracao"><i> </i>Exploração
-							de Petróleo e Gás
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.queimadas"><i> </i>Queimadas/Incêndios
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.obras"><i> </i>Grandes Obras
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.acidentais"><i> </i>Impactos
-							acidentais
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.pressao"> <i> </i>Pressão
-							imobiliária
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.desmatamento"><i> </i>Desmatamento
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.turismo"><i> </i>Turismo
-							ecológico
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.urbanizacao"><i> </i>Urbanização
-							recente
+					<div class="form-group col-sm-4" ng-repeat="impacto in impactos">
+						<label> <input type="checkbox" checklist-model="impactos"
+							checklist-value="impacto"> {{ impacto.impacto }}
 						</label>
 					</div>
 
 					<div class="form-group col-sm-4">
 						<input name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidades.outros"> <i></i>Outros?Quais?
+							ng-model="impacto.outros"> <i></i>Outros?Quais?
 					</div>
 
 					<div class="form-group col-sm-6">
 						<input type="text" class="form-control"
-							id="anormalidade_epizootia">
+							id="impacto_outros">
 					</div>
 
 					<!--                 --> <!-- CARACTERÍSTICAS --> <!--                 -->
@@ -318,31 +230,9 @@
 						<hr>
 					</div>
 
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.natuaral"><i> </i>Natural
-							(Silvestre)
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.domicilio"><i> </i>Próximo
-							a Domicilio
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.urbano"><i> </i>Rural
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.urbano"><i> </i>Urbano
+					<div class="form-group col-sm-3" ng-repeat="caracteristica in caracteristicas">
+						<label> <input type="checkbox" checklist-model="caracteristicas"
+							checklist-value="caracteristica"> {{ caracteristica.caracteristica }}
 						</label>
 					</div>
 
@@ -389,22 +279,23 @@
 
 					<div class="form-group col-sm-12"
 						ng-show="local.situacaoFundiaria.nome == 'Unidade de Conservação'">
+						<div class="row justify-content-start">
+							<div class="form-group col-sm-6">
 
-						<div class="form-group col-sm-6">
+								<label class="control-label">Unidade de Conservação</label>
+								<div class="input-group">
+									<select autofocus ng-required="true" id="idUnidadeConservacao"
+										class="form-control" ng-model="local.unidadeConservacao"
+										ng-options="u as u.nome for u in unidadesConservacao | orderBy:'id' track by u.id">
+									</select> <span class="input-group-btn">
 
-							<label class="control-label">Unidade de Conservação</label>
-							<div class="input-group">
-								<select autofocus ng-required="true" id="idUnidadeConservacao"
-									class="form-control" ng-model="local.unidadeConservacao"
-									ng-options="u as u.nome for u in unidadesConservacao | orderBy:'id' track by u.id">
-								</select> <span class="input-group-btn">
+										<button class="btn btn-default" type="button"
+											data-toggle="tooltip"
+											title="Adicionar nova Unidade de Conservação"
+											ng-click="addUnidade()">+</button>
 
-									<button class="btn btn-default" type="button"
-										data-toggle="tooltip"
-										title="Adicionar nova Unidade de Conservação"
-										ng-click="addUnidade()">+</button>
-
-								</span>
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -429,7 +320,7 @@
 						<!-- <button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="submit" class="btn btn-success"
-							ng-click="salvarLocalidade(localidade)">
+							ng-click="salvarFicha('localidade')">
 							Salvar
 							<!-- Etapa-->
 						</button>
@@ -439,7 +330,8 @@
 						class="badge badge-default pull-right wizard-step">3</span> </uib-tab-heading>
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Foi realizada a pesquisa entomológica a este registro??</i></b></label>
+						<label><b><i>Foi realizada a pesquisa entomológica
+									a este registro??</i></b></label>
 						<hr>
 					</div>
 
@@ -550,7 +442,7 @@
 							Anopheles sp
 						</label>
 					</div>
-					
+
 
 					<div class="form-group col-sm-12">
 						<label><b><i>Cobertura Vacinal(%) do município:</i></b></label>
@@ -574,8 +466,8 @@
 					</div>
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Doses aplicadas de vacina dentro do raio de
-									300m a partir do local da Epizootia:</i></b></label>
+						<label><b><i>Doses aplicadas de vacina dentro do
+									raio de 300m a partir do local da Epizootia:</i></b></label>
 						<hr>
 					</div>
 

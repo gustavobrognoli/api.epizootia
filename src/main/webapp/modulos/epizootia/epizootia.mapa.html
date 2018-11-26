@@ -1,10 +1,10 @@
 <script id="epizootia-info-template.html" type="text/ng-template">
 	<div ng-non-bindable="">
 
-        Data Coleta: 27/02/2018 <br/>
-        Latitude: -27.461970 <br/>
-		Longitude: -50.939317 <br/>
-		Status: Descartado  		
+        Data Coleta: {{selecionado.dataOcorrencia}}<br/>
+        Latitude: {{selecionado.localidade.latitude}}<br/>
+		Longitude: {{selecionado.localidade.longitude}}<br/>
+		Status: {{selecionado.classificacaoFA}}	
 
 	</div>
 </script>

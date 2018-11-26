@@ -27,8 +27,15 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	
 	api.epizootia.localidade.getAll().then(function( response ) {
 		$scope.localidades = response.data.data;
-	});	
-
+	});
+	
+	api.epizootia.caracteristica.getAll().then(function( response ) {
+		$scope.caracteristicas = response.data.data;
+	});
+	
+	api.epizootia.impacto.getAll().then(function( response ) {
+		$scope.impactos = response.data.data;
+	});
 	
 	api.epizootia.metodoCaptura.getAll().then(function( response ) {
 		$scope.metodosCaptura = response.data.data;
@@ -68,7 +75,6 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		});
 	}
 	
-	
 	$scope.remover = function(fichaAnimal){
 		api.epizootia.animal.excluir(fichaAnimal.id).then(function(response){
 			toastr.success('Animal removido com sucesso');
@@ -99,60 +105,28 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		});
 	}
 			
-	
-
-/*	
- * 
- * $scope.salvarFicha = function( key ){
-		if( !$scope.form.$valid && ( key == 'localidade')){
+	$scope.visualizaAnimal = function( id ){
+		
+		api.epizootia.animal.get( id ).then(function(response) {
 			var modalInstance = $uibModal.open({ 
-				templateUrl: "modulos/template/dialog.mensagem.html", 
-				controller: "ModalMensagemDialogController",
-				
+				templateUrl: "modulos/epizootia/visualiza.macaco.html", 
+				controller: "ModalVisualizaAnimalController",
 				backdrop: 'static', 
 				keyboard: false,
 				
-				resolve: {
-					mensagem: function(){
-						return "Preencha os campos da etapa 'Dados do Animal' para salvar esta etapa.";
-					},
-					titulo: function(){
-						return "Aviso";
-					}
-				}
+				resolve: { 
+			    	animal: function () {
+			    		return response.data;
+			        }
+			      }
 			});
-			}   else if($scope.form.$valid && $scope.epizootia.animais.length == 0){
-				var msg;
-				key == 'dados_animal' ? msg = "Inclua os animais da coleta para salvar." : msg = "Inclua os animais da coleta em 'Dados do Animal' para salvar."; 
-				var modalInstance = $uibModal.open({ 
-					templateUrl: "modulos/template/dialog.mensagem.html", 
-					controller: "ModalMensagemDialogController",
-					
-					backdrop: 'static', 
-					keyboard: false,
-					
-					resolve: {
-						mensagem: function(){
-							return msg;
-						},
-						titulo: function(){
-							return "Aviso";
-						}
-					}
-				});
-
-
-	
-	$scope.salvarLocalidade = function(localidade){
-		api.epizootia.localidade.insert( localidade ).then( function(response){
-			$scope.localidade.id = response.data;
-			toastr.success("Localidade salva com sucesso");
+		}, function(error) {
+			
+		}, function(value) {
+			
 		});
 	}
-	
-*/
-	
-	
+		
 	$scope.addMorador = function(){
 		var modalInstance = $uibModal.open({ 
 			templateUrl: "modulos/epizootia/cadastro.morador.html", 
@@ -233,8 +207,47 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				$scope.unidadesConservacao.push( unidadesConservacao );
 			}
 		});
+	} 
+
+	$scope.salvarFicha = function( key ){
+		if( !$scope.form.$valid && ( key == 'localidade' || key == 'finalizar' )){
+			var modalInstance = $uibModal.open({ 
+				templateUrl: "modulos/template/dialog.mensagem.html", 
+				controller: "ModalMensagemDialogController",
+				
+				backdrop: 'static', 
+				keyboard: false,
+				
+				resolve: {
+					mensagem: function(){
+						return "Preencha os campos da etapa 'Dados do Animal' para salvar esta etapa.";
+					},
+					titulo: function(){
+						return "Aviso";
+					}
+				}
+			});
+		} else if($scope.form.$valid && $scope.epizootia.animais.length == 0){
+			var msg;
+			key == 'localidade' ? msg = "Inclua os animais da coleta para salvar." : msg = "Inclua os animais da coleta em 'Dados do Animal' para salvar."; 
+			var modalInstance = $uibModal.open({ 
+				templateUrl: "modulos/template/dialog.mensagem.html", 
+				controller: "ModalMensagemDialogController",
+				
+				backdrop: 'static', 
+				keyboard: false,
+				
+				resolve: {
+					mensagem: function(){
+						return msg;
+					},
+					titulo: function(){
+						return "Aviso";
+					}
+				}
+			});
+		}
+		else{}
 	}
-
-
 	
 });

@@ -37,7 +37,7 @@
 
 						<button class="btn btn-default" type="button"
 							data-toggle="tooltip" title="Adicionar nova espécie"
-							ng-click="addMorador()">+</button>
+							ng-click="addEspecie()">+</button>
 					</span>
 
 				</div>
@@ -76,7 +76,7 @@
 				<label class="control-label">Tempo aproximado do Óbito</label> <select
 					autofocus name="obitoAnimal" class="form-control"
 					ng-options="o as o.tempoObito for o in temposObitos | orderBy:'id' track by t.id"
-					ng-model="animal.tempoObito.tempoObito" required>
+					ng-model="animal.tempoObito" required>
 					<option value="Selecione" hidden>Selecione...</option>
 				</select>
 			</div>
@@ -119,43 +119,38 @@
 				<hr>
 			</div>
 
-			<div class="form-group col-sm-6">
+			<div class="form-group col-sm-12">
 
 				<label class="control-label">Coleta de Visceras:</label>
 
-				<div class="row justify-content-start">
+				<div class="form-group col-sm-12">
+					<label class="checkbox-inline checkbox-custom-alt"> <input
+						name="customRadioAlt" type="radio"
+						ng-model="animal.viscera.coleta" ng-value="true"> <i></i>Sim
+					</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label
+						class="checkbox-inline checkbox-custom-alt"> <input
+						name="customRadioAlt" type="radio"
+						ng-model="animal.viscera.coleta" ng-value="false"> <i></i>Não
+					</label>
+				</div>
 
-					<div class="form-group col-sm-12">
-						<label class="checkbox-inline checkbox-custom-alt"> <input
-							name="customRadioAlt" type="radio"
-							ng-model="animal.viscera.coleta" ng-value="true"> <i></i>Sim
-						</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label
-							class="checkbox-inline checkbox-custom-alt"> <input
-							name="customRadioAlt" type="radio"
-							ng-model="animal.viscera.coleta" ng-value="false"> <i></i>Não
+				<div ng-hide="animal.viscera.coleta == false">
+					<div class="form-group col-sm-3" ng-repeat="viscera in visceras">
+						<label> <input type="checkbox" checklist-model="visceras"
+							checklist-value="viscera"> {{ viscera.viscera }}
 						</label>
 					</div>
+				</div>
 
-					<div ng-hide="animal.viscera.coleta == false">
-						<div class="form-group col-sm-6">
-							<label class="control-label">Viscera Coletada</label> <select
-								autofocus name="visceraAnimal" class="form-control"
-								ng-options="v as v.viscera for v in visceras | orderBy:'id' track by t.id"
-								ng-model="animal.viscera.viscera" required>
-								<option value="Selecione" hidden>Selecione...</option>
-							</select>
-						</div>
+				<div ng-show="animal.viscera.coleta == false">
+					<div class="form-group col-sm-12">
+						<label class="control-label">Motivo:</label>
 					</div>
-					<div ng-show="animal.viscera.coleta == false"
-						class="form-group col-sm-12">
-						<div class="form-group col-sm-12">
-							<label class="control-label">Motivo:</label>
-						</div>
-						<div class="form-group col-sm-12">
-							<input name="motivo" type="text" class="form-control"
-								ng-model="animal.viscera.motivo">
-						</div>
+					<div class="form-group col-sm-12">
+						<input name="motivo" type="text" class="form-control"
+							ng-model="animal.viscera.motivo">
 					</div>
+
 				</div>
 
 			</div>
@@ -163,27 +158,25 @@
 				\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Anormalidades Observadas ///////////////////////////////////
 
  -->
-			<div class="form-group col-sm-6">
+			<div class="form-group col-sm-12">
 
+
+
+				<label class="control-label">Anormalidades Observadas:</label>
 				<div class="form-group col-sm-12">
 
-					<label class="control-label">Anormalidade Observada:</label>
-
-					<div class="input-group">
-						<select autofocus ng-required="true" id="idAnormalidade"
-							class="form-control" ng-model="animal.anormalidade.sintoma"
-							ng-options="a as a.sintoma for a in anormalidades | orderBy:'nome' track by m.id">
-						</select> <span class="input-group-btn">
-
-							<button class="btn btn-default" type="button"
-								data-toggle="tooltip" title="Adicionar outra anormalidade"
-								ng-click="addAnormalidade()">+</button>
-						</span>
-
+					<div class="form-group col-sm-3 row justify-content-start"
+						ng-repeat="anormalidade in anormalidades">
+						<label> <input type="checkbox"
+							checklist-model="anormalidades" checklist-value="anormalidade">
+							{{ anormalidade.sintoma }}
+						</label>
 					</div>
-				</div>
 
+				</div>
 			</div>
+
+
 
 			<div class="form-group col-sm-12">
 				<label><b><i>Informações Complementares</i></b></label>
@@ -193,7 +186,7 @@
 			<div class="form-group col-sm-12">
 				<label class="control-label">Outras Informações</label> <input
 					name="bairro" type="text" class="form-control"
-					ng-model="animal.outraInformacoes">
+					ng-model="animal.outrasInformacoes">
 			</div>
 
 			<div class="form-group row"></div>

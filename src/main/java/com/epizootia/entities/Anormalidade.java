@@ -32,10 +32,6 @@ public class Anormalidade implements Serializable {
 	@Column(name = "cd_sintoma")
 	private String sintoma;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "cd_animal", referencedColumnName = "cd_id")
-	private Animal animal;
-
 	public int getId() {
 		return id;
 	}
@@ -52,17 +48,9 @@ public class Anormalidade implements Serializable {
 		this.sintoma = sintoma;
 	}
 
-	public Animal getAnimal() {
-		return animal;
-	}
-
-	public void setAnimal(Animal animal) {
-		this.animal = animal;
-	}
-
 	@Override
 	public String toString() {
-		return "Anormalidade [id=" + id + ", sintoma=" + sintoma + ", animal=" + animal + "]";
+		return "Anormalidade [id=" + id + ", sintoma=" + sintoma +"]";
 	}
 
 }

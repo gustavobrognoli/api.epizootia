@@ -32,13 +32,6 @@ public class Viscera implements Serializable {
 	@Column(name = "ds_motivo")
 	private String motivo;
 
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @OneToMany(fetch = FetchType.EAGER, mappedBy = "viscera", cascade =
-	 * CascadeType.ALL, orphanRemoval = true) private Set<Animal> animais;
-	 */
-
 	public Viscera() {
 		// TODO Auto-generated constructor stub
 	}
@@ -66,12 +59,6 @@ public class Viscera implements Serializable {
 	public void setColeta(Boolean coleta) {
 		this.coleta = coleta;
 	}
-
-	/*
-	 * public Set<Animal> getAnimais() { return animais; }
-	 * 
-	 * public void setAnimais(Set<Animal> animais) { this.animais = animais; }
-	 */
 
 	public String getMotivo() {
 		return motivo;

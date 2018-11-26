@@ -57,6 +57,25 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr){
 	$scope.cancelar = function(){
 		$uibModalInstance.close( null );	
 	}
-			
+	
+	$scope.addEspecie = function(){
+		var modalInstance = $uibModal.open({ 
+			templateUrl: "modulos/epizootia/cadastro.especie.html", 
+			controller: "CadastroEspecieController",
+			backdrop: 'static', 
+			keyboard: false,
+			resolve: {
+				amostra: function(){
+					return null;
+				}
+			}
+		});
+		
+		modalInstance.result.then(function ( animalEspecie ){
+			if(animalEspecie != null) {
+				$scope.especies.push( animalEspecie );
+			}
+		});
+	}
 	
 });
