@@ -69,7 +69,7 @@
 			<label class="control-label">Tempo aproximado do Óbito</label> <select
 				autofocus name="obitoAnimal" class="form-control"
 				ng-options="o as o.tempoObito for o in temposObitos | orderBy:'id' track by t.id"
-				ng-model="animal.tempoObito.tempoObito" required>
+				ng-model="animal.tempoObito" required>
 				<option value="Selecione" hidden>Selecione...</option>
 			</select>
 		</div>

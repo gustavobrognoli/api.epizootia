@@ -1,5 +1,7 @@
 angular.module("vigilantos").controller('EpizootiaNotificacaoController', 
 		function ($scope, api, $uibModal, toastr, $routeParams, $location) {
+	
+	//$scope.impactosSelecionados = [];
 
 	api.epizootia.morador.getAll().then(function( response ) {
 		$scope.moradores = response.data.data;
@@ -31,6 +33,14 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	
 	api.epizootia.caracteristica.getAll().then(function( response ) {
 		$scope.caracteristicas = response.data.data;
+	});
+	
+	api.epizootia.equipamento.getAll().then(function( response ) {
+		$scope.equipamentos = response.data.data;
+	});
+	
+	api.epizootia.genero.getAll().then(function( response ) {
+		$scope.generos = response.data.data;
 	});
 	
 	api.epizootia.impacto.getAll().then(function( response ) {
@@ -105,9 +115,9 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		});
 	}
 			
-	$scope.visualizaAnimal = function( id ){
+	$scope.visualizaAnimal = function( fichaAnimal ){
 		
-		api.epizootia.animal.get( id ).then(function(response) {
+		//api.epizootia.animal.get( id ).then(function(response) {
 			var modalInstance = $uibModal.open({ 
 				templateUrl: "modulos/epizootia/visualiza.macaco.html", 
 				controller: "ModalVisualizaAnimalController",
@@ -115,16 +125,14 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				keyboard: false,
 				
 				resolve: { 
-			    	animal: function () {
-			    		return response.data;
-			        }
+			    	animal: fichaAnimal
 			      }
 			});
 		}, function(error) {
 			
 		}, function(value) {
 			
-		});
+		//});
 	}
 		
 	$scope.addMorador = function(){
@@ -208,9 +216,42 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			}
 		});
 	} 
+	
+//    $scope.GetValue = function () {
+//        for (var i = 0; i < $scope.impactos.length; i++) {
+//            if ($scope.impactos[i].selected) {
+//            	var impacto = {'id': $scope.impactos[i].id, 'impacto': $scope.impactos[i].impacto };
+//            	$scope.impactosSelecionados.push(impacto);
+//            }
+//        }
+//        toastr.success($scope.impactosSelecionados);
+//    }	
 
 	$scope.salvarFicha = function( key ){
-		if( !$scope.form.$valid && ( key == 'localidade' || key == 'finalizar' )){
+		
+		//if( !$scope.form.$valid && ( key == 'localidade' || key == 'finalizar' )){
+			
+		// Impactos
+		var selecionadosImpactos = $scope.impactos;
+	        for (var i = 0; i < $scope.impactos.length; i++) {
+	            if ($scope.impactos[i].selected) {
+	            	var impacto = {'id': $scope.impactos[i].id, 'impacto': $scope.impactos[i].impacto };
+	            	key.impactos.push(impacto);
+	            }
+	        }
+            // Outros
+	        if ($scope.impactos[i].selected) {
+	        	var impacto = {'id': 99, 'impacto': ngmodel-outros };
+	        }
+	        
+		// Caracteristica
+		var selecionadosCaracteristica = $scope.caracteristicas;
+	        for (var i = 0; i < $scope.caracteristicas.length; i++) {
+	            if ($scope.caracteristicas[i].selected) {
+	            	var caracteristicas = {'id': $scope.caracteristicas[i].id, 'caracteristica':$scope.caracteristicas[i].caracteristica };
+	            	key.caracteristicas.push(caracteristica);
+	            }
+	        }
 			var modalInstance = $uibModal.open({ 
 				templateUrl: "modulos/template/dialog.mensagem.html", 
 				controller: "ModalMensagemDialogController",
@@ -227,7 +268,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 					}
 				}
 			});
-		} else if($scope.form.$valid && $scope.epizootia.animais.length == 0){
+/*		} else if($scope.form.$valid && $scope.epizootia.animais.length == 0){
 			var msg;
 			key == 'localidade' ? msg = "Inclua os animais da coleta para salvar." : msg = "Inclua os animais da coleta em 'Dados do Animal' para salvar."; 
 			var modalInstance = $uibModal.open({ 
@@ -247,7 +288,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				}
 			});
 		}
-		else{}
+		else{}*/
 	}
 	
 });

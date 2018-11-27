@@ -249,6 +249,18 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	            }
 	        },
 	        
+	        equipamento:{
+	        	getAll: function(){
+	        		return $http.get("./api/equipamento");
+	            }
+	        },
+	        
+	        genero:{
+	        	getAll: function(){
+	        		return $http.get("./api/genero");
+	            }
+	        },
+	        
 	        resultado:{
 	        	insert: function( resultado ){
 	        		return $http.post("./api/classificacaoFA", resultado);

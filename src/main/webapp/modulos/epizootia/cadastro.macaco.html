@@ -159,18 +159,16 @@
 
  -->
 			<div class="form-group col-sm-12">
-
-
-
 				<label class="control-label">Anormalidades Observadas:</label>
 				<div class="form-group col-sm-12">
-
-					<div class="form-group col-sm-3 row justify-content-start"
-						ng-repeat="anormalidade in anormalidades">
-						<label> <input type="checkbox"
-							checklist-model="anormalidades" checklist-value="anormalidade">
-							{{ anormalidade.sintoma }}
-						</label>
+					<div class="row justify-content-start">
+						<div class="form-group col-sm-3"
+							ng-repeat="anormalidade in anormalidades">
+							<label> <input type="checkbox"
+								checklist-model="anormalidades" checklist-value="anormalidade">
+								{{ anormalidade.sintoma }}
+							</label>
+						</div>
 					</div>
 
 				</div>
