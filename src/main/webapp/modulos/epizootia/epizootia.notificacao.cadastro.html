@@ -80,7 +80,7 @@
 										<td ng_bind="a.sexo.sexo"></td>
 										<td ng_bind="a.idade.idade"></td>
 										<td><i class="btn btn-info btn-xs fa fa-eye"
-											ng-click="visualizaAnimal(a.id)" data-toggle="tooltip"
+											ng-click="visualizaAnimal(a.id, 'lg')" data-toggle="tooltip"
 											title="Visualizar Animal"></i> <i
 											class="btn btn-danger btn-xs fa fa-times"
 											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i></td>
@@ -213,10 +213,6 @@
 						</label>
 					</div>
 					
-					<div class="form-group col-sm-12">
-						<input type="button" value="Get" ng-click="GetValue()" />
-					</div>
-
 					<div class="form-group col-sm-4">
 						<input name="customRadioAlt" type="checkbox"
 							ng-model="impacto.outros"> <i></i>Outros?Quais?
@@ -326,10 +322,6 @@
 						<button type="submit" class="btn btn-success"
 							ng-click="salvarFicha('localidade')">
 							Salvar
-							<!-- Etapa-->
-						</button>
-						<button type="submit" class="btn btn-success">
-							Salvar 2
 							<!-- Etapa-->
 						</button>
 					</div>

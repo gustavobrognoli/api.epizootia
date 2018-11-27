@@ -115,7 +115,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		});
 	}
 			
-	$scope.visualizaAnimal = function( fichaAnimal ){
+	$scope.visualizaAnimal = function(fichaAnimal, size){
 		
 		//api.epizootia.animal.get( id ).then(function(response) {
 			var modalInstance = $uibModal.open({ 
@@ -123,7 +123,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				controller: "ModalVisualizaAnimalController",
 				backdrop: 'static', 
 				keyboard: false,
-				
+				size:size,
 				resolve: { 
 			    	animal: fichaAnimal
 			      }
@@ -230,7 +230,11 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	$scope.salvarFicha = function( key ){
 		
 		//if( !$scope.form.$valid && ( key == 'localidade' || key == 'finalizar' )){
-			
+		
+
+/*//////////////////////////////////////LOCALIDADE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+		
+		
 		// Impactos
 		var selecionadosImpactos = $scope.impactos;
 	        for (var i = 0; i < $scope.impactos.length; i++) {
@@ -252,22 +256,42 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	            	key.caracteristicas.push(caracteristica);
 	            }
 	        }
-			var modalInstance = $uibModal.open({ 
-				templateUrl: "modulos/template/dialog.mensagem.html", 
-				controller: "ModalMensagemDialogController",
+	        
+/*//////////////////////////////////////REGISTRO ENTOMOLÓGICO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+	        
+		// Equipamentos
+		var selecionadosEquipamento = $scope.equipamentos;
+	        for (var i = 0; i < $scope.equipamentos.length; i++) {
+	            if ($scope.equipamentos[i].selected) {
+	            	var equipamentos = {'id': $scope.equipamentos[i].id, 'equipamento':$scope.equipamentos[i].equipamento };
+	            	key.equipamentos.push(equipamento);
+	            }
+	        }
+		        
+		// Espécies do Vetor
+		var selecionadosGenero = $scope.generos;
+	        for (var i = 0; i < $scope.generos.length; i++) {
+	            if ($scope.generos[i].selected) {
+	            	var generos = {'id': $scope.generos[i].id, 'genero':$scope.generos[i].genero };
+	            	key.genero.push(genero);
+	            }
+	        }
+		var modalInstance = $uibModal.open({ 
+			templateUrl: "modulos/template/dialog.mensagem.html", 
+			controller: "ModalMensagemDialogController",
 				
-				backdrop: 'static', 
-				keyboard: false,
+			backdrop: 'static', 
+			keyboard: false,
 				
-				resolve: {
-					mensagem: function(){
-						return "Preencha os campos da etapa 'Dados do Animal' para salvar esta etapa.";
+			resolve: {
+				mensagem: function(){
+					return "Preencha os campos da etapa 'Dados do Animal' para salvar esta etapa.";
 					},
-					titulo: function(){
-						return "Aviso";
-					}
+				titulo: function(){
+					return "Aviso";
 				}
-			});
+			}
+		});
 /*		} else if($scope.form.$valid && $scope.epizootia.animais.length == 0){
 			var msg;
 			key == 'localidade' ? msg = "Inclua os animais da coleta para salvar." : msg = "Inclua os animais da coleta em 'Dados do Animal' para salvar."; 

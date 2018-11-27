@@ -11,11 +11,11 @@
 	<div class="modal-body">
 
 		<div class="form-group col-sm-12">
-		
+
 			<label><b><i>Dados do Animal</i></b></label>
 			<hr>
 		</div>
-		
+
 		<div class="form-group col-sm-6">
 			<label class="control-label">Nome Popular:</label> <input
 				name="nomePopularAnimal" class="form-control"
@@ -23,55 +23,32 @@
 		</div>
 
 		<div class="form-group col-sm-6">
-
-			<label class="control-label">Espécie:</label>
-			<div class="input-group">
-				<select autofocus name="especie" class="form-control"
-					ng-options="e as e.especie for e in especies | orderBy:'especie' track by e.id"
-					ng-model="animal.especie" required>
-					<option value="" hidden>Selecione...</option>
-				</select> 
-				</span>
-
-			</div>
+			<label class="control-label">Espécie:</label><input
+				name="especieAnimal" class="form-control"
+				ng-model="animal.especie.nome" ng-disabled="true" />
 		</div>
 
 		<div class="form-group col-sm-6">
-			<label class="control-label">Idade:</label> <select autofocus
-				name="idadeAnimal" class="form-control"
-				ng-options="i as i.idade for i in idades | orderBy:'idade' track by i.id"
-				ng-model="animal.idade" required>
-				<option value="" hidden>Selecione...</option>
-			</select>
+			<label class="control-label">Idade:</label><input name="idadeAnimal"
+				class="form-control" ng-model="animal.especie.especie"
+				ng-disabled="true" />
 		</div>
 
 		<div class="form-group col-sm-6">
-			<label class="control-label">Sexo:</label> <select autofocus
-				name="sexoAnimal" class="form-control"
-				ng-options="s as s.sexo for s in sexos | orderBy:'sexo' track by s.id"
-				ng-model="animal.sexo" required>
-				<option value="" hidden>Selecione...</option>
-			</select>
+			<label class="control-label">Sexo:</label><input name="sexoAnimal"
+				class="form-control" ng-model="animal.sexo.sexo" ng-disabled="true" />
 		</div>
 
 		<div class="form-group col-sm-6">
-			<label class="control-label">Situação:</label> <select autofocus
+			<label class="control-label">Situação:</label><input
 				name="situcaoAnimal" class="form-control"
-				ng-options="s as s.situacao for s in situacoes | orderBy:'id' track by s.id"
-				ng-model="animal.situacao" required>
-				<option value="" hidden>Selecione...</option>
-			</select>
+				ng-model="animal.situacao.situacao" ng-disabled="true" />
 		</div>
 
-
-		<div class="form-group col-sm-6"
-			ng-show="animal.situacao.situacao == 'Morto'">
-			<label class="control-label">Tempo aproximado do Óbito</label> <select
-				autofocus name="obitoAnimal" class="form-control"
-				ng-options="o as o.tempoObito for o in temposObitos | orderBy:'id' track by t.id"
-				ng-model="animal.tempoObito" required>
-				<option value="Selecione" hidden>Selecione...</option>
-			</select>
+		<div class="form-group col-sm-6">
+			<label class="control-label">Tempo aproximado do Óbito</label><input
+				name="obitoAnimal" class="form-control"
+				ng-model="animal.tempoObito.tempoObito" ng-disabled="true" />
 		</div>
 
 		<!-- Vida livre | Apreensao | Cativeiro -->
@@ -81,30 +58,21 @@
 		</div>
 
 		<div class="form-group col-sm-6">
-			<label class="control-label">Animal de Vida Livre?</label> <select
-				autofocus name="vidaLivreAnimal" class="form-control"
-				ng-options="v as v.vidaLivre for v in vidasLivre | orderBy:'id' track by t.id"
-				ng-model="animal.vidaLivre" required>
-				<option value="Selecione" hidden>Selecione...</option>
-			</select>
+			<label class="control-label">Animal de Vida Livre?</label><input
+				name="vidaLivreAnimal" class="form-control"
+				ng-model="animal.vidaLivre.vidaLivre" ng-disabled="true" />
 		</div>
 
 		<div class="form-group col-sm-6">
-			<label class="control-label">Animal de Apreensão?</label> <select
-				autofocus name="apreensaoAnimal" class="form-control"
-				ng-options="a as a.apreensao for a in apreensoes | orderBy:'id' track by t.id"
-				ng-model="animal.apreensao" required>
-				<option value="Selecione" hidden>Selecione...</option>
-			</select>
+			<label class="control-label">Animal de Apreensão?</label><input
+				name="apreensaoAnimal" class="form-control"
+				ng-model="animal.vidaLivre.vidaLivre" ng-disabled="true" />
 		</div>
 
 		<div class="form-group col-sm-6">
-			<label class="control-label">Animal de Cativeiro?</label> <select
-				autofocus name="cativeiroAnimal" class="form-control"
-				ng-options="c as c.cativeiro for c in cativeiros | orderBy:'id' track by t.id"
-				ng-model="animal.cativeiro" required>
-				<option value="Selecione" hidden>Selecione...</option>
-			</select>
+			<label class="control-label">Animal de Cativeiro?</label><input
+				name="cativeiroAnimal" class="form-control"
+				ng-model="animal.cativeiro.cativeiro" ng-disabled="true" />
 		</div>
 
 		<div class="form-group col-sm-12">
@@ -112,81 +80,55 @@
 			<hr>
 		</div>
 
-		<div class="form-group col-sm-6">
+		<div class="form-group col-sm-12">
 
 			<label class="control-label">Coleta de Visceras:</label>
 
-			<div class="row justify-content-start">
-
-				<div class="form-group col-sm-12">
-					<label class="checkbox-inline checkbox-custom-alt"> <input
-						name="customRadioAlt" type="radio"
-						ng-model="animal.viscera.coleta" ng-value="true"> <i></i>Sim
-					</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label
-						class="checkbox-inline checkbox-custom-alt"> <input
-						name="customRadioAlt" type="radio"
-						ng-model="animal.viscera.coleta" ng-value="false"> <i></i>Não
+			<div>
+				<div class="form-group col-sm-3" ng-repeat="viscera in visceras">
+					<label> <input type="checkbox" checklist-model="visceras"
+						checklist-value="viscera"> {{ viscera.viscera }}
 					</label>
 				</div>
 
-				<div ng-hide="animal.viscera.coleta == false">
-					<div class="form-group col-sm-6">
-						<label class="control-label">Viscera Coletada</label> <select
-							autofocus name="visceraAnimal" class="form-control"
-							ng-options="v as v.viscera for v in visceras | orderBy:'id' track by t.id"
-							ng-model="animal.viscera.viscera" required>
-							<option value="Selecione" hidden>Selecione...</option>
-						</select>
-					</div>
+				<div class="form-group col-sm-12">
+					<label class="control-label">Motivo:</label><input
+						name="motivoAnimal" class="form-control"
+						ng-model="animal.viscera.motivo" ng-disabled="true" />
 				</div>
-				<div ng-show="animal.viscera.coleta == false"
-					class="form-group col-sm-12">
-					<div class="form-group col-sm-12">
-						<label class="control-label">Motivo:</label>
-					</div>
-					<div class="form-group col-sm-12">
-						<input name="motivo" type="text" class="form-control"
-							ng-model="animal.viscera.motivo">
-					</div>
-				</div>
+
 			</div>
 
 		</div>
-		<!-- 
-				\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Anormalidades Observadas ///////////////////////////////////
 
- -->
-		<div class="form-group col-sm-6">
+		<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Anormalidades Observadas /////////////////////////////////// -->
 
-			<div class="form-group col-sm-12">
+		<div class="form-group col-sm-12">
 
-				<label class="control-label">Anormalidade Observada:</label>
+			<label class="control-label">Anormalidades Observadas:</label>
 
-				<div class="input-group">
-					<select autofocus ng-required="true" id="idAnormalidade"
-						class="form-control" ng-model="animal.anormalidade.sintoma"
-						ng-options="a as a.sintoma for a in anormalidades | orderBy:'nome' track by m.id">
-					</select> <span class="input-group-btn">
-
-						<button class="btn btn-default" type="button"
-							data-toggle="tooltip" title="Adicionar outra anormalidade"
-							ng-click="addAnormalidade()">+</button>
-					</span>
-
+			<div class="form-group col-sm-12 row justify-content-start">
+				<div class="form-group col-sm-3"
+					ng-repeat="anormalidade in anormalidades">
+					<label> <input type="checkbox"
+						checklist-model="anormalidades" checklist-value="anormalidade">
+						{{ anormalidade.sintoma }}
+					</label>
 				</div>
-			</div>
 
+			</div>
 		</div>
+
 
 		<div class="form-group col-sm-12">
 			<label><b><i>Informações Complementares</i></b></label>
 			<hr>
 		</div>
 
-		<div class="form-group col-sm-12">
-			<label class="control-label">Outras Informações</label> <input
-				name="bairro" type="text" class="form-control"
-				ng-model="animal.outraInformacoes">
+		<div class="form-group col-sm-6">
+			<label class="control-label">Outras Informações</label><input
+				name="outrasInformacoesAnimal" class="form-control"
+				ng-model="animal.outrasInformacoes" ng-disabled="true" />
 		</div>
 
 		<div class="form-group row"></div>
@@ -194,11 +136,7 @@
 
 
 	<div class="modal-footer">
-		<!-- 			<button type="button" class="btn btn-primary"
-				ng-click="onClickUpload(a)">Anexar Imagens</button> -->
-		<button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
-		<button type="submit" class="btn btn-success">Salvar</button>
-
+		<button type="button" class="btn btn-default" ng-click="close()">Fechar</button>
 	</div>
 	</form>
 </div>

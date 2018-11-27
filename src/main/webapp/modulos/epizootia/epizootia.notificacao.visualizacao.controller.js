@@ -103,7 +103,26 @@ angular.module("vigilantos").controller('ModalVisualizacaoController',
 			$scope.animais.push( fichaAnimal );
 		});
 	}
+	
+	$scope.visualizaAnimal = function(fichaAnimal, size){
+		
+		//api.epizootia.animal.get( id ).then(function(response) {
+			var modalInstance = $uibModal.open({ 
+				templateUrl: "modulos/epizootia/visualiza.macaco.html", 
+				controller: "ModalVisualizaAnimalController",
+				backdrop: 'static', 
+				keyboard: false,
+				size:size,
+				resolve: { 
+			    	animal: fichaAnimal
+			      }
+			});
+		}, function(error) {
 			
+		}, function(value) {
+			
+		//});
+	}
 	
 
 /*	

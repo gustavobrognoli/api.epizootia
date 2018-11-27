@@ -47,6 +47,25 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr){
 	});
 	
 	$scope.salvar = function(animal){
+		
+		// Visceras
+		var selecionadosViscera = $scope.visceras;
+	        for (var i = 0; i < $scope.visceras.length; i++) {
+	            if ($scope.visceras[i].selected) {
+	            	var visceras = {'id': $scope.visceras[i].id, 'viscera':$scope.visceras[i].viscera };
+	            	key.viscera.push(viscera);
+	            }
+	        }
+		        
+		// Anormalidades
+		var selecionadosAnormalidade = $scope.anormalidades;
+	        for (var i = 0; i < $scope.anormalidades.length; i++) {
+	            if ($scope.anormalidades[i].selected) {
+	            	var anormalidades = {'id': $scope.anormalidades[i].id, 'sintoma':$scope.anormalidades[i].sintoma };
+	            	key.anormalidade.push(anormalidade);
+	            }
+	        }
+		
 		api.epizootia.animal.insert( animal ).then( function(response){
 			$scope.animal.id = response.data;
 			toastr.success("Animal salvo com sucesso");

@@ -22,7 +22,7 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 		this.epizootiaFiltro.dtColetaFim = utils.dateUtils.getInicioProxMes();
 	}
 
-	$scope.visualizaRegistro = function( id, size){
+	$scope.visualizaRegistro = function(id, size){
 		
 		api.epizootia.ficha.get( id ).then(function(response) {
 			var modalInstance = $uibModal.open({ 

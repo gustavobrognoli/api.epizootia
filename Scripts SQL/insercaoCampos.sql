@@ -41,7 +41,7 @@ INSERT INTO epizootia.mod_epizootia_visceras (fg_coleta, ds_viscera)
 values (1, "Fígado"),(1, "Rim"),(1, "Cérebro"),(1, "Baço"),(1, "Pulmão"),(1, "Coração"),(1, "Sangue"),(1, "Soro");
 
 INSERT INTO epizootia.mod_epizootia_genero (ds_genero)
-values ("Haemagogus"),("Sabethes"),("Aedes Aegypti"),("Aedes Albopictus"),("Anopheles");
+values ("Haemagogus sp"),("Sabethes sp"),("Aedes aegypti"),("Aedes albopictus"),("Anopheles sp");
 
 INSERT INTO epizootia.mod_epizootia_apreensao (ds_apreensao)
 values ("Sim"),("Não"),("Não sabe informar");
