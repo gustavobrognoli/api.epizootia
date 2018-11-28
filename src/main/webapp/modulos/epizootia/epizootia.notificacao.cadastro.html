@@ -13,7 +13,7 @@
 				<label class="control-label">Municipio:</label> <select
 					name="municipio" class="form-control"
 					ng-options="m as m.nome for m in municipios track by m.id"
-					ng-model="municipio" ng-change="getByMunicipio()">
+					ng-model="ficha.municipio" ng-change="getByMunicipio()">
 					<option value="">Todos...</option>
 				</select>
 			</div>
@@ -23,7 +23,7 @@
 
 				<label class="control-label">Data da Ocorrência</label> <input
 					name="dtRegistro" type="text" class="form-control"
-					ng-model="epizootia.dtRegistro" bs-datepicker autoclose="true"
+					ng-model="ficha.dtRegistro" bs-datepicker autoclose="true"
 					required>
 
 
@@ -73,7 +73,7 @@
 										<th>Idade</th>
 									</tr>
 
-									<tr ng_repeat="a in animais">
+									<tr ng_repeat="a in ficha.animais">
 										<td ng_bind="a.nomePopular.nome"></td>
 										<td ng-bind="a.especie.especie"></td>
 										<td ng_bind="a.situacao.situacao"></td>
