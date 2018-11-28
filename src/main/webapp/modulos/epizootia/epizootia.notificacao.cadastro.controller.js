@@ -1,7 +1,7 @@
 angular.module("vigilantos").controller('EpizootiaNotificacaoController', 
 		function ($scope, api, $uibModal, toastr, $routeParams, $location) {
 	
-	//$scope.impactosSelecionados = [];
+	// $scope.impactosSelecionados = [];
 
 	api.epizootia.morador.getAll().then(function( response ) {
 		$scope.moradores = response.data.data;
@@ -85,16 +85,15 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		});
 	}
 	
-	$scope.remover = function(fichaAnimal){
-		api.epizootia.animal.excluir(fichaAnimal.id).then(function(response){
+	
+	$scope.remover = function(id){
+		api.epizootia.animal.excluir(id).then(function(response){
 			toastr.success('Animal removido com sucesso');
-			$scope.animais.splice(animais.indexOf(animal), 1);
 		});
 	}
 	
 	
-	$scope.removerAnimal = function(fichaAnimal){
-		
+	$scope.removerAnimal = function( animal ){
 		var mensagem = "Confirma a exclusão do animal ?";
 		
 		var modalInstance = $uibModal.open({ 
@@ -104,8 +103,8 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				mensagem: function () {
 					return mensagem;
 				},
-				fichaAnimal: function(){
-					return fichaAnimal;
+				animal: function(){
+					return animal.id;
 				}
 			}
 		});
@@ -117,7 +116,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			
 	$scope.visualizaAnimal = function(fichaAnimal, size){
 		
-		//api.epizootia.animal.get( id ).then(function(response) {
+		// api.epizootia.animal.get( id ).then(function(response) {
 			var modalInstance = $uibModal.open({ 
 				templateUrl: "modulos/epizootia/visualiza.macaco.html", 
 				controller: "ModalVisualizaAnimalController",
@@ -132,7 +131,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			
 		}, function(value) {
 			
-		//});
+		// });
 	}
 		
 	$scope.addMorador = function(){
@@ -217,22 +216,40 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		});
 	} 
 	
-//    $scope.GetValue = function () {
-//        for (var i = 0; i < $scope.impactos.length; i++) {
-//            if ($scope.impactos[i].selected) {
-//            	var impacto = {'id': $scope.impactos[i].id, 'impacto': $scope.impactos[i].impacto };
-//            	$scope.impactosSelecionados.push(impacto);
-//            }
-//        }
-//        toastr.success($scope.impactosSelecionados);
-//    }	
+// $scope.GetValue = function () {
+// for (var i = 0; i < $scope.impactos.length; i++) {
+// if ($scope.impactos[i].selected) {
+// var impacto = {'id': $scope.impactos[i].id, 'impacto':
+// $scope.impactos[i].impacto };
+// $scope.impactosSelecionados.push(impacto);
+// }
+// }
+// toastr.success($scope.impactosSelecionados);
+// }
 
 	$scope.salvarFicha = function( key ){
 		
-		//if( !$scope.form.$valid && ( key == 'localidade' || key == 'finalizar' )){
+		if( $scope.form.$valid){
+			
+			if( key == 'ficha_aba1'){
+				api.epizootia.ficha.insert( ficha ).then( function(response){
+					$scope.ficha.id = response.data;
+					toastr.success("Dados do Animal salvos com sucesso");
+				});
+			}else if(key == 'ficha_aba2'){
+				api.epizootia.ficha.update( ficha ).then( function(response){
+					$scope.ficha.id = response.data;
+					toastr.success("Dados do Local salvos com sucesso");
+				});
+			}else if(key == 'ficha_aba3'){
+				api.epizootia.ficha.update( ficha ).then( function(response){
+					$scope.ficha.id = response.data;
+					toastr.success("Dados do Registro Entomológico salvos com sucesso");
+				});
+			}
 		
-
-/*//////////////////////////////////////LOCALIDADE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+		};
+/* //////////////////////////////////////LOCALIDADE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 		
 		
 		// Impactos
@@ -257,7 +274,10 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	            }
 	        }
 	        
-/*//////////////////////////////////////REGISTRO ENTOMOLÓGICO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
+/*
+ * //////////////////////////////////////REGISTRO
+ * ENTOMOLÓGICO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ */
 	        
 		// Equipamentos
 		var selecionadosEquipamento = $scope.equipamentos;
@@ -292,27 +312,19 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				}
 			}
 		});
-/*		} else if($scope.form.$valid && $scope.epizootia.animais.length == 0){
-			var msg;
-			key == 'localidade' ? msg = "Inclua os animais da coleta para salvar." : msg = "Inclua os animais da coleta em 'Dados do Animal' para salvar."; 
-			var modalInstance = $uibModal.open({ 
-				templateUrl: "modulos/template/dialog.mensagem.html", 
-				controller: "ModalMensagemDialogController",
-				
-				backdrop: 'static', 
-				keyboard: false,
-				
-				resolve: {
-					mensagem: function(){
-						return msg;
-					},
-					titulo: function(){
-						return "Aviso";
-					}
-				}
-			});
-		}
-		else{}*/
+/*
+ * } else if($scope.form.$valid && $scope.epizootia.animais.length == 0){ var
+ * msg; key == 'localidade' ? msg = "Inclua os animais da coleta para salvar." :
+ * msg = "Inclua os animais da coleta em 'Dados do Animal' para salvar."; var
+ * modalInstance = $uibModal.open({ templateUrl:
+ * "modulos/template/dialog.mensagem.html", controller:
+ * "ModalMensagemDialogController",
+ * 
+ * backdrop: 'static', keyboard: false,
+ * 
+ * resolve: { mensagem: function(){ return msg; }, titulo: function(){ return
+ * "Aviso"; } } }); } else{}
+ */
 	}
 	
 });

@@ -51,8 +51,8 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 		});
 	}
 	
-	$scope.confirmarRemover = function( ficha ){
-		var mensagem = "Confirma exclusão deste Registro"+"?";
+	$scope.removerFicha = function( ficha ){
+		var mensagem = "Confirma exclusão deste Registro ?";
 		
 		var modalInstance = $uibModal.open({ 
 			templateUrl: "modulos/template/confirma.exclusao.html", 
