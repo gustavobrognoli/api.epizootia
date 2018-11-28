@@ -8,7 +8,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	});
 	
 	api.epizootia.animal.getAll().then(function( response ) {
-		$scope.animais = response.data.data;
+		$scope.ficha.animais = response.data.data;
 	});
 
 	api.epizootia.situacaoFundiaria.getAll().then(function( response ) {

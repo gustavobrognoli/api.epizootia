@@ -23,7 +23,11 @@
 
 				<label class="control-label">Data da Ocorrência</label> <input
 					name="dtRegistro" type="text" class="form-control"
+<<<<<<< HEAD
 					ng-model="ficha.dataOcorrencia" bs-datepicker autoclose="true"
+=======
+					ng-model="ficha.dtRegistro" bs-datepicker autoclose="true"
+>>>>>>> branch 'mapa_epizootia' of https://github.com/luizgu5/api.epizootia
 					required>
 
 
@@ -73,7 +77,7 @@
 										<th>Idade</th>
 									</tr>
 
-									<tr ng_repeat="a in animais">
+									<tr ng_repeat="a in ficha.animais">
 										<td ng_bind="a.nomePopular.nome"></td>
 										<td ng-bind="a.especie.especie"></td>
 										<td ng_bind="a.situacao.situacao"></td>
