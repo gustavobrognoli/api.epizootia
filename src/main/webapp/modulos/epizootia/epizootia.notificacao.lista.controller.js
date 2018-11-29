@@ -47,12 +47,13 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 	
 	$scope.remover = function(id){
 		api.epizootia.ficha.excluir(id).then(function(response){
-		toastr.success('Registro removido com sucesso');
+			$scope.fichas.splice($scope.fichas.indexOf(response.data.data), 1);
+			toastr.success('Registro removido com sucesso');
 		});
 	}
 	
 	$scope.removerFicha = function( ficha ){
-		var mensagem = "Confirma exclusão deste Registro ?";
+		var mensagem = "Confirma exclusão deste Registro"+"?";
 		
 		var modalInstance = $uibModal.open({ 
 			templateUrl: "modulos/template/confirma.exclusao.html", 
@@ -64,8 +65,8 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 		        id: function(){
 		        	return ficha.id;
 		        }
-		      }
-		    });
+			}
+		});
 		
 		modalInstance.result.then(function (id){
 			$scope.remover( id );

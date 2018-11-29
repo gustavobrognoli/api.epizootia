@@ -1,10 +1,10 @@
 <script id="epizootia-info-template.html" type="text/ng-template">
 	<div ng-non-bindable="">
 
-        Data Coleta: {{selecionado.dataOcorrencia}}<br/>
+        Data Coleta: {{selecionado.dataOcorrencia | date:'dd/MM/yyyy'}}<br/>
         Latitude: {{selecionado.localidade.latitude}}<br/>
 		Longitude: {{selecionado.localidade.longitude}}<br/>
-		Status: {{selecionado.classificacaoFA}}	
+		Status: {{selecionado.classificacaoFA.classificacao}}	
 
 	</div>
 </script>
