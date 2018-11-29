@@ -47,7 +47,8 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 	
 	$scope.remover = function(id){
 		api.epizootia.ficha.excluir(id).then(function(response){
-		toastr.success('Registro removido com sucesso');
+			$scope.fichas.splice($scope.fichas.indexOf(response.data.data), 1);
+			toastr.success('Registro removido com sucesso');
 		});
 	}
 	
@@ -64,8 +65,8 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 		        id: function(){
 		        	return ficha.id;
 		        }
-		      }
-		    });
+			}
+		});
 		
 		modalInstance.result.then(function (id){
 			$scope.remover( id );

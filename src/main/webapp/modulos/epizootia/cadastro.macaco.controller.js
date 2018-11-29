@@ -67,9 +67,10 @@ function ($scope, api, $uibModal, $uibModalInstance, toastr){
 	        }
 		
 		api.epizootia.animal.insert( animal ).then( function(response){
-			$scope.animal.id = response.data;
+			$scope.animal = response.data;
 			toastr.success("Animal salvo com sucesso");
 			$uibModalInstance.close( $scope.animal );
+			
 		});
 	}
 	

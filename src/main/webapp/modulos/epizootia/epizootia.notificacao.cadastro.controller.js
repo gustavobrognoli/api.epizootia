@@ -3,6 +3,9 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	
 	// $scope.impactosSelecionados = [];
 
+	$scope.ficha = [];
+	
+	
 	api.epizootia.morador.getAll().then(function( response ) {
 		$scope.moradores = response.data.data;
 	});
@@ -72,23 +75,23 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			keyboard: false,
 			size:size,
 			resolve: {
-				amostra: function(){
+				animal: function(){
 					return null;
 				}
 			}
 		});
 		
-		modalInstance.result.then(function ( fichaAnimal ){
-			if(fichaAnimal != null) {
-				$scope.animais.push( fichaAnimal );
+		modalInstance.result.then(function ( animal ){
+			if(animal != null) {
+				$scope.ficha.animais.push(animal);
 			}
 		});
 	}
 	
-	$scope.remover = function(fichaAnimal){
-		api.epizootia.animal.excluir(fichaAnimal.id).then(function(response){
+	$scope.remover = function(id){
+		api.epizootia.animal.excluir(id).then(function(response){
+			$scope.ficha.animais.splice($scope.ficha.animais.indexOf(response.data.data), 1);
 			toastr.success('Animal removido com sucesso');
-			$scope.animais.splice(animais.indexOf(animal), 1);
 		});
 	}
 	
@@ -104,8 +107,8 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				mensagem: function () {
 					return mensagem;
 				},
-				fichaAnimal: function(){
-					return fichaAnimal;
+				id: function(){
+					return fichaAnimal.id;
 				}
 			}
 		});
