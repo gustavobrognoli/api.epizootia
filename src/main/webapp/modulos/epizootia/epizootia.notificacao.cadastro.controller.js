@@ -75,15 +75,15 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			keyboard: false,
 			size:size,
 			resolve: {
-				animal: function(){
+				animais: function(){
 					return null;
 				}
 			}
 		});
 		
-		modalInstance.result.then(function ( animal ){
-			if(animal != null) {
-				$scope.ficha.animais.push(animal);
+		modalInstance.result.then(function ( animais ){
+			if(animais != null) {
+				$scope.ficha.animais.push(animais);
 			}
 		});
 	}
