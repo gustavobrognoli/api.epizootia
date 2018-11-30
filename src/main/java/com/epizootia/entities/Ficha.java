@@ -36,7 +36,7 @@ public class Ficha implements Serializable {
 	private Calendar dataOcorrencia = Calendar.getInstance();
 
 	@Transient
-	@JsonIgnore
+	/*@JsonIgnore*/
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", orphanRemoval = true)
 	private Set<Animal> animais;
 

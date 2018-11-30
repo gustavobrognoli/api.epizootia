@@ -17,10 +17,11 @@
 				<hr>
 			</div>
 			<div class="form-group col-sm-6">
-				<label class="control-label">Nome Popular:</label> <select autofocus
-					name="nomePopularAnimal" class="form-control"
-					ng-options="n as n.nome for n in nomesPopulares | orderBy:'nome' track by n.id"
-					ng-model="animal.nomePopular" required>
+				<label class="control-label">Nome Popular:</label> <select
+					class="form-control" name="cbnomePopularAnimal"
+					id="cbnomePopularAnimal"
+					ng-options="option.nome for option in nomesPopulares track by option.id"
+					ng-model="animal.nomePopular">
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
@@ -29,9 +30,10 @@
 
 				<label class="control-label">Espécie:</label>
 				<div class="input-group">
-					<select autofocus name="especie" class="form-control"
-						ng-options="e as e.especie for e in especies | orderBy:'especie' track by e.id"
-						ng-model="animal.especie" required>
+
+					<select class="form-control" name="cbmunicipios" id="cbespecies"
+						ng-options="option.especie for option in especies track by option.id"
+						ng-model="animal.especie">
 						<option value="" hidden>Selecione...</option>
 					</select> <span class="input-group-btn">
 
@@ -44,40 +46,39 @@
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">Idade:</label> <select autofocus
-					name="idadeAnimal" class="form-control"
-					ng-options="i as i.idade for i in idades | orderBy:'idade' track by i.id"
-					ng-model="animal.idade" required>
+				<label class="control-label">Idade:</label> <select
+					class="form-control" name="cbmunicipios" id="cbIdadeAnimal"
+					ng-options="option.idade for option in idades track by option.id"
+					ng-model="animal.idade">
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">Sexo:</label> <select autofocus
-					name="sexoAnimal" class="form-control"
-					ng-options="s as s.sexo for s in sexos | orderBy:'sexo' track by s.id"
-					ng-model="animal.sexo" required>
+				<label class="control-label">Sexo:</label> <select
+					class="form-control" name="cbmunicipios" id="cbSexoAnimal"
+					ng-options="option.sexo for option in sexos track by option.id"
+					ng-model="animal.sexo">
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">Situação:</label> <select autofocus
-					name="situcaoAnimal" class="form-control"
-					ng-options="s as s.situacao for s in situacoes | orderBy:'id' track by s.id"
-					ng-model="animal.situacao" required>
+				<label class="control-label">Situação:</label> <select
+					class="form-control" name="cbsitucaoAnimal" id="cbsitucaoAnimal"
+					ng-options="option.situacao for option in situacoes track by option.id"
+					ng-model="animal.situacao">
 					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
-
 
 			<div class="form-group col-sm-6"
 				ng-show="animal.situacao.situacao == 'Morto'">
 				<label class="control-label">Tempo aproximado do Óbito</label> <select
-					autofocus name="obitoAnimal" class="form-control"
-					ng-options="o as o.tempoObito for o in temposObitos | orderBy:'id' track by t.id"
-					ng-model="animal.tempoObito" required>
-					<option value="Selecione" hidden>Selecione...</option>
+					class="form-control" name="cbsitucaoAnimal" id="cbsitucaoAnimal"
+					ng-options="option.tempoObito for option in temposObitos track by option.id"
+					ng-model="animal.tempoObito">
+					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
@@ -89,28 +90,30 @@
 
 			<div class="form-group col-sm-6">
 				<label class="control-label">Animal de Vida Livre?</label> <select
-					autofocus name="vidaLivreAnimal" class="form-control"
-					ng-options="v as v.vidaLivre for v in vidasLivre | orderBy:'id' track by t.id"
-					ng-model="animal.vidaLivre" required>
-					<option value="Selecione" hidden>Selecione...</option>
+					class="form-control" name="cbsitucaoAnimal" id="cbsitucaoAnimal"
+					ng-options="option.vidaLivre for option in vidasLivre track by option.id"
+					ng-model="animal.vidaLivre">
+					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
 				<label class="control-label">Animal de Apreensão?</label> <select
-					autofocus name="apreensaoAnimal" class="form-control"
-					ng-options="a as a.apreensao for a in apreensoes | orderBy:'id' track by t.id"
-					ng-model="animal.apreensao" required>
-					<option value="Selecione" hidden>Selecione...</option>
+					class="form-control" name="cbApreensaoAnimal"
+					id="cbApreensaoAnimal"
+					ng-options="option.apreensao for option in apreensoes track by option.id"
+					ng-model="animal.apreensao">
+					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
 			<div class="form-group col-sm-6">
 				<label class="control-label">Animal de Cativeiro?</label> <select
-					autofocus name="cativeiroAnimal" class="form-control"
-					ng-options="c as c.cativeiro for c in cativeiros | orderBy:'id' track by t.id"
-					ng-model="animal.cativeiro" required>
-					<option value="Selecione" hidden>Selecione...</option>
+					class="form-control" name="cbCativeiroAnimal"
+					id="cbCativeiroAnimal"
+					ng-options="option.cativeiro for option in cativeiros track by option.id"
+					ng-model="animal.cativeiro">
+					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
@@ -154,17 +157,17 @@
 				</div>
 
 			</div>
-			
+
 			<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Anormalidades Observadas /////////////////////////////////// -->
-			
+
 			<div class="form-group col-sm-12">
-			
+
 				<label class="control-label">Anormalidades Observadas:</label>
-				
+
 				<div class="form-group col-sm-12">
-				
+
 					<div class="row justify-content-start">
-						
+
 						<div class="form-group col-sm-3"
 							ng-repeat="anormalidade in anormalidades">
 							<label> <input type="checkbox"
@@ -172,7 +175,7 @@
 								{{ anormalidade.sintoma }}
 							</label>
 						</div>
-					
+
 					</div>
 				</div>
 			</div>

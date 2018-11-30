@@ -10,11 +10,12 @@
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">Municipio:</label> 
-				<select class="form-control" name="cbmunicipios" id="cbmunicipios"
-                        ng-options="option.nome for option in municipios track by option.id"
-                        ng-model="ficha.municipio">
-                </select>				
+				<label class="control-label">Municipio:</label> <select
+					class="form-control" name="cbmunicipios" id="cbmunicipios"
+					ng-options="option.nome for option in municipios track by option.id"
+					ng-model="ficha.municipio">
+					<option value="" hidden>Selecione...</option>
+				</select>
 			</div>
 
 			<div class="col-sm-6"
@@ -77,14 +78,13 @@
 										<td ng_bind="a.sexo.sexo"></td>
 										<td ng_bind="a.idade.idade"></td>
 										<td>
-<!-- 										
+											<!-- 										
 										<i class="btn btn-info btn-xs fa fa-eye"
 											ng-click="visualizaAnimal(a.id, 'lg')" data-toggle="tooltip"
 											title="Visualizar Animal"></i> 
-										 -->
-											
-										<i class="btn btn-danger btn-xs fa fa-times"
-											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i></td>
+										 --> <i class="btn btn-danger btn-xs fa fa-times"
+											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i>
+										</td>
 										</td>
 								</table>
 							</div>
@@ -94,26 +94,24 @@
 								<div>
 									<br>
 									<hr>
-									<br> <label><b><i>Resultado de Epizootia por Febre Amarela</i></b></label>
+									<br> <label><b><i>Resultado de Epizootia
+												por Febre Amarela</i></b></label>
 								</div>
 
 								<div class="form-group col-sm-6 row justify-content-start">
-									<select class="form-control" name="cbmunicipios" id="cbmunicipios"
-					                        ng-options="option.classificacao for option in resultados track by option.id"
-					                        ng-model="ficha.classificacaoFA">
-					                </select>
-					                
-					                <!--				
-									<select autofocus ng-required="true" id="idClassificacao"
-										class="form-control" ng-model="ficha.classificacaoFA"
-										ng-options="r.classificacao for r in resultados | orderBy:'classificacao' track by m.id">
+									<select class="form-control" name="cbclassificacoes"
+										id="cbclassificacoes"
+										ng-options="option.classificacao for option in resultados track by option.id"
+										ng-model="ficha.classificacaoFA">
+										<option value="" hidden>Selecione...</option>
 									</select>
-									-->
+
 								</div>
 							</div>
 
 							<div class="text-right">
-								<button type="submit" ng-click="salvarFicha('ficha_aba1', ficha)"
+								<button type="submit"
+									ng-click="salvarFicha('ficha_aba1', ficha)"
 									class="btn btn-success">
 									Salvar
 									<!-- Etapa-->
@@ -127,7 +125,8 @@
 
 					<div class="text-right"></div>
 
-					</uib-tab> <uib-tab> <uib-tab-heading> Dados do Local<span class="badge badge-default pull-right wizard-step">2</span>
+					</uib-tab> <uib-tab> <uib-tab-heading> Dados do
+					Local<span class="badge badge-default pull-right wizard-step">2</span>
 					</uib-tab-heading> <!--                      --> <!-- MORADOR PARA CONTATO --> <!--                      -->
 
 					<div class="form-group col-sm-12">
@@ -140,11 +139,13 @@
 						<label class="control-label">Nome do Morador:</label>
 
 						<div class="input-group">
-							<select autofocus ng-required="true" id="idMorador"
-								class="form-control" ng-model="ficha.localidade.morador.morador"
-								ng-options="m as m.morador for m in moradores | orderBy:'nome' track by m.id">
-							</select> <span class="input-group-btn">
-
+							<select class="form-control" name="cbmoradores" id="cbmoradores"
+								ng-options="option.morador for option in moradores track by option.id"
+								ng-model="ficha.localidade.morador.morador">
+								<option value="" hidden>Selecione...</option>
+							</select>
+						
+						 	<span class="input-group-btn">
 								<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar novo morador"
 									ng-click="addMorador()">+</button>
@@ -155,13 +156,12 @@
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Telefone do morador:</label>
-						<!-- 
-						<input type="text" class="form-control" ng-model="m.telefone" readonly>
-						-->
-						<select autofocus ng-required="true" id="idTelefone"
-							class="form-control" ng-model="ficha.localidade.morador.telefone"
-							ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
-						</select>
+						<select class="form-control" name="cbTelefone" id="cbTelefone"
+		                        ng-options="option.telefone for option in moradores track by option.id"
+		                        ng-model="ficha.localidade.morador.telefone">
+		                        <option value="" hidden>Selecione...</option>
+		                </select>
+
 					</div>
 
 					<!--              --> <!-- DADOS GERAIS --> <!--              -->
@@ -252,12 +252,14 @@
 
 					<div class="form-group col-sm-6">
 						<div class="input-group">
-							<select autofocus ng-required="true" id="idCorposAgua"
-								class="form-control" ng-model="ficha.localidade.corposAgua.nome"
-								ng-options="c as c.nome for c in corposAguas | orderBy:'id' track by m.id">
-							</select> <span class="input-group-btn">
+						<select class="form-control" name="cbCorposAgua" id="cbCorposAgua"
+                        	ng-options="option.nome for option in corposAguas track by option.id"
+                        	ng-model="ficha.localidade.corposAgua">
+                        	<option value="" hidden>Selecione...</option>
+                		</select>
+						<span class="input-group-btn">
 
-								<button class="btn btn-default" type="button"
+						<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar novo Corpo d`Água"
 									ng-click="addCorpoAgua()">+</button>
 							</span>
@@ -271,10 +273,13 @@
 
 					<div class="form-group col-sm-6">
 						<div class="input-group">
-							<select autofocus ng-required="true" id="idSituacaoFundiaria"
-								class="form-control" ng-model="local.situacaoFundiaria"
-								ng-options="s as s.nome for s in situacoesFundiarias | orderBy:'id' track by s.id">
-							</select> <span class="input-group-btn">
+							<select class="form-control" name="cbSituacaoFundiaria" id="cbSituacaoFundiaria"
+                       			ng-options="option.nome for option in situacoesFundiarias track by option.id"
+                        		ng-model="ficha.localidade.situacaoFundiaria">
+                        		<option value="" hidden>Selecione...</option>
+              				</select>
+							
+							<span class="input-group-btn">
 
 								<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar nova Situação Fundiária"
@@ -285,17 +290,19 @@
 
 
 					<div class="form-group col-sm-12"
-						ng-show="local.situacaoFundiaria.nome == 'Unidade de Conservação'">
+						ng-show="ficha.localidade.situacaoFundiaria.nome == 'Unidade de Conservação'">
 						<div class="row justify-content-start">
 							<div class="form-group col-sm-6">
 
 								<label class="control-label">Unidade de Conservação</label>
 								<div class="input-group">
-									<select autofocus ng-required="true" id="idUnidadeConservacao"
-										class="form-control"
-										ng-model="ficha.localidade.situacaoFundiaria.nome"
-										ng-options="u as u.nome for u in unidadesConservacao | orderBy:'id' track by u.id">
-									</select> <span class="input-group-btn">
+									<select class="form-control" name="cbUnidadeConservacao" id="cbUnidadeConservacao"
+				                        ng-options="option.nome for option in unidadesConservacao track by option.id"
+				                        ng-model="ficha.localidade.unidadeConservacao">
+				                        <option value="" hidden>Selecione...</option>
+               						</select>
+									
+									<span class="input-group-btn">
 
 										<button class="btn btn-default" type="button"
 											data-toggle="tooltip"
@@ -378,11 +385,13 @@
 					</div>
 
 					<div class="form-group col-sm-6">
-						<select autofocus ng-required="true" id="idMetodoCaptura"
-							class="form-control"
-							ng-model="ficha.registroEntomologico.metodoCaptura.metodoCaptura"
-							ng-options="m as m.metodoCaptura for m in metodosCaptura | orderBy:'metodo' track by m.id">
+					
+						<select class="form-control" name="cbMetodoCaptura" id="cbMetodoCaptura"
+							ng-options="option.metodoCaptura for option in metodosCaptura track by option.id"
+							ng-model="ficha.registroEntomologico.metodoCaptura.metodoCaptura">
+							<option value="" hidden>Selecione...</option>
 						</select>
+					
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -457,7 +466,7 @@
 
 					<div class="text-right">
 
-						<!-- 						<button type="button" class="btn btn-primary"
+						<!--<button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="button" class="btn btn-success"
 							ng-click="salvarFicha('ficha_aba3')">

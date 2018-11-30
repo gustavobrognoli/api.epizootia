@@ -1,10 +1,11 @@
 <script id="epizootia-info-template.html" type="text/ng-template">
 	<div ng-non-bindable="">
 
-        Data Coleta: {{selecionado.dataOcorrencia | date:'dd/MM/yyyy'}}<br/>
-        Latitude: {{selecionado.localidade.latitude}}<br/>
-		Longitude: {{selecionado.localidade.longitude}}<br/>
-		Status: {{selecionado.classificacaoFA.classificacao}}	
+        Data Coleta: {{fichasInfo.dataOcorrencia | date:'dd/MM/yyyy'}}<br/>
+        Latitude: {{fichasInfo.localidade.latitude}}<br/>
+		Longitude: {{fichasInfo.localidade.longitude}}<br/>
+		Posição: {{anchor.getPosition()}}<br/>
+		Status: {{fichasInfo.classificacaoFA.classificacao}}	
 
 	</div>
 </script>
@@ -88,13 +89,37 @@
 					zoom="{{mapa.zoom}}" 
 					mayTypeId="HYBRID">
 
+					<!-- Todas as Fichas -->
+					<marker 
+					ng-repeat="m in fichaMarcador" 
+					position="{{m.posicao}}"
+					on-click="abrirInfo(event, $index)" 
+					icon="{{marcador}}">
+					</marker>
+					
+					<shape
+					name="circle" 
+					ng-if="!isEdicao" 
+					ng-repeat="m in marcadores"
+					no-watcher="true" 
+					stroke-color="#FF0000" 
+					stroke-opacity="0.8"
+					stroke-weight="2" 
+					fill-color="#FF0000" 
+					fill-opacity="0"
+					center="{{m.posicao}}" 
+					radius="300"> 
+					</shape>
+
 					<!-- CLASSIFICAÇÂO EM ANÀLISE -->
 					<marker 
 					ng-repeat="a in analises" 
 					position="{{a.posicao}}"
-					on-click="abrirInfo(event, $index, false)" 
-					draggable="{{isEdicao}}"
+					on-click="abrirInfo(event, $index)" 
 					icon="assets/imagens/icone_macaco_amarelo.png">
+					<!--  
+					icon="{{f.imagem}}">
+					-->
 					</marker>  
 					
 					<shape

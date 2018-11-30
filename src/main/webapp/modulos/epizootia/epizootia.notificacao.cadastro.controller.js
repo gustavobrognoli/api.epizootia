@@ -3,7 +3,8 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	
 	// $scope.impactosSelecionados = [];
 
-	$scope.ficha = [];
+	/*$scope.fichas = [];*/
+	$scope.ficha;
 
 	$scope.municipios = [ {
 		id: 1, 
@@ -72,7 +73,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	$scope.salvarFicha = function(key, ficha) {
 		
 		if (key == 'ficha_aba1') {
-			api.epizootia.ficha.insert(ficha).then( function(response){
+			api.epizootia.ficha.insert( ficha ).then( function(response){
 				$scope.ficha = response.data;
 				toastr.success("Dados do Animal salvos com sucesso");
 			});
