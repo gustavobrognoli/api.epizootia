@@ -11,45 +11,8 @@ angular.module("vigilantos").controller(
 			$scope.ignorados = [];
 			$scope.descartados = [];
 			$scope.confirmados = [];
-
-//			$scope.registros = [ {
-//				posicao : [ -27.593854, -48.577817 ]
-//			}, {
-//				posicao : [ -27.595385, -48.577163 ]
-//			}, {
-//				posicao : [ -27.596483, -48.580190 ]
-//			}, {
-//				posicao : [ -27.598738, -48.571219 ]
-//			}, {
-//				posicao : [ -27.597326, -48.570806 ]
-//			} ];
-//
-//			// Amarelo
-//			$scope.analises = [ {
-//				posicao : [ -27.307300, -49.015048 ]
-//			}];
-//	
-//			// Verde
-//			$scope.ignorados = [ {
-//				posicao : [ -27.15530, -52.95178 ]
-//			}, {
-//				posicao : [ -26.44660, -52.86940 ]
-//			}, {
-//				posicao : [ -27.2104940, -49.9576310 ]
-//			}, {
-//				posicao : [ -26.522885, -52,543534]
-//			}, {
-//				posicao : [ -26.976335, -53.105515 ]
-//			}, {
-//				posicao : [ -26.091746, -49.262620 ]
-//			}, {
-//				posicao : [ -27.461970, -50.939317 ]
-//			} ];
-//			
-//			// Verde
-//			$scope.descatados = [ {
-//				posicao : [ -27.587899, -48.586456 ]
-//			} ];
+			
+			$scope.fichasInfo = [];
 
 			$scope.openMenu = function() {
 				$scope.isOpen = true;
@@ -72,6 +35,7 @@ angular.module("vigilantos").controller(
 						var ficha = $scope.fichas[i];
 						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
 						$scope.analises.push( posicao );
+						$scope.fichasInfo.push(ficha);
 					}
 				});
 				
@@ -82,6 +46,7 @@ angular.module("vigilantos").controller(
 						var ficha = $scope.fichas[i];
 						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
 						$scope.ignorados.push( posicao );
+						$scope.fichasInfo.push(ficha);
 					}
 				});
 				
@@ -92,6 +57,7 @@ angular.module("vigilantos").controller(
 						var ficha = $scope.fichas[i];
 						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
 						$scope.descartados.push( posicao );
+						$scope.fichasInfo.push(ficha);
 					}
 				});
 				
@@ -102,9 +68,9 @@ angular.module("vigilantos").controller(
 						var ficha = $scope.fichas[i];
 						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
 						$scope.confirmados.push( posicao );
+						$scope.fichasInfo.push(ficha);
 					}
 				});
-				
 		
 				$scope.mapa.posicao = [ -27.4658, -50.7504 ];
 				$scope.mapa.zoom = 8;
@@ -116,10 +82,11 @@ angular.module("vigilantos").controller(
 			}
 
 			$scope.abrirInfo = function(event, $index) {
-				$scope.selecionado = $scope.fichas[$index]
+				$scope.selecionado = {};
+				$scope.selecionado = $scope.fichasInfo[$index];
 				$scope.googlemaps.showInfoWindow("epizootia-info", this);
 			}
-
+			
 			$scope.init();
 
 		});

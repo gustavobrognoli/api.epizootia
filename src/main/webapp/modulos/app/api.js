@@ -274,7 +274,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        },
 	        
 	        ficha:{
-	        	insert: function( resultado ){
+	        	insert: function( ficha ){
 	        		return $http.post("./api/ficha", ficha);
 	        	},
 	        	getAll: function(){

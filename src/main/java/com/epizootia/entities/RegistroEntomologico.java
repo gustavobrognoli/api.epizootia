@@ -27,6 +27,9 @@ public class RegistroEntomologico implements Serializable {
 	@Column(name = "cd_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "fg_pesquisa")
+	private Boolean pesquisa;
 
 	@Column(name = "dt_data_registro")
 	private Calendar DataRegistro = Calendar.getInstance();
@@ -75,6 +78,14 @@ public class RegistroEntomologico implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Boolean getPesquisa() {
+		return pesquisa;
+	}
+
+	public void setPesquisa(Boolean pesquisa) {
+		this.pesquisa = pesquisa;
 	}
 
 	public Calendar getDataRegistro() {
@@ -151,10 +162,12 @@ public class RegistroEntomologico implements Serializable {
 
 	@Override
 	public String toString() {
-		return "RegistroEntomologico [id=" + id + ", DataRegistro=" + DataRegistro + ", DataUltimoRegistro="
-				+ DataUltimoRegistro + ", metodoCaptura=" + metodoCaptura + ", equipamento=" + equipamento
-				+ ", isolamentoViral=" + isolamentoViral + ", coberturaVacinal=" + coberturaVacinal + ", imoveisVisitados300m=" + imoveisVisitados300m
-				+ ", dosesAplicadas300m=" + dosesAplicadas300m + ", focosAedes=" + focosAedes300m + "]";
+		return "RegistroEntomologico [id=" + id + ", pesquisa=" + pesquisa + ", DataRegistro=" + DataRegistro
+				+ ", DataUltimoRegistro=" + DataUltimoRegistro + ", metodoCaptura=" + metodoCaptura + ", equipamento="
+				+ equipamento + ", isolamentoViral=" + isolamentoViral + ", coberturaVacinal=" + coberturaVacinal
+				+ ", imoveisVisitados300m=" + imoveisVisitados300m + ", dosesAplicadas300m=" + dosesAplicadas300m
+				+ ", focosAedes300m=" + focosAedes300m + "]";
 	}
+
 
 }

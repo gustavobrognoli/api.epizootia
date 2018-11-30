@@ -109,11 +109,11 @@ values ("2018-01-01 23:59:59.997","3","São José","3","1");
 INSERT INTO epizootia.mod_epizootia_ficha (dt_data_ocorrencia, cd_localidade, ds_municipio, id_classificacaofa, cd_registro_entomologico)
 values ("2018-01-01 23:59:59.997","4","São José","4","1");
 
-INSERT INTO epizootia.mod_epizootia_registro_entomologico (dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
-values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");
+INSERT INTO epizootia.mod_epizootia_registro_entomologico (fg_pesquisa, dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
+values (true, "2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");
 
-INSERT INTO epizootia.mod_epizootia_registro_entomologico (dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
-values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");
+INSERT INTO epizootia.mod_epizootia_registro_entomologico (fg_pesquisa, dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
+values (false,"2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");
 
-INSERT INTO epizootia.mod_epizootia_registro_entomologico (dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
-values ("2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");
+INSERT INTO epizootia.mod_epizootia_registro_entomologico (fg_pesquisa, dt_data_registro, dt_data_ultimo_registro, nu_cobertura_vacinal, nu_doses_aplicadas_300m, cd_equipamento, nu_focos_aedes_300m, nu_imoveis_visitados_300m, cd_isolamento_viral, cd_metodo_captura)
+values (false,"2018-11-03 23:59:59.997","2018-10-03 23:59:59.997","1","1", "1", "1", "1", "1", "1");

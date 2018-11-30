@@ -52,7 +52,7 @@ angular.module("vigilantos").controller("EpizootiaNotificacaoListaController",
 		});
 	}
 	
-	$scope.confirmarRemover = function( ficha ){
+	$scope.removerFicha = function( ficha ){
 		var mensagem = "Confirma exclusão deste Registro"+"?";
 		
 		var modalInstance = $uibModal.open({ 

@@ -10,12 +10,11 @@
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="control-label">Municipio:</label> <select
-					name="municipio" class="form-control"
-					ng-options="m as m.nome for m in municipios track by m.id"
-					ng-model="ficha.municipio" ng-change="getByMunicipio()">
-					<option value="">Todos...</option>
-				</select>
+				<label class="control-label">Municipio:</label> 
+				<select class="form-control" name="cbmunicipios" id="cbmunicipios"
+                        ng-options="option.nome for option in municipios track by option.id"
+                        ng-model="ficha.municipio">
+                </select>				
 			</div>
 
 			<div class="col-sm-6"
@@ -23,9 +22,7 @@
 
 				<label class="control-label">Data da Ocorrência</label> <input
 					name="dtRegistro" type="text" class="form-control"
-					ng-model="ficha.dtRegistro" bs-datepicker autoclose="true"
-					required>
-
+					ng-model="ficha.dtRegistro" bs-datepicker autoclose="true" required>
 
 				<div class="help-block"
 					ng-show="( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) )">
@@ -79,10 +76,14 @@
 										<td ng_bind="a.situacao.situacao"></td>
 										<td ng_bind="a.sexo.sexo"></td>
 										<td ng_bind="a.idade.idade"></td>
-										<td><i class="btn btn-info btn-xs fa fa-eye"
+										<td>
+<!-- 										
+										<i class="btn btn-info btn-xs fa fa-eye"
 											ng-click="visualizaAnimal(a.id, 'lg')" data-toggle="tooltip"
-											title="Visualizar Animal"></i> <i
-											class="btn btn-danger btn-xs fa fa-times"
+											title="Visualizar Animal"></i> 
+										 -->
+											
+										<i class="btn btn-danger btn-xs fa fa-times"
 											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i></td>
 										</td>
 								</table>
@@ -93,20 +94,26 @@
 								<div>
 									<br>
 									<hr>
-									<br> <label><b><i>Resultado de Epizootia
-												por Febre Amarela</i></b></label>
+									<br> <label><b><i>Resultado de Epizootia por Febre Amarela</i></b></label>
 								</div>
 
 								<div class="form-group col-sm-6 row justify-content-start">
+									<select class="form-control" name="cbmunicipios" id="cbmunicipios"
+					                        ng-options="option.classificacao for option in resultados track by option.id"
+					                        ng-model="ficha.classificacaoFA">
+					                </select>
+					                
+					                <!--				
 									<select autofocus ng-required="true" id="idClassificacao"
-										class="form-control" ng-model="ficha.classificacao"
-										ng-options="r as r.classificacao for r in resultados | orderBy:'classificacao' track by m.id">
+										class="form-control" ng-model="ficha.classificacaoFA"
+										ng-options="r.classificacao for r in resultados | orderBy:'classificacao' track by m.id">
 									</select>
+									-->
 								</div>
 							</div>
 
 							<div class="text-right">
-								<button type="submit" ng-click="salvarFicha('dados_animal')"
+								<button type="submit" ng-click="salvarFicha('ficha_aba1', ficha)"
 									class="btn btn-success">
 									Salvar
 									<!-- Etapa-->
@@ -120,8 +127,7 @@
 
 					<div class="text-right"></div>
 
-					</uib-tab> <uib-tab> <uib-tab-heading> Dados do
-					Local<span class="badge badge-default pull-right wizard-step">2</span>
+					</uib-tab> <uib-tab> <uib-tab-heading> Dados do Local<span class="badge badge-default pull-right wizard-step">2</span>
 					</uib-tab-heading> <!--                      --> <!-- MORADOR PARA CONTATO --> <!--                      -->
 
 					<div class="form-group col-sm-12">
@@ -135,7 +141,7 @@
 
 						<div class="input-group">
 							<select autofocus ng-required="true" id="idMorador"
-								class="form-control" ng-model="localidade.nomeMorador"
+								class="form-control" ng-model="ficha.localidade.morador.morador"
 								ng-options="m as m.morador for m in moradores | orderBy:'nome' track by m.id">
 							</select> <span class="input-group-btn">
 
@@ -153,7 +159,7 @@
 						<input type="text" class="form-control" ng-model="m.telefone" readonly>
 						-->
 						<select autofocus ng-required="true" id="idTelefone"
-							class="form-control" ng-model="localidade.telefoneMorador"
+							class="form-control" ng-model="ficha.localidade.morador.telefone"
 							ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
 						</select>
 					</div>
@@ -167,37 +173,38 @@
 
 					<div class="form-group col-sm-4">
 						<label class="control-label">CEP</label> <input name="cep"
-							type="text" class="form-control" ng-model="localidade.cep">
+							type="text" class="form-control" ng-model="ficha.localidade.cep">
 					</div>
 
 
 					<div class="form-group col-sm-8">
 						<label class="control-label">Bairro</label> <input name="bairro"
-							type="text" class="form-control" ng-model="localidade.bairro">
+							type="text" class="form-control"
+							ng-model="ficha.localidade.bairro">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Logradouro</label> <input
 							name="logradouro" type="text" class="form-control"
-							ng-model="localidade.logradouro">
+							ng-model="ficha.localidade.logradouro">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Ponto de Referência</label> <input
 							name="pontoReferencia" type="text" class="form-control"
-							ng-model="localidade.pontoReferencia">
+							ng-model="ficha.localidade.pontoReferencia">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Latitude:</label> <input
 							name="latitude" type="text" class="form-control"
-							ng-model="localidade.latitude">
+							ng-model="ficha.localidade.latitude">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Longitude:</label> <input
 							name="longitude" type="text" class="form-control"
-							ng-model="localidade.longitude">
+							ng-model="ficha.localidade.longitude">
 					</div>
 
 					<!--                 	 --> <!-- IMPACTOS OBSERVADOS --> <!--                     -->
@@ -208,19 +215,18 @@
 					</div>
 
 					<div class="form-group col-sm-4" ng-repeat="impacto in impactos">
-						<label> <input type="checkbox" ng-model="impacto.selected" /> 
+						<label> <input type="checkbox" ng-model="impacto.selected" />
 							{{ impacto.impacto }}
 						</label>
 					</div>
-					
+
 					<div class="form-group col-sm-4">
 						<input name="customRadioAlt" type="checkbox"
 							ng-model="impacto.outros"> <i></i>Outros?Quais?
 					</div>
 
 					<div class="form-group col-sm-6">
-						<input type="text" class="form-control"
-							id="impacto_outros">
+						<input type="text" class="form-control" id="impacto_outros">
 					</div>
 
 					<!--                 --> <!-- CARACTERÍSTICAS --> <!--                 -->
@@ -230,10 +236,11 @@
 						<hr>
 					</div>
 
-					<div class="form-group col-sm-3" ng-repeat="caracteristica in caracteristicas">
-						<label> <input type="checkbox" checklist-model="caracteristicas"
-							checklist-value="localidade.caracteristica"> {{ caracteristica.caracteristica }}
-						</label>
+					<div class="form-group col-sm-3"
+						ng-repeat="caracteristica in caracteristicas">
+						<label><input type="checkbox"
+							ng-model="caracteristica.selected" /> {{
+							caracteristica.caracteristica }} </label>
 					</div>
 
 					<!--  --> <!-- Corpos d' Água --> <!--  -->
@@ -246,7 +253,7 @@
 					<div class="form-group col-sm-6">
 						<div class="input-group">
 							<select autofocus ng-required="true" id="idCorposAgua"
-								class="form-control" ng-model="corposAgua"
+								class="form-control" ng-model="ficha.localidade.corposAgua.nome"
 								ng-options="c as c.nome for c in corposAguas | orderBy:'id' track by m.id">
 							</select> <span class="input-group-btn">
 
@@ -285,7 +292,8 @@
 								<label class="control-label">Unidade de Conservação</label>
 								<div class="input-group">
 									<select autofocus ng-required="true" id="idUnidadeConservacao"
-										class="form-control" ng-model="local.unidadeConservacao"
+										class="form-control"
+										ng-model="ficha.localidade.situacaoFundiaria.nome"
 										ng-options="u as u.nome for u in unidadesConservacao | orderBy:'id' track by u.id">
 									</select> <span class="input-group-btn">
 
@@ -307,7 +315,7 @@
 
 					<div class="form-group col-sm-9">
 						<input name="detalheLocal" type="text" class="form-control"
-							ng-model="epizootia.detalheLocal">
+							ng-model="ficha.localidade.descricao">
 					</div>
 
 					<div class="row"></div>
@@ -316,11 +324,8 @@
 					<br>
 
 					<div class="text-right">
-
-						<!-- <button type="button" class="btn btn-primary"
-							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="submit" class="btn btn-success"
-							ng-click="salvarFicha('localidade')">
+							ng-click="salvarFicha('ficha_aba2')">
 							Salvar
 							<!-- Etapa-->
 						</button>
@@ -337,13 +342,15 @@
 
 					<div class="form-group col-sm-12">
 						<label class="checkbox-inline checkbox-custom-alt"> <input
-							name="visceraRadio" type="radio" ng-model="registroEntomologico.registro"
-							ng-value="true"> <i></i> Sim
+							name="visceraRadio" type="radio"
+							ng-model="ficha.registroEntomologico.pesquisa" ng-value="true">
+							<i></i> Sim
 
 						</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label
 							class="checkbox-inline checkbox-custom-alt"> <input
-							name="visceraRadio" type="radio" ng-model="registroEntomologico.registro"
-							ng-value="false"> <i></i>Não
+							name="visceraRadio" type="radio"
+							ng-model="ficha.registroEntomologico.pesquisa" ng-value="false">
+							<i></i>Não
 						</label>
 					</div>
 
@@ -351,8 +358,8 @@
 						<div class="form-group col-sm-4">
 							<label class="control-label">Data da Coleta</label> <input
 								name="dtRegistro" type="text" class="form-control"
-								ng-model="registroEntomologico.dataRegistro" bs-datepicker autoclose="true"
-								required>
+								ng-model="ficha.registroEntomologico.dataRegistro" bs-datepicker
+								autoclose="true" required>
 						</div>
 					</div>
 
@@ -372,7 +379,8 @@
 
 					<div class="form-group col-sm-6">
 						<select autofocus ng-required="true" id="idMetodoCaptura"
-							class="form-control" ng-model="registroEntomologico.metodoCaptura"
+							class="form-control"
+							ng-model="ficha.registroEntomologico.metodoCaptura.metodoCaptura"
 							ng-options="m as m.metodoCaptura for m in metodosCaptura | orderBy:'metodo' track by m.id">
 						</select>
 					</div>
@@ -382,23 +390,22 @@
 						<hr>
 					</div>
 
-					<div class="form-group col-sm-3" ng-repeat="equipamento in equipamentos">
-						<label> <input type="checkbox" checklist-model="equipamentos"
-							checklist-value="registroEntomologico.equipamento"> {{ equipamento.equipamento }}
+					<div class="form-group col-sm-3"
+						ng-repeat="equipamento in equipamentos">
+						<label> <input type="checkbox"
+							ng-model="equipamento.selected" /> {{ equipamento.equipamento }}
 						</label>
 					</div>
-
 					<div class="form-group col-sm-12">
 						<label><b><i>Espécies do vetor encontradas:</i></b></label>
 						<hr>
 					</div>
-
 					<div class="form-group col-sm-3" ng-repeat="genero in generos">
-						<label> <input type="checkbox" checklist-model="generos"
-							checklist-value="registroEntomologico.isolamentoViral.genero"> {{ genero.genero }}
+						<label> <input type="checkbox" ng-model="genero.selected" />
+							{{ genero.genero }}
 						</label>
 					</div>
-					
+
 
 					<div class="form-group col-sm-12">
 						<label><b><i>Cobertura Vacinal(%) do município:</i></b></label>
@@ -407,7 +414,7 @@
 
 					<div class="form-group col-sm-6">
 						<input name="coberturaVacinal" type="text" class="form-control"
-							ng-model="registroEntomologico.coberturaVacinal">
+							ng-model="regEntomologico.coberturaVacinal">
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -418,7 +425,7 @@
 
 					<div class="form-group col-sm-6">
 						<input name="imoveis300metros" type="text" class="form-control"
-							ng-model="registroEntomologico.imoveisVisitados300m">
+							ng-model="ficha.registroEntomologico.imoveisVisitados300m">
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -429,7 +436,7 @@
 
 					<div class="form-group col-sm-6">
 						<input name="dosesAplicadas" type="text" class="form-control"
-							ng-model="registroEntomologico.dosesAplicadas300m">
+							ng-model="ficha.registroEntomologico.dosesAplicadas300m">
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -440,7 +447,7 @@
 
 					<div class="form-group col-sm-6">
 						<input name="focosAedesAegypti" type="text" class="form-control"
-							ng-model="regEntomologico.focosAedes300m">
+							ng-model="ficha.registroEntomologico.focosAedes300m">
 					</div>
 
 					<div class="row"></div>
@@ -453,7 +460,7 @@
 						<!-- 						<button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="button" class="btn btn-success"
-							ng-click="salvarFicha('dados_RegEntomologico')">
+							ng-click="salvarFicha('ficha_aba3')">
 							Salvar
 							<!-- Etapa-->
 						</button>
