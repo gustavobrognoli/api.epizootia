@@ -80,6 +80,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 				toastr.success("Dados do Animal salvos com sucesso");
 			});
 		} else if (key == 'ficha_aba2') {
+/*
 			// Impactos
 			var selecionadosImpactos = $scope.impactos;
 			for (var i = 0; i < $scope.impactos.length; i++) {
@@ -101,12 +102,14 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	            	key.caracteristicas.push(caracteristica);
 	            }
 	        }
-				
-		    api.epizootia.ficha.update( ficha ).then( function(response) {
-		    	$scope.ficha.id = response.data;
+			
+*/	        
+			api.epizootia.ficha.update( ficha ).then( function(response) {
+				$scope.ficha = response.data;
 		    	toastr.success("Dados do Local salvos com sucesso");
 		    });
 		} else if (key == 'ficha_aba3') {
+/*
 			// Equipamentos
 			var selecionadosEquipamento = $scope.equipamentos;
 	        for (var i = 0; i < $scope.equipamentos.length; i++) {
@@ -125,8 +128,8 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	            }
 	        }
 
-	        api.epizootia.ficha.update( ficha ).then( function(response) {
-				$scope.ficha.id = response.data;
+*/	        api.epizootia.ficha.update( ficha ).then( function(response) {
+				$scope.ficha = response.data;
 				toastr.success("Dados do Registro Entomológico salvos com sucesso");
 			});
 		} 

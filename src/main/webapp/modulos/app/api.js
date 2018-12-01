@@ -281,6 +281,7 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	        		return $http.get("./api/ficha");
 	        	},
 	            get: function( id ){
+	            	
 	        		return $http.get("./api/ficha/" + id);
 	            },
 	            excluir: function( id ){
@@ -288,6 +289,9 @@ angular.module("vigilantos").factory("api", function($http, $window, $filter, $w
 	            },
 	            getClassificao: function( id ){
 	            	return $http.get("./api/ficha/classificacao/" + id);
+	            },
+	            update: function( ficha ){
+	            	return $http.put("./api/ficha/", ficha);
 	            }
 	        },
 	    }, 

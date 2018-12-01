@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -132,32 +133,32 @@ public class FichaController {
 
 	/**
 	 * 
-	 * Cadastra novo ficha na base de dados
+	 * Atualizar  ficha na base de dados
 	 * 
 	 * @param result
 	 * @return Ficha
 	 * @throws NoSuchAlgorithmException
 	 */
-/*	@PutMapping(value = "/{id}")
-	public ResponseEntity<Response<Ficha>> atualizar(@PathVariable("id") int id, @Valid @RequestBody Ficha ficha, BindingResult result)
-			throws NoSuchAlgorithmException {
+	
+	@PutMapping
+	public ResponseEntity<Response<Ficha>> atualizar(@Valid @RequestBody Ficha ficha) throws NoSuchAlgorithmException {
+		Response<Ficha> response = new Response<Ficha>();
+		
 		log.info("Atualizando ficha {}", ficha.toString());
 
-		Response<Ficha> response = new Response<>();
-		validaSeExiste(ficha, result);
-		
-		
-		if (result.hasErrors()) {
-			log.error("Erro ao validar informações: {}", result.getAllErrors());
-			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+        Ficha fichaAlterada = service.atualizar(ficha);
+        if (fichaAlterada.getId() == 0) {
+
+			log.error("Id da Ficha não cadastrado na base de dados");
+			response.getErrors().add("Id da Ficha não cadastrado na base de dados");
+
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		this.service.atualizar(ficha);
-		response.setData(ficha);
+		response.setData(fichaAlterada);
 		return ResponseEntity.ok(response);
 	}
-*/
+
 	
 	/**
 	 * 
