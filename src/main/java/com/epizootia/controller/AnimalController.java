@@ -58,6 +58,24 @@ public class AnimalController {
 
 	/**
 	 * 
+	 * Consulta todas os Animais por Ficha
+	 * 
+	* @return List<Animal>
+	 */
+		
+	@GetMapping(value = "/ficha/{id}")
+	public ResponseEntity<Response<List<Animal>>> listaAnimaisFicha(@PathVariable("id") int id) {
+		Response<List<Animal>> response = new Response<List<Animal>>();
+
+		List<Animal> animais = service.findAllByFicha(id);
+
+		response.setData(animais);
+
+		return ResponseEntity.ok(response);
+	}
+	
+	/**
+	 * 
 	 * Consulta de animal por id
 	 * 
 	 * @return List<AnimalDTO>

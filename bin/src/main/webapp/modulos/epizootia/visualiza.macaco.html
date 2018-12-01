@@ -1,0 +1,142 @@
+<div class="modal-content">
+
+	<div class="modal-header">
+		<button type="button" class="close" aria-label="Close"
+			ng-click="close()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<h4 class="modal-title">Vizualiza Animal</h4>
+	</div>
+
+	<div class="modal-body">
+
+		<div class="form-group col-sm-12">
+
+			<label><b><i>Dados do Animal</i></b></label>
+			<hr>
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Nome Popular:</label> <input
+				name="nomePopularAnimal" class="form-control"
+				ng-model="animal.nomePopular.nome" ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Espécie:</label><input
+				name="especieAnimal" class="form-control"
+				ng-model="animal.especie.nome" ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Idade:</label><input name="idadeAnimal"
+				class="form-control" ng-model="animal.especie.especie"
+				ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Sexo:</label><input name="sexoAnimal"
+				class="form-control" ng-model="animal.sexo.sexo" ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Situação:</label><input
+				name="situcaoAnimal" class="form-control"
+				ng-model="animal.situacao.situacao" ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Tempo aproximado do Óbito</label><input
+				name="obitoAnimal" class="form-control"
+				ng-model="animal.tempoObito.tempoObito" ng-disabled="true" />
+		</div>
+
+		<!-- Vida livre | Apreensao | Cativeiro -->
+		<div class="form-group col-sm-12">
+			<label><b><i>Parecer do Animal</i></b></label>
+			<hr>
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Animal de Vida Livre?</label><input
+				name="vidaLivreAnimal" class="form-control"
+				ng-model="animal.vidaLivre.vidaLivre" ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Animal de Apreensão?</label><input
+				name="apreensaoAnimal" class="form-control"
+				ng-model="animal.vidaLivre.vidaLivre" ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Animal de Cativeiro?</label><input
+				name="cativeiroAnimal" class="form-control"
+				ng-model="animal.cativeiro.cativeiro" ng-disabled="true" />
+		</div>
+
+		<div class="form-group col-sm-12">
+			<label><b><i>Dados da Coleta</i></b></label>
+			<hr>
+		</div>
+
+		<div class="form-group col-sm-12">
+
+			<label class="control-label">Coleta de Visceras:</label>
+
+			<div>
+				<div class="form-group col-sm-3" ng-repeat="viscera in visceras">
+					<label> <input type="checkbox" checklist-model="visceras"
+						checklist-value="viscera"> {{ viscera.viscera }}
+					</label>
+				</div>
+
+				<div class="form-group col-sm-12">
+					<label class="control-label">Motivo:</label><input
+						name="motivoAnimal" class="form-control"
+						ng-model="animal.viscera.motivo" ng-disabled="true" />
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Anormalidades Observadas /////////////////////////////////// -->
+
+		<div class="form-group col-sm-12">
+
+			<label class="control-label">Anormalidades Observadas:</label>
+
+			<div class="form-group col-sm-12 row justify-content-start">
+				<div class="form-group col-sm-3"
+					ng-repeat="anormalidade in anormalidades">
+					<label> <input type="checkbox"
+						checklist-model="anormalidades" checklist-value="anormalidade">
+						{{ anormalidade.sintoma }}
+					</label>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="form-group col-sm-12">
+			<label><b><i>Informações Complementares</i></b></label>
+			<hr>
+		</div>
+
+		<div class="form-group col-sm-6">
+			<label class="control-label">Outras Informações</label><input
+				name="outrasInformacoesAnimal" class="form-control"
+				ng-model="animal.outrasInformacoes" ng-disabled="true" />
+		</div>
+
+		<div class="form-group row"></div>
+	</div>
+
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="close()">Fechar</button>
+	</div>
+	</form>
+</div>

@@ -11,10 +11,10 @@
 
 			<div class="form-group col-sm-6">
 				<label class="control-label">Municipio:</label> <select
-					name="municipio" class="form-control"
-					ng-options="m as m.nome for m in municipios track by m.id"
-					ng-model="municipio" ng-change="getByMunicipio()">
-					<option value="">Todos...</option>
+					class="form-control" name="cbmunicipios" id="cbmunicipios"
+					ng-options="option.nome for option in municipios track by option.id"
+					ng-model="ficha.municipio">
+					<option value="" hidden>Selecione...</option>
 				</select>
 			</div>
 
@@ -23,9 +23,7 @@
 
 				<label class="control-label">Data da Ocorrência</label> <input
 					name="dtRegistro" type="text" class="form-control"
-					ng-model="epizootia.dtRegistro" bs-datepicker autoclose="true"
-					required>
-
+					ng-model="ficha.dtRegistro" bs-datepicker autoclose="true" required>
 
 				<div class="help-block"
 					ng-show="( form.dtColetaInicio.$invalid && (form.dtColetaInicio.$touched || form.$submitted) ) || ( form.dtColetaFim.$invalid && (form.dtColetaFim.$touched || form.$submitted) )">
@@ -73,16 +71,21 @@
 										<th>Idade</th>
 									</tr>
 
-									<tr ng_repeat="a in animais">
+									<tr ng_repeat="a in ficha.animais">
 										<td ng_bind="a.nomePopular.nome"></td>
 										<td ng-bind="a.especie.especie"></td>
 										<td ng_bind="a.situacao.situacao"></td>
 										<td ng_bind="a.sexo.sexo"></td>
 										<td ng_bind="a.idade.idade"></td>
-										<td><i class="btn btn-danger btn-xs fa fa-times"
-											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i></td>
+										<td>
+											<!-- 										
+										<i class="btn btn-info btn-xs fa fa-eye"
+											ng-click="visualizaAnimal(a.id, 'lg')" data-toggle="tooltip"
+											title="Visualizar Animal"></i> 
+										 --> <i class="btn btn-danger btn-xs fa fa-times"
+											ng-click="removerAnimal(a)" uib-tooltip="Excluir Animal"></i>
 										</td>
-									</tr>
+										</td>
 								</table>
 							</div>
 
@@ -94,17 +97,21 @@
 									<br> <label><b><i>Resultado de Epizootia
 												por Febre Amarela</i></b></label>
 								</div>
-								
+
 								<div class="form-group col-sm-6 row justify-content-start">
-									<select autofocus ng-required="true" id="idMorador"
-										class="form-control" ng-model="nomeMorador"
-										ng-options="r as r.classificacao for r in resultados | orderBy:'classificacao' track by m.id">
+									<select class="form-control" name="cbclassificacoes"
+										id="cbclassificacoes"
+										ng-options="option.classificacao for option in resultados track by option.id"
+										ng-model="ficha.classificacaoFA">
+										<option value="" hidden>Selecione...</option>
 									</select>
+
 								</div>
 							</div>
 
 							<div class="text-right">
-								<button type="submit" ng-click="salvarFicha('dados_animal')"
+								<button type="submit"
+									ng-click="salvarFicha('ficha_aba1', ficha)"
 									class="btn btn-success">
 									Salvar
 									<!-- Etapa-->
@@ -132,11 +139,13 @@
 						<label class="control-label">Nome do Morador:</label>
 
 						<div class="input-group">
-							<select autofocus ng-required="true" id="idMorador"
-								class="form-control" ng-model="nomeMorador"
-								ng-options="m as m.morador for m in moradores | orderBy:'nome' track by m.id">
-							</select> <span class="input-group-btn">
-
+							<select class="form-control" name="cbmoradores" id="cbmoradores"
+								ng-options="option.morador for option in moradores track by option.id"
+								ng-model="ficha.localidade.morador.morador">
+								<option value="" hidden>Selecione...</option>
+							</select>
+						
+						 	<span class="input-group-btn">
 								<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar novo morador"
 									ng-click="addMorador()">+</button>
@@ -147,13 +156,12 @@
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Telefone do morador:</label>
-						<!-- 
-						<input type="text" class="form-control" ng-model="m.telefone" readonly>
-						-->
-						<select autofocus ng-required="true" id="idTelefone"
-							class="form-control" ng-model="telefoneMorador"
-							ng-options="m as m.telefone for m in moradores | orderBy:'telefone' track by m.id">
-						</select>
+						<select class="form-control" name="cbTelefone" id="cbTelefone"
+		                        ng-options="option.telefone for option in moradores track by option.id"
+		                        ng-model="ficha.localidade.morador.telefone">
+		                        <option value="" hidden>Selecione...</option>
+		                </select>
+
 					</div>
 
 					<!--              --> <!-- DADOS GERAIS --> <!--              -->
@@ -165,37 +173,38 @@
 
 					<div class="form-group col-sm-4">
 						<label class="control-label">CEP</label> <input name="cep"
-							type="text" class="form-control" ng-model="epizootia.cep">
+							type="text" class="form-control" ng-model="ficha.localidade.cep">
 					</div>
 
 
 					<div class="form-group col-sm-8">
 						<label class="control-label">Bairro</label> <input name="bairro"
-							type="text" class="form-control" ng-model="epizootia.bairro">
+							type="text" class="form-control"
+							ng-model="ficha.localidade.bairro">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Logradouro</label> <input
 							name="logradouro" type="text" class="form-control"
-							ng-model="epizootia.logradouro">
+							ng-model="ficha.localidade.logradouro">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Ponto de Referência</label> <input
 							name="pontoReferencia" type="text" class="form-control"
-							ng-model="epizootia.ponto.referencia">
+							ng-model="ficha.localidade.pontoReferencia">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Latitude:</label> <input
 							name="latitude" type="text" class="form-control"
-							ng-model="epizootia.latitude">
+							ng-model="ficha.localidade.latitude">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Longitude:</label> <input
 							name="longitude" type="text" class="form-control"
-							ng-model="epizootia.longitude">
+							ng-model="ficha.localidade.longitude">
 					</div>
 
 					<!--                 	 --> <!-- IMPACTOS OBSERVADOS --> <!--                     -->
@@ -205,105 +214,19 @@
 						<hr>
 					</div>
 
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.assentamento"> <i> </i>
-							Assentamento
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.alteracao"><i> </i>Alteração de
-							rios/lagos/lagoas
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.avanco"><i> </i>Avanço
-							Agropecuário
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.desastres"><i> </i>Desastres
-							naturais
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.exploracao"><i> </i>Exploração
-							de Petróleo e Gás
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.queimadas"><i> </i>Queimadas/Incêndios
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.obras"><i> </i>Grandes Obras
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.acidentais"><i> </i>Impactos
-							acidentais
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.pressao"> <i> </i>Pressão
-							imobiliária
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.desmatamento"><i> </i>Desmatamento
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.turismo"><i> </i>Turismo
-							ecológico
-						</label>
-					</div>
-
-					<div class="form-group col-sm-4">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.impactos.urbanizacao"><i> </i>Urbanização
-							recente
+					<div class="form-group col-sm-4" ng-repeat="impacto in impactos">
+						<label> <input type="checkbox" ng-model="impacto.selected" />
+							{{ impacto.impacto }}
 						</label>
 					</div>
 
 					<div class="form-group col-sm-4">
 						<input name="customRadioAlt" type="checkbox"
-							ng-model="animal.anormalidades.outros"> <i></i>Outros?Quais?
+							ng-model="impacto.outros"> <i></i>Outros?Quais?
 					</div>
 
 					<div class="form-group col-sm-6">
-						<input type="text" class="form-control"
-							id="anormalidade_epizootia">
+						<input type="text" class="form-control" id="impacto_outros">
 					</div>
 
 					<!--                 --> <!-- CARACTERÍSTICAS --> <!--                 -->
@@ -313,32 +236,11 @@
 						<hr>
 					</div>
 
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.natuaral"><i> </i>Natural
-							(Silvestre)
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.domicilio"><i> </i>Próximo
-							a Domicilio
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.urbano"><i> </i>Rural
-						</label>
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label class="form-check form-check-inline"> <input
-							name="customRadioAlt" type="checkbox"
-							ng-model="local.caracteristica.urbano"><i> </i>Urbano
-						</label>
+					<div class="form-group col-sm-3"
+						ng-repeat="caracteristica in caracteristicas">
+						<label><input type="checkbox"
+							ng-model="caracteristica.selected" /> {{
+							caracteristica.caracteristica }} </label>
 					</div>
 
 					<!--  --> <!-- Corpos d' Água --> <!--  -->
@@ -350,12 +252,14 @@
 
 					<div class="form-group col-sm-6">
 						<div class="input-group">
-							<select autofocus ng-required="true" id="idCorposAgua"
-								class="form-control" ng-model="corposAgua"
-								ng-options="c as c.nome for c in corposAguas | orderBy:'id' track by m.id">
-							</select> <span class="input-group-btn">
+						<select class="form-control" name="cbCorposAgua" id="cbCorposAgua"
+                        	ng-options="option.nome for option in corposAguas track by option.id"
+                        	ng-model="ficha.localidade.corposAgua">
+                        	<option value="" hidden>Selecione...</option>
+                		</select>
+						<span class="input-group-btn">
 
-								<button class="btn btn-default" type="button"
+						<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar novo Corpo d`Água"
 									ng-click="addCorpoAgua()">+</button>
 							</span>
@@ -369,10 +273,13 @@
 
 					<div class="form-group col-sm-6">
 						<div class="input-group">
-							<select autofocus ng-required="true" id="idSituacaoFundiaria"
-								class="form-control" ng-model="local.situacaoFundiaria"
-								ng-options="s as s.nome for s in situacoesFundiarias | orderBy:'id' track by s.id">
-							</select> <span class="input-group-btn">
+							<select class="form-control" name="cbSituacaoFundiaria" id="cbSituacaoFundiaria"
+                       			ng-options="option.nome for option in situacoesFundiarias track by option.id"
+                        		ng-model="ficha.localidade.situacaoFundiaria">
+                        		<option value="" hidden>Selecione...</option>
+              				</select>
+							
+							<span class="input-group-btn">
 
 								<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar nova Situação Fundiária"
@@ -383,23 +290,27 @@
 
 
 					<div class="form-group col-sm-12"
-						ng-show="local.situacaoFundiaria.nome == 'Unidade de Conservação'">
+						ng-show="ficha.localidade.situacaoFundiaria.nome == 'Unidade de Conservação'">
+						<div class="row justify-content-start">
+							<div class="form-group col-sm-6">
 
-						<div class="form-group col-sm-6">
+								<label class="control-label">Unidade de Conservação</label>
+								<div class="input-group">
+									<select class="form-control" name="cbUnidadeConservacao" id="cbUnidadeConservacao"
+				                        ng-options="option.nome for option in unidadesConservacao track by option.id"
+				                        ng-model="ficha.localidade.unidadeConservacao">
+				                        <option value="" hidden>Selecione...</option>
+               						</select>
+									
+									<span class="input-group-btn">
 
-							<label class="control-label">Unidade de Conservação</label>
-							<div class="input-group">
-								<select autofocus ng-required="true" id="idUnidadeConservacao"
-									class="form-control" ng-model="local.unidadeConservacao"
-									ng-options="u as u.nome for u in unidadesConservacao | orderBy:'id' track by u.id">
-								</select> <span class="input-group-btn">
+										<button class="btn btn-default" type="button"
+											data-toggle="tooltip"
+											title="Adicionar nova Unidade de Conservação"
+											ng-click="addUnidade()">+</button>
 
-									<button class="btn btn-default" type="button"
-										data-toggle="tooltip"
-										title="Adicionar nova Unidade de Conservação"
-										ng-click="addUnidade()">+</button>
-
-								</span>
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -411,7 +322,7 @@
 
 					<div class="form-group col-sm-9">
 						<input name="detalheLocal" type="text" class="form-control"
-							ng-model="epizootia.detalheLocal">
+							ng-model="ficha.localidade.descricao">
 					</div>
 
 					<div class="row"></div>
@@ -420,11 +331,8 @@
 					<br>
 
 					<div class="text-right">
-
-						<!-- <button type="button" class="btn btn-primary"
-							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="submit" class="btn btn-success"
-							ng-click="salvarLocalidade(localidade)">
+							ng-click="salvarFicha('ficha_aba2')">
 							Salvar
 							<!-- Etapa-->
 						</button>
@@ -434,37 +342,39 @@
 						class="badge badge-default pull-right wizard-step">3</span> </uib-tab-heading>
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Houve coleta relacionada a este
-									registro?</i></b></label>
+						<label><b><i>Foi realizada a pesquisa entomológica
+									a este registro?</i></b></label>
 						<hr>
 					</div>
 
 					<div class="form-group col-sm-12">
 						<label class="checkbox-inline checkbox-custom-alt"> <input
-							name="visceraRadio" type="radio" ng-model="animal.viscera"
-							ng-value="true"> <i></i> Sim
+							name="visceraRadio" type="radio"
+							ng-model="ficha.registroEntomologico.pesquisa" ng-value="true">
+							<i></i> Sim
 
 						</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<label
 							class="checkbox-inline checkbox-custom-alt"> <input
-							name="visceraRadio" type="radio" ng-model="animal.viscera"
-							ng-value="false"> <i></i>Não
+							name="visceraRadio" type="radio"
+							ng-model="ficha.registroEntomologico.pesquisa" ng-value="false">
+							<i></i>Não
 						</label>
 					</div>
 
-					<div ng-hide="animal.viscera == false">
+					<div ng-hide="registroEntomologico.registro == false">
 						<div class="form-group col-sm-4">
 							<label class="control-label">Data da Coleta</label> <input
 								name="dtRegistro" type="text" class="form-control"
-								ng-model="epizootia.dtColeta" bs-datepicker autoclose="true"
-								required>
+								ng-model="ficha.registroEntomologico.dataRegistro" bs-datepicker
+								autoclose="true" required>
 						</div>
 					</div>
 
-					<div ng-show="animal.viscera == false">
+					<div ng-show="registroEntomologico.registro == false">
 						<div class="form-group col-sm-4">
 							<label class="control-label">Data do ultimo registro</label> <input
 								name="dtRegistro" type="text" class="form-control"
-								ng-model="epizootia.dtUltimoRegistro" bs-datepicker
+								ng-model="registroEntomologico.dataUltimoRegistro" bs-datepicker
 								autoclose="true" required>
 						</div>
 					</div>
@@ -475,10 +385,13 @@
 					</div>
 
 					<div class="form-group col-sm-6">
-						<select autofocus ng-required="true" id="idMetodoCaptura"
-							class="form-control" ng-model="regEntomologico.metodoCaptura"
-							ng-options="m as m.metodoCaptura for m in metodosCaptura | orderBy:'metodo' track by m.id">
+					
+						<select class="form-control" name="cbMetodoCaptura" id="cbMetodoCaptura"
+							ng-options="option.metodoCaptura for option in metodosCaptura track by option.id"
+							ng-model="ficha.registroEntomologico.metodoCaptura.metodoCaptura">
+							<option value="" hidden>Selecione...</option>
 						</select>
+					
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -486,91 +399,25 @@
 						<hr>
 					</div>
 
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.equipamentos.puca"> <i> </i>
-							Puçá
-						</label>
-					</div>
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.equipamentos.castro"> <i> </i>
-							Castro
-						</label>
-					</div>
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.equipamentos.shanonn"> <i>
-						</i> Shanonn Barraca
-						</label>
-					</div>
-					<div class="form-group col-sm-3">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.equipamentos.cdc
-							"> <i>
-						</i> Armadilha CDC
+					<div class="form-group col-sm-3"
+						ng-repeat="equipamento in equipamentos">
+						<label> <input type="checkbox"
+							ng-model="equipamento.selected" /> {{ equipamento.equipamento }}
 						</label>
 					</div>
 					<div class="form-group col-sm-12">
-						<label><b><i>Genêros Encontrados</i></b></label>
+						<label><b><i>Espécies do vetor encontradas:</i></b></label>
 						<hr>
 					</div>
-
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.generos.haemagogus"> <i> </i>
-							Haemagogus
-						</label>
-					</div>
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.generos.sabethes"> <i> </i>
-							Sabethes
-						</label>
-					</div>
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.generos.egypti"> <i> </i> Aedes
-							Aegypti
-						</label>
-					</div>
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.generos.albopictus"> <i> </i>
-							Aedes Albopictus
-						</label>
-					</div>
-					<div class="form-group col-sm-4">
-						<label> <input name="customRadioAlt" type="checkbox"
-							ng-model="regEntomologico.generos.anopheles"> <i> </i>
-							Anopheles
-						</label>
-					</div>
-					<div class="form-group col-sm-12">
-						<label><b><i>Classificação Munícipio</i></b></label>
-						<hr>
-					</div>
-
-
-					<div class="form-group col-sm-6">
-						<label> <input class="form-check-input"
-							name="classificacaoRadio" type="radio"
-							ng-model="regEntomologico.classificacao.asrv"> <i> </i>
-							Área sem recomendação de vacina (ASRV)
-						</label>
-					</div>
-
-					<div class="form-group col-sm-6">
-						<label> <input class="form-check-input"
-							name="classificacaoRadio" type="radio"
-							ng-model="regEntomologico.classificacao.acrv"> <i> </i>
-							Área com recomendação de vacina (ACRV)
+					<div class="form-group col-sm-3" ng-repeat="genero in generos">
+						<label> <input type="checkbox" ng-model="genero.selected" />
+							{{ genero.genero }}
 						</label>
 					</div>
 
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Cobertura Vacinal(%)</i></b></label>
+						<label><b><i>Cobertura Vacinal(%) do município:</i></b></label>
 						<hr>
 					</div>
 
@@ -587,18 +434,18 @@
 
 					<div class="form-group col-sm-6">
 						<input name="imoveis300metros" type="text" class="form-control"
-							ng-model="regEntomologico.imoveis300metros">
+							ng-model="ficha.registroEntomologico.imoveisVisitados300m">
 					</div>
 
 					<div class="form-group col-sm-12">
-						<label><b><i>Doses aplicadas dentro do raio de
-									300m a partir do local da Epizootia:</i></b></label>
+						<label><b><i>Doses aplicadas de vacina dentro do
+									raio de 300m a partir do local da Epizootia:</i></b></label>
 						<hr>
 					</div>
 
 					<div class="form-group col-sm-6">
 						<input name="dosesAplicadas" type="text" class="form-control"
-							ng-model="regEntomologico.dosesAplicadas">
+							ng-model="ficha.registroEntomologico.dosesAplicadas300m">
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -609,7 +456,7 @@
 
 					<div class="form-group col-sm-6">
 						<input name="focosAedesAegypti" type="text" class="form-control"
-							ng-model="regEntomologico.focosAedes">
+							ng-model="ficha.registroEntomologico.focosAedes300m">
 					</div>
 
 					<div class="row"></div>
@@ -619,10 +466,10 @@
 
 					<div class="text-right">
 
-						<!-- 						<button type="button" class="btn btn-primary"
+						<!--<button type="button" class="btn btn-primary"
 							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
 						<button type="button" class="btn btn-success"
-							ng-click="salvarFicha('dados_RegEntomologico')">
+							ng-click="salvarFicha('ficha_aba3')">
 							Salvar
 							<!-- Etapa-->
 						</button>

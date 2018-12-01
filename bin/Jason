@@ -1,13 +1,218 @@
-No JSON sempre chamar pelo nome da entidade
-
+ //Teste de inserção de ficha
+    
 { 
-"figado": 1,
-"rim": 1,
-"cerebro": 1,
-"baco": 1
-}
-
-{
-"nome" : "Prego",
-}
-
+		 "animais": [{
+            "id": 1,
+            "nomePopular": {
+                "id": 1,
+                "nome": "Bugio"
+            },
+            "especie": {
+                "id": 1,
+                "especie": "Alouatta sp"
+            },
+            "situacao": {
+                "id": 1,
+                "situacao": "Vivo (em bom estado de saúde)"
+            },
+            "sexo": {
+                "id": 1,
+                "sexo": "Macho"
+            },
+            "idade": {
+                "id": 1,
+                "idade": "Adulto"
+            },
+            "apreensao": {
+                "id": 1,
+                "apreensao": "Sim"
+            },
+            "vidaLivre": {
+                "id": 1,
+                "vidaLivre": "Sim"
+            },
+            "cativeiro": {
+                "id": 1,
+                "cativeiro": "Sim"
+            },
+            "tempoObito": {
+                "id": 1,
+                "tempoObito": "Até 2 horas"
+            },
+            "outrasInformacoes": "Animal 1",
+            "ficha": {
+                "id": 1,
+                "dataOcorrencia": "2018-01-02T01:59:59.000+0000",
+                "localidade": {
+                    "id": 1,
+                    "morador": {
+                        "id": 1,
+                        "morador": "Ana",
+                        "telefone": "48 9 9988-8888"
+                    },
+                    "cep": 1,
+                    "bairro": "Barreiros",
+                    "logradouro": "1",
+                    "pontoReferencia": "1",
+                    "latitude": -48.581441,
+                    "longitude": -27.592392,
+                    "impactos": {
+                        "id": 1,
+                        "impacto": "Assentamento "
+                    },
+                    "corposAgua": {
+                        "id": 1,
+                        "nome": "Nenhum"
+                    },
+                    "situacaoFundiaria": {
+                        "id": 1,
+                        "nome": "Não identificada"
+                    },
+                    "descricao": "1",
+                    "caracteristicas": {
+                        "id": 1,
+                        "caracteristica": "Natural (Silvestre)"
+                    }
+                },
+                "municipio": "São José",
+                "registroEntomologico": {
+                    "id": 1,
+                    "pesquisa": true,
+                    "metodoCaptura": {
+                        "id": 1,
+                        "metodoCaptura": "Captura de Solo"
+                    },
+                    "equipamento": {
+                        "id": 1,
+                        "equipamento": "Puçá"
+                    },
+                    "isolamentoViral": {
+                        "id": 1,
+                        "resultado": "1",
+                        "genero": {
+                            "id": 1,
+                            "genero": "Haemagogus sp"
+                        }
+                    },
+                    "coberturaVacinal": 1,
+                    "imoveisVisitados300m": 1,
+                    "dosesAplicadas300m": 1,
+                    "focosAedes300m": 1,
+                    "dataUltimoRegistro": "2018-10-04T02:59:59.000+0000",
+                    "dataRegistro": "2018-11-04T01:59:59.000+0000"
+                },
+                "classificacaoFA": {
+                    "id": 1,
+                    "classificacao": "Em análise"
+                }
+            }
+        },
+        {
+            "id": 2,
+            "nomePopular": {
+                "id": 1,
+                "nome": "Bugio"
+            },
+            "especie": {
+                "id": 1,
+                "especie": "Alouatta sp"
+            },
+            "situacao": {
+                "id": 1,
+                "situacao": "Vivo (em bom estado de saúde)"
+            },
+            "sexo": {
+                "id": 1,
+                "sexo": "Macho"
+            },
+            "idade": {
+                "id": 1,
+                "idade": "Adulto"
+            },
+            "apreensao": {
+                "id": 1,
+                "apreensao": "Sim"
+            },
+            "vidaLivre": {
+                "id": 1,
+                "vidaLivre": "Sim"
+            },
+            "cativeiro": {
+                "id": 1,
+                "cativeiro": "Sim"
+            },
+            "tempoObito": {
+                "id": 1,
+                "tempoObito": "Até 2 horas"
+            },
+            "outrasInformacoes": "Animal 2",
+            "ficha": {
+                "id": 1,
+                "dataOcorrencia": "2018-01-02T01:59:59.000+0000",
+                "localidade": {
+                    "id": 1,
+                    "morador": {
+                        "id": 1,
+                        "morador": "Ana",
+                        "telefone": "48 9 9988-8888"
+                    },
+                    "cep": 1,
+                    "bairro": "Barreiros",
+                    "logradouro": "1",
+                    "pontoReferencia": "1",
+                    "latitude": -48.581441,
+                    "longitude": -27.592392,
+                    "impactos": {
+                        "id": 1,
+                        "impacto": "Assentamento "
+                    },
+                    "corposAgua": {
+                        "id": 1,
+                        "nome": "Nenhum"
+                    },
+                    "situacaoFundiaria": {
+                        "id": 1,
+                        "nome": "Não identificada"
+                    },
+                    "descricao": "1",
+                    "caracteristicas": {
+                        "id": 1,
+                        "caracteristica": "Natural (Silvestre)"
+                    }
+                },
+                "municipio": "São José",
+                "registroEntomologico": {
+                    "id": 1,
+                    "pesquisa": true,
+                    "metodoCaptura": {
+                        "id": 1,
+                        "metodoCaptura": "Captura de Solo"
+                    },
+                    "equipamento": {
+                        "id": 1,
+                        "equipamento": "Puçá"
+                    },
+                    "isolamentoViral": {
+                        "id": 1,
+                        "resultado": "1",
+                        "genero": {
+                            "id": 1,
+                            "genero": "Haemagogus sp"
+                        }
+                    },
+                    "coberturaVacinal": 1,
+                    "imoveisVisitados300m": 1,
+                    "dosesAplicadas300m": 1,
+                    "focosAedes300m": 1,
+                    "dataUltimoRegistro": "2018-10-04T02:59:59.000+0000",
+                    "dataRegistro": "2018-11-04T01:59:59.000+0000"
+                },
+                "classificacaoFA": {
+                    "id": 1,
+                    "classificacao": "Em análise"
+                }
+            }
+        }],
+            "municipio": "São José",
+            "classificacaoFA": {"id": 1, "classificacao": "Em análise"}
+        }

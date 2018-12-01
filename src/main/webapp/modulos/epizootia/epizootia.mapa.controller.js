@@ -1,21 +1,12 @@
-angular.module("vigilantos").controller(
-		"EpizootiaMapaController",
+angular.module("vigilantos").controller("EpizootiaMapaController",
 		function($scope, api, utils, NgMap, $location) {
 
 			$scope.mapa = {};
 			$scope.isEdicao = false;
 			$scope.epizootiaFiltro = {};
 			$scope.isOpen = false;
-			
 
-			$scope.analises = [];
-			$scope.ignorados = [];
-			$scope.descartados = [];
-			$scope.confirmados = [];
-			
-			$scope.fichasInfo = [];
-			$scope.fichaMarcador = [];
-			$scope.marcador = [];
+			$scope.fichasMapa = [];
 
 			$scope.openMenu = function() {
 				$scope.isOpen = true;
@@ -34,88 +25,30 @@ angular.module("vigilantos").controller(
 				api.epizootia.ficha.getAll().then(function( response ) {
 					$scope.fichas = response.data.data;
 					for (var i = 0; i < $scope.fichas.length; i++) {
+						var icon;
 						var ficha = $scope.fichas[i];
-						if (ficha.classificacaoFA = clsEmAnalise) {
-							var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-							$scope.fichaMarcador.push( posicao );
-							$scope.marcador = "assets/imagens/icone_macaco_amarelo.png";
-							$scope.fichasInfo.push( ficha );
-							
-							
-						} else if (ficha.classificacaoFA = clsIgnorado) {
-							var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-							$scope.fichaMarcador.push( posicao );
-							$scope.marcador = "assets/imagens/assets/imagens/icone_macaco_verde.png";
-							$scope.fichasInfo.push( ficha );
-							
-							
-						} else if (ficha.classificacaoFA = clsDescardado) {
-							var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-							$scope.fichaMarcador.push( posicao );
-							$scope.marcador = "assets/imagens/assets/imagens/icone_macaco_verde.png";
-							$scope.fichasInfo.push( ficha );
+						
+						if (ficha.classificacaoFA.id == clsEmAnalise) 
+							icon = "./assets/imagens/icone_macaco_amarelo.png";
+						else if (ficha.classificacaoFA.id == clsIgnorado) 
+							icon = "./assets/imagens/icone_macaco_verde.png";
+						else if (ficha.classificacaoFA.id == clsDescardado)
+							icon = "./assets/imagens/icone_macaco_verde.png";
+						else if (ficha.classificacaoFA.id == clsConfirmado) 
+							icon = "./assets/imagens/icone_macaco_vermelho.png";	
+						
+						ficha['posicao'] = [ficha.localidade.longitude, ficha.localidade.latitude];
+						ficha['icon'] = icon;
 
-						} else if (ficha.classificacaoFA = clsConfirmado) {
-							var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-							$scope.fichaMarcador.push( posicao );
-							$scope.marcador = "assets/imagens/assets/imagens/assets/imagens/icone_macaco_vermelho.png";
-							$scope.fichasInfo.push(ficha);
-						}
+						$scope.fichasMapa.push(ficha);
 					}
 				});
 
-				$scope.abrirInfo = function(event, $index) {
-					$scope.fichasInfo = $scope.fichasInfo[$index];
+				$scope.abrirInfo = function(event, ficha) {
+					$scope.selecionado = ficha;
 					$scope.googlemaps.showInfoWindow("epizootia-info", this);
 				}
-/*
-				
-				// Amarelo
-				api.epizootia.ficha.getClassificao( clsEmAnalise ).then(function( response ) {
-					$scope.fichas = response.data.data;
-					for (var i = 0; i < $scope.fichas.length; i++) {
-						var ficha = $scope.fichas[i];
-						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-						$scope.analises.push( posicao );
-						$scope.fichasInfo.push(ficha);
-					}
-				});
-				
-				// Verde
-				api.epizootia.ficha.getClassificao( clsIgnorado ).then(function( response ) {
-					$scope.fichas = response.data.data;
-					for (var i = 0; i < $scope.fichas.length; i++) {
-						var ficha = $scope.fichas[i];
-						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-						$scope.ignorados.push( posicao );
-						$scope.fichasInfo.push(ficha);
-					}
-				});
-				
-				// Verde
-				api.epizootia.ficha.getClassificao( clsDescardado ).then(function( response ) {
-					$scope.fichas = response.data.data;
-					for (var i = 0; i < $scope.fichas.length; i++) {
-						var ficha = $scope.fichas[i];
-						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-						$scope.descartados.push( posicao );
-						$scope.fichasInfo.push(ficha);
-					}
-				});
-				
-				// Vermelho
-				api.epizootia.ficha.getClassificao( clsConfirmado ).then(function( response ) {
-					$scope.fichas = response.data.data;
-					for (var i = 0; i < $scope.fichas.length; i++) {
-						var ficha = $scope.fichas[i];
-						var posicao = {posicao: [ficha.localidade.longitude, ficha.localidade.latitude]};
-						$scope.confirmados.push( posicao );
-						$scope.fichasInfo.push(ficha);
-					}
-				});
 
-*/				
-				
 				$scope.mapa.posicao = [ -27.4658, -50.7504 ];
 				$scope.mapa.zoom = 8;
 

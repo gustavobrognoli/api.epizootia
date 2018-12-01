@@ -1,12 +1,8 @@
 <script id="epizootia-info-template.html" type="text/ng-template">
 	<div ng-non-bindable="">
-
-        Data Coleta: {{fichasInfo.dataOcorrencia | date:'dd/MM/yyyy'}}<br/>
-        Latitude: {{fichasInfo.localidade.latitude}}<br/>
-		Longitude: {{fichasInfo.localidade.longitude}}<br/>
-		Posição: {{anchor.getPosition()}}<br/>
-		Status: {{fichasInfo.classificacaoFA.classificacao}}	
-
+        Data Coleta: {{ selecionado.dataOcorrencia | date:'dd/MM/yyyy' }}<br/>
+		Posição: {{ anchor.getPosition() }}<br/>
+		Status: {{ selecionado.classificacaoFA.classificacao }}	
 	</div>
 </script>
 <div class="page" >
@@ -83,13 +79,47 @@
 
 			<div class="tile-body">
 
+				<ng-map style=" height: 600px" center="{{mapa.posicao}}" zoom="{{mapa.zoom}}" mayTypeId="HYBRID">
+
+					<!-- Todas as Fichas -->
+					<marker ng-repeat="f in fichasMapa" 
+							position="{{ f.posicao }}"
+							on-click="abrirInfo(event, f )" 
+							icon="{{ f.icon }}">
+					</marker>
+					
+					<shape name="circle" 
+						   ng-repeat="f in fichasMapa"
+						   no-watcher="true" 
+						   stroke-color="#FF0000" 
+						   stroke-opacity="0.8"
+						   stroke-weight="2"
+						   fill-color="#FF0000" 
+						   fill-opacity="0"
+						   center="{{ f.posicao }}" 
+						   radius="300"> 
+					</shape>
+					
+					<info-window id="epizootia-info" template="epizootia-info-template.html"></info-window>
+					
+				</ng-map>
+
+
+
+
+
+
+
+
+
+<!--
 				<ng-map style="
 					height: 600px" 
 					center="{{mapa.posicao}}"
 					zoom="{{mapa.zoom}}" 
 					mayTypeId="HYBRID">
 
-					<!-- Todas as Fichas -->
+					<!-- Todas as Fichas 
 					<marker 
 					ng-repeat="m in fichaMarcador" 
 					position="{{m.posicao}}"
@@ -111,15 +141,12 @@
 					radius="300"> 
 					</shape>
 
-					<!-- CLASSIFICAÇÂO EM ANÀLISE -->
+					<!-- CLASSIFICAÇÂO EM ANÀLISE  
 					<marker 
 					ng-repeat="a in analises" 
 					position="{{a.posicao}}"
 					on-click="abrirInfo(event, $index)" 
 					icon="assets/imagens/icone_macaco_amarelo.png">
-					<!--  
-					icon="{{f.imagem}}">
-					-->
 					</marker>  
 					
 					<shape
@@ -136,7 +163,7 @@
 					radius="300"> 
 					</shape>
 					
-					<!-- CLASSIFICAÇÂO IGNORADOS -->
+					<!-- CLASSIFICAÇÂO IGNORADOS 
 					<marker 
 					ng-repeat="i in ignorados" 
 					position="{{i.posicao}}"
@@ -159,7 +186,7 @@
 					radius="300"> 
 					</shape>
 					
-					<!-- CLASSIFICAÇÂO DESCARTADOS -->
+					<!-- CLASSIFICAÇÂO DESCARTADOS 
 					<marker 
 					ng-repeat="d in descartados" 
 					position="{{d.posicao}}"
@@ -182,7 +209,7 @@
 					radius="300"> 
 					</shape>
 					
-					<!-- CLASSIFICAÇÂO CONFIRMADOS -->
+					<!-- CLASSIFICAÇÂO CONFIRMADOS 
 					<marker 
 					ng-repeat="c in confirmados" 
 					position="{{c.posicao}}"
@@ -211,7 +238,7 @@
 					
 					
 					</ng-map>
-
+-->
 
 			</div>
 

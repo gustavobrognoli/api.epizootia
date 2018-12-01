@@ -28,6 +28,11 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 	
 	@Override
+	public List<Animal> findAllByFicha(int id_Ficha) {
+		return repository.findAllByFicha(id_Ficha);
+	}
+	
+	@Override
 	public Animal persistir(Animal animal) {
 		log.info("Cadastrando Animal: {}", animal.toString());
 		return this.repository.save(animal);

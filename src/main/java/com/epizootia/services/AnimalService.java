@@ -14,4 +14,6 @@ public interface AnimalService {
 	void apagar(Animal animal);
 	
 	List<Animal> findAll();
+	
+	List<Animal> findAllByFicha(int id_Ficha);
 }

@@ -2,7 +2,7 @@
 
 	<form name="form" novalidate>
 
-		<section class="tile">
+				<section class="tile">
 			<div class="tile-header dvd dvd-btm">
 				<h1 class="custom-font">
 					<strong>Filtros</strong>
@@ -19,16 +19,7 @@
 
 			<div class="tile-body" ng-show="isOpen">
 				<div class="form-group">
-					<div class="form-group col-sm-6">
-						<label class="control-label">Regional:</label> <select
-							name="regional" class="form-control"
-							ng-options="r as r.nome for r in regionais track by r.id"
-							ng-model="regional" ng-change="getByRegional()">
-							<option value="">Todas...</option>
-						</select>
-					</div>
-
-					<div class="form-group col-sm-6">
+					<div class="form-group col-sm-8">
 						<label class="control-label">Município:</label> <select
 							name="municipio" class="form-control"
 							ng-options="m as m.nome for m in municipios track by m.id"
@@ -41,7 +32,7 @@
 
 						<label class="control-label">Inicio Coleta</label> <input
 							name="dtSintomasInicio" type="text" class="form-control"
-							ng-model="dengueFiltro.dtColetaInicio" bs-datepicker
+							ng-model="epizootiaFiltro.dtColetaInicio" bs-datepicker
 							autoclose="true" required>
 					</div>
 					<div class="col-sm-6"
@@ -49,7 +40,7 @@
 
 						<label class="control-label">Fim Coleta</label> <input
 							name="dtSintomasFim" type="text" class="form-control"
-							ng-model="dengueFiltro.dtColetaFim" bs-datepicker
+							ng-model="epizootiaFiltro.dtColetaFim" bs-datepicker
 							autoclose="true" required>
 
 
@@ -59,6 +50,9 @@
 						</div>
 					</div>
 				</div>
+
+
+
 				<div class="row form-group"></div>
 			</div>
 		</section>
@@ -86,17 +80,33 @@
 					<tr>
 						<th>Data</th>
 						<th>Quantidade de Animais</th>
-						<th>Munic�pio</th>
+						<th>Município</th>
 						<th>Bairro</th>
 					</tr>
 
-					<tr ng_repeat="c in casos">
-						<td ng-bind="c.dataSintomas | date:'dd/MM/yyyy'"></td>
-						<td ng_bind="c.quantidade"></td>
-						<td ng_bind="c.municipio"></td>
-						<td ng_bind="c.bairro"></td>
-						<td><i class="btn btn-danger btn-xs fa fa-times"
-							ng-click="confirmarRemover(c)" uib-tooltip="Excluir Caso"></i></td>
+					<tr ng_repeat="f in fichas">
+						<td ng-bind="f.dataOcorrencia | date:'dd/MM/yyyy'"></td>
+						<td ng_bind="f.quantidade"></td>
+						<td ng_bind="f.municipio"></td>
+						<td ng_bind="f.localidade.bairro"></td>
+			        <td>
+
+<!-- 	
+			        	<i class="btn btn-info btn-xs fa fa-eye"  
+		        		   ng-click="visualizaRegistro(f.id, 'lg')" 
+		        		   data-toggle="tooltip" 
+		        		   title="Visualizar Registro"></i>
+
+	 -->	        		   		        		   
+		        		<i class="btn btn-danger btn-xs fa fa-times" 
+		        		   ng-click="removerFicha(f)" 
+		        		   data-toggle="tooltip" 
+		        		   title="Excluir Registro"></i>
+		        		   
+						<a class="btn btn-warning btn-xs fa fa-pencil"
+						   href="#!/epizootia/notificacao/{{f.id}}"
+						   data-toggle="tooltip" title="Alterar Registro"></a>
+			        </td>
 					</tr>
 
 				</table>
