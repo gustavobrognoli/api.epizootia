@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "mod_epizootia_ficha")
 public class Ficha implements Serializable {
@@ -34,7 +36,7 @@ public class Ficha implements Serializable {
 	private Calendar dataOcorrencia = Calendar.getInstance();
 
 	@Transient
-	/*@JsonIgnore*/
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", orphanRemoval = true)
 	private Set<Animal> animais;
 

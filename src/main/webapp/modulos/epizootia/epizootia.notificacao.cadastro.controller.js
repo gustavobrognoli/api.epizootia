@@ -19,7 +19,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	
 	// Buscar apenas se for Alteração
 	api.epizootia.animal.getAll().then(function( response ) {
-		$scope.ficha.animais = response.data.data;
+		$scope.animais = response.data.data;
 	});
 
 	api.epizootia.resultado.getAll().then(function( response ) {
@@ -73,6 +73,8 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 	$scope.salvarFicha = function(key, ficha) {
 		
 		if (key == 'ficha_aba1') {
+			ficha['animais'] = $scope.animais;
+			ficha['municipio'] = ficha.municipio.nome;
 			api.epizootia.ficha.insert( ficha ).then( function(response){
 				$scope.ficha = response.data;
 				toastr.success("Dados do Animal salvos com sucesso");
@@ -134,7 +136,7 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		var modalInstance = $uibModal.open({ 
 			templateUrl: "modulos/epizootia/cadastro.macaco.html", 
 			controller: "CadastroMacacoController",
-
+			ficha: ficha,
 			backdrop: 'static', 
 			keyboard: false,
 			size:size,
