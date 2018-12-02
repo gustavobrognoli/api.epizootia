@@ -70,76 +70,74 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		$scope.metodosCaptura = response.data.data;
 	});	
 
-	$scope.salvarFicha = function(key, ficha) {
+	$scope.salvarFicha = function(ficha) {
 		
-		if (key == 'ficha_aba1') {
 			ficha['animais'] = $scope.animais;
 			ficha['municipio'] = ficha.municipio.nome;
-			api.epizootia.ficha.insert( ficha ).then( function(response){
-				$scope.ficha = response.data;
-				toastr.success("Dados do Animal salvos com sucesso");
-			});
-		} else if (key == 'ficha_aba2') {
-/*
+			
 			// Impactos
+			var impactos = [];
 			var selecionadosImpactos = $scope.impactos;
 			for (var i = 0; i < $scope.impactos.length; i++) {
 		    	if ($scope.impactos[i].selected) {
 		        	var impacto = {'id': $scope.impactos[i].id, 'impacto': $scope.impactos[i].impacto };
-		            key.impactos.push(impacto);
+		            impactos.push(impacto);
 		        }
 	        }
-            // Outros
-	        if ($scope.impactos[i].selected) {
-	        	var impacto = {'id': 99, 'impacto': ngmodel-outros };
+/*            // Outros
+	        if (impacto.outros.selected) {
+	        	var impacto = {'id': 99, 'impacto': impacto.outros.descricao};
+	            impactos.push(impacto);
 	        }
+			ficha['impactos'] = impactos;*/
 		        
 			// Caracteristica
+			var caracteristicas = [];
 			var selecionadosCaracteristica = $scope.caracteristicas;
 	        for (var i = 0; i < $scope.caracteristicas.length; i++) {
 	            if ($scope.caracteristicas[i].selected) {
-	            	var caracteristicas = {'id': $scope.caracteristicas[i].id, 'caracteristica':$scope.caracteristicas[i].caracteristica };
-	            	key.caracteristicas.push(caracteristica);
+	            	var caracteristica = {'id': $scope.caracteristicas[i].id, 'caracteristica':$scope.caracteristicas[i].caracteristica };
+	            	caracteristicas.push(caracteristica);
 	            }
 	        }
+			ficha['caracteristicas'] = caracteristicas;
 			
-*/	        
-			api.epizootia.ficha.update( ficha ).then( function(response) {
-				$scope.ficha = response.data;
-		    	toastr.success("Dados do Local salvos com sucesso");
-		    });
-		} else if (key == 'ficha_aba3') {
-/*
 			// Equipamentos
+			var equipamentos = [];
 			var selecionadosEquipamento = $scope.equipamentos;
 	        for (var i = 0; i < $scope.equipamentos.length; i++) {
 	            if ($scope.equipamentos[i].selected) {
-	            	var equipamentos = {'id': $scope.equipamentos[i].id, 'equipamento':$scope.equipamentos[i].equipamento };
-	            	key.equipamentos.push(equipamento);
+	            	var equipamento = {'id': $scope.equipamentos[i].id, 'equipamento':$scope.equipamentos[i].equipamento };
+	            	equipamentos.push(equipamento);
 	            }
 	        }
+			ficha['equipamentos'] = caracteristicas;
 			        
 			// Espécies do Vetor
+			var generos = [];
 			var selecionadosGenero = $scope.generos;
 	        for (var i = 0; i < $scope.generos.length; i++) {
 	            if ($scope.generos[i].selected) {
-	            	var generos = {'id': $scope.generos[i].id, 'genero':$scope.generos[i].genero };
-	            	key.genero.push(genero);
+	            	var genero = {'id': $scope.generos[i].id, 'genero':$scope.generos[i].genero };
+	            	generos.push(genero);
 	            }
 	        }
+			ficha['generos'] = generos;
 
-*/	        api.epizootia.ficha.update( ficha ).then( function(response) {
+			api.epizootia.ficha.insert( ficha ).then( function(response){
 				$scope.ficha = response.data;
-				toastr.success("Dados do Registro Entomológico salvos com sucesso");
+				toastr.success("Dados da Notificação salvos com sucesso");
 			});
-		} 
+//	        api.epizootia.ficha.update( ficha ).then( function(response) {
+//				$scope.ficha.id = response.data;
+//				toastr.success("Dados do Registro Entomológico salvos com sucesso");
+//			});
 	}
 		
 	$scope.addMacaco = function(size){
 		var modalInstance = $uibModal.open({ 
 			templateUrl: "modulos/epizootia/cadastro.macaco.html", 
 			controller: "CadastroMacacoController",
-			ficha: ficha,
 			backdrop: 'static', 
 			keyboard: false,
 			size:size,
@@ -152,14 +150,15 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 		
 		modalInstance.result.then(function ( animais ){
 			if(animais != null) {
-				$scope.ficha.animais.push(animais);
+				$scope.animais.push(animais);
+				$scope.animais.push(animais);
 			}
 		});
 	}
 	
 	$scope.remover = function(id) {
 		api.epizootia.animal.excluir(id).then(function(response){
-			$scope.ficha.animais.splice($scope.ficha.animais.indexOf(response.data.data), 1);
+			$scope.animais.splice($scope.animais.indexOf(response.data.data), 1);
 			toastr.success('Animal removido com sucesso');
 		});
 	}
@@ -288,46 +287,5 @@ angular.module("vigilantos").controller('EpizootiaNotificacaoController',
 			}
 		});
 	} 
-	
-		// $scope.GetValue = function () {
-		// for (var i = 0; i < $scope.impactos.length; i++) {
-		// if ($scope.impactos[i].selected) {
-		// var impacto = {'id': $scope.impactos[i].id, 'impacto':
-		// $scope.impactos[i].impacto };
-		// $scope.impactosSelecionados.push(impacto);
-		// }
-		// }
-		// toastr.success($scope.impactosSelecionados);
-		// }
-
-/*		var modalInstance = $uibModal.open({ 
-			templateUrl: "modulos/template/dialog.mensagem.html", 
-			controller: "ModalMensagemDialogController",
-				
-			backdrop: 'static', 
-			keyboard: false,
-				
-			resolve: {
-				mensagem: function(){
-					return "Preencha os campos da etapa 'Dados do Animal' para salvar esta etapa.";
-					},
-				titulo: function(){
-					return "Aviso";
-				}
-			}
-		});
-*//*
- * } else if($scope.form.$valid && $scope.epizootia.animais.length == 0){ var
- * msg; key == 'localidade' ? msg = "Inclua os animais da coleta para salvar." :
- * msg = "Inclua os animais da coleta em 'Dados do Animal' para salvar."; var
- * modalInstance = $uibModal.open({ templateUrl:
- * "modulos/template/dialog.mensagem.html", controller:
- * "ModalMensagemDialogController",
- * 
- * backdrop: 'static', keyboard: false,
- * 
- * resolve: { mensagem: function(){ return msg; }, titulo: function(){ return
- * "Aviso"; } } }); } else{}
- */
 	
 });

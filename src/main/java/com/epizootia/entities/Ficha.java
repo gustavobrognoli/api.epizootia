@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,14 +41,14 @@ public class Ficha implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ficha", orphanRemoval = true)
 	private Set<Animal> animais;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "cd_localidade", referencedColumnName = "cd_id")
 	private Localidade localidade;
 
 	@Column(name = "ds_municipio")
 	private String municipio;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "cd_registro_entomologico", referencedColumnName = "cd_id")
 	private RegistroEntomologico registroEntomologico;
 

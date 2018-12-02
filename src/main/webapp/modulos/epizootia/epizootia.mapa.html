@@ -1,7 +1,8 @@
 <script id="epizootia-info-template.html" type="text/ng-template">
 	<div ng-non-bindable="">
         Data Coleta: {{ selecionado.dataOcorrencia | date:'dd/MM/yyyy' }}<br/>
-		Posição: {{ anchor.getPosition() }}<br/>
+		Longitude: {{ selecionado.localidade.latitude}}<br/>	
+		Latitude: {{ selecionado.localidade.longitude}}<br/>
 		Status: {{ selecionado.classificacaoFA.classificacao }}	
 	</div>
 </script>

@@ -2,6 +2,7 @@ package com.epizootia.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class Localidade implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_morador", referencedColumnName = "cd_id")
-	@Min(value = 0, message = "Morador não  deve ser vazio")
+//	@Min(value = 0, message = "Morador não  deve ser vazio")
 	private Morador morador;
 
 	@Column(name = "nu_cep")

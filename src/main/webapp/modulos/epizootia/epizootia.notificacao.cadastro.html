@@ -108,15 +108,6 @@
 
 								</div>
 							</div>
-
-							<div class="text-right">
-								<button type="submit"
-									ng-click="salvarFicha('ficha_aba1', ficha)"
-									class="btn btn-success">
-									Salvar
-									<!-- Etapa-->
-								</button>
-							</div>
 					</section>
 
 
@@ -141,11 +132,9 @@
 						<div class="input-group">
 							<select class="form-control" name="cbmoradores" id="cbmoradores"
 								ng-options="option.morador for option in moradores track by option.id"
-								ng-model="ficha.localidade.morador.morador">
+								ng-model="ficha.localidade.morador">
 								<option value="" hidden>Selecione...</option>
-							</select>
-						
-						 	<span class="input-group-btn">
+							</select> <span class="input-group-btn">
 								<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar novo morador"
 									ng-click="addMorador()">+</button>
@@ -155,12 +144,11 @@
 					</div>
 
 					<div class="form-group col-sm-6">
-						<label class="control-label">Telefone do morador:</label>
-						<select class="form-control" name="cbTelefone" id="cbTelefone"
-		                        ng-options="option.telefone for option in moradores track by option.id"
-		                        ng-model="ficha.localidade.morador.telefone">
-		                        <option value="" hidden>Selecione...</option>
-		                </select>
+						<label class="control-label">Telefone do morador:</label> <select
+							class="form-control" name="cbTelefone" id="cbTelefone"
+							ng-options="option.telefone for option in moradores track by option.id"
+							ng-model="ficha.localidade.morador" ng-disabled="true">
+						</select>
 
 					</div>
 
@@ -198,13 +186,13 @@
 					<div class="form-group col-sm-6">
 						<label class="control-label">Latitude:</label> <input
 							name="latitude" type="text" class="form-control"
-							ng-model="ficha.localidade.latitude">
+							ng-model="ficha.localidade.longitude">
 					</div>
 
 					<div class="form-group col-sm-6">
 						<label class="control-label">Longitude:</label> <input
 							name="longitude" type="text" class="form-control"
-							ng-model="ficha.localidade.longitude">
+							ng-model="ficha.localidade.latitude">
 					</div>
 
 					<!--                 	 --> <!-- IMPACTOS OBSERVADOS --> <!--                     -->
@@ -221,12 +209,13 @@
 					</div>
 
 					<div class="form-group col-sm-4">
-						<input name="customRadioAlt" type="checkbox"
-							ng-model="impacto.outros"> <i></i>Outros?Quais?
+						<input id="chkOutrosImpactos" name="chkOutrosImpactos"
+							type="checkbox" ng-model="impacto.outros.selected"> <i></i>Outros?Quais?
 					</div>
 
 					<div class="form-group col-sm-6">
-						<input type="text" class="form-control" id="impacto_outros">
+						<input type="text" class="form-control" id="impacto_outros"
+							ng-model="impacto.outros.descricao">
 					</div>
 
 					<!--                 --> <!-- CARACTERÍSTICAS --> <!--                 -->
@@ -252,14 +241,14 @@
 
 					<div class="form-group col-sm-6">
 						<div class="input-group">
-						<select class="form-control" name="cbCorposAgua" id="cbCorposAgua"
-                        	ng-options="option.nome for option in corposAguas track by option.id"
-                        	ng-model="ficha.localidade.corposAgua">
-                        	<option value="" hidden>Selecione...</option>
-                		</select>
-						<span class="input-group-btn">
+							<select class="form-control" name="cbCorposAgua"
+								id="cbCorposAgua"
+								ng-options="option.nome for option in corposAguas track by option.id"
+								ng-model="ficha.localidade.corposAgua">
+								<option value="" hidden>Selecione...</option>
+							</select> <span class="input-group-btn">
 
-						<button class="btn btn-default" type="button"
+								<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar novo Corpo d`Água"
 									ng-click="addCorpoAgua()">+</button>
 							</span>
@@ -273,13 +262,12 @@
 
 					<div class="form-group col-sm-6">
 						<div class="input-group">
-							<select class="form-control" name="cbSituacaoFundiaria" id="cbSituacaoFundiaria"
-                       			ng-options="option.nome for option in situacoesFundiarias track by option.id"
-                        		ng-model="ficha.localidade.situacaoFundiaria">
-                        		<option value="" hidden>Selecione...</option>
-              				</select>
-							
-							<span class="input-group-btn">
+							<select class="form-control" name="cbSituacaoFundiaria"
+								id="cbSituacaoFundiaria"
+								ng-options="option.nome for option in situacoesFundiarias track by option.id"
+								ng-model="ficha.localidade.situacaoFundiaria">
+								<option value="" hidden>Selecione...</option>
+							</select> <span class="input-group-btn">
 
 								<button class="btn btn-default" type="button"
 									data-toggle="tooltip" title="Adicionar nova Situação Fundiária"
@@ -296,13 +284,12 @@
 
 								<label class="control-label">Unidade de Conservação</label>
 								<div class="input-group">
-									<select class="form-control" name="cbUnidadeConservacao" id="cbUnidadeConservacao"
-				                        ng-options="option.nome for option in unidadesConservacao track by option.id"
-				                        ng-model="ficha.localidade.unidadeConservacao">
-				                        <option value="" hidden>Selecione...</option>
-               						</select>
-									
-									<span class="input-group-btn">
+									<select class="form-control" name="cbUnidadeConservacao"
+										id="cbUnidadeConservacao"
+										ng-options="option.nome for option in unidadesConservacao track by option.id"
+										ng-model="ficha.localidade.unidadeConservacao">
+										<option value="" hidden>Selecione...</option>
+									</select> <span class="input-group-btn">
 
 										<button class="btn btn-default" type="button"
 											data-toggle="tooltip"
@@ -330,13 +317,6 @@
 					<hr>
 					<br>
 
-					<div class="text-right">
-						<button type="submit" class="btn btn-success"
-							ng-click="salvarFicha('ficha_aba2', ficha)">
-							Salvar
-							<!-- Etapa-->
-						</button>
-					</div>
 					</uib-tab> <uib-tab> <uib-tab-heading> Registro
 					Entomológico<span
 						class="badge badge-default pull-right wizard-step">3</span> </uib-tab-heading>
@@ -361,7 +341,7 @@
 						</label>
 					</div>
 
-					<div ng-hide="registroEntomologico.registro == false">
+					<div ng-hide="ficha.registroEntomologico.pesquisa == false">
 						<div class="form-group col-sm-4">
 							<label class="control-label">Data da Coleta</label> <input
 								name="dtRegistro" type="text" class="form-control"
@@ -370,7 +350,7 @@
 						</div>
 					</div>
 
-					<div ng-show="registroEntomologico.registro == false">
+					<div ng-show="ficha.registroEntomologico.pesquisa == false">
 						<div class="form-group col-sm-4">
 							<label class="control-label">Data do ultimo registro</label> <input
 								name="dtRegistro" type="text" class="form-control"
@@ -379,43 +359,46 @@
 						</div>
 					</div>
 
-					<div class="form-group col-sm-12">
-						<label><b><i>Metodo de Captura</i></b></label>
-						<hr>
-					</div>
+					<div ng-hide="ficha.registroEntomologico.pesquisa == false">
+						<div class="form-group col-sm-12">
+							<label><b><i>Metodo de Captura</i></b></label>
+							<hr>
+						</div>
 
-					<div class="form-group col-sm-6">
-					
-						<select class="form-control" name="cbMetodoCaptura" id="cbMetodoCaptura"
-							ng-options="option.metodoCaptura for option in metodosCaptura track by option.id"
-							ng-model="ficha.registroEntomologico.metodoCaptura.metodoCaptura">
-							<option value="" hidden>Selecione...</option>
-						</select>
-					
-					</div>
+						<div class="form-group col-sm-6">
 
-					<div class="form-group col-sm-12">
-						<label><b><i>Equipamentos Utilizados</i></b></label>
-						<hr>
-					</div>
+							<select class="form-control" name="cbMetodoCaptura"
+								id="cbMetodoCaptura"
+								ng-options="option.metodoCaptura for option in metodosCaptura track by option.id"
+								ng-model="ficha.registroEntomologico.metodoCaptura">
+								<option value="" hidden>Selecione...</option>
+							</select>
 
-					<div class="form-group col-sm-3"
-						ng-repeat="equipamento in equipamentos">
-						<label> <input type="checkbox"
-							ng-model="equipamento.selected" /> {{ equipamento.equipamento }}
-						</label>
-					</div>
-					<div class="form-group col-sm-12">
-						<label><b><i>Espécies do vetor encontradas:</i></b></label>
-						<hr>
-					</div>
-					<div class="form-group col-sm-3" ng-repeat="genero in generos">
-						<label> <input type="checkbox" ng-model="genero.selected" />
-							{{ genero.genero }}
-						</label>
-					</div>
+						</div>
 
+						<div class="form-group col-sm-12">
+							<label><b><i>Equipamentos Utilizados</i></b></label>
+							<hr>
+						</div>
 
+						<div class="form-group col-sm-3"
+							ng-repeat="equipamento in equipamentos">
+							<label> <input type="checkbox"
+								ng-model="equipamento.selected" /> {{ equipamento.equipamento
+								}}
+							</label>
+						</div>
+						<div class="form-group col-sm-12">
+							<label><b><i>Espécies do vetor encontradas:</i></b></label>
+							<hr>
+						</div>
+						<div class="form-group col-sm-3" ng-repeat="genero in generos">
+							<label> <input type="checkbox" ng-model="genero.selected" />
+								{{ genero.genero }}
+							</label>
+						</div>
+
+					</div>
 					<div class="form-group col-sm-12">
 						<label><b><i>Cobertura Vacinal(%) do município:</i></b></label>
 						<hr>
@@ -423,7 +406,7 @@
 
 					<div class="form-group col-sm-6">
 						<input name="coberturaVacinal" type="text" class="form-control"
-							ng-model="regEntomologico.coberturaVacinal">
+							ng-model="ficha.registroEntomologico.coberturaVacinal">
 					</div>
 
 					<div class="form-group col-sm-12">
@@ -467,16 +450,16 @@
 					<div class="text-right">
 
 						<!--<button type="button" class="btn btn-primary"
-							ng-click="onClickUpload(a)">Anexar Imagens</button> -->
-						<button type="button" class="btn btn-success"
-							ng-click="salvarFicha('ficha_aba3', ficha)">
+								ng-click="onClickUpload(a)">Anexar Imagens</button> -->
+						<button type="button" class="btn btn-success" style="margin: 5px;"
+							ng-click="salvarFicha(ficha)">
 							Salvar
 							<!-- Etapa-->
 						</button>
 					</div>
-
-
 					</uib-tab> </uib-tabset>
+
+
 				</div>
 
 			</section>

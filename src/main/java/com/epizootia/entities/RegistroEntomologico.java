@@ -3,6 +3,7 @@ package com.epizootia.entities;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,33 +40,33 @@ public class RegistroEntomologico implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_metodoCaptura", referencedColumnName = "cd_id")
-	@Min(value = 0, message = "Metodo de Captura não  deve ser vazio")
+//	@Min(value = 0, message = "Metodo de Captura não  deve ser vazio")
 	private MetodoCaptura metodoCaptura;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_equipamento", referencedColumnName = "cd_id")
-	@Min(value = 0, message = "Equipamento não  deve ser vazio")
+//	@Min(value = 0, message = "Equipamento não  deve ser vazio")
 	private Equipamento equipamento;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_isolamento_viral", referencedColumnName = "cd_id")
-	@Min(value = 0, message = "Isolamento Viral não  deve ser vazio")
+//	@Min(value = 0, message = "Isolamento Viral não  deve ser vazio")
 	private IsolamentoViral isolamentoViral;
 
 	@Column(name = "nu_cobertura_vacinal")
-	@Min(value = 0, message = "Cobertura Vacinal não  deve ser vazio")
+//	@Min(value = 0, message = "Cobertura Vacinal não  deve ser vazio")
 	private int coberturaVacinal;
 
 	@Column(name = "nu_imoveis_visitados_300m")
-	@Min(value = 0, message = "Imoveis Visitados não  deve ser vazio")
+//	@Min(value = 0, message = "Imoveis Visitados não  deve ser vazio")
 	private int imoveisVisitados300m;
 
 	@Column(name = "nu_doses_aplicadas_300m")
-	@Min(value = 0, message = "Doses aplicadas não  deve ser vazio")
+//	@Min(value = 0, message = "Doses aplicadas não  deve ser vazio")
 	private int dosesAplicadas300m;
 
 	@Column(name = "nu_focos_aedes_300m")
-	@Min(value = 0, message = "Focos Aedes não  deve ser vazio")
+//	@Min(value = 0, message = "Focos Aedes não  deve ser vazio")
 	private int focosAedes300m;
 
 	public RegistroEntomologico() {
